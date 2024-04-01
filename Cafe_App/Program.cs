@@ -1,7 +1,18 @@
+using Cafe_App.Models;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+//Veri Tabaný Baðlantýsý
+builder.Services.AddDbContext<IdentityDataContext>(Options =>
+{
+    var configuration = builder.Configuration.GetConnectionString("mysql_connection");
+    var version = new MySqlServerVersion(new Version(8, 0, 36));
+    Options.UseMySql(configuration, version);
+});
 
 var app = builder.Build();
 
@@ -13,12 +24,16 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();z
+app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.MapControllerRoute(
+    name: "Admin",
+    pattern: "{area:exists}/{controller=Admin}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
     name: "default",

@@ -6,11 +6,13 @@ namespace Cafe_App.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IdentityDataContext _context;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IdentityDataContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
@@ -20,6 +22,9 @@ namespace Cafe_App.Controllers
 
         public IActionResult Privacy()
         {
+            var kasa = new Kasa { Bakiye = 500 };
+            _context.Add(kasa);
+            _context.SaveChanges();
             return View();
         }
 
