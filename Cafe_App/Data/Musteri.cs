@@ -23,6 +23,8 @@ public partial class Musteri
 
     public int AdresId { get; set; }
 
+    public string Parola { get; set; }
+
 	public bool Gorunurluk { get; set; }
 
 	public Adres Adres { get; set; }

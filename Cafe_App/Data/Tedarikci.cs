@@ -15,7 +15,9 @@ public partial class Tedarikci
 
     public int AdresId { get; set; }
 
-	public bool Gorunurluk { get; set; }
+    public string Eposta { get; set; }
+
+    public bool Gorunurluk { get; set; }
 
 	public Adres? Adres { get; set; }
 

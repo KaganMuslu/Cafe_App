@@ -5,6 +5,8 @@ namespace Cafe_App.Models;
 
 public partial class Adres
 {
+    public string Ad { get; set; }
+
     public int Id { get; set; }
 
     public string Il { get; set; }

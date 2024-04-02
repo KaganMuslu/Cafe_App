@@ -22,12 +22,13 @@
     
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="/admin_panel/images/favicon.png">
-    <link href="/admin_panel/vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="/admin_panel/vendor/chartist/css/chartist.min.css">
-	<link href="/admin_panel/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
     <link href="/admin_panel/css/style.css" rel="stylesheet">
+    <link href="/admin_panel/icons/font-awesome/css/all.min.css" rel="stylesheet" />
+    <link href="/admin_panel/vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
+	<link href="/admin_panel/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
 	<link href="/admin_panel/cdn.lineicons.com/2.0/LineIcons.css" rel="stylesheet">
-    <link href="~/admin_panel/icons/font-awesome/css/all.min.css" rel="stylesheet" />
+
 
 </head>
 <body>
@@ -1057,6 +1058,7 @@
 	<!-- Dashboard 1 -->
 	<script src="~/admin_panel/js/dashboard/dashboard-1.js"></script>
 
+	@await RenderSectionAsync("Scripts", required: false)
 
 </body>
 

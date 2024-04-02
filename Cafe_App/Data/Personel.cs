@@ -27,6 +27,8 @@ public partial class Personel
 
     public int RolId { get; set; }
 
+    public string Parola { get; set; }
+
     public string Fotograf { get; set; }
 
     public bool Gorunurluk { get; set; }
