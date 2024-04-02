@@ -21,6 +21,8 @@ public partial class Adres
 
     public string? Tarif { get; set; }
 
+    public bool Gorunurluk { get; set; }
+
     public ICollection<Musteri> Musterilers { get; set; } = new List<Musteri>();
 
     public ICollection<Personel> Personellers { get; set; } = new List<Personel>();

@@ -21,7 +21,9 @@ public partial class Masa
 
     public int PersonelId { get; set; }
 
-    public ICollection<Musteri> Musterilers { get; set; } = new List<Musteri>();
+	public bool Gorunurluk { get; set; }
+
+	public ICollection<Musteri> Musterilers { get; set; } = new List<Musteri>();
 
     public Personel? Personel { get; set; }
 }

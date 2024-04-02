@@ -13,7 +13,9 @@ public partial class TeslimatAdres
 
     public int AdresId { get; set; }
 
-    public Adres? Adres { get; set; }
+	public bool Gorunurluk { get; set; }
+
+	public Adres? Adres { get; set; }
 
     public Musteri? Musteri { get; set; }
 }

@@ -7,7 +7,7 @@ public partial class Kasa
 {
     public int Id { get; set; }
 
-    public int Bakiye { get; set; }
+    public decimal Bakiye { get; set; }
 
     public ICollection<Bildirim> Bildirimlers { get; set; } = new List<Bildirim>();
 

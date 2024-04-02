@@ -15,7 +15,9 @@ public partial class Stok
 
     public int TedarikciId { get; set; }
 
-    public ICollection<Malzeme> Malzemelers { get; set; } = new List<Malzeme>();
+	public bool Gorunurluk { get; set; }
+
+	public ICollection<Malzeme> Malzemelers { get; set; } = new List<Malzeme>();
 
     public Tedarikci? Tedarikci { get; set; }
 }

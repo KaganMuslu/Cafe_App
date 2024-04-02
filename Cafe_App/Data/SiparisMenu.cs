@@ -13,7 +13,9 @@ public partial class SiparisMenu
 
     public int SiparisId { get; set; }
 
-    public Menu Menu { get; set; } = null!;
+	public bool Gorunurluk { get; set; }
+
+	public Menu Menu { get; set; } = null!;
 
     public Siparis Siparis { get; set; } = null!;
 }

@@ -11,7 +11,9 @@ public partial class MasaRezervasyon
 
     public int MasaId { get; set; }
 
-    public Masa Masa { get; set; } = null!;
+	public bool Gorunurluk { get; set; }
+
+	public Masa Masa { get; set; } = null!;
 
     public Rezervasyon Rezervasyon { get; set; } = null!;
 }

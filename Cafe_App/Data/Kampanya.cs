@@ -17,5 +17,7 @@ public partial class Kampanya
 
     public int MusteriId { get; set; }
 
+    public bool Gorunurluk { get; set; }
+
     public Musteri? Musteri { get; set; }
 }

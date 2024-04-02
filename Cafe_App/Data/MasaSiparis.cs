@@ -11,7 +11,9 @@ public partial class MasaSiparis
 
     public int SiparisId { get; set; }
 
-    public Masa Masa { get; set; } = null!;
+	public bool Gorunurluk { get; set; }
+
+	public Masa Masa { get; set; } = null!;
 
     public Siparis Siparis { get; set; } = null!;
 }

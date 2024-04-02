@@ -16,4 +16,6 @@ public partial class Rezervasyon
     public bool Onay { get; set; }
 
     public DateOnly TalepTarihi { get; set; }
+
+	public bool Gorunurluk { get; set; }
 }

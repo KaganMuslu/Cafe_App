@@ -15,5 +15,7 @@ public partial class Malzeme
 
     public int StokId { get; set; }
 
-    public Stok? Stok { get; set; }
+	public bool Gorunurluk { get; set; }
+
+	public Stok? Stok { get; set; }
 }

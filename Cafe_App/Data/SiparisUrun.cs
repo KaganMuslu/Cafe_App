@@ -13,7 +13,9 @@ public partial class SiparisUrun
 
     public int UrunId { get; set; }
 
-    public Siparis Siparis { get; set; } = null!;
+	public bool Gorunurluk { get; set; }
+
+	public Siparis Siparis { get; set; } = null!;
 
     public Urun Urun { get; set; } = null!;
 }

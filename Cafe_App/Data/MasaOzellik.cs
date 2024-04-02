@@ -11,7 +11,9 @@ public partial class MasaOzellik
 
     public int MasaId { get; set; }
 
-    public Masa Masa { get; set; } = null!;
+	public bool Gorunurluk { get; set; }
+
+	public Masa Masa { get; set; } = null!;
 
     public Ozellik Ozellik { get; set; } = null!;
 }

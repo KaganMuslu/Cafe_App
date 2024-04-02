@@ -19,7 +19,9 @@ public partial class Yorum
 
     public int MusteriId { get; set; }
 
-    public Musteri? Musteri { get; set; }
+	public bool Gorunurluk { get; set; }
+
+	public Musteri? Musteri { get; set; }
 
     public ICollection<Siparis> Siparislers { get; set; } = new List<Siparis>();
 }

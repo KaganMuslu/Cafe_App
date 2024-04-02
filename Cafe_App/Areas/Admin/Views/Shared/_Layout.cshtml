@@ -10,7 +10,6 @@
 	<meta name="robots" content="">
 	<meta name="keywords" content="admin dashboard, admin template, administration, analytics, bootstrap, cafe admin, elegant, food, health, kitchen, modern, responsive admin dashboard, restaurant dashboard">
 	<meta name="description" content="Discover Davur - the ultimate admin dashboard and Bootstrap 5 template. Specially designed for professionals, and for business. Davur provides advanced features and an easy-to-use interface for creating a top-quality website with frontend">
-	<meta property="og:title" content="Davur : Restaurant Admin Dashboard + FrontEnd">
 	<meta property="og:description" content="Discover Davur - the ultimate admin dashboard and Bootstrap 5 template. Specially designed for professionals, and for business. Davur provides advanced features and an easy-to-use interface for creating a top-quality website with frontend">
 	<meta property="og:image" content="social-image.png">
 	<meta name="format-detection" content="telephone=no">
@@ -19,7 +18,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
 	<!-- Title -->
-	<title>Davur : Restaurant Admin Dashboard + FrontEnd</title>
+	<title>Cafe App @ViewData["Title"]</title>
     
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="/admin_panel/images/favicon.png">
@@ -28,6 +27,7 @@
 	<link href="/admin_panel/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
     <link href="/admin_panel/css/style.css" rel="stylesheet">
 	<link href="/admin_panel/cdn.lineicons.com/2.0/LineIcons.css" rel="stylesheet">
+    <link href="~/admin_panel/icons/font-awesome/css/all.min.css" rel="stylesheet" />
 
 </head>
 <body>
@@ -55,7 +55,7 @@
             Nav header start
         ***********************************-->
         <div class="nav-header">
-            <a href="/admin_panel/index-2.html" class="brand-logo">
+            <a asp-controller="Admin" asp-action="Index" class="brand-logo">
                 <img class="logo-abbr" src="~/admin_panel/images/logo.png" alt="">
                 <img class="logo-compact" src="~/admin_panel/images/logo-text.png" alt="">
                 <img class="brand-title" src="~/admin_panel/images/logo-text.png" alt="">
@@ -714,6 +714,71 @@
         <div class="deznav">
             <div class="deznav-scroll">
 				<ul class="metismenu" id="menu">
+					<li>
+						<a class="ai-icon"  asp-controller="Personel" asp-action="Index" aria-expanded="false">
+							<i class="fa fa-user-tie"></i>
+							<span class="nav-text">Personel Yönetimi</span>
+						</a>
+					</li>
+
+					<li>
+						<a class="ai-icon"  asp-controller="Musteri" asp-action="Index" aria-expanded="false">
+							<i class="fa fa-users"></i>
+							<span class="nav-text">Müşteri Yönetimi</span>
+						</a>
+					</li>
+
+					<li>
+						<a class="ai-icon"  asp-controller="Masa" asp-action="Index" aria-expanded="false">
+							<i class="fa fa-chair"></i>
+							<span class="nav-text">Masa Yönetimi</span>
+						</a>
+					</li>
+
+					<li>
+						<a class="ai-icon"  asp-controller="Urun" asp-action="Index" aria-expanded="false">
+							<i class="fa fa-utensils"></i>
+							<span class="nav-text">Ürün Yönetimi</span>
+						</a>
+					</li>
+
+					<li>
+						<a class="ai-icon"  asp-controller="Teslimat" asp-action="Index" aria-expanded="false">
+							<i class="fa fa-motorcycle"></i>
+							<span class="nav-text">Teslimat Yönetimi</span>
+						</a>
+					</li>
+
+					<li>
+						<a class="ai-icon"  asp-controller="Tedarikci" asp-action="Index" aria-expanded="false">
+							<i class="fa-solid fa-truck-fast"></i>
+							<span class="nav-text">Tedarikçi Yönetimi</span>
+						</a>
+					</li>
+
+					<li>
+						<a class="ai-icon"  asp-controller="Kampanya" asp-action="Index" aria-expanded="false">
+							<i class="fa fa-gifts"></i>
+							<span class="nav-text">Kampanya Yönetimi</span>
+						</a>
+					</li>
+
+					<li>
+						<a class="ai-icon"  asp-controller="Stok" asp-action="Index" aria-expanded="false">
+							<i class="fa fa-warehouse"></i>
+							<span class="nav-text">Stok Yönetimi</span>
+						</a>
+					</li>
+
+					<li>
+						<a class="ai-icon"  asp-controller="Rezervasyon" asp-action="Index" aria-expanded="false">
+							<i class="fa fa-bell-concierge"></i>
+							<span class="nav-text">Rezervasyon Yönetimi</span>
+						</a>
+					</li>
+
+					<hr>
+
                     <li><a class="has-arrow ai-icon" href="/admin_panel/javascript:void()" aria-expanded="false">
 							<i class="flaticon-381-networking"></i>
 							<span class="nav-text">Dashboard</span>

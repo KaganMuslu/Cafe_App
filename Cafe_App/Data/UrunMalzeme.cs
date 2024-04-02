@@ -13,7 +13,9 @@ public partial class UrunMalzeme
 
     public int MalzemeId { get; set; }
 
-    public Malzeme Malzeme { get; set; } = null!;
+	public bool Gorunurluk { get; set; }
+
+	public Malzeme Malzeme { get; set; } = null!;
 
     public Urun Urun { get; set; } = null!;
 }

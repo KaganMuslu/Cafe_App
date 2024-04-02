@@ -25,7 +25,9 @@ public partial class Siparis
 
     public int MutfakId { get; set; }
 
-    public ICollection<Durum> Durumlars { get; set; } = new List<Durum>();
+	public bool Gorunurluk { get; set; }
+
+	public ICollection<Durum> Durumlars { get; set; } = new List<Durum>();
 
     public Kasa? Kasa { get; set; }
 

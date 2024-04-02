@@ -22,4 +22,8 @@ public partial class Urun
     public int IndirimliFiyat { get; set; }
 
     public int KategorId { get; set; }
+
+	public bool Gorunurluk { get; set; }
+
+    public Kategori Kategori { get; set; }
 }

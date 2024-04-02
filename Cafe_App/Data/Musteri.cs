@@ -23,7 +23,9 @@ public partial class Musteri
 
     public int AdresId { get; set; }
 
-    public Adres Adres { get; set; }
+	public bool Gorunurluk { get; set; }
+
+	public Adres Adres { get; set; }
 
     public ICollection<Bildirim> Bildirimlers { get; set; } = new List<Bildirim>();
 

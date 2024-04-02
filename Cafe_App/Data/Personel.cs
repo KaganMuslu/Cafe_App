@@ -15,7 +15,7 @@ public partial class Personel
 
     public string Telefon { get; set; }
 
-    public int Maas { get; set; }
+    public decimal Maas { get; set; }
 
     public DateOnly DogumTarihi { get; set; }
 
@@ -27,7 +27,11 @@ public partial class Personel
 
     public int RolId { get; set; }
 
-    public Adres? Adres { get; set; }
+    public string Fotograf { get; set; }
+
+    public bool Gorunurluk { get; set; }
+
+	public Adres? Adres { get; set; }
 
     public ICollection<Bildirim> Bildirimlers { get; set; } = new List<Bildirim>();
 

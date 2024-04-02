@@ -15,7 +15,9 @@ public partial class Tedarikci
 
     public int AdresId { get; set; }
 
-    public Adres? Adres { get; set; }
+	public bool Gorunurluk { get; set; }
+
+	public Adres? Adres { get; set; }
 
     public ICollection<StokGirdi> Stokgirdilers { get; set; } = new List<StokGirdi>();
 

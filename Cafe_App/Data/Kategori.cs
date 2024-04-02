@@ -10,4 +10,6 @@ public partial class Kategori
     public string Ad { get; set; }
 
     public string Tur { get; set; }
+
+	public bool Gorunurluk { get; set; }
 }

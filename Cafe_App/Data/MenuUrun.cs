@@ -11,7 +11,9 @@ public partial class MenuUrun
 
     public int MenuId { get; set; }
 
-    public Menu Menu { get; set; } = null!;
+	public bool Gorunurluk { get; set; }
+
+	public Menu Menu { get; set; } = null!;
 
     public Urun Urun { get; set; } = null!;
 }

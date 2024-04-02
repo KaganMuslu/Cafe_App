@@ -17,7 +17,9 @@ public partial class Teslimat
 
     public int PersonelId { get; set; }
 
-    public Personel? Personel { get; set; }
+	public bool Gorunurluk { get; set; }
+
+	public Personel? Personel { get; set; }
 
     public ICollection<TeslimatSiparis> Teslimatsiparislers { get; set; } = new List<TeslimatSiparis>();
 }

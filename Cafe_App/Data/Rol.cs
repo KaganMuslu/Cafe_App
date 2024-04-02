@@ -9,5 +9,7 @@ public partial class Rol
 
     public string Ad { get; set; }
 
-    public ICollection<Personel> Personellers { get; set; } = new List<Personel>();
+	public bool Gorunurluk { get; set; }
+
+	public ICollection<Personel> Personellers { get; set; } = new List<Personel>();
 }
