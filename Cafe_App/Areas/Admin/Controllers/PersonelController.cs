@@ -9,5 +9,10 @@ namespace Cafe_App.Areas.Admin.Controllers
 		{
 			return View();
 		}
+
+		public IActionResult PersonelEkle()
+		{
+			return View();
+		}
 	}
 }

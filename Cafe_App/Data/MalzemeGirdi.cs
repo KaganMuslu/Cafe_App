@@ -7,11 +7,11 @@ public partial class MalzemeGirdi
 {
     public int Id { get; set; }
 
-    public int GirdiId { get; set; }
+    public int StokGirdiId { get; set; }
 
     public int MalzemeId { get; set; }
 
-    public StokGirdi? Girdi { get; set; }
+    public StokGirdi? StokGirdi { get; set; }
 
     public Malzeme? Malzeme { get; set; }
 }
