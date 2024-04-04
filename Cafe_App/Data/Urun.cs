@@ -9,11 +9,11 @@ public partial class Urun
 
     public string Ad { get; set; }
 
-    public string Acıklama { get; set; }
+    public string Aciklama { get; set; }
 
     public string Detay { get; set; }
 
-    public int Fiyat { get; set; }
+    public decimal Fiyat { get; set; }
 
     public string Fotograf { get; set; }
 

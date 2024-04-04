@@ -19,6 +19,8 @@ public partial class Tedarikci
 
     public bool Gorunurluk { get; set; }
 
+    public DateOnly KayitTarihi { get; set; }
+
 	public Adres? Adres { get; set; }
 
     public ICollection<StokGirdi> Stokgirdilers { get; set; } = new List<StokGirdi>();

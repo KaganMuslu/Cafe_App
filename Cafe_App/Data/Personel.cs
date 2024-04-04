@@ -29,7 +29,7 @@ public partial class Personel
 
     public string Parola { get; set; }
 
-    public string? Fotograf { get; set; }
+    public string Fotograf { get; set; }
 
     public bool Gorunurluk { get; set; }
 

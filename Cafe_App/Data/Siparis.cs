@@ -11,7 +11,7 @@ public partial class Siparis
 
     public string Adres { get; set; }
 
-    public int Tutar { get; set; }
+    public decimal Tutar { get; set; }
 
     public bool OdemeDurum { get; set; }
 
