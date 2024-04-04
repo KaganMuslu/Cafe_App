@@ -1,0 +1,127 @@
+﻿
+@{
+    ViewData["Title"] = "MusteriEkle";
+}
+@model Adres
+
+<div class="col-md-6 mb-3">
+    <label class="form-label">Adres</label>
+    <br>
+    <button id="adresEkleButton" data-bs-toggle="modal" data-bs-target="#adresModal" style="width:max-content; display: inline-block; vertical-align: middle; margin-left:px" type="button" class="btn btn-primary">
+        <span class="btn-icon-start text-primary">
+            <i class="fa fa-location-dot color-primary"></i>
+        </span>Adres Ekle
+    </button>
+</div>
+
+<!-- Modal -->
+<div class="modal modal-lg fade" id="adresModal">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Adres Ekle</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal">
+                </button>
+            </div>
+
+            <form asp-action="AdresEkle" class="needs-validation" method="post">
+                <div class="modal-body">
+
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label">Ad</label>
+                        <input asp-for="Ad" type="text" class="form-control" placeholder="Ad" required="">
+                        <div class="invalid-feedback">
+                            Zorunlu Alan
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom:9px" class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Şehir</label>
+                            <select asp-for="Il" class="default-select form-control wide w-100">
+                                <option selected>Seçiniz</option>
+                                <option value="1">Ankara</option>
+                                <option value="2">İstanbul</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Zorunlu Alan
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="Ilce" class="form-label">İlçe</label>
+                            <select class="default-select form-control wide w-100">
+                                <option selected>Seçiniz</option>
+                                <option>Kızılcahamam</option>
+                                <option>Etimesgut</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Zorunlu Alan
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Köy</label>
+                            <select asp-for="Koy" class="default-select form-control wide w-100">
+                                <option selected>Seçiniz</option>
+                                <option value="1">X</option>
+                                <option value="2">Z</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Zorunlu Alan
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom:9px" class="row">
+                        <div class="col-md-5 mb-3">
+                            <label class="form-label">Mahalle</label>
+                            <select asp-for="Mahalle" class="default-select form-control wide w-100">
+                                <option selected>Seçiniz</option>
+                                <option value="1">Kahraman</option>
+                                <option value="2">Garp</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Zorunlu Alan
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Sokak</label>
+                            <select asp-for="Sokak" class="default-select form-control wide w-100">
+                                <option selected>Seçiniz</option>
+                                <option>Kızılcık</option>
+                                <option>Armutçuk</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Zorunlu Alan
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label class="form-label">Numara</label>
+                            <input asp-for="No" type="text" class="form-control" id="zip" placeholder="Numara" required="">
+                            <div class="invalid-feedback">
+                                Zorunlu Alan
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom:9px" class="mb-3">
+                        <label for="address" class="form-label">Tarif</label>
+                        <input type="text" class="form-control" id="address" placeholder="" required="">
+                        <div class="invalid-feedback">
+                            Zorunlu Alan
+                        </div>
+                    </div>
+
+                    <input asp-for="Gorunurluk" type="hidden" class="form-control" value=1 placeholder="" required="">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
+                    <button type="submit" class="btn btn-primary">Kaydet</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+

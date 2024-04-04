@@ -23,17 +23,15 @@ public partial class Personel
 
     public string Cinsiyet { get; set; }
 
-    public int AdresId { get; set; }
+    public string Adres { get; set; }
 
     public int RolId { get; set; }
 
     public string Parola { get; set; }
 
-    public string Fotograf { get; set; }
+    public string? Fotograf { get; set; }
 
     public bool Gorunurluk { get; set; }
-
-	public Adres? Adres { get; set; }
 
     public ICollection<Bildirim> Bildirimlers { get; set; } = new List<Bildirim>();
 

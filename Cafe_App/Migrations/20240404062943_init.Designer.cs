@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cafe_App.Migrations
 {
     [DbContext(typeof(IdentityDataContext))]
-    [Migration("20240403093820_init")]
+    [Migration("20240404062943_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -645,7 +645,11 @@ namespace Cafe_App.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("AdresId")
+                    b.Property<string>("Adres")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int?>("AdresId")
                         .HasColumnType("int");
 
                     b.Property<DateOnly>("BaslamaTarihi")
@@ -663,7 +667,6 @@ namespace Cafe_App.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Fotograf")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<bool>("Gorunurluk")
@@ -1469,19 +1472,15 @@ namespace Cafe_App.Migrations
 
             modelBuilder.Entity("Cafe_App.Models.Personel", b =>
                 {
-                    b.HasOne("Cafe_App.Models.Adres", "Adres")
+                    b.HasOne("Cafe_App.Models.Adres", null)
                         .WithMany("Personellers")
-                        .HasForeignKey("AdresId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AdresId");
 
                     b.HasOne("Cafe_App.Models.Rol", "Rol")
                         .WithMany("Personellers")
                         .HasForeignKey("RolId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Adres");
 
                     b.Navigation("Rol");
                 });

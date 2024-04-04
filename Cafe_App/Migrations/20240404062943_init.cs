@@ -428,13 +428,15 @@ namespace Cafe_App.Migrations
                     BaslamaTarihi = table.Column<DateOnly>(type: "date", nullable: false),
                     Cinsiyet = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    AdresId = table.Column<int>(type: "int", nullable: false),
+                    Adres = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     RolId = table.Column<int>(type: "int", nullable: false),
                     Parola = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Fotograf = table.Column<string>(type: "longtext", nullable: false)
+                    Fotograf = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Gorunurluk = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                    Gorunurluk = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    AdresId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -443,8 +445,7 @@ namespace Cafe_App.Migrations
                         name: "FK_Personeller_Adresler_AdresId",
                         column: x => x.AdresId,
                         principalTable: "Adresler",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Personeller_Roller_RolId",
                         column: x => x.RolId,

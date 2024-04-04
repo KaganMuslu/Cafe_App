@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "PersonelEkle";
 }
+@model Personel
 
 <!-- CSS Ekstralar -->
 <head>
@@ -67,30 +68,48 @@
 
                             <div class="col-lg-8 order-lg-1 input-primary">
                                 <h4 class="mb-3 text-black">Personel Ekle</h4>
-                                <form class="needs-validation" novalidate="">
+                                <form asp-controller="Personel" asp-action="PersonelEkle" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
                                     <div style="margin-bottom:9px" class="row">
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">Personel Adı</label>
-                                            <input type="text" class="form-control" id="firstName" placeholder="" value="" required="">
+                                            <input id="validationCustom01" type="text" class="form-control" asp-for="Ad" placeholder="" value="" required="">
                                             <div class="invalid-feedback">
                                                 Zorunlu Alan
                                             </div>
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">Personel Soyadı</label>
-                                            <input type="text" class="form-control" id="lastName" placeholder="" value="" required="">
+                                            <input type="text" class="form-control" asp-for="Soyad" placeholder="" value="" required="">
                                             <div class="invalid-feedback">
                                                 Zorunlu Alan
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="mb-3">
-                                        <label for="email"  class="form-label">E-Posta Adresi</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control border-left-start" id="username" placeholder="Kullanıcı Adı" required="">
-                                            <span class="input-group-text">@@</span>
-                                            <input type="text" class="form-control border-left-end" id="username2" placeholder="xyz.com" required="">
+                                    <div style="margin-bottom:9px" class="row">
+                                        <div class="col-md-4 mb-3">
+                                            <label for="email" class="form-label">E-Posta Adresi</label>
+                                            <input type="text" class="form-control" asp-for="Eposta" placeholder="E-Posta" required="">
+                                            <div class="invalid-feedback" style="width: 100%;">
+                                                Zorunlu Alan
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label class="form-label">Rol</label>
+                                            <select asp-for="RolId" class="default-select form-control wide w-100 required">
+                                                <option value="" disabled="disabled" selected>Rol</option>
+                                                @foreach (var item in ViewBag.roller)
+                                                {
+                                                    <option value="@item.Id">@item.Ad</option>
+                                                }
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                Zorunlu Alan
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="email" class="form-label">Maaş</label>
+                                            <input type="number" class="form-control" asp-for="Maas" placeholder="Maaş" required="">
                                             <div class="invalid-feedback" style="width: 100%;">
                                                 Zorunlu Alan
                                             </div>
@@ -99,14 +118,14 @@
 
                                     <div style="margin-bottom:9px" class="row">
                                         <div class="col-md-6 mb-3">
-                                            <label style="margin-top:9px" for="formFile" class="form-label">Personel Fotoğrafı</label>
-                                            <input class="form-control" type="file" id="formFile">
+                                            <label for="formFile" class="form-label">Personel Fotoğrafı</label>
+                                            <input asp-for="Fotograf" id="formFile" class="form-control" name="file" type="file" id="formFile">
                                         </div>
 
-                                        <div style="margin-top:9px" class="col-md-6 mb-3">
+                                        <div class="col-md-6 mb-3">
                                             <label class="form-label">Cinsiyet</label>
-                                            <select class="default-select form-control wide w-100">
-                                                <option selected>Cinsiyet</option>
+                                            <select asp-for="Cinsiyet" class="default-select form-control required wide w-100">
+                                                <option value="" selected>Cinsiyet</option>
                                                 <option>Kadın</option>
                                                 <option>Erkek</option>
                                             </select>
@@ -122,7 +141,7 @@
                                             <label class="form-label">Parola</label>
                                             <div class="input-group transparent-append">
                                                 <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-                                                <input type="password" class="form-control" id="dlab-password" placeholder="" required>
+                                                <input type="password" class="form-control" asp-for="Parola" placeholder="" required>
                                                 <span class="input-group-text show-pass border-left-end">
                                                     <i class="fa fa-eye-slash"></i>
                                                     <i class="fa fa-eye"></i>
@@ -140,7 +159,7 @@
                                             <label class="form-label">Telefon Numarası</label>
                                             <div class="input-group">
                                                 <span class="input-group-text">+90</span>
-                                                <input type="email" class="form-control border-left-end" id="email" placeholder="">
+                                                <input type="text" class="form-control border-left-end" asp-for="Telefon" placeholder="">
                                                 <div class="invalid-feedback">
                                                     Zorunlu Alan
                                                 </div>
@@ -148,73 +167,33 @@
                                         </div>
                                     </div>
 
-                                    <div style="margin-bottom:9px" class="row">
-                                        <div class="col-md-5 mb-3">
-                                            <label class="form-label">Adres</label>
-                                            <select class="default-select form-control wide w-100">
-                                                <option selected>Şehir</option>
-                                                <option value="1">Ankara</option>
-                                                <option value="2">İstanbul</option>
-                                            </select>
-                                            <div class="invalid-feedback">
-                                                Zorunlu Alan
+                                    <div class="row">
+                                        <div class="col-md-12 mb-3">
+                                            <div style="margin-bottom:9px" class="mb-3">
+                                                <label for="address" class="form-label">Adres</label>
+                                                <textarea asp-for="Adres" type="text" class="form-control" placeholder="" required=""></textarea>
+                                                <div class="invalid-feedback">
+                                                    Zorunlu Alan
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-4 mb-3">
-                                            <label class="form-label">İlçe</label>
-                                            <select class="default-select form-control wide w-100">
-                                                <option selected>İlçe</option>
-                                                <option>Kızılcahamam</option>
-                                                <option>Etimesgut</option>
-                                            </select>
-                                            <div class="invalid-feedback">
-                                                Zorunlu Alan
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 mb-3">
-                                            <label class="form-label">Sokak</label>
-                                            <input type="text" class="form-control" id="zip" placeholder="Sokak" required="">
-                                            <div class="invalid-feedback">
-                                                Zorunlu Alan
-                                            </div>
-                                        </div>
+                                        
                                     </div>
 
-                                    <div style="margin-bottom:9px" class="mb-3">
-                                        <label for="address"  class="form-label">Açık Adres</label>
-                                        <input type="text" class="form-control" id="address" placeholder="" required="">
-                                        <div class="invalid-feedback">
-                                            Zorunlu Alan
-                                        </div>
-                                    </div>
-
-
                                     <div style="margin-bottom:9px" class="row">
-                                        <div class="col-md-4 mb-3">
+                                        <div class="col-md-6 mb-3">
                                             <label class="form-label">Doğum Tarihi</label>
-                                            <div class="col-xl-6 col-sm-6">
-                                                <input id="datepicker" class=" form-control mb-3 mb-xl-0">
-                                            </div>
+                                            <input style="text-align:center" asp-for="DogumTarihi" id="datepicker" class=" form-control mb-3 mb-xl-0">
                                         </div>
-                                        <div class="col-md-4 mb-3">
+                                        <div class="col-md-6 mb-3">
                                             <label class="form-label">Başlama Tarihi</label>
-                                            <div class="col-xl-6 col-sm-6">
-                                                <input id="datepicker2" class=" form-control mb-3 mb-xl-0">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 mb-3">
-                                            <label class="form-label">Rol</label>
-                                            <select class="default-select form-control wide w-100">
-                                                <option selected>Rol</option>
-                                                <option>Garson</option>
-                                                <option>Şef</option>
-                                            </select>
-                                            <div class="invalid-feedback">
-                                                Zorunlu Alan
-                                            </div>
+                                            <input style="text-align:center" asp-for="BaslamaTarihi" id="datepicker2" class=" form-control mb-3 mb-xl-0">
                                         </div>
                                     </div>
 
+                                    <div style="text-align:center; margin-top:20px" class="col-md-12 mb-3">
+                                        <button class="btn btn-primary" type="submit">Personel Ekle</button>
+                                    </div>
                                 </form>
                             </div>
                         </div>
@@ -225,6 +204,8 @@
     </div>
 </div>
 
+
+
 @section Scripts
 {
     <script src="~/admin_panel/vendor/bootstrap-datepicker-master/js/bootstrap-datepicker.min.js"></script>
@@ -234,8 +215,11 @@
     <script src="~/admin_panel/vendor/datatables/js/jquery.datatables.min.js"></script>
 
     <script>
+
         $(function () {
             $("#datepicker").datepicker({
+                language: 'tr',
+                format: 'dd/mm/yyyy',
                 autoclose: true,
                 todayHighlight: true
             }).datepicker('update', new Date());
@@ -244,11 +228,20 @@
 
         $(function () {
             $("#datepicker2").datepicker({
+                language: 'tr-TR',
+                format: 'dd/mm/yyyy',
                 autoclose: true,
                 todayHighlight: true
             }).datepicker('update', new Date());
 
         });
+
+        document.querySelector("#formFile").onchange = function () {
+            const fileName = this.files[0]?.name;
+            const label = document.querySelector("label[for=formFile]");
+            label.innerText = fileName ?? "Fotoğraf Yükle";
+        };
+
     </script>
 }
 

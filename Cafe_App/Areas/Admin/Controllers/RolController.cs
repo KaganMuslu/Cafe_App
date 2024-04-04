@@ -34,7 +34,7 @@ namespace Cafe_App.Areas.Admin.Controllers
 				}
 			}
 
-			return View();
+			return RedirectToAction("Index");
 		}
 	}
 }
