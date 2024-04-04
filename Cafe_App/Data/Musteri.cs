@@ -21,8 +21,6 @@ public partial class Musteri
 
     public int MasaId { get; set; }
 
-    public int AdresId { get; set; }
-
     public string Parola { get; set; }
 
 	public bool Gorunurluk { get; set; }

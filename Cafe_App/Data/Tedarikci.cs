@@ -13,15 +13,13 @@ public partial class Tedarikci
 
     public string Telefon { get; set; }
 
-    public int AdresId { get; set; }
+    public string Adres { get; set; }
 
     public string Eposta { get; set; }
 
     public bool Gorunurluk { get; set; }
 
     public DateOnly KayitTarihi { get; set; }
-
-	public Adres? Adres { get; set; }
 
     public ICollection<StokGirdi> Stokgirdilers { get; set; } = new List<StokGirdi>();
 

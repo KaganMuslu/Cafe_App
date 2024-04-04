@@ -25,6 +25,10 @@ public partial class Adres
 
     public bool Gorunurluk { get; set; }
 
+    public int MusteriId { get; set; }
+
+	public Musteri? Musteri { get; set; }
+
     public ICollection<Musteri> Musterilers { get; set; } = new List<Musteri>();
 
     public ICollection<Personel> Personellers { get; set; } = new List<Personel>();

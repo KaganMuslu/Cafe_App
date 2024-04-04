@@ -119,12 +119,12 @@
                                     <div style="margin-bottom:9px" class="row">
                                         <div class="col-md-6 mb-3">
                                             <label for="formFile" class="form-label">Personel Fotoğrafı</label>
-                                            <input asp-for="Fotograf" id="formFile" class="form-control" name="file" type="file" id="formFile">
+                                            <input asp-for="Fotograf" id="formFile" class="form-control" name="file" type="file">
                                         </div>
 
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">Cinsiyet</label>
-                                            <select asp-for="Cinsiyet" class="default-select form-control required wide w-100">
+                                            <select asp-for="Cinsiyet" class="default-select form-control required wide w-100" required>
                                                 <option value="" selected>Cinsiyet</option>
                                                 <option>Kadın</option>
                                                 <option>Erkek</option>
@@ -159,7 +159,7 @@
                                             <label class="form-label">Telefon Numarası</label>
                                             <div class="input-group">
                                                 <span class="input-group-text">+90</span>
-                                                <input type="text" class="form-control border-left-end" asp-for="Telefon" placeholder="">
+                                                <input type="text" class="form-control border-left-end" asp-for="Telefon" placeholder="" required>
                                                 <div class="invalid-feedback">
                                                     Zorunlu Alan
                                                 </div>
@@ -171,7 +171,7 @@
                                         <div class="col-md-12 mb-3">
                                             <div style="margin-bottom:9px" class="mb-3">
                                                 <label for="address" class="form-label">Adres</label>
-                                                <textarea asp-for="Adres" type="text" class="form-control" placeholder="" required=""></textarea>
+                                                <textarea asp-for="Adres" type="text" class="form-control" placeholder="" required></textarea>
                                                 <div class="invalid-feedback">
                                                     Zorunlu Alan
                                                 </div>
@@ -183,11 +183,11 @@
                                     <div style="margin-bottom:9px" class="row">
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">Doğum Tarihi</label>
-                                            <input style="text-align:center" asp-for="DogumTarihi" id="datepicker" class=" form-control mb-3 mb-xl-0">
+                                            <input style="text-align:center" asp-for="DogumTarihi" id="datepicker" class=" form-control mb-3 mb-xl-0" required>
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">Başlama Tarihi</label>
-                                            <input style="text-align:center" asp-for="BaslamaTarihi" id="datepicker2" class=" form-control mb-3 mb-xl-0">
+                                            <input style="text-align:center" asp-for="BaslamaTarihi" id="datepicker2" class=" form-control mb-3 mb-xl-0" required>
                                         </div>
                                     </div>
 

@@ -19,7 +19,7 @@ public partial class StokGirdi
 
     public int TedarikciId { get; set; }
 
-    public Malzeme? Malzeme { get; set; },
+    public Malzeme? Malzeme { get; set; }
 
     public Tedarikci? Tedarikci { get; set; }
 }

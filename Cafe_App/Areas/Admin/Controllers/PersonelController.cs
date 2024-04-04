@@ -16,7 +16,8 @@ namespace Cafe_App.Areas.Admin.Controllers
 
         public IActionResult Index()
 		{
-			return View();
+            var personeller = _context.Personeller.ToList();
+			return View(personeller);
 		}
 
 		public IActionResult PersonelEkle()
@@ -61,10 +62,13 @@ namespace Cafe_App.Areas.Admin.Controllers
 
                     _context.Add(model);
                     _context.SaveChanges();
+
+                    return RedirectToAction("Index");
                 }
             }
 
-            return RedirectToAction("Index");
+			ViewBag.roller = _context.Roller.ToList();
+            return View(model);
         }
     }
 }
