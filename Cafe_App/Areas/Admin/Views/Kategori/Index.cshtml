@@ -1,8 +1,8 @@
 ﻿
 @{
-    ViewData["Title"] = "Ürün";
+    ViewData["Title"] = "Kategori";
 }
-@model Urun
+@model Kategori
 
 <!-- CSS Ekstralar -->
 <head>
@@ -17,14 +17,14 @@
 
 		<div class="form-head d-flex mb-3 align-items-start">
 			<div class="me-auto d-none d-lg-block">
-				<h2 class="text-primary font-w600 mb-0">Cafe App Ürün</h2>
-				<p class="mb-0">Cafe App Ürün Yönetim Ekranına Hoşgeldiniz!</p>
+				<h2 class="text-primary font-w600 mb-0">Cafe App Kategori</h2>
+				<p class="mb-0">Cafe App Kategori Yönetim Ekranına Hoşgeldiniz!</p>
 			</div>
 
-			<a data-bs-toggle="modal" data-bs-target="#ürünModal" style="width:max-content; display: inline-block; vertical-align: middle;" type="button" class="btn btn-rounded btn-primary">
+			<a data-bs-toggle="modal" data-bs-target="#kategoriModal" style="width:max-content; display: inline-block; vertical-align: middle;" type="button" class="btn btn-rounded btn-primary">
 				<span class="btn-icon-start text-primary">
 					<i class="fa fa-user-plus color-primary"></i>
-				</span>Ürün Ekle
+				</span>Kategori Ekle
 			</a>
 		</div>
 		<br>
@@ -42,7 +42,7 @@
 				<div class="card-body">
 					<div class="row">
 						<div class="col-xl-3 col-sm-6">
-							<input type="text" class="form-control mb-3 mb-xl-0" id="exampleFormControlInput1" placeholder="Ürün Adı">
+							<input type="text" class="form-control mb-3 mb-xl-0" id="exampleFormControlInput1" placeholder="Tedarikçi Adı">
 						</div>
 						<div class="col-xl-3 col-sm-6 mb-3 mb-xl-0">
 							<select class="default-select dashboard-select-2 wide w-100">
@@ -68,7 +68,7 @@
 		<div class="filter cm-content-box box-primary">
 			<div class="content-title">
 				<div class="cpa">
-					<i class="fa-solid fa-file-lines me-1"></i>Ürün Listesi
+					<i class="fa-solid fa-file-lines me-1"></i>Tedarikçi Listesi
 				</div>
 				<div class="tools">
 					<a href="javascript:void(0);" class="expand SlideToolHeader"><i class="fal fa-angle-down"></i></a>
@@ -83,27 +83,18 @@
 								<tr>
 									<th><strong>Id</strong></th>
 									<th><strong>Ad</strong></th>
-									<th><strong>Açıklama</strong></th>
-									<th><strong>Detay</strong></th>
-									<th><strong>Kategorİ</strong></th>
-									<th><strong>Fİyat</strong></th>
-									<th><strong>Aktİflİk</strong></th>
-									<th><strong>İndİrimlİ Fİyat</strong></th>
+									<th><strong>Görünürlük</strong></th>
 									<th style="width:85px;"><strong>İşlemler</strong></th>
 								</tr>
 							</thead>
 							<tbody>
 
-								@foreach (var urun in ViewBag.Urunler)
+								@foreach (var Kategori in ViewBag.Kategoriler)
 								{
 									<tr>
-										<th>@urun.Id</th>
-										<td><div class="d-flex align-items-center"><img src="~/img/@urun.Fotograf" class="rounded-lg me-2" width="24" alt=""> <span class="w-space-no">@urun.Ad</span></div></td>
-										<td>@urun.Aciklama</td>
-										<td>@urun.Detay</td>
-										<td>x</td>
-										<td>@urun.Fiyat</td>
-										@if (urun.Gorunurluk == true)
+										<td><b>@Kategori.Id</b></td>
+										<td>@Kategori.Ad</td>
+										@if (Kategori.Gorunurluk == true)
 										{
 											<td><span class="btn btn-sm light btn-success">Aktif</span></td>
 										}
@@ -111,7 +102,6 @@
 										{
 											<td><span class="btn btn-sm light btn-danger fs-16">Pasif</span></td>
 										}
-										<td>@urun.IndirimliFiyat.ToString("#,0.00")</td>
 										<td>
 											<a href="javascript:void(0);" class="btn btn-primary shadow btn-xs sharp rounded-circle me-1"><i class="fa fa-pencil"></i></a>
 											<a href="javascript:void(0);" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa fa-trash"></i></a>
@@ -142,11 +132,11 @@
 </div>
 
 <!-- Modal -->
-<div class="modal modal-lg fade" id="ürünModal">
+<div class="modal modal-lg fade" id="kategoriModal">
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">Ürün Ekle</h5>
+				<h5 class="modal-title">Kategori Ekle</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal">
 				</button>
 			</div>
@@ -156,57 +146,12 @@
 					<div style="margin-bottom:14px" class="row">
 						<div class="form-floating col-md-6 mb-3">
 							<input id="Ad" asp-for="Ad" type="text" class="form-control" placeholder="">
-							<label for="Ad" class="form-label">&nbsp;&nbsp;&nbsp;Ürün Adı</label>
+							<label for="Ad" class="form-label">&nbsp;&nbsp;&nbsp;Kategori Adı</label>
 							<div class="valid-feedback">Valid.</div>
 							<div class="invalid-feedback">Please fill out this field.</div>
 						</div>
-						<div class="form-floating col-md-6 mb-3">
-							<input id="Aciklama" asp-for="Aciklama" type="text" class="form-control" placeholder="" required="">
-							<label for="Aciklama" class="form-label">&nbsp;&nbsp;&nbsp;Ürün Açıklama</label>
-							<div class="invalid-feedback">
-								Zorunlu Alan
-							</div>
-						</div>
-					</div>
-					<div style="margin-bottom:14px" class="row">
-						<div class="form-floating col-md-6 mb-3">
-							<input id="Detay" asp-for="Detay" type="text" class="form-control" placeholder="" required="">
-							<label for="Detay" class="form-label">&nbsp;&nbsp;&nbsp;Ürün Detay</label>
-							<div class="invalid-feedback">
-								Zorunlu Alan
-							</div>
-						</div>
-						<div class="form-floating col-md-6 mb-3">
-							<input id="Fiyat" asp-for="Fiyat" type="text" class="form-control" placeholder="" required="">
-							<label for="Fiyat" class="form-label">&nbsp;&nbsp;&nbsp;Ürün Fiyat</label>
-							<div class="invalid-feedback">
-								Zorunlu Alan
-							</div>
-						</div>
-					</div>
-					<div style="margin-bottom:14px" class="row">
-						<div class="form-floating col-md-6 mb-3">
-							<input id="Fotograf" asp-for="Fotograf" type="text" class="form-control" placeholder="" required="">
-							<label for="Fotograf" class="form-label">&nbsp;&nbsp;&nbsp;Ürün Fotoğraf</label>
-							<div class="invalid-feedback">
-								Zorunlu Alan
-							</div>
-						</div>
-						<div class="form-floating col-md-6 mb-3">
-							<select id="KategoriId" asp-for="KategoriId" class="default-select form-control wide w-100 required">
-								<option value="" selected>Ürün Kategori</option>
-								@foreach (var item in ViewBag.Kategoriler)
-								{
-									<option value="@item.Id">@item.Ad</option>
-								}
-							</select>
-							<div class="invalid-feedback">
-								Zorunlu Alan
-							</div>
-						</div>
 					</div>
 					<input asp-for="Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
-					<input asp-for="Akitf" type="hidden" class="form-control" placeholder="" value=True required="">
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
@@ -251,4 +196,3 @@
 
 	</script>
 }
-

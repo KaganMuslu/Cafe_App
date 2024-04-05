@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cafe_App.Migrations
 {
     [DbContext(typeof(IdentityDataContext))]
-    [Migration("20240405092041_init")]
+    [Migration("20240405115525_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -303,10 +303,6 @@ namespace Cafe_App.Migrations
 
                     b.Property<bool>("Gorunurluk")
                         .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("Tur")
-                        .IsRequired()
-                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 

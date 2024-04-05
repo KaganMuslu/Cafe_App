@@ -4,30 +4,29 @@ using Microsoft.AspNetCore.Mvc;
 namespace Cafe_App.Areas.Admin.Controllers
 {
 	[Area("Admin")]
-	public class UrunController : Controller
+	public class KategoriController : Controller
 	{
 		private readonly IdentityDataContext _context;
-		public UrunController(IdentityDataContext context)
+		public KategoriController(IdentityDataContext context)
 		{
 			_context = context;
 		}
 
 		public IActionResult Index()
 		{
-            ViewBag.Urunler = _context.Urunler.ToList();
             ViewBag.Kategoriler = _context.Kategoriler.ToList();
 			return View();
 		}
 
 		[HttpPost]
-		public IActionResult Index(Urun model)
+		public IActionResult Index(Kategori model)
 		{
 			if (ModelState.IsValid)
 			{
-				var urun = _context.Urunler.FirstOrDefault(x => x.Ad == model.Ad);
-				if (urun == null)
+				var kategori = _context.Kategoriler.FirstOrDefault(x => x.Ad == model.Ad);
+				if (kategori == null)
 				{
-					_context.Urunler.Add(model);
+					_context.Kategoriler.Add(model);
 					_context.SaveChanges();
 				}
 				else
@@ -36,7 +35,7 @@ namespace Cafe_App.Areas.Admin.Controllers
 				}
 			}
 
-            ViewBag.Urunler = _context.Urunler.ToList();
+			ViewBag.Kategoriler = _context.Kategoriler.ToList();
 			return RedirectToAction("Index");
 		}
 	}
