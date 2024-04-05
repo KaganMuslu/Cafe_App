@@ -21,7 +21,7 @@
 				<p class="mb-0">Cafe App Personel Rol Ekranına Hoşgeldiniz!</p>
 			</div>
 
-			<a data-bs-toggle="modal" data-bs-target="#exampleModalCenter" style="width:max-content; display: inline-block; vertical-align: middle; margin-left:px" type="button" class="btn btn-rounded btn-primary">
+			<a data-bs-toggle="modal" data-bs-target="#rolModal" style="width:max-content; display: inline-block; vertical-align: middle; margin-left:px" type="button" class="btn btn-rounded btn-primary">
 				<span class="btn-icon-start text-primary">
 					<i class="fa fa-user-plus color-primary"></i>
 				</span>Rol Ekle
@@ -751,7 +751,7 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter">
+<div class="modal fade" id="rolModal">
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -762,21 +762,21 @@
 			
 			<form asp-action="Index" class="needs-validation" method="post">
 				<div class="modal-body">
-						<div style="margin-bottom:9px" class="row">
-							<div class="col-md-6 mb-3">
-								<label class="form-label">Rol Adı</label>
-								<input asp-for="Ad" type="text" class="form-control" placeholder="" required="">
-								<input asp-for="Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
-								<div class="invalid-feedback">
-									Zorunlu Alan
-								</div>
-							</div>
-							<div class="col-md-6 mb-3">
-								<label class="form-label">Ekstra Bilgi</label>
-								<input type="text" class="form-control" placeholder="" value="" @* required="" *@>
-								
+					<div style="margin-bottom:9px" class="row">
+						<div class="col-md-6 mb-3">
+							<label class="form-label">Rol Adı</label>
+							<input asp-for="Ad" type="text" class="form-control" placeholder="" required="">
+							<input asp-for="Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
+							<div class="invalid-feedback">
+								Zorunlu Alan
 							</div>
 						</div>
+						<div class="col-md-6 mb-3">
+							<label class="form-label">Ekstra Bilgi</label>
+							<input type="text" class="form-control" placeholder="" value="" @* required="" *@>
+								
+						</div>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>

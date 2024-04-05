@@ -25,9 +25,9 @@ public partial class Musteri
 
 	public bool Gorunurluk { get; set; }
 
-	public Adres Adres { get; set; }
+	public ICollection<Adres> Adrelers { get; set; } = new List<Adres>();
 
-    public ICollection<Bildirim> Bildirimlers { get; set; } = new List<Bildirim>();
+	public ICollection<Bildirim> Bildirimlers { get; set; } = new List<Bildirim>();
 
     public ICollection<Kampanya> Kampanyalars { get; set; } = new List<Kampanya>();
 

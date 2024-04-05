@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cafe_App.Migrations
 {
     [DbContext(typeof(IdentityDataContext))]
-    [Migration("20240404125816_init")]
+    [Migration("20240405092041_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -56,6 +56,9 @@ namespace Cafe_App.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<int>("MusteriId")
+                        .HasColumnType("int");
+
                     b.Property<int>("No")
                         .HasColumnType("int");
 
@@ -67,6 +70,8 @@ namespace Cafe_App.Migrations
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MusteriId");
 
                     b.ToTable("Adresler");
                 });
@@ -560,9 +565,6 @@ namespace Cafe_App.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("AdresId")
-                        .HasColumnType("int");
-
                     b.Property<DateOnly>("Dogumtarihi")
                         .HasColumnType("date");
 
@@ -592,8 +594,6 @@ namespace Cafe_App.Migrations
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AdresId");
 
                     b.HasIndex("MasaId");
 
@@ -941,7 +941,11 @@ namespace Cafe_App.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("AdresId")
+                    b.Property<string>("Adres")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int?>("AdresId")
                         .HasColumnType("int");
 
                     b.Property<string>("Eposta")
@@ -1099,9 +1103,6 @@ namespace Cafe_App.Migrations
                         .HasColumnType("tinyint(1)");
 
                     b.Property<int>("IndirimliFiyat")
-                        .HasColumnType("int");
-
-                    b.Property<int>("KategorId")
                         .HasColumnType("int");
 
                     b.Property<int>("KategoriId")
@@ -1290,6 +1291,17 @@ namespace Cafe_App.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Cafe_App.Models.Adres", b =>
+                {
+                    b.HasOne("Cafe_App.Models.Musteri", "Musteri")
+                        .WithMany("Adrelers")
+                        .HasForeignKey("MusteriId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Musteri");
+                });
+
             modelBuilder.Entity("Cafe_App.Models.Bildirim", b =>
                 {
                     b.HasOne("Cafe_App.Models.Kasa", "Kasa")
@@ -1464,19 +1476,11 @@ namespace Cafe_App.Migrations
 
             modelBuilder.Entity("Cafe_App.Models.Musteri", b =>
                 {
-                    b.HasOne("Cafe_App.Models.Adres", "Adres")
-                        .WithMany("Musterilers")
-                        .HasForeignKey("AdresId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Cafe_App.Models.Masa", "Masa")
                         .WithMany("Musterilers")
                         .HasForeignKey("MasaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Adres");
 
                     b.Navigation("Masa");
                 });
@@ -1593,13 +1597,9 @@ namespace Cafe_App.Migrations
 
             modelBuilder.Entity("Cafe_App.Models.Tedarikci", b =>
                 {
-                    b.HasOne("Cafe_App.Models.Adres", "Adres")
+                    b.HasOne("Cafe_App.Models.Adres", null)
                         .WithMany("Tedarikcilers")
-                        .HasForeignKey("AdresId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Adres");
+                        .HasForeignKey("AdresId");
                 });
 
             modelBuilder.Entity("Cafe_App.Models.Teslimat", b =>
@@ -1753,8 +1753,6 @@ namespace Cafe_App.Migrations
 
             modelBuilder.Entity("Cafe_App.Models.Adres", b =>
                 {
-                    b.Navigation("Musterilers");
-
                     b.Navigation("Personellers");
 
                     b.Navigation("Tedarikcilers");
@@ -1776,6 +1774,8 @@ namespace Cafe_App.Migrations
 
             modelBuilder.Entity("Cafe_App.Models.Musteri", b =>
                 {
+                    b.Navigation("Adrelers");
+
                     b.Navigation("Bildirimlers");
 
                     b.Navigation("Kampanyalars");

@@ -35,6 +35,7 @@ namespace Cafe_App.Areas.Admin.Controllers
 				}
 			}
 
+            ViewBag.Tedarikciler = _context.Tedarikciler.ToList();
 			return RedirectToAction("Index");
 		}
 	}

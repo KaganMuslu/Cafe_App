@@ -21,7 +21,7 @@
 				<p class="mb-0">Cafe App Tedarikçi Yönetim Ekranına Hoşgeldiniz!</p>
 			</div>
 
-			<a asp-action="TedarikciEkle" style="width:max-content; display: inline-block; vertical-align: middle;" type="button" class="btn btn-rounded btn-primary">
+			<a data-bs-toggle="modal" data-bs-target="#tedarikciModal" style="width:max-content; display: inline-block; vertical-align: middle;" type="button" class="btn btn-rounded btn-primary">
 				<span class="btn-icon-start text-primary">
 					<i class="fa fa-user-plus color-primary"></i>
 				</span>Tedarikçi Ekle
@@ -101,6 +101,10 @@
 										<td>@tedarikci.Telefon</td>
 										<td>@tedarikci.Adres</td>
 										<td>@tedarikci.KayitTarihi</td>
+										<td>
+											<a href="javascript:void(0);" class="btn btn-primary shadow btn-xs sharp rounded-circle me-1"><i class="fa fa-pencil"></i></a>
+											<a href="javascript:void(0);" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa fa-trash"></i></a>
+										</td>
 									</tr>
 								}
 
@@ -127,60 +131,59 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter">
+<div class="modal modal-lg fade" id="tedarikciModal">
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">Rol Ekle</h5>
+				<h5 class="modal-title">Tedarikçi Ekle</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal">
 				</button>
 			</div>
 
-			<form asp-action="Index" class="needs-validation" method="post">
+			<form asp-action="Index" class="needs-validation " method="post">
 				<div class="modal-body">
-					<div style="margin-bottom:9px" class="row">
-						<div class="col-md-6 mb-3">
-							<label class="form-label">Rol Adı</label>
-							<input asp-for="Ad" type="text" class="form-control" placeholder="" required="">
-							<div class="invalid-feedback">
-								Zorunlu Alan
-							</div>
+					<div style="margin-bottom:14px" class="row">
+						<div class="form-floating col-md-6 mb-3">
+							<input id="ad" asp-for="Ad" type="text" class="form-control" placeholder="" >
+							<label for="ad" class="form-label">&nbsp;&nbsp;&nbsp;Tedarikçi Adı</label>
+							<div class="valid-feedback">Valid.</div>
+							<div class="invalid-feedback">Please fill out this field.</div>
 						</div>
-						<div class="col-md-6 mb-3">
-							<label class="form-label">Rol Adı</label>
-							<input asp-for="Soyad" type="text" class="form-control" placeholder="" required="">
-							<div class="invalid-feedback">
-								Zorunlu Alan
-							</div>
-						</div>
-					</div>
-					<div style="margin-bottom:9px" class="row">
-						<div class="col-md-6 mb-3">
-							<label class="form-label">Rol Adı</label>
-							<input asp-for="Telefon" type="text" class="form-control" placeholder="" required="">
-							<div class="invalid-feedback">
-								Zorunlu Alan
-							</div>
-						</div>
-						<div class="col-md-6 mb-3">
-							<label class="form-label">Rol Adı</label>
-							<input asp-for="Adres" type="text" class="form-control" placeholder="" required="">
+						<div class="form-floating col-md-6 mb-3">
+							<input id="soyad" asp-for="Soyad" type="text" class="form-control" placeholder="" required="">
+							<label for="soyad" class="form-label">&nbsp;&nbsp;&nbsp;Tedarikçi Soyadı</label>
 							<div class="invalid-feedback">
 								Zorunlu Alan
 							</div>
 						</div>
 					</div>
-					<div style="margin-bottom:9px" class="row">
-						<div class="col-md-6 mb-3">
-							<label class="form-label">Rol Adı</label>
-							<input asp-for="Eposta" type="text" class="form-control" placeholder="" required="">
+					<div style="margin-bottom:14px" class="row">
+						<div class="form-floating col-md-6 mb-3">
+							<input id="tel" asp-for="Telefon" type="text" class="form-control" placeholder="" required="">
+							<label for="tel" class="form-label">&nbsp;&nbsp;&nbsp;Tedarikçi Telefon</label>
 							<div class="invalid-feedback">
 								Zorunlu Alan
 							</div>
 						</div>
-						<div class="col-md-6 mb-3">
-							<label class="form-label">Rol Adı</label>
-							<input asp-for="KayitTarihi" type="text" class="form-control" placeholder="" required="">
+						<div class="form-floating col-md-6 mb-3">
+							<input id="adres" asp-for="Adres" type="text" class="form-control" placeholder="" required="">
+							<label for="adres" class="form-label">&nbsp;&nbsp;&nbsp;Tedarikçi Adres</label>
+							<div class="invalid-feedback">
+								Zorunlu Alan
+							</div>
+						</div>
+					</div>
+					<div style="margin-bottom:14px" class="row">
+						<div class="form-floating col-md-6 mb-3">
+							<input id="eposta" asp-for="Eposta" type="text" class="form-control" placeholder="" required="">
+							<label for="eposta" class="form-label">&nbsp;&nbsp;&nbsp;Tedarikçi E-Posta</label>
+							<div class="invalid-feedback">
+								Zorunlu Alan
+							</div>
+						</div>
+						<div class="form-floating col-md-6 mb-3">
+							<input asp-for="KayitTarihi" id="datepicker2" class=" form-control mb-3 mb-xl-0" required>
+							<label for="datepicker2" class="form-label">&nbsp;&nbsp;&nbsp;Tedarikçi Kayıt Tarihi</label>
 							<div class="invalid-feedback">
 								Zorunlu Alan
 							</div>
@@ -211,11 +214,24 @@
 	<script>
 		$(function () {
 			$("#datepicker").datepicker({
+				language: 'tr',
+				format: 'dd/mm/yyyy',
 				autoclose: true,
 				todayHighlight: true
 			}).datepicker('update', new Date());
 
 		});
+
+		$(function () {
+			$("#datepicker2").datepicker({
+				language: 'tr-TR',
+				format: 'dd/mm/yyyy',
+				autoclose: true,
+				todayHighlight: true
+			}).datepicker('update', new Date());
+
+		});
+
 	</script>
 }
 
