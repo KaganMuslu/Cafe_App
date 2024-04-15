@@ -194,7 +194,7 @@
 						</div>
 						<div class="form-floating col-md-6 mb-3">
 							<select id="KategoriId" asp-for="KategoriId" class="default-select form-control wide w-100 required">
-								<option value="" selected>Ürün Kategori</option>
+								<option selected>Ürün Kategori</option>
 								@foreach (var item in ViewBag.Kategoriler)
 								{
 									<option value="@item.Id">@item.Ad</option>

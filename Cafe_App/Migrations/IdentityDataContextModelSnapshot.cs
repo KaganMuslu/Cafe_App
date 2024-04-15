@@ -369,8 +369,8 @@ namespace Cafe_App.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<bool>("Durum")
-                        .HasColumnType("tinyint(1)");
+                    b.Property<int>("Durum")
+                        .HasColumnType("int");
 
                     b.Property<bool>("Gorunurluk")
                         .HasColumnType("tinyint(1)");
@@ -387,9 +387,6 @@ namespace Cafe_App.Migrations
 
                     b.Property<int>("PersonelId")
                         .HasColumnType("int");
-
-                    b.Property<bool>("Temizlik")
-                        .HasColumnType("tinyint(1)");
 
                     b.Property<decimal>("Tutar")
                         .HasColumnType("decimal(65,30)");
@@ -512,8 +509,14 @@ namespace Cafe_App.Migrations
                     b.Property<bool>("Gorunurluk")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<int>("IndirimliFiyat")
+                    b.Property<DateOnly>("IndirimTarihi")
+                        .HasColumnType("date");
+
+                    b.Property<int>("IndirimYuzdesi")
                         .HasColumnType("int");
+
+                    b.Property<float>("IndirimliFiyat")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
@@ -1085,8 +1088,8 @@ namespace Cafe_App.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<decimal>("Fiyat")
-                        .HasColumnType("decimal(65,30)");
+                    b.Property<float>("Fiyat")
+                        .HasColumnType("float");
 
                     b.Property<string>("Fotograf")
                         .IsRequired()
@@ -1095,8 +1098,14 @@ namespace Cafe_App.Migrations
                     b.Property<bool>("Gorunurluk")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<int>("IndirimliFiyat")
+                    b.Property<DateOnly>("IndirimTarihi")
+                        .HasColumnType("date");
+
+                    b.Property<int>("IndirimYuzdesi")
                         .HasColumnType("int");
+
+                    b.Property<float>("IndirimliFiyat")
+                        .HasColumnType("float");
 
                     b.Property<int>("KategoriId")
                         .HasColumnType("int");

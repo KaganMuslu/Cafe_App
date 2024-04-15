@@ -30,7 +30,7 @@ namespace Cafe_App.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> PersonelEkle(Personel model, IFormFile? file)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && model.RolId != 0)
             {
                 var personel = _context.Personeller.FirstOrDefault(x => x.Eposta == model.Eposta);
                 if (personel == null)

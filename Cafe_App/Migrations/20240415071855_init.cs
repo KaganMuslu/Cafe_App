@@ -110,12 +110,14 @@ namespace Cafe_App.Migrations
                     Aciklama = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Fiyat = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    IndirimYuzdesi = table.Column<int>(type: "int", nullable: false),
+                    IndirimliFiyat = table.Column<float>(type: "float", nullable: false),
+                    IndirimTarihi = table.Column<DateOnly>(type: "date", nullable: false),
                     Detay = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Fotograf = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Akitf = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    IndirimliFiyat = table.Column<int>(type: "int", nullable: false),
                     Gorunurluk = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
@@ -328,11 +330,13 @@ namespace Cafe_App.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Detay = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Fiyat = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    Fiyat = table.Column<float>(type: "float", nullable: false),
+                    IndirimYuzdesi = table.Column<int>(type: "int", nullable: false),
+                    IndirimliFiyat = table.Column<float>(type: "float", nullable: false),
+                    IndirimTarihi = table.Column<DateOnly>(type: "date", nullable: false),
                     Fotograf = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Akitf = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    IndirimliFiyat = table.Column<int>(type: "int", nullable: false),
                     KategoriId = table.Column<int>(type: "int", nullable: false),
                     Gorunurluk = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
@@ -491,9 +495,8 @@ namespace Cafe_App.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Kod = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Durum = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    Durum = table.Column<int>(type: "int", nullable: false),
                     Kapasite = table.Column<int>(type: "int", nullable: false),
-                    Temizlik = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     Tutar = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     OdenenTutar = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     PersonelId = table.Column<int>(type: "int", nullable: false),

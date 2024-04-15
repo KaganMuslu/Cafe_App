@@ -22,7 +22,7 @@ namespace Cafe_App.Areas.Admin.Controllers
 		[HttpPost]
 		public IActionResult Index(Urun model)
 		{
-			if (ModelState.IsValid)
+			if (ModelState.IsValid && model.KategoriId != 0)
 			{
 				var urun = _context.Urunler.FirstOrDefault(x => x.Ad == model.Ad);
 				if (urun == null)

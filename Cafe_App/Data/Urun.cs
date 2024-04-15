@@ -13,15 +13,19 @@ public partial class Urun
 
     public string Detay { get; set; }
 
-    public decimal Fiyat { get; set; }
+    public float Fiyat { get; set; }
+
+    public int IndirimYuzdesi { get; set; }
+
+    public float IndirimliFiyat { get; set; }
+
+    public DateOnly IndirimTarihi { get; set; }
 
     public string Fotograf { get; set; }
 
     public bool Akitf { get; set; }
 
-    public int IndirimliFiyat { get; set; }
-
-    public int KategoriId { get; set; }
+	public int KategoriId { get; set; }
 
 	public bool Gorunurluk { get; set; }
 
