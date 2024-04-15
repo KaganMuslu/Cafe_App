@@ -87,8 +87,8 @@
 									<th><strong>Detay</strong></th>
 									<th><strong>Kategorİ</strong></th>
 									<th><strong>Fİyat</strong></th>
-									<th><strong>Aktİflİk</strong></th>
 									<th><strong>İndİrimlİ Fİyat</strong></th>
+									<th><strong>GÖRÜNÜRLÜK</strong></th>
 									<th style="width:85px;"><strong>İşlemler</strong></th>
 								</tr>
 							</thead>
@@ -103,18 +103,25 @@
 										<td>@urun.Detay</td>
 										<td>x</td>
 										<td>@urun.Fiyat</td>
+										<td>@urun.IndirimliFiyat.ToString("#,0.00")</td>
 										@if (urun.Gorunurluk == true)
 										{
-											<td><span class="btn btn-sm light btn-success">Aktif</span></td>
+											<td class="recent-stats"><i class="fa fa-circle text-success me-1"></i>Görünür</td>
 										}
 										else
 										{
-											<td><span class="btn btn-sm light btn-danger fs-16">Pasif</span></td>
+											<td class="recent-stats"><i class="fa fa-circle text-danger me-1"></i>Görünmez</td>
 										}
-										<td>@urun.IndirimliFiyat.ToString("#,0.00")</td>
 										<td>
-											<a href="javascript:void(0);" class="btn btn-primary shadow btn-xs sharp rounded-circle me-1"><i class="fa fa-pencil"></i></a>
-											<a href="javascript:void(0);" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa fa-trash"></i></a>
+											<a asp-action="UrunGuncelle" asp-route-id="@urun.Id" class="btn btn-primary shadow btn-xs sharp rounded-circle me-1"><i class="fa fa-pencil"></i></a>
+											@if (urun.Gorunurluk == true)
+											{
+												<a asp-action="UrunSil" asp-route-id="@urun.Id" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa-solid fa-trash"></i></a>
+											}
+											else
+											{
+												<a asp-action="UrunSil" asp-route-id="@urun.Id" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa fa-trash-undo"></i></a>
+											}
 										</td>
 									</tr>
 								}
@@ -192,7 +199,7 @@
 								Zorunlu Alan
 							</div>
 						</div>
-						<div class="form-floating col-md-6 mb-3">
+						<div class="col-md-6 mb-3">
 							<select id="KategoriId" asp-for="KategoriId" class="default-select form-control wide w-100 required">
 								<option selected>Ürün Kategori</option>
 								@foreach (var item in ViewBag.Kategoriler)

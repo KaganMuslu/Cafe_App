@@ -16,28 +16,68 @@ namespace Cafe_App.Areas.Admin.Controllers
 		{
             ViewBag.Urunler = _context.Urunler.ToList();
             ViewBag.Kategoriler = _context.Kategoriler.ToList();
+
 			return View();
 		}
 
 		[HttpPost]
 		public IActionResult Index(Urun model)
 		{
+            ViewBag.Urunler = _context.Urunler.ToList();
+
 			if (ModelState.IsValid && model.KategoriId != 0)
 			{
-				var urun = _context.Urunler.FirstOrDefault(x => x.Ad == model.Ad);
-				if (urun == null)
+
+				if (model.Id == 0)
 				{
-					_context.Urunler.Add(model);
-					_context.SaveChanges();
+					_context.Add(model);
 				}
 				else
 				{
-					// Hata	
+					_context.Update(model);
 				}
+				_context.SaveChanges();
+				
 			}
 
-            ViewBag.Urunler = _context.Urunler.ToList();
 			return RedirectToAction("Index");
 		}
+
+		public IActionResult UrunGuncelle(int Id)
+		{
+            ViewBag.Kategoriler = _context.Kategoriler.ToList();
+			var urun = _context.Urunler.FirstOrDefault(x => x.Id == Id);
+			return View(urun);
+		}
+
+		[HttpPost]
+		public IActionResult UrunGuncelle(Urun model)
+		{
+            ViewBag.Kategoriler = _context.Kategoriler.ToList();
+			_context.Update(model);
+			_context.SaveChanges();
+			return RedirectToAction("Index");
+		}
+
+		public IActionResult UrunSil(int Id)
+		{
+			var urun = _context.Urunler.FirstOrDefault(x => x.Id == Id);
+			if (urun != null)
+			{
+				if (urun.Gorunurluk == true)
+				{
+					urun.Gorunurluk = false;
+				}
+				else
+				{
+					urun.Gorunurluk = true;
+				}
+				_context.Update(urun);
+				_context.SaveChanges();
+			}
+
+			return RedirectToAction("Index");
+		}
+
 	}
 }

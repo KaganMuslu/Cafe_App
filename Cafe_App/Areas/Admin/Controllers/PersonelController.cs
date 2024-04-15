@@ -34,7 +34,7 @@ namespace Cafe_App.Areas.Admin.Controllers
 		}
 
         [HttpPost]
-        public async Task<IActionResult> PersonelEkle(Personel model, IFormFile? file, int type)
+        public async Task<IActionResult> PersonelEkle(Personel model, IFormFile? file)
         {
 			ViewBag.roller = _context.Roller.ToList();
 
