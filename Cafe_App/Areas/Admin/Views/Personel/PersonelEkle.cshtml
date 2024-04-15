@@ -1,6 +1,8 @@
 ﻿
 @{
-    ViewData["Title"] = "Personel Ekle";
+
+    ViewData["Title"] = "Personel Bilgileri";
+    
 }
 @model Personel
 
@@ -67,19 +69,20 @@
                             </div>
 
                             <div class="col-lg-8 order-lg-1 input-primary">
-                                <h4 class="mb-3 text-black">Personel Ekle</h4>
+                                <h4 class="mb-3 text-black">Personel Bilgileri</h4>
+
                                 <form asp-controller="Personel" asp-action="PersonelEkle" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
                                     <div style="margin-bottom:9px" class="row">
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">Personel Adı</label>
-                                            <input id="validationCustom01" type="text" class="form-control" asp-for="Ad" placeholder="" value="" required="">
+                                            <input type="text" class="form-control" asp-for="Ad" placeholder="" required>
                                             <div class="invalid-feedback">
                                                 Zorunlu Alan
                                             </div>
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">Personel Soyadı</label>
-                                            <input type="text" class="form-control" asp-for="Soyad" placeholder="" value="" required="">
+                                            <input type="text" class="form-control" asp-for="Soyad" placeholder="" required>
                                             <div class="invalid-feedback">
                                                 Zorunlu Alan
                                             </div>
@@ -190,9 +193,10 @@
                                             <input style="text-align:center" asp-for="BaslamaTarihi" id="datepicker2" class=" form-control mb-3 mb-xl-0" required>
                                         </div>
                                     </div>
+                                    <input type="hidden" asp-for="Gorunurluk" value=true />
 
                                     <div style="text-align:center; margin-top:20px" class="col-md-12 mb-3">
-                                        <button class="btn btn-primary" type="submit">Personel Ekle</button>
+                                        <button class="btn btn-primary" type="submit">Onayla</button>
                                     </div>
                                 </form>
                             </div>

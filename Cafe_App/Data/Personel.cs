@@ -15,7 +15,7 @@ public partial class Personel
 
     public string Telefon { get; set; }
 
-    public decimal Maas { get; set; }
+    public float Maas { get; set; }
 
     public DateOnly DogumTarihi { get; set; }
 

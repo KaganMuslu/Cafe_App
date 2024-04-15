@@ -87,6 +87,7 @@
 									<th><strong>Telefon</strong></th>
 									<th><strong>Gİrİş Tarİhİ</strong></th>
 									<th><strong>Çalışma Durumu</strong></th>
+									<th><strong>Görünürlük</strong></th>
 									<th style="width:85px;"><strong>İşlemler</strong></th>
 								</tr>
 							</thead>
@@ -102,9 +103,24 @@
 										<td>@personel.Telefon</td>
 										<td>@personel.BaslamaTarihi</td>
 										<td class="recent-stats"><i class="fa fa-circle text-success me-1"></i>Çalışıyor</td>
+										@if(personel.Gorunurluk == true)
+										{
+											<td class="recent-stats"><i class="fa fa-circle text-success me-1"></i>Görünür</td>
+										}
+										else
+										{
+											<td class="recent-stats"><i class="fa fa-circle text-danger me-1"></i>Görünmez</td>
+										}
 										<td>
-											<a href="javascript:void(0);" class="btn btn-primary shadow btn-xs sharp rounded-circle me-1"><i class="fa fa-pencil"></i></a>
-											<a href="javascript:void(0);" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa fa-trash"></i></a>
+											<a asp-action="PersonelEkle" asp-route-id="@personel.Id" class="btn btn-primary shadow btn-xs sharp rounded-circle me-1"><i class="fa fa-pencil"></i></a>
+											@if(personel.Gorunurluk == true)
+											{
+												<a asp-action="PersonelSil" asp-route-id="@personel.Id" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa-solid fa-trash"></i></a>
+											}
+											else
+											{
+												<a asp-action="PersonelSil" asp-route-id="@personel.Id" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa fa-trash-undo"></i></a>
+											}
 										</td>
 									</tr>
 									

@@ -20,55 +20,87 @@ namespace Cafe_App.Areas.Admin.Controllers
 			return View(personeller);
 		}
 
-		public IActionResult PersonelEkle()
+		public IActionResult PersonelEkle(int Id)
 		{
 			ViewBag.roller = _context.Roller.ToList();
 
-			return View();
+            if (Id == 0)
+            {
+                return View();
+			}
+
+            var personel = _context.Personeller.FirstOrDefault(x => x.Id == Id);
+			return View(personel);
 		}
 
         [HttpPost]
-        public async Task<IActionResult> PersonelEkle(Personel model, IFormFile? file)
+        public async Task<IActionResult> PersonelEkle(Personel model, IFormFile? file, int type)
         {
+			ViewBag.roller = _context.Roller.ToList();
+
             if (ModelState.IsValid && model.RolId != 0)
             {
-                var personel = _context.Personeller.FirstOrDefault(x => x.Eposta == model.Eposta);
-                if (personel == null)
+                
+                if (file != null)
                 {
-                    if (file != null)
+                    var uzanti = new[] { ".jpg", ".jpeg", ".png" };
+                    var resimuzanti = Path.GetExtension(file.FileName);
+                    if (!uzanti.Contains(resimuzanti))
                     {
-                        var uzanti = new[] { ".jpg", ".jpeg", ".png" };
-                        var resimuzanti = Path.GetExtension(file.FileName);
-                        if (!uzanti.Contains(resimuzanti))
-                        {
-                            ModelState.AddModelError("OgrenciFotograf", "Geçerli bir fotoğraf formatı seçiniz. *jpg,jpeg,png");
-                            return View(model);
-                        }
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("OgrenciFotograf", "Fotoğraf boş olamaz");
+                        ModelState.AddModelError("OgrenciFotograf", "Geçerli bir fotoğraf formatı seçiniz. *jpg,jpeg,png");
                         return View(model);
                     }
-
-                    var random = string.Format($"{Guid.NewGuid().ToString()}{Path.GetExtension(file.FileName)}");
-                    var resimyolu = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", random);
-                    using (var stream = new FileStream(resimyolu, FileMode.Create))
-                    {
-                        await file.CopyToAsync(stream);
-                    }
-                    model.Fotograf = random;
-
-
-                    _context.Add(model);
-                    _context.SaveChanges();
-
-                    return RedirectToAction("Index");
                 }
+                else
+                {
+                    ModelState.AddModelError("OgrenciFotograf", "Fotoğraf boş olamaz");
+                    return View(model);
+                }
+
+                var random = string.Format($"{Guid.NewGuid().ToString()}{Path.GetExtension(file.FileName)}");
+                var resimyolu = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", random);
+                using (var stream = new FileStream(resimyolu, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
+                model.Fotograf = random;
+
+
+                if(model.Id == 0)
+                {
+                    _context.Add(model);
+                }
+                else
+                {
+                    _context.Update(model);
+                }
+                _context.SaveChanges();
+
+                return RedirectToAction("Index");
             }
 
-			ViewBag.roller = _context.Roller.ToList();
             return View(model);
         }
-    }
+
+        public IActionResult PersonelSil(int Id)
+        {
+            var personel = _context.Personeller.FirstOrDefault(x => x.Id == Id);
+            if (personel != null)
+            {
+                if (personel.Gorunurluk == true)
+                {
+                    personel.Gorunurluk = false;
+                }
+                else
+                {
+				    personel.Gorunurluk = true;
+			    }
+			    _context.Update(personel);
+			    _context.SaveChanges();
+			}
+
+			return RedirectToAction("Index");
+		}
+
+	}
 }
