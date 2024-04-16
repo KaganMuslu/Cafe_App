@@ -89,7 +89,7 @@
 									<th><strong>Fİyat</strong></th>
 									<th><strong>İndİrimlİ Fİyat</strong></th>
 									<th><strong>GÖRÜNÜRLÜK</strong></th>
-									<th style="width:85px;"><strong>İşlemler</strong></th>
+									<th><strong>İşlemler</strong></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -102,7 +102,7 @@
 										<td>@urun.Aciklama</td>
 										<td>@urun.Detay</td>
 										<td>x</td>
-										<td>@urun.Fiyat</td>
+										<td>₺@urun.Fiyat</td>
 										<td>@urun.IndirimliFiyat.ToString("#,0.00")</td>
 										@if (urun.Gorunurluk == true)
 										{
@@ -113,6 +113,7 @@
 											<td class="recent-stats"><i class="fa fa-circle text-danger me-1"></i>Görünmez</td>
 										}
 										<td>
+											<a data-bs-toggle="modal" data-bs-target="#ürünMalzemeModal" class="btn btn-warning shadow btn-xs sharp rounded-circle me-1"><i class="fa fa-wheat"></i></a>
 											<a asp-action="UrunGuncelle" asp-route-id="@urun.Id" class="btn btn-primary shadow btn-xs sharp rounded-circle me-1"><i class="fa fa-pencil"></i></a>
 											@if (urun.Gorunurluk == true)
 											{
@@ -225,7 +226,34 @@
 	</div>
 </div>
 
+<div class="modal modal-lg fade" id="ürünMalzemeModal">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Malzemeleri Seç</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal">
+				</button>
+			</div>
+			<form asp-action="MalzemeSec" class="needs-validation " method="post">
+				<div class="modal-body">
+					<div style="margin-bottom:14px" class="row">
+						<select multiple class="default-select form-control wide mt-3">
+							@foreach (var malzeme in ViewBag.Malzemeler)
+							{
+								<option>@malzeme.Ad</option>
+							}
+						</select>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
+					<button type="submit" class="btn btn-primary">Kaydet</button>
+				</div>
+			</form>
 
+		</div>
+	</div>
+</div>
 <!-- JS Ekstralar -->
 @section Scripts
 {

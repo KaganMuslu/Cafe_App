@@ -20,24 +20,40 @@
 								<h4 class="mb-3 text-black">Ürün Bilgileri</h4>
 
 								<form asp-action="MalzemeGuncelle" enctype="multipart/form-data" class="needs-validation " method="post">
+									
 									<div style="margin-bottom:14px" class="row">
 										<div class="form-floating col-md-6 mb-3">
 											<input id="Ad" asp-for="Ad" type="text" class="form-control" placeholder="">
-											<label for="Ad" class="form-label">&nbsp;&nbsp;&nbsp;Ürün Adı</label>
+											<label for="Ad" class="form-label">&nbsp;&nbsp;&nbsp;Malzeme Adı</label>
 											<div class="valid-feedback">Valid.</div>
 											<div class="invalid-feedback">Please fill out this field.</div>
 										</div>
 										<div class="form-floating col-md-6 mb-3">
-											<input id="Fiyat" asp-for="Fiyat" type="text" class="form-control" placeholder="" required="">
-											<label for="Fiyat" class="form-label">&nbsp;&nbsp;&nbsp;Ürün Fiyat</label>
+											<input id="Fiyat" asp-for="Fiyat" type="number" class="form-control" placeholder="" required="">
+											<label for="Fiyat" class="form-label">&nbsp;&nbsp;&nbsp;Malzeme Fiyat</label>
 											<div class="invalid-feedback">
 												Zorunlu Alan
 											</div>
 										</div>
 									</div>
 									<div style="margin-bottom:14px" class="row">
-										<div class=" col-md-6 mb-3">
-											<select id="Tur" name="KategoriId" asp-for="Tur" class="default-select form-control wide  required">
+										<div class="form-floating col-md-6 mb-3">
+											<input id="minStok" asp-for="Stok.MinStok" type="number" class="form-control" placeholder="">
+											<label for="minStok" class="form-label">&nbsp;&nbsp;&nbsp;Minimum Stok</label>
+											<div class="valid-feedback">Valid.</div>
+											<div class="invalid-feedback">Please fill out this field.</div>
+										</div>
+										<div class="form-floating col-md-6 mb-3">
+											<input id="maxStok" asp-for="Stok.MaxStok" type="number" class="form-control" placeholder="" required="">
+											<label for="maxStok" class="form-label">&nbsp;&nbsp;&nbsp;Maximum Stok</label>
+											<div class="invalid-feedback">
+												Zorunlu Alan
+											</div>
+										</div>
+									</div>
+									<div style="margin-bottom:14px; text-align:center; margin:auto; width: 50%;" class="row">
+										<div class="col-md-12 mb-3">
+											<select id="Tur" asp-for="Tur" class="default-select form-control wide w-100 required">
 												<option selected>Malzeme Kategori</option>
 												<option value="Kilogram">Kilogram</option>
 												<option value="Litre">Litre</option>
@@ -49,6 +65,9 @@
 										</div>
 									</div>
 									<input asp-for="Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
+									<input asp-for="Stok.Miktar" type="hidden" class="form-control" placeholder="" value=0 required="">
+									<input asp-for="Stok.Gorunurluk" type="hidden" class="form-control" placeholder="" value=true required="">
+
 									<button type="submit" class="btn btn-primary">Kaydet</button>
 								</form>
 
@@ -59,7 +78,6 @@
 			</div>
 		</div>
 	</div>
-</div>
 </div>
 
 

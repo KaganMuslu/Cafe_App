@@ -46,7 +46,7 @@ namespace Cafe_App.Areas.Admin.Controllers
 		public IActionResult MalzemeGuncelle(int Id)
 		{
 			ViewBag.Kategoriler = _context.Kategoriler.ToList();
-			var urun = _context.Malzemeler.FirstOrDefault(x => x.Id == Id);
+			var urun = _context.Malzemeler.Include(x => x.Stok).FirstOrDefault(x => x.Id == Id);
 			return View(urun);
 		}
 

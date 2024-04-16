@@ -16,6 +16,7 @@ namespace Cafe_App.Areas.Admin.Controllers
 		{
             ViewBag.Urunler = _context.Urunler.ToList();
             ViewBag.Kategoriler = _context.Kategoriler.ToList();
+            ViewBag.Malzemeler = _context.Malzemeler.ToList();
 
 			return View();
 		}
