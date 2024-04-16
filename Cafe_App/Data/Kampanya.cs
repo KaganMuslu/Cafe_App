@@ -9,7 +9,7 @@ public partial class Kampanya
 
     public string Kod { get; set; }
 
-    public decimal Indirim { get; set; }
+    public float Indirim { get; set; }
 
     public DateTime GecerlilikTarihi { get; set; }
 

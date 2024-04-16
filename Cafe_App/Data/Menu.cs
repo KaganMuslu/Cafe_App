@@ -11,7 +11,7 @@ public partial class Menu
 
     public string Aciklama { get; set; }
 
-    public decimal Fiyat { get; set; }
+    public float Fiyat { get; set; }
 
 	public int IndirimYuzdesi { get; set; }
 

@@ -16,7 +16,7 @@ namespace Cafe_App.Areas.Admin.Controllers
 
         public IActionResult Index()
 		{
-            var personeller = _context.Personeller.ToList();
+            var personeller = _context.Personeller.Include(x => x.Rol).ToList();
 			return View(personeller);
 		}
 

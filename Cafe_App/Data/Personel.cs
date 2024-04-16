@@ -25,8 +25,6 @@ public partial class Personel
 
     public string Adres { get; set; }
 
-    public int RolId { get; set; }
-
     public string Parola { get; set; }
 
     public string? Fotograf { get; set; }
@@ -37,7 +35,9 @@ public partial class Personel
 
     public ICollection<Masa> Masalars { get; set; } = new List<Masa>();
 
-    public Rol? Rol { get; set; }
+    public int RolId { get; set; }
+
+	public Rol? Rol { get; set; }
 
     public ICollection<Teslimat> Teslimatlars { get; set; } = new List<Teslimat>();
 }

@@ -83,6 +83,7 @@
 								<tr>
 									<th><strong>Id</strong></th>
 									<th><strong>Ad-Soyad</strong></th>
+									<th><strong>Rol</strong></th>
 									<th><strong>E-Posta</strong></th>
 									<th><strong>Telefon</strong></th>
 									<th><strong>Gİrİş Tarİhİ</strong></th>
@@ -95,10 +96,10 @@
 
 								@foreach (var personel in Model)
 								{
-									
 									<tr>
 										<td><b>@personel.Id</b></td>
 										<td><div class="d-flex align-items-center"><img src="~/img/@personel.Fotograf" class="rounded-lg me-2" width="24" alt=""> <span class="w-space-no">@personel.Ad @personel.Soyad</span></div></td>
+										<td>@personel.Rol?.Ad</td>
 										<td>@personel.Eposta</td>
 										<td>@personel.Telefon</td>
 										<td>@personel.BaslamaTarihi</td>
@@ -123,7 +124,6 @@
 											}
 										</td>
 									</tr>
-									
 								}
 
 

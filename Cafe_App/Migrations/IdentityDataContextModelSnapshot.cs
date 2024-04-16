@@ -253,8 +253,8 @@ namespace Cafe_App.Migrations
                     b.Property<bool>("Gorunurluk")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<decimal>("Indirim")
-                        .HasColumnType("decimal(65,30)");
+                    b.Property<float>("Indirim")
+                        .HasColumnType("float");
 
                     b.Property<string>("Kod")
                         .IsRequired()
@@ -278,8 +278,8 @@ namespace Cafe_App.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<decimal>("Bakiye")
-                        .HasColumnType("decimal(65,30)");
+                    b.Property<float>("Bakiye")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
@@ -318,8 +318,8 @@ namespace Cafe_App.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<decimal>("Fiyat")
-                        .HasColumnType("decimal(65,30)");
+                    b.Property<float>("Fiyat")
+                        .HasColumnType("float");
 
                     b.Property<bool>("Gorunurluk")
                         .HasColumnType("tinyint(1)");
@@ -382,14 +382,14 @@ namespace Cafe_App.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<decimal>("OdenenTutar")
-                        .HasColumnType("decimal(65,30)");
+                    b.Property<float>("OdenenTutar")
+                        .HasColumnType("float");
 
                     b.Property<int>("PersonelId")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Tutar")
-                        .HasColumnType("decimal(65,30)");
+                    b.Property<float>("Tutar")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
@@ -499,8 +499,8 @@ namespace Cafe_App.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<decimal>("Fiyat")
-                        .HasColumnType("decimal(65,30)");
+                    b.Property<float>("Fiyat")
+                        .HasColumnType("float");
 
                     b.Property<string>("Fotograf")
                         .IsRequired()
@@ -668,8 +668,8 @@ namespace Cafe_App.Migrations
                     b.Property<bool>("Gorunurluk")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<decimal>("Maas")
-                        .HasColumnType("decimal(65,30)");
+                    b.Property<float>("Maas")
+                        .HasColumnType("float");
 
                     b.Property<string>("Parola")
                         .IsRequired()
@@ -933,7 +933,7 @@ namespace Cafe_App.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Ad")
+                    b.Property<string>("AdSoyad")
                         .IsRequired()
                         .HasColumnType("longtext");
 
@@ -948,15 +948,15 @@ namespace Cafe_App.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("Firma")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<bool>("Gorunurluk")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<DateOnly>("KayitTarihi")
                         .HasColumnType("date");
-
-                    b.Property<string>("Soyad")
-                        .IsRequired()
-                        .HasColumnType("longtext");
 
                     b.Property<string>("Telefon")
                         .IsRequired()

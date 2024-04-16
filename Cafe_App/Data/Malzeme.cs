@@ -11,7 +11,7 @@ public partial class Malzeme
 
     public string Tur { get; set; }
 
-    public decimal Fiyat { get; set; }
+    public float Fiyat { get; set; }
 
 	public bool Gorunurluk { get; set; }
 
