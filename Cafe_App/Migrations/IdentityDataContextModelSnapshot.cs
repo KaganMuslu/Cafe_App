@@ -880,7 +880,7 @@ namespace Cafe_App.Migrations
                     b.Property<int>("MinStok")
                         .HasColumnType("int");
 
-                    b.Property<int>("TedarikciId")
+                    b.Property<int?>("TedarikciId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -1571,9 +1571,7 @@ namespace Cafe_App.Migrations
                 {
                     b.HasOne("Cafe_App.Models.Tedarikci", "Tedarikci")
                         .WithMany("Stoklars")
-                        .HasForeignKey("TedarikciId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TedarikciId");
 
                     b.Navigation("Tedarikci");
                 });

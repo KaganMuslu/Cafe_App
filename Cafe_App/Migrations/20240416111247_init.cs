@@ -548,7 +548,7 @@ namespace Cafe_App.Migrations
                     Miktar = table.Column<int>(type: "int", nullable: false),
                     MinStok = table.Column<int>(type: "int", nullable: false),
                     MaxStok = table.Column<int>(type: "int", nullable: false),
-                    TedarikciId = table.Column<int>(type: "int", nullable: false),
+                    TedarikciId = table.Column<int>(type: "int", nullable: true),
                     Gorunurluk = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     MalzemeId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -559,8 +559,7 @@ namespace Cafe_App.Migrations
                         name: "FK_Stoklar_Tedarikciler_TedarikciId",
                         column: x => x.TedarikciId,
                         principalTable: "Tedarikciler",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 

@@ -13,7 +13,7 @@ public partial class Stok
 
     public int MaxStok { get; set; }
 
-    public int TedarikciId { get; set; }
+    public int? TedarikciId { get; set; }
 
 	public bool Gorunurluk { get; set; }
 
