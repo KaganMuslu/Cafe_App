@@ -25,6 +25,7 @@ public partial class Menu
 
     public bool Akitf { get; set; }
 
+    public int KategoriId { get; set; }
 
-	public bool Gorunurluk { get; set; }
+    public bool Gorunurluk { get; set; }
 }
