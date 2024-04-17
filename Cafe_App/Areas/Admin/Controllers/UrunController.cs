@@ -18,7 +18,8 @@ namespace Cafe_App.Areas.Admin.Controllers
 		public IActionResult Index()
 		{
             ViewBag.Urunler = _context.Urunler.Include(x => x.Kategori).ToList();
-            ViewBag.Kategoriler = _context.Kategoriler.ToList();
+            ViewBag.UrunMalzeme = _context.UrunMalzemeler.Include(x => x.Urun).Include(x => x.Malzeme).ToList();
+			ViewBag.Kategoriler = _context.Kategoriler.ToList();
 			ViewBag.Malzemeler = _context.Malzemeler.ToList();
 
 			return View();
@@ -134,6 +135,7 @@ namespace Cafe_App.Areas.Admin.Controllers
 
 			return RedirectToAction("Index");
 		}
+
 	}
 
 }

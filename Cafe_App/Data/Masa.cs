@@ -19,6 +19,8 @@ public partial class Masa
 
     public int PersonelId { get; set; }
 
+    public int KategoriId { get; set; }
+
 	public bool Gorunurluk { get; set; }
 
 	public ICollection<Musteri> Musterilers { get; set; } = new List<Musteri>();
