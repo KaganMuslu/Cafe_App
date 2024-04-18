@@ -20,7 +20,7 @@ namespace Cafe_App.Areas.Admin.Controllers
             ViewBag.Urunler = _context.Urunler.Include(x => x.Kategori).ToList();
             ViewBag.UrunMalzeme = _context.UrunMalzemeler.Include(x => x.Urun).Include(x => x.Malzeme).ToList();
 			ViewBag.Kategoriler = _context.Kategoriler.ToList();
-			ViewBag.Malzemeler = _context.Malzemeler.ToList();
+			ViewBag.Malzemeler = _context.Malzemeler.Where(x => x.Gorunurluk == true).ToList();
 
 			return View();
 		}
@@ -94,7 +94,6 @@ namespace Cafe_App.Areas.Admin.Controllers
 			}
 
 			var malzemeler = secilenMalzemeler[0];
-			
 
 			JArray malzemeArray = JArray.Parse(malzemeler);
 
@@ -123,6 +122,15 @@ namespace Cafe_App.Areas.Admin.Controllers
 
 					_context.UrunMalzemeler.Add(urunMalzeme);
 				}
+				else if (sorgu.Gorunurluk == false)
+				{
+					sorgu.Miktar = miktar;
+					sorgu.Gorunurluk = true;
+				}
+				else if (sorgu.Miktar != miktar)
+				{
+					sorgu.Miktar = miktar;
+				}
 				else
 				{
 					// Hata gönder bu malzeme zaten ekli!: Malzeme adı
@@ -136,6 +144,21 @@ namespace Cafe_App.Areas.Admin.Controllers
 			return RedirectToAction("Index");
 		}
 
+
+		public IActionResult MalzemeSil(int Id, int malzemeId)
+		{
+			var urunMalzeme = _context.UrunMalzemeler.Where(x => x.UrunId == Id && x.MalzemeId == malzemeId).FirstOrDefault();
+			if (urunMalzeme != null)
+			{
+				urunMalzeme.Gorunurluk = false;
+
+				_context.Update(urunMalzeme);
+				_context.SaveChanges();
+			}
+			// Urune ait malzeme bulunamadı
+
+			return RedirectToAction("Index");
+		}
 	}
 
 }

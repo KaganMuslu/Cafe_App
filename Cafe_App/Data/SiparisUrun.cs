@@ -11,11 +11,17 @@ public partial class SiparisUrun
 
     public int SiparisId { get; set; }
 
+    public int YorumId { get; set; }
+
     public int UrunId { get; set; }
 
-	public bool Gorunurluk { get; set; }
+    public string Detay { get; set; }
+
+    public bool Gorunurluk { get; set; }
 
 	public Siparis Siparis { get; set; } = null!;
 
     public Urun Urun { get; set; } = null!;
+
+    public Yorum? Yorum { get; set; }
 }

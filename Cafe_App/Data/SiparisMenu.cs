@@ -13,6 +13,10 @@ public partial class SiparisMenu
 
     public int SiparisId { get; set; }
 
+    public int YorumId { get; set; }
+
+    public string Detay { get; set; }
+
 	public bool Gorunurluk { get; set; }
 
 	public Menu Menu { get; set; } = null!;

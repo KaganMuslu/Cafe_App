@@ -15,7 +15,9 @@ public partial class TeslimatSiparis
 
     public int MusteriId { get; set; }
 
-	public bool Gorunurluk { get; set; }
+    public int YorumId { get; set; }
+
+    public bool Gorunurluk { get; set; }
 
 	public Musteri? Musteri { get; set; }
 

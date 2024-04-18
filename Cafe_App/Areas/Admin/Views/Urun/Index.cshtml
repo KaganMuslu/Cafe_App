@@ -100,53 +100,7 @@
 
 									<tr>
 										<th><a data-bs-toggle="modal" data-bs-target="#urun_@urun.Id" class="btn btn-success shadow btn-xs sharp me-1" type="button"><i class="fas fa-info"></i></a></th>
-										<div class="modal modal-md fade" id="urun_@urun.Id">
-											<div class="modal-dialog modal-dialog-centered" role="document">
-												<div class="modal-content">
-													<div class="modal-header">
-														<h5 class="modal-title">@urun.Ad Ürün Bilgisi</h5>
-														<button type="button" class="btn-close" data-bs-dismiss="modal">
-														</button>
-													</div>
-
-													<div class="modal-body">
-														<div class="col-xl-6 col-sm-6 mb-3 mb-xl-0">
-														</div>
-
-														<div class="col-xl-6 col-sm-6 mb-3 mb-xl-0">
-															<div class="email-left-box">
-																<div class="mail-list rounded overflow-hidden mt-4">
-																	<h5 style="text-align:center">Malzemeler</h5>
-																	<br>
-
-																	<ul class="list-group list-group-flush">
-																		@foreach (var malzemeBilgi in ViewBag.UrunMalzeme)
-																		{
-																			if (malzemeBilgi.Urun.Id == urun.Id)
-																			{
-																				<li class="list-group-item">
-																					<span class="icon-warning">
-																						<i class="fa-solid fa-wheat"></i>
-																					</span>
-																					@malzemeBilgi.Malzeme.Ad  &nbsp;&nbsp;&nbsp;
-																					<small style="text-align:center">₺@malzemeBilgi.Malzeme.Fiyat</small>
-																				</li>
-																			}
-																		}
-																	</ul>
-
-																</div>
-															</div>
-														</div>
-													</div>
-
-													<div class="modal-footer">
-														<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
-													</div>
-
-												</div>
-											</div>
-										</div>
+										
 
 										<th>@urun.Id</th>
 										<td><div class="d-flex align-items-center"><img src="~/img/@urun.Fotograf" class="rounded-lg me-2" width="24" alt=""> <span class="w-space-no">  @urun.Ad</span></div></td>
@@ -176,6 +130,184 @@
 											}
 										</td>
 									</tr>
+
+									<div class="modal modal-lg fade" id="urun_@urun.Id">
+										<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title">@urun.Ad Ürün Bilgisi</h5>
+													<button type="button" class="btn-close" data-bs-dismiss="modal">
+													</button>
+												</div>
+
+												<div class="modal-body">
+													<div class="row">
+														<div class="col-xl-6 col-sm-6 mb-3 mb-xl-0">
+
+															<div class="card">
+																<div class="card-header">
+																	<h4 class="card-title">@urun.Ad</h4>
+																</div>
+																<div class="card-body">
+
+																	<div class="row">
+																		<div class="col-lg-12 order-lg-12 mb-4">
+																			<ul class="list-group list-group-flush mb-3">
+
+																				<li class="list-group-item d-flex justify-content-between lh-condensed">
+																					<div>
+																						<h6 class="my-1">
+																							<span class="icon-warning">
+																								<i class="fa-solid fa-text"></i>
+																							</span>
+																							Ürün Ad
+																						</h6>
+																					</div>
+																					<span class="text-muted">@urun.Ad</span>
+																				</li>
+																				<li class="list-group-item d-flex justify-content-between lh-condensed">
+																					<div>
+																						<h6 class="my-1">
+																							<span class="icon-warning">
+																								<i class="fa-solid fa-quote-right"></i>
+																							</span>
+																							Ürün Açıklama
+																						</h6>
+																					</div>
+																					<span class="text-muted">@urun.Aciklama</span>
+																				</li>
+																				<li class="list-group-item d-flex justify-content-between lh-condensed">
+																					<div>
+																						<h6 class="my-1">
+																							<span class="icon-warning">
+																								<i class="fa-solid fa-square-info"></i>
+																							</span>
+																							Ürün Detay
+																						</h6>
+																					</div>
+																					<span class="text-muted">@urun.Detay</span>
+																				</li>
+																				<li class="list-group-item d-flex justify-content-between lh-condensed">
+																					<div>
+																						<h6 class="my-1">
+																							<span class="icon-warning">
+																								<i class="fa-regular fa-list"></i>
+																							</span>
+																							Ürün Kategori
+																						</h6>
+																					</div>
+																					<span class="text-muted">@urun.Kategori.Ad</span>
+																				</li>
+																				<li class="list-group-item d-flex justify-content-between lh-condensed">
+																					<div>
+																						<h6 class="my-1">
+																							<span class="icon-warning">
+																								<i class="fa-regular fa-money-bill"></i>
+																							</span>
+																							Ürün Fiyat
+																						</h6>
+																					</div>
+																					<span class="text-muted">₺@urun.Fiyat</span>
+																				</li>
+																				<li class="list-group-item d-flex justify-content-between lh-condensed">
+																					<div>
+																						<h6 class="my-1">
+																							<span class="icon-warning">
+																								<i class="fa-sharp fa-solid fa-badge-percent"></i>
+																							</span>
+																							Ürün İndirimli Fiyat
+																						</h6>
+																					</div>
+																					<span class="text-muted">₺@(urun.Fiyat - urun.IndirimliFiyat)</span>
+																				</li>
+																				<li class="list-group-item d-flex justify-content-between lh-condensed">
+																					<div>
+																						<h6 class="my-1">
+																							<span class="icon-warning">
+																								<i class="fa-regular fa-wave-pulse"></i>
+																							</span>
+																							Ürün Aktiflik
+																						</h6>
+																					</div>
+																					<span class="text-muted">@urun.Akitf</span>
+																				</li>
+																				<li class="list-group-item d-flex justify-content-between lh-condensed">
+																					<div>
+																						<h6 class="my-1">
+																							<span class="icon-warning">
+																								<i class="fa-solid fa-eye-slash"></i>
+																							</span>
+																							Ürün Görünürlük
+																						</h6>
+																					</div>
+																					@if (urun.Gorunurluk == true)
+																					{
+																						<span style="color:LimeGreen; font-weight:bold">Görünür</span>
+																					}
+																					else
+																					{
+																						<span style="color:FireBrick; font-weight:bold">Görünmez</span>
+																					}
+																				</li>
+																				
+																			</ul>
+																		</div>
+
+																	</div>
+																</div>
+															</div>
+
+														</div>
+
+														<div class="col-xl-6 col-sm-6 mb-3 mb-xl-0">
+
+															<div class="card">
+																<div class="card-header">
+																	<h4 class="card-title">Malzemeler (@ViewBag.UrunMalzeme.Count)</h4>
+																</div>
+																<div class="card-body">
+
+																	<div class="row">
+																		<div class="col-lg-12 order-lg-12 mb-4">
+																			<ul class="list-group list-group-flush mb-3">
+																				@foreach (var malzemeBilgi in ViewBag.UrunMalzeme)
+																					{
+																						if (malzemeBilgi.Urun.Id == urun.Id && malzemeBilgi.Gorunurluk == true)
+																						{
+
+																							<li class="list-group-item d-flex justify-content-between lh-condensed">
+																								<div>
+																									<h6 class="my-0">
+																										<span class="icon-warning">
+																											<i class="fa-solid fa-wheat"></i>
+																										</span>
+																										@malzemeBilgi.Malzeme.Ad
+																									</h6>
+																									<small class="text-muted">₺@malzemeBilgi.Malzeme.Fiyat</small>
+																									<small class="text-muted"> | @malzemeBilgi.Miktar @malzemeBilgi.Malzeme.Tur</small>
+																								</div>
+																							<span class="text-muted"><a asp-action="MalzemeSil" asp-route-id="@urun.Id" asp-route-malzemeId="@malzemeBilgi.Malzeme.Id" class=" btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa-solid fa-trash"></i></a></span>
+																							</li>
+																						}
+																					}
+																			</ul>
+																		</div>
+
+																	</div>
+																</div>
+															</div>
+
+														</div>
+													</div>
+												</div>
+
+												<div class="modal-footer">
+													<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
+												</div>
+
+											</div>
+										</div>
+									</div>
 								}
 
 							</tbody>

@@ -378,6 +378,9 @@ namespace Cafe_App.Migrations
                     b.Property<int>("Kapasite")
                         .HasColumnType("int");
 
+                    b.Property<int>("KategoriId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Kod")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -517,6 +520,9 @@ namespace Cafe_App.Migrations
 
                     b.Property<float>("IndirimliFiyat")
                         .HasColumnType("float");
+
+                    b.Property<int>("KategoriId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

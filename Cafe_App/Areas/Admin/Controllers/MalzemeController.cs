@@ -61,18 +61,28 @@ namespace Cafe_App.Areas.Admin.Controllers
 
 		public IActionResult MalzemeSil(int Id)
 		{
-			var urun = _context.Malzemeler.FirstOrDefault(x => x.Id == Id);
-			if (urun != null)
+			var malzeme = _context.Malzemeler.FirstOrDefault(x => x.Id == Id);
+			if (malzeme != null)
 			{
-				if (urun.Gorunurluk == true)
+				if (malzeme.Gorunurluk == true)
 				{
-					urun.Gorunurluk = false;
+					malzeme.Gorunurluk = false;
+					var malzemeUrunler = _context.UrunMalzemeler.Where(x => x.MalzemeId == Id).ToList();
+					foreach (var malzemeUrun in malzemeUrunler)
+					{
+						malzemeUrun.Gorunurluk = false;
+					}
 				}
 				else
 				{
-					urun.Gorunurluk = true;
+					malzeme.Gorunurluk = true;
+					var malzemeUrunler = _context.UrunMalzemeler.Where(x => x.MalzemeId == Id).ToList();
+					foreach (var malzemeUrun in malzemeUrunler)
+					{
+						malzemeUrun.Gorunurluk = true;
+					}
 				}
-				_context.Update(urun);
+				_context.Update(malzeme);
 				_context.SaveChanges();
 			}
 

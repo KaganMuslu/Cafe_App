@@ -118,6 +118,7 @@ namespace Cafe_App.Migrations
                     Fotograf = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Akitf = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    KategoriId = table.Column<int>(type: "int", nullable: false),
                     Gorunurluk = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
@@ -500,6 +501,7 @@ namespace Cafe_App.Migrations
                     Tutar = table.Column<float>(type: "float", nullable: false),
                     OdenenTutar = table.Column<float>(type: "float", nullable: false),
                     PersonelId = table.Column<int>(type: "int", nullable: false),
+                    KategoriId = table.Column<int>(type: "int", nullable: false),
                     Gorunurluk = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>

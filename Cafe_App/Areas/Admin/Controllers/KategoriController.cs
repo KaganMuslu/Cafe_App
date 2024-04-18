@@ -1,5 +1,6 @@
 ﻿using Cafe_App.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cafe_App.Areas.Admin.Controllers
 {
@@ -14,6 +15,7 @@ namespace Cafe_App.Areas.Admin.Controllers
 
 		public IActionResult Index()
 		{
+			ViewBag.Kategoriler = _context.Kategoriler.ToList();
 			ViewBag.urunGruplari = _context.Urunler
 				.Join(_context.Kategoriler,
 					urun => urun.KategoriId,
@@ -50,6 +52,43 @@ namespace Cafe_App.Areas.Admin.Controllers
 			ViewBag.Kategoriler = _context.Kategoriler.ToList();
 			return RedirectToAction("Index");
 		}
+
+		public IActionResult KategoriSil(int Id)
+		{
+			var kategori = _context.Kategoriler.FirstOrDefault(x => x.Id == Id);
+			if (kategori != null)
+			{
+				if (kategori.Gorunurluk == true)
+				{
+					kategori.Gorunurluk = false;
+				}
+				else
+				{
+					kategori.Gorunurluk = true;
+				}
+				_context.Update(kategori);
+				_context.SaveChanges();
+			}
+
+			return RedirectToAction("Index");
+		}
+
+		public IActionResult KategoriGuncelle(int Id) // MODAL YAPILABİLİR
+		{
+			var kategori = _context.Kategoriler.FirstOrDefault(x => x.Id == Id);
+
+			return View(kategori);
+		}
+
+		[HttpPost]
+		public IActionResult KategoriGuncelle(Kategori model)
+		{
+			_context.Update(model);
+			_context.SaveChanges();
+
+			return RedirectToAction("Index");
+		}
+
 
 		public IActionResult UrunSil(int Id)
 		{
