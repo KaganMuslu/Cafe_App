@@ -21,7 +21,7 @@ public partial class Urun
 
     public DateOnly IndirimTarihi { get; set; }
 
-    public string Fotograf { get; set; }
+    public string? Fotograf { get; set; }
 
     public bool Akitf { get; set; }
 

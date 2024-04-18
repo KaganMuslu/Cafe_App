@@ -37,8 +37,9 @@ namespace Cafe_App.Areas.Admin.Controllers
         public async Task<IActionResult> PersonelEkle(Personel model, IFormFile? file)
         {
 			ViewBag.roller = _context.Roller.ToList();
+			ViewBag.Kategoriler = _context.Kategoriler.ToList();
 
-            if (ModelState.IsValid && model.RolId != 0)
+			if (ModelState.IsValid && model.RolId != 0)
             {
                 
                 if (file != null)

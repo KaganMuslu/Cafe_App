@@ -343,7 +343,7 @@
 				</button>
 			</div>
 
-			<form asp-action="Index" class="needs-validation " method="post">
+			<form asp-action="Index" enctype="multipart/form-data" class="needs-validation" method="post">
 				<div class="modal-body">
 					<div style="margin-bottom:14px" class="row">
 						<div class="form-floating col-md-6 mb-3">
@@ -378,8 +378,8 @@
 					</div>
 					<div style="margin-bottom:14px" class="row">
 						<div class="form-floating col-md-6 mb-3">
-							<input id="Fotograf" asp-for="Fotograf" type="text" class="form-control" placeholder="" required="">
-							<label for="Fotograf" class="form-label">&nbsp;&nbsp;&nbsp;Ürün Fotoğraf</label>
+							<label for="formFile" class="form-label">&nbsp;&nbsp;&nbsp;Ürün Fotoğraf</label>
+							<input asp-for="Fotograf" id="formFile" class="form-control" name="file" type="file">
 							<div class="invalid-feedback">
 								Zorunlu Alan
 							</div>
@@ -526,6 +526,13 @@
 				});
 			});
 		});
+
+		// Fotoğraf
+		document.querySelector("#formFile").onchange = function () {
+			const fileName = this.files[0]?.name;
+			const label = document.querySelector("label[for=formFile]");
+			label.innerText = fileName ?? "Fotoğraf Yükle";
+		};
 
 
 

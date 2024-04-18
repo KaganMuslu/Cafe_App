@@ -791,7 +791,7 @@ namespace Cafe_App.Migrations
                     b.Property<decimal>("Tutar")
                         .HasColumnType("decimal(65,30)");
 
-                    b.Property<int>("YorumId")
+                    b.Property<int?>("YorumId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -813,6 +813,10 @@ namespace Cafe_App.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Detay")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<bool>("Gorunurluk")
                         .HasColumnType("tinyint(1)");
 
@@ -823,6 +827,9 @@ namespace Cafe_App.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("SiparisId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("YorumId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -842,6 +849,10 @@ namespace Cafe_App.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Detay")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<bool>("Gorunurluk")
                         .HasColumnType("tinyint(1)");
 
@@ -854,11 +865,16 @@ namespace Cafe_App.Migrations
                     b.Property<int>("UrunId")
                         .HasColumnType("int");
 
+                    b.Property<int>("YorumId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("SiparisId");
 
                     b.HasIndex("UrunId");
+
+                    b.HasIndex("YorumId");
 
                     b.ToTable("SiparisUrunler");
                 });
@@ -1060,6 +1076,9 @@ namespace Cafe_App.Migrations
                     b.Property<int>("TeslimatId")
                         .HasColumnType("int");
 
+                    b.Property<int>("YorumId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("MusteriId");
@@ -1098,7 +1117,6 @@ namespace Cafe_App.Migrations
                         .HasColumnType("float");
 
                     b.Property<string>("Fotograf")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<bool>("Gorunurluk")
@@ -1167,6 +1185,9 @@ namespace Cafe_App.Migrations
                     b.Property<int>("Begenme")
                         .HasColumnType("int");
 
+                    b.Property<int>("Durum")
+                        .HasColumnType("int");
+
                     b.Property<bool>("Gorunurluk")
                         .HasColumnType("tinyint(1)");
 
@@ -1176,9 +1197,6 @@ namespace Cafe_App.Migrations
 
                     b.Property<int>("MusteriId")
                         .HasColumnType("int");
-
-                    b.Property<bool>("Onay")
-                        .HasColumnType("tinyint(1)");
 
                     b.Property<int>("Puan")
                         .HasColumnType("int");
@@ -1409,7 +1427,7 @@ namespace Cafe_App.Migrations
             modelBuilder.Entity("Cafe_App.Models.MasaOzellik", b =>
                 {
                     b.HasOne("Cafe_App.Models.Masa", "Masa")
-                        .WithMany()
+                        .WithMany("MasaOzelliks")
                         .HasForeignKey("MasaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1522,17 +1540,13 @@ namespace Cafe_App.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Cafe_App.Models.Yorum", "Yorum")
+                    b.HasOne("Cafe_App.Models.Yorum", null)
                         .WithMany("Siparislers")
-                        .HasForeignKey("YorumId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("YorumId");
 
                     b.Navigation("Kasa");
 
                     b.Navigation("Mutfak");
-
-                    b.Navigation("Yorum");
                 });
 
             modelBuilder.Entity("Cafe_App.Models.SiparisMenu", b =>
@@ -1568,9 +1582,17 @@ namespace Cafe_App.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Cafe_App.Models.Yorum", "Yorum")
+                        .WithMany()
+                        .HasForeignKey("YorumId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Siparis");
 
                     b.Navigation("Urun");
+
+                    b.Navigation("Yorum");
                 });
 
             modelBuilder.Entity("Cafe_App.Models.Stok", b =>
@@ -1775,6 +1797,8 @@ namespace Cafe_App.Migrations
 
             modelBuilder.Entity("Cafe_App.Models.Masa", b =>
                 {
+                    b.Navigation("MasaOzelliks");
+
                     b.Navigation("Musterilers");
                 });
 

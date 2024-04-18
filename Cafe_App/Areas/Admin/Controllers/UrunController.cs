@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
+using System;
 
 namespace Cafe_App.Areas.Admin.Controllers
 {
@@ -26,12 +27,35 @@ namespace Cafe_App.Areas.Admin.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult Index(Urun model)
+		public async Task<IActionResult> Index(Urun model, IFormFile? file)
 		{
-            ViewBag.Urunler = _context.Urunler.ToList();
+			ViewBag.Urunler = _context.Urunler.ToList();
 
 			if (ModelState.IsValid && model.KategoriId != 0)
 			{
+				if (file != null)
+				{
+					var uzanti = new[] { ".jpg", ".jpeg", ".png" };
+					var resimuzanti = Path.GetExtension(file.FileName);
+					if (!uzanti.Contains(resimuzanti))
+					{
+						ModelState.AddModelError("OgrenciFotograf", "Geçerli bir fotoğraf formatı seçiniz. *jpg,jpeg,png");
+						return View(model);
+					}
+				}
+				else
+				{
+					ModelState.AddModelError("OgrenciFotograf", "Fotoğraf boş olamaz");
+					return View(model);
+				}
+
+				var fotografRandom = string.Format($"{Guid.NewGuid().ToString()}{Path.GetExtension(file.FileName)}");
+				var resimyolu = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", fotografRandom);
+				using (var stream = new FileStream(resimyolu, FileMode.Create))
+				{
+					await file.CopyToAsync(stream);
+				}
+				model.Fotograf = fotografRandom;
 
 				if (model.Id == 0)
 				{
