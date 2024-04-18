@@ -14,7 +14,8 @@ namespace Cafe_App.Areas.Admin.Controllers
 
         public IActionResult Index()
 		{
-            ViewBag.personelRolGrup = _context.Personeller
+			ViewBag.Roller = _context.Roller.ToList();
+			ViewBag.personelRolGrup = _context.Personeller
 									.Join(_context.Roller, // Roller tablosu ile birleştirme
 										personel => personel.RolId, // Personel tablosundaki RolId alanı
 										rol => rol.Id, // Rol tablosundaki Id alanı

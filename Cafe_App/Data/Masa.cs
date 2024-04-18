@@ -25,5 +25,7 @@ public partial class Masa
 
 	public ICollection<Musteri> Musterilers { get; set; } = new List<Musteri>();
 
+	public ICollection<MasaOzellik> MasaOzelliks { get; set; } = new List<MasaOzellik>();
+
     public Personel? Personel { get; set; }
 }

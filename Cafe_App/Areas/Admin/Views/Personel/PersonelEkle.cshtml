@@ -98,7 +98,8 @@
                                             </div>
                                         </div>
                                         <div class="col-md-4 mb-3">
-                                            <label class="form-label">Rol</label>
+                                            <label class="form-label">Rol </label>
+                                            <a data-bs-toggle="modal" data-bs-target="#rolModal" class="btn btn-success shadow btn-xs sharp me-1" type="button"><i class="fas fa-add"></i></a>
                                             <select asp-for="RolId" class="default-select form-control wide w-100 required">
                                                 <option disabled="disabled" selected>Rol</option>
                                                 @foreach (var item in ViewBag.roller)
@@ -207,6 +208,44 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="rolModal">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Rol Ekle</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal">
+                </button>
+            </div>
+
+            <form asp-controller="Rol" asp-action="Index" class="needs-validation" method="post">
+                <div class="modal-body">
+                    <div style="margin-bottom:9px" class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Rol Adı</label>
+                            <input asp-for="Ad" type="text" class="form-control" placeholder="" required="">
+                            <input asp-for="Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
+                            <div class="invalid-feedback">
+                                Zorunlu Alan
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Ekstra Bilgi</label>
+                            <input type="text" class="form-control" placeholder="" value="" @* required="" *@>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
+                    <button type="submit" class="btn btn-primary">Kaydet</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
 
 
 

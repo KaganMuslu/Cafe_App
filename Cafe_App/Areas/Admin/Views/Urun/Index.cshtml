@@ -242,11 +242,11 @@
 																					</div>
 																					@if (urun.Gorunurluk == true)
 																					{
-																						<span style="color:LimeGreen; font-weight:bold">Görünür</span>
+																						<span class="text-success" style="font-weight:bold">Görünür</span>
 																					}
 																					else
 																					{
-																						<span style="color:FireBrick; font-weight:bold">Görünmez</span>
+																						<span class="text-danger" style="font-weight:bold">Görünmez</span>
 																					}
 																				</li>
 																				
@@ -283,8 +283,9 @@
 																										</span>
 																										@malzemeBilgi.Malzeme.Ad
 																									</h6>
-																									<small class="text-muted">₺@malzemeBilgi.Malzeme.Fiyat</small>
-																									<small class="text-muted"> | @malzemeBilgi.Miktar @malzemeBilgi.Malzeme.Tur</small>
+																									<small class="text-success">₺@malzemeBilgi.Malzeme.Fiyat</small>
+																									<small class="text-muted"> | </small>
+																									<small class="text-danger">@malzemeBilgi.Miktar @malzemeBilgi.Malzeme.Tur</small>
 																								</div>
 																							<span class="text-muted"><a asp-action="MalzemeSil" asp-route-id="@urun.Id" asp-route-malzemeId="@malzemeBilgi.Malzeme.Id" class=" btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa-solid fa-trash"></i></a></span>
 																							</li>
