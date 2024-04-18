@@ -54,12 +54,12 @@
 							</thead>
 							<tbody>
 
-								@foreach (var kategori in ViewBag.Roller)
+								@foreach (var rol in ViewBag.Roller)
 								{
 									<tr>
-										<th>@kategori.Id</th>
-										<td><div class="d-flex align-items-center"><span class="w-space-no">@kategori.Ad</span></div></td>
-										@if (kategori.Gorunurluk == true)
+										<th>@rol.Id</th>
+										<td><div class="d-flex align-items-center"><span class="w-space-no">@rol.Ad</span></div></td>
+										@if (rol.Gorunurluk == true)
 										{
 											<td class="recent-stats"><i class="fa fa-circle text-success me-1"></i>Görünür</td>
 										}
@@ -68,14 +68,14 @@
 											<td class="recent-stats"><i class="fa fa-circle text-danger me-1"></i>Görünmez</td>
 										}
 										<td>
-											<a asp-action="KategoriGuncelle" asp-route-id="@kategori.Id" class="btn btn-primary shadow btn-xs sharp rounded-circle me-1"><i class="fa fa-pencil"></i></a>
-											@if (kategori.Gorunurluk == true)
+											<a asp-action="RolGuncelle" asp-route-id="@rol.Id" class="btn btn-primary shadow btn-xs sharp rounded-circle me-1"><i class="fa fa-pencil"></i></a>
+											@if (rol.Gorunurluk == true)
 											{
-												<a asp-action="KategoriSil" asp-route-id="@kategori.Id" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa-solid fa-trash"></i></a>
+												<a asp-action="RolSil" asp-route-id="@rol.Id" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa-solid fa-trash"></i></a>
 											}
 											else
 											{
-												<a asp-action="KategoriSil" asp-route-id="@kategori.Id" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa fa-trash-undo"></i></a>
+												<a asp-action="RolSil" asp-route-id="@rol.Id" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa fa-trash-undo"></i></a>
 											}
 										</td>
 									</tr>

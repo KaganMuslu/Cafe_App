@@ -56,6 +56,42 @@ namespace Cafe_App.Areas.Admin.Controllers
 			return RedirectToAction("Index");
 		}
 
+		public IActionResult RolSil(int Id)
+		{
+			var rol = _context.Roller.FirstOrDefault(x => x.Id == Id);
+			if (rol != null)
+			{
+				if (rol.Gorunurluk == true)
+				{
+					rol.Gorunurluk = false;
+				}
+				else
+				{
+					rol.Gorunurluk = true;
+				}
+				_context.Update(rol);
+				_context.SaveChanges();
+			}
+
+			return RedirectToAction("Index");
+		}
+
+		public IActionResult RolGuncelle(int Id) // MODAL YAPILABİLİR
+		{
+			var rol = _context.Roller.FirstOrDefault(x => x.Id == Id);
+
+			return View(rol);
+		}
+
+		[HttpPost]
+		public IActionResult RolGuncelle(Rol model)
+		{
+			_context.Update(model);
+			_context.SaveChanges();
+
+			return RedirectToAction("Index");
+		}
+
 		public IActionResult PersonelSil(int Id)
 		{
 			var personel = _context.Personeller.FirstOrDefault(x => x.Id == Id);
