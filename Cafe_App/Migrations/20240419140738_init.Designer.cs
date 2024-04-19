@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cafe_App.Migrations
 {
     [DbContext(typeof(IdentityDataContext))]
-    [Migration("20240419094051_init")]
+    [Migration("20240419140738_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -911,6 +911,9 @@ namespace Cafe_App.Migrations
                     b.Property<decimal>("AlısFiyati")
                         .HasColumnType("decimal(65,30)");
 
+                    b.Property<bool>("Gorunurluk")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<int>("MalzemeId")
                         .HasColumnType("int");
 
@@ -1577,11 +1580,9 @@ namespace Cafe_App.Migrations
 
             modelBuilder.Entity("Cafe_App.Models.Stok", b =>
                 {
-                    b.HasOne("Cafe_App.Models.Tedarikci", "Tedarikci")
+                    b.HasOne("Cafe_App.Models.Tedarikci", null)
                         .WithMany("Stoklars")
                         .HasForeignKey("TedarikciId");
-
-                    b.Navigation("Tedarikci");
                 });
 
             modelBuilder.Entity("Cafe_App.Models.StokGirdi", b =>

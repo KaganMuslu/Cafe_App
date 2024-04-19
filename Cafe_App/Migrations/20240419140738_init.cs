@@ -559,9 +559,9 @@ namespace Cafe_App.Migrations
                     Miktar = table.Column<int>(type: "int", nullable: false),
                     MinStok = table.Column<int>(type: "int", nullable: false),
                     MaxStok = table.Column<int>(type: "int", nullable: false),
-                    TedarikciId = table.Column<int>(type: "int", nullable: true),
                     Gorunurluk = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    MalzemeId = table.Column<int>(type: "int", nullable: false)
+                    MalzemeId = table.Column<int>(type: "int", nullable: false),
+                    TedarikciId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -829,7 +829,8 @@ namespace Cafe_App.Migrations
                     AlısFiyati = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     MalzemeId = table.Column<int>(type: "int", nullable: false),
                     Tarih = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    TedarikciId = table.Column<int>(type: "int", nullable: false)
+                    TedarikciId = table.Column<int>(type: "int", nullable: false),
+                    Gorunurluk = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {

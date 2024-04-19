@@ -2,6 +2,283 @@
 @{
     ViewData["Title"] = "Index";
 }
+@model StokGirdi
 
-<h1>Stok Index</h1>
+<!-- CSS Ekstralar -->
+<head>
+	<link href="~/admin_panel/vendor/bootstrap-datepicker-master/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+	<link href="~/admin_panel/vendor/select2/css/select2.min.css" rel="stylesheet" />
+	<link href="~/admin_panel/vendor/datatables/css/jquery.datatables.min.css" rel="stylesheet" />
+</head>
+
+<div class="content-body">
+	<div class="container-fluid">
+		<!-- Row -->
+
+		<div class="form-head d-flex mb-3 align-items-start">
+			<div class="me-auto d-none d-lg-block">
+				<h2 class="text-primary font-w600 mb-0">Cafe App Menü</h2>
+				<p class="mb-0">Cafe App Menü Yönetim Ekranına Hoşgeldiniz!</p>
+			</div>
+
+			<a data-bs-toggle="modal" data-bs-target="#stokGirdiModal" style="width:max-content; display: inline-block; vertical-align: middle;" type="button" class="btn btn-rounded btn-primary">
+				<span class="btn-icon-start text-primary">
+					<i class="fa fa-user-plus color-primary"></i>
+				</span>Menü Ekle
+			</a>
+		</div>
+		<br>
+
+		<div class="filter cm-content-box box-primary">
+			<div class="content-title">
+				<div class="cpa">
+					<i class="fa-solid fa-filter me-2"></i>Filtrele
+				</div>
+				<div class="tools">
+					<a href="javascript:void(0);" class="expand SlideToolHeader"><i class="fal fa-angle-down"></i></a>
+				</div>
+			</div>
+			<div class="cm-content-body form excerpt">
+				<div class="card-body">
+					<div class="row">
+						<div class="col-xl-3 col-sm-6">
+							<input type="text" class="form-control mb-3 mb-xl-0" id="exampleFormControlInput1" placeholder="Ürün Adı">
+						</div>
+						<div class="col-xl-3 col-sm-6 mb-3 mb-xl-0">
+							<select class="default-select dashboard-select-2 wide w-100">
+								<option selected>Personel Rolü</option>
+								<option value="1">Published</option>
+								<option value="2">Draft</option>
+								<option value="3">Trash</option>
+								<option value="4">Private</option>
+								<option value="5">Pending</option>
+							</select>
+						</div>
+						<div class="col-xl-3 col-sm-6">
+							<input id="datepicker" class=" form-control mb-3 mb-xl-0">
+						</div>
+						<div class="col-xl-3 col-sm-6">
+							<button class="btn btn-primary" title="Aramak İçin Tıklayın" type="button"><i class="fa fa-search me-1"></i>Filtrele</button>
+							<button class="btn btn-danger light" title="Filtreyi Kaldırmak İçin Tıklayın" type="button">Kaldır</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="filter cm-content-box box-primary">
+			<div class="content-title">
+				<div class="cpa">
+					<i class="fa-solid fa-file-lines me-1"></i>Stok Listesi
+				</div>
+				<div class="tools">
+					<a href="javascript:void(0);" class="expand SlideToolHeader"><i class="fal fa-angle-down"></i></a>
+				</div>
+			</div>
+			<div class="cm-content-body form excerpt">
+				<div class="card-body">
+					<div class="table-responsive">
+
+						<table class="table table-responsive-sm mb-0">
+							<thead>
+								<tr>
+									<th><strong>Id</strong></th>
+									<th><strong>Malzeme Ad</strong></th>
+									<th><strong>Alış FİYATI</strong></th>
+									<th><strong>Miktar</strong></th>
+									<th><strong>SON STOK MiKTARI</strong></th>
+									<th><strong>TARİH</strong></th>
+									<th><strong>TEDARİKÇİ FİRMA</strong></th>
+									<th><strong>TEDARİKÇİ E-POSTA</strong></th>
+									<th><strong>GÖRÜNÜRLÜK</strong></th>
+									<th width="12%"><strong>İşlemler</strong></th>
+								</tr>
+							</thead>
+							<tbody>
+
+								@foreach (var stok in ViewBag.StokGirdi)
+								{
+
+									<tr>
+										<th>@stok.Id</th>
+										<td>@stok.Malzeme?.Ad</td>
+										<td>₺@stok.AlısFiyati</td>
+										<td>@stok.Miktar</td>
+										<td>@stok.SonStokMiktari</td>
+										<td>@stok.Tarih</td>
+										<td>@stok.Tedarikci?.Firma</td>
+										<td>@stok.Tedarikci?.Eposta</td>
+										@if (stok.Gorunurluk == true)
+										{
+											<td class="recent-stats"><i class="fa fa-circle text-success me-1"></i>Görünür</td>
+										}
+										else
+										{
+											<td class="recent-stats"><i class="fa fa-circle text-danger me-1"></i>Görünmez</td>
+										}
+										<td>
+											<a asp-action="StokGuncelle" asp-route-id="@stok.Id" class="btn btn-primary shadow btn-xs sharp rounded-circle me-1"><i class="fa fa-pencil"></i></a>
+											@if (stok.Gorunurluk == true)
+											{
+												<a asp-action="StokSil" asp-route-id="@stok.Id" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa-solid fa-trash"></i></a>
+											}
+											else
+											{
+												<a asp-action="StokSil" asp-route-id="@stok.Id" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa fa-trash-undo"></i></a>
+											}
+										</td>
+									</tr>
+
+								}
+
+							</tbody>
+						</table>
+
+					</div>
+					<div class="d-flex align-items-center justify-content-xl-between flex-wrap justify-content-center mt-3">
+						<small>3 sayfa içerisinden 1 numaralı sayfa gösteriliyor</small>
+						<nav aria-label="Page navigation example">
+							<ul class="pagination mb-2 mb-sm-0">
+								<li class="page-item"><a class="page-link" href="javascript:void(0);"><i class="fa-solid fa-angle-left"></i></a></li>
+								<li class="page-item"><a class="page-link" href="javascript:void(0);">1</a></li>
+								<li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
+								<li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
+								<li class="page-item"><a class="page-link " href="javascript:void(0);"><i class="fa-solid fa-angle-right"></i></a></li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal modal-lg fade" id="stokGirdiModal">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Stok Girdi Ekle</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal">
+				</button>
+			</div>
+
+			<form asp-action="Index" enctype="multipart/form-data" class="needs-validation" method="post">
+				<div class="modal-body">
+					<div style="margin-bottom:14px" class="row">
+						<div class="col-md-6 mb-3">
+							<select id="MalzemeId" asp-for="MalzemeId" class="default-select form-control wide w-100 required">
+								<option selected>Malzeme Ad</option>
+								@foreach (var item in ViewBag.Malzemeler)
+								{
+									<option value="@item.Id">@item.Ad</option>
+								}
+							</select>
+							<div class="valid-feedback">Valid.</div>
+							<div class="invalid-feedback">Please fill out this field.</div>
+						</div>
+						<div class="col-md-6 mb-3">
+							<select id="TedarikciId" asp-for="TedarikciId" class="default-select form-control wide w-100 required">
+								<option selected>Tedarikçi Firma</option>
+								@foreach (var item in ViewBag.Tedarikciler)
+								{
+									<option value="@item.Id">@item.Firma</option>
+								}
+							</select>
+							<div class="invalid-feedback">
+								Zorunlu Alan
+							</div>
+						</div>
+					</div>
+					<div style="margin-bottom:14px" class="row">
+						<div class="form-floating col-md-6 mb-3">
+							<input id="Miktar" asp-for="Miktar" type="number" class="form-control" placeholder="" required="">
+							<label for="Miktar" class="form-label">&nbsp;&nbsp;&nbsp;Miktar</label>
+							<div class="invalid-feedback">
+								Zorunlu Alan
+							</div>
+						</div>
+						<div class="form-floating col-md-6 mb-3">
+							<input id="SonStokMiktari" asp-for="SonStokMiktari" type="number" class="form-control" placeholder="" required="">
+							<label for="SonStokMiktari" class="form-label">&nbsp;&nbsp;&nbsp;Son Stok Miktarı</label>
+							<div class="invalid-feedback">
+								Zorunlu Alan
+							</div>
+						</div>
+					</div>
+					<div style="margin-bottom:14px" class="row">
+						<div class="col-md-6 mb-3">
+							<input id="AlısFiyati" asp-for="AlısFiyati" type="number" class="form-control" placeholder="" required="">
+							<label for="AlısFiyati" class="form-label">&nbsp;&nbsp;&nbsp;Alış Fiyatı</label>
+							<div class="invalid-feedback">
+								Zorunlu Alan
+							</div>
+						</div>
+						<div class="col-md-6 mb-3">
+							<label class="form-label">Alış Tarihi</label>
+							<input style="text-align:center" asp-for="Tarih" id="datepicker" class=" form-control mb-3 mb-xl-0" required>
+							<div class="invalid-feedback">
+								Zorunlu Alan
+							</div>
+						</div>
+					</div>
+					<input asp-for="Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
+					<button type="submit" class="btn btn-primary">Kaydet</button>
+				</div>
+			</form>
+
+		</div>
+	</div>
+</div>
+
+
+<!-- JS Ekstralar -->
+@section Scripts
+{
+	<script src="~/admin_panel/vendor/bootstrap-datepicker-master/js/bootstrap-datepicker.min.js"></script>
+	<script src="~/admin_panel/vendor/select2/js/select2.full.min.js"></script>
+	<script src="~/admin_panel/js/dashboard/cms.js"></script>
+	<script src="~/admin_panel/vendor/ckeditor/ckeditor.js"></script>
+	<script src="~/admin_panel/vendor/datatables/js/jquery.datatables.min.js"></script>
+
+	<script>
+		$(function () {
+			$("#datepicker").datepicker({
+				language: 'tr',
+				format: 'dd/mm/yyyy',
+				autoclose: true,
+				todayHighlight: true
+			}).datepicker('update', new Date());
+
+		});
+
+		$(document).ready(function () {
+
+
+			// JavaScript kullanarak inputları göster/gizle
+			document.querySelectorAll('.toggleInput').forEach(function (checkbox) {
+				checkbox.addEventListener('change', function () {
+					var input = this.closest('.timeline-panel').querySelector('input[type="text"]');
+					if (this.checked) {
+						input.style.display = 'block';
+					} else {
+						input.style.display = 'none';
+					}
+				});
+			});
+		});
+
+		// Fotoğraf
+		document.querySelector("#formFile").onchange = function () {
+			const fileName = this.files[0]?.name;
+			const label = document.querySelector("label[for=formFile]");
+			label.innerText = fileName ?? "Fotoğraf Yükle";
+		};
+
+
+
+	</script>
+}
 
