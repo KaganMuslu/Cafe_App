@@ -21,11 +21,13 @@ public partial class Menu
 
 	public string Detay { get; set; }
 
-    public string Fotograf { get; set; }
+    public string? Fotograf { get; set; }
 
     public bool Akitf { get; set; }
 
     public int KategoriId { get; set; }
 
     public bool Gorunurluk { get; set; }
+
+	public Kategori? Kategori { get; set; }
 }

@@ -487,7 +487,6 @@ namespace Cafe_App.Migrations
                         .HasColumnType("float");
 
                     b.Property<string>("Fotograf")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<bool>("Gorunurluk")
@@ -507,6 +506,8 @@ namespace Cafe_App.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("KategoriId");
+
                     b.ToTable("Menuler");
                 });
 
@@ -522,6 +523,9 @@ namespace Cafe_App.Migrations
                         .HasColumnType("tinyint(1)");
 
                     b.Property<int>("MenuId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Miktar")
                         .HasColumnType("int");
 
                     b.Property<int>("UrunId")
@@ -1441,6 +1445,17 @@ namespace Cafe_App.Migrations
                     b.Navigation("Masa");
 
                     b.Navigation("Siparis");
+                });
+
+            modelBuilder.Entity("Cafe_App.Models.Menu", b =>
+                {
+                    b.HasOne("Cafe_App.Models.Kategori", "Kategori")
+                        .WithMany()
+                        .HasForeignKey("KategoriId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Kategori");
                 });
 
             modelBuilder.Entity("Cafe_App.Models.MenuUrun", b =>
