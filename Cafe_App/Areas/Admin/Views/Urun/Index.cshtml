@@ -1,6 +1,7 @@
 ﻿
 @{
-    ViewData["Title"] = "Ürün";
+	ViewData["Title"] = "Ürün";
+	int malzemeSayı = 0;
 }
 @model Urun
 
@@ -263,7 +264,17 @@
 
 															<div class="card">
 																<div class="card-header">
-																	<h4 class="card-title">Malzemeler (@ViewBag.UrunMalzeme.Count)</h4>
+																	@foreach (var malzemeBilgi in ViewBag.UrunMalzeme)
+																	{
+																		if (malzemeBilgi.UrunId == urun.Id)
+																		{
+																			malzemeSayı += 1;
+																		}
+																	}
+																	<h4 class="card-title">Malzemeler (@malzemeSayı)</h4>
+																	@{
+																		malzemeSayı = 0;
+																	 }
 																</div>
 																<div class="card-body">
 
@@ -377,8 +388,7 @@
 						</div>
 					</div>
 					<div style="margin-bottom:14px" class="row">
-						<div class="form-floating col-md-6 mb-3">
-							<label for="formFile" class="form-label">&nbsp;&nbsp;&nbsp;Ürün Fotoğraf</label>
+						<div class="col-md-6 mb-3">
 							<input asp-for="Fotograf" id="formFile" class="form-control" name="file" type="file">
 							<div class="invalid-feedback">
 								Zorunlu Alan

@@ -301,6 +301,10 @@ namespace Cafe_App.Migrations
                     b.Property<bool>("Gorunurluk")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<string>("Tur")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.HasKey("Id");
 
                     b.ToTable("Kategoriler");
@@ -336,29 +340,6 @@ namespace Cafe_App.Migrations
                     b.HasIndex("StokId");
 
                     b.ToTable("Malzemeler");
-                });
-
-            modelBuilder.Entity("Cafe_App.Models.MalzemeGirdi", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("MalzemeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StokGirdiId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MalzemeId");
-
-                    b.HasIndex("StokGirdiId");
-
-                    b.ToTable("MalzemeGirdiler");
                 });
 
             modelBuilder.Entity("Cafe_App.Models.Masa", b =>
@@ -1392,25 +1373,6 @@ namespace Cafe_App.Migrations
                         .HasForeignKey("StokId");
 
                     b.Navigation("Stok");
-                });
-
-            modelBuilder.Entity("Cafe_App.Models.MalzemeGirdi", b =>
-                {
-                    b.HasOne("Cafe_App.Models.Malzeme", "Malzeme")
-                        .WithMany()
-                        .HasForeignKey("MalzemeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Cafe_App.Models.StokGirdi", "StokGirdi")
-                        .WithMany()
-                        .HasForeignKey("StokGirdiId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Malzeme");
-
-                    b.Navigation("StokGirdi");
                 });
 
             modelBuilder.Entity("Cafe_App.Models.Masa", b =>

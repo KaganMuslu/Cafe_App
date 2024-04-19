@@ -91,6 +91,8 @@ namespace Cafe_App.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Ad = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    Tur = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Gorunurluk = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
@@ -913,33 +915,6 @@ namespace Cafe_App.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "MalzemeGirdiler",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    StokGirdiId = table.Column<int>(type: "int", nullable: false),
-                    MalzemeId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MalzemeGirdiler", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_MalzemeGirdiler_Malzemeler_MalzemeId",
-                        column: x => x.MalzemeId,
-                        principalTable: "Malzemeler",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_MalzemeGirdiler_StokGirdiler_StokGirdiId",
-                        column: x => x.StokGirdiId,
-                        principalTable: "StokGirdiler",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
                 name: "Durumlar",
                 columns: table => new
                 {
@@ -1172,16 +1147,6 @@ namespace Cafe_App.Migrations
                 column: "MusteriId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MalzemeGirdiler_MalzemeId",
-                table: "MalzemeGirdiler",
-                column: "MalzemeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MalzemeGirdiler_StokGirdiId",
-                table: "MalzemeGirdiler",
-                column: "StokGirdiId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Malzemeler_StokId",
                 table: "Malzemeler",
                 column: "StokId");
@@ -1397,9 +1362,6 @@ namespace Cafe_App.Migrations
                 name: "Kampanyalar");
 
             migrationBuilder.DropTable(
-                name: "MalzemeGirdiler");
-
-            migrationBuilder.DropTable(
                 name: "MasaOzellikler");
 
             migrationBuilder.DropTable(
@@ -1418,6 +1380,9 @@ namespace Cafe_App.Migrations
                 name: "SiparisUrunler");
 
             migrationBuilder.DropTable(
+                name: "StokGirdiler");
+
+            migrationBuilder.DropTable(
                 name: "TeslimatAdresler");
 
             migrationBuilder.DropTable(
@@ -1431,9 +1396,6 @@ namespace Cafe_App.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "StokGirdiler");
 
             migrationBuilder.DropTable(
                 name: "Ozellikler");
@@ -1451,10 +1413,10 @@ namespace Cafe_App.Migrations
                 name: "Teslimatlar");
 
             migrationBuilder.DropTable(
-                name: "Urunler");
+                name: "Malzemeler");
 
             migrationBuilder.DropTable(
-                name: "Malzemeler");
+                name: "Urunler");
 
             migrationBuilder.DropTable(
                 name: "Kasalar");
@@ -1466,10 +1428,10 @@ namespace Cafe_App.Migrations
                 name: "Yorumlar");
 
             migrationBuilder.DropTable(
-                name: "Kategoriler");
+                name: "Stoklar");
 
             migrationBuilder.DropTable(
-                name: "Stoklar");
+                name: "Kategoriler");
 
             migrationBuilder.DropTable(
                 name: "Tedarikciler");

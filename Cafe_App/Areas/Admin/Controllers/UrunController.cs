@@ -19,7 +19,7 @@ namespace Cafe_App.Areas.Admin.Controllers
 		public IActionResult Index()
 		{
             ViewBag.Urunler = _context.Urunler.Include(x => x.Kategori).ToList();
-            ViewBag.UrunMalzeme = _context.UrunMalzemeler.Include(x => x.Urun).Include(x => x.Malzeme).ToList();
+            ViewBag.UrunMalzeme = _context.UrunMalzemeler.Include(x => x.Urun).Include(x => x.Malzeme).Where(x => x.Gorunurluk == true).ToList();
 			ViewBag.Kategoriler = _context.Kategoriler.ToList();
 			ViewBag.Malzemeler = _context.Malzemeler.Where(x => x.Gorunurluk == true).ToList();
 
@@ -80,9 +80,34 @@ namespace Cafe_App.Areas.Admin.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult UrunGuncelle(Urun model)
+		public async Task<IActionResult> UrunGuncelle(Urun model, IFormFile? file)
 		{
             ViewBag.Kategoriler = _context.Kategoriler.ToList();
+
+			if (file != null)
+			{
+				var uzanti = new[] { ".jpg", ".jpeg", ".png" };
+				var resimuzanti = Path.GetExtension(file.FileName);
+				if (!uzanti.Contains(resimuzanti))
+				{
+					ModelState.AddModelError("OgrenciFotograf", "Geçerli bir fotoğraf formatı seçiniz. *jpg,jpeg,png");
+					return View(model);
+				}
+
+				var fotografRandom = string.Format($"{Guid.NewGuid().ToString()}{Path.GetExtension(file.FileName)}");
+				var resimyolu = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", fotografRandom);
+				using (var stream = new FileStream(resimyolu, FileMode.Create))
+				{
+					await file.CopyToAsync(stream);
+				}
+
+				model.Fotograf = fotografRandom;
+			}
+			else
+			{
+				model.Fotograf = _context.Urunler.Where(x => x.Id == model.Id).Select(x => x.Fotograf).FirstOrDefault();
+			}
+
 			_context.Update(model);
 			_context.SaveChanges();
 			return RedirectToAction("Index");
