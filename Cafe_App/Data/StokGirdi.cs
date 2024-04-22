@@ -9,9 +9,9 @@ public partial class StokGirdi
 
     public int Miktar { get; set; }
 
-    public int SonStokMiktari { get; set; }
+    public int? SonStokMiktari { get; set; }
 
-    public decimal AlısFiyati { get; set; }
+    public float AlısFiyati { get; set; }
 
     public int MalzemeId { get; set; }
 

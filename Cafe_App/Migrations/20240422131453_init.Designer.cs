@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cafe_App.Migrations
 {
     [DbContext(typeof(IdentityDataContext))]
-    [Migration("20240419140738_init")]
+    [Migration("20240422131453_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -331,16 +331,11 @@ namespace Cafe_App.Migrations
                     b.Property<bool>("Gorunurluk")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<int?>("StokId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Tur")
                         .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("StokId");
 
                     b.ToTable("Malzemeler");
                 });
@@ -697,6 +692,12 @@ namespace Cafe_App.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateOnly>("BaslangıcSaat")
+                        .HasColumnType("date");
+
+                    b.Property<DateOnly>("BıtısSaat")
+                        .HasColumnType("date");
+
                     b.Property<bool>("Gorunurluk")
                         .HasColumnType("tinyint(1)");
 
@@ -895,6 +896,9 @@ namespace Cafe_App.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("MalzemeId")
+                        .IsUnique();
+
                     b.HasIndex("TedarikciId");
 
                     b.ToTable("Stoklar");
@@ -908,8 +912,8 @@ namespace Cafe_App.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<decimal>("AlısFiyati")
-                        .HasColumnType("decimal(65,30)");
+                    b.Property<float>("AlısFiyati")
+                        .HasColumnType("float");
 
                     b.Property<bool>("Gorunurluk")
                         .HasColumnType("tinyint(1)");
@@ -920,7 +924,7 @@ namespace Cafe_App.Migrations
                     b.Property<int>("Miktar")
                         .HasColumnType("int");
 
-                    b.Property<int>("SonStokMiktari")
+                    b.Property<int?>("SonStokMiktari")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Tarih")
@@ -1376,15 +1380,6 @@ namespace Cafe_App.Migrations
                     b.Navigation("Musteri");
                 });
 
-            modelBuilder.Entity("Cafe_App.Models.Malzeme", b =>
-                {
-                    b.HasOne("Cafe_App.Models.Stok", "Stok")
-                        .WithMany("Malzemelers")
-                        .HasForeignKey("StokId");
-
-                    b.Navigation("Stok");
-                });
-
             modelBuilder.Entity("Cafe_App.Models.Masa", b =>
                 {
                     b.HasOne("Cafe_App.Models.Personel", "Personel")
@@ -1580,9 +1575,17 @@ namespace Cafe_App.Migrations
 
             modelBuilder.Entity("Cafe_App.Models.Stok", b =>
                 {
+                    b.HasOne("Cafe_App.Models.Malzeme", "Malzeme")
+                        .WithOne("Stok")
+                        .HasForeignKey("Cafe_App.Models.Stok", "MalzemeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Cafe_App.Models.Tedarikci", null)
                         .WithMany("Stoklars")
                         .HasForeignKey("TedarikciId");
+
+                    b.Navigation("Malzeme");
                 });
 
             modelBuilder.Entity("Cafe_App.Models.StokGirdi", b =>
@@ -1776,6 +1779,11 @@ namespace Cafe_App.Migrations
                     b.Navigation("Siparislers");
                 });
 
+            modelBuilder.Entity("Cafe_App.Models.Malzeme", b =>
+                {
+                    b.Navigation("Stok");
+                });
+
             modelBuilder.Entity("Cafe_App.Models.Masa", b =>
                 {
                     b.Navigation("MasaOzelliks");
@@ -1824,11 +1832,6 @@ namespace Cafe_App.Migrations
                     b.Navigation("Durumlars");
 
                     b.Navigation("Teslimatsiparislers");
-                });
-
-            modelBuilder.Entity("Cafe_App.Models.Stok", b =>
-                {
-                    b.Navigation("Malzemelers");
                 });
 
             modelBuilder.Entity("Cafe_App.Models.Tedarikci", b =>

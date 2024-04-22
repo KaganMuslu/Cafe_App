@@ -38,6 +38,10 @@ namespace Cafe_App.Areas.Admin.Controllers
 				}
 				_context.SaveChanges();
 
+				var malzeme = _context.Malzemeler.OrderByDescending(x => x.Id).FirstOrDefault();
+				malzeme.Stok.MalzemeId = malzeme.Id;
+
+				_context.SaveChanges();
 			}
 
 			return RedirectToAction("Index");
