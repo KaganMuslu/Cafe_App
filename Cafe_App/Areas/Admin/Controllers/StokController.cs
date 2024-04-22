@@ -57,26 +57,39 @@ namespace Cafe_App.Areas.Admin.Controllers
 		{
 			if (ModelState.IsValid)
 			{
+				// Güncellenecek stok girdisi ve stok kaydını bul
 				var stokGirdiDegisen = _context.StokGirdiler.FirstOrDefault(x => x.Id == model.Id);
-				var stokDegisen = _context.Stoklar.FirstOrDefault(x => x.MalzemeId == stokGirdiDegisen.MalzemeId);
+				var stokDegisen = _context.Stoklar.FirstOrDefault(x => x.MalzemeId == model.MalzemeId);
 
-				if (stokDegisen != null && stokGirdiDegisen != null)
+				// Stok ve stok girdi güncellemesini yap
+				if (stokGirdiDegisen != null && stokDegisen != null)
 				{
+					// Stok miktarını eski stok girdisini çıkartarak güncelle
 					stokDegisen.Miktar -= stokGirdiDegisen.Miktar;
-					stokGirdiDegisen.Miktar = model.Miktar;
+
+					// Stok girdi bilgilerini güncelle
+					stokGirdiDegisen.MalzemeId = model.MalzemeId;
 					stokGirdiDegisen.TedarikciId = model.TedarikciId;
-					stokGirdiDegisen.MalzemeId= model.MalzemeId;
-					stokGirdiDegisen.AlısFiyati = model.;
+					stokGirdiDegisen.Miktar = model.Miktar;
+					stokGirdiDegisen.AlısFiyati = model.AlısFiyati;
+
+					// Stok miktarını yeni stok girdisini ekleyerek güncelle
+					stokDegisen.Miktar += model.Miktar;
+					
+
+					// Güncellemeleri veritabanında kaydet
+					_context.Update(stokGirdiDegisen);
+					_context.Update(stokDegisen);
 				}
 
-				_context.Update(stokDegisen);
-				_context.Update(stokGirdiDegisen);
+				// Değişiklikleri veritabanına kaydet
 				_context.SaveChanges();
-
 			}
 
-			return View("Index", model);
+			// Güncellenmiş model ile Index sayfasına yönlendir
+			return RedirectToAction("Index");
 		}
+
 
 	}
 }
