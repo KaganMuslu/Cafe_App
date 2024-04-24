@@ -1,23 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Cafe_App.Models;
 
-namespace Cafe_App.Models;
-
-public partial class Kampanya
+namespace Cafe_App.Data
 {
-    public int Id { get; set; }
+	public class Kampanya
+	{
+		public int Id { get; set; }
 
-    public string Kod { get; set; }
+		public string Ad { get; set; }
 
-    public float Indirim { get; set; }
+		public float Indirim { get; set; }
 
-    public DateTime GecerlilikTarihi { get; set; }
+		public int SartTutar { get; set; }
 
-    public bool Durum { get; set; }
+		public int SartSiparisSayisi { get; set; }
 
-    public int MusteriId { get; set; }
+		public DateTime BaslangıcTarihi { get; set; }
 
-    public bool Gorunurluk { get; set; }
+		public DateTime BitisTarihi { get; set; }
 
-    public Musteri? Musteri { get; set; }
+		public bool Gorunurluk { get; set; }
+
+		public ICollection<KampanyaMusteri> KampanyaMusteris { get; set; } = new List<KampanyaMusteri>();
+	}
 }

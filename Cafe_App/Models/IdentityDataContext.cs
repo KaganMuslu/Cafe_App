@@ -19,7 +19,9 @@ namespace Cafe_App.Models
 
         public DbSet<Kampanya> Kampanyalar { get; set; }
 
-        public DbSet<Kasa> Kasalar { get; set; }
+        public DbSet<KampanyaMusteri> KampanyaMusteriler { get; set; }
+
+		public DbSet<Kasa> Kasalar { get; set; }
 
         public DbSet<Kategori> Kategoriler { get; set; }
 

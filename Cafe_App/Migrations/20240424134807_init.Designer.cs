@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cafe_App.Migrations
 {
     [DbContext(typeof(IdentityDataContext))]
-    [Migration("20240424093255_init")]
+    [Migration("20240424134807_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -24,6 +24,41 @@ namespace Cafe_App.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
+
+            modelBuilder.Entity("Cafe_App.Data.Kampanya", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Ad")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("BaslangıcTarihi")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("BitisTarihi")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("Gorunurluk")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<float>("Indirim")
+                        .HasColumnType("float");
+
+                    b.Property<int>("SartSiparisSayisi")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SartTutar")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Kampanyalar");
+                });
 
             modelBuilder.Entity("Cafe_App.Data.Odeme", b =>
                 {
@@ -263,7 +298,7 @@ namespace Cafe_App.Migrations
                     b.ToTable("Durumlar");
                 });
 
-            modelBuilder.Entity("Cafe_App.Models.Kampanya", b =>
+            modelBuilder.Entity("Cafe_App.Models.KampanyaMusteri", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -280,8 +315,8 @@ namespace Cafe_App.Migrations
                     b.Property<bool>("Gorunurluk")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<float>("Indirim")
-                        .HasColumnType("float");
+                    b.Property<int?>("KampanyaId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Kod")
                         .IsRequired()
@@ -292,9 +327,11 @@ namespace Cafe_App.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("KampanyaId");
+
                     b.HasIndex("MusteriId");
 
-                    b.ToTable("Kampanyalar");
+                    b.ToTable("KampanyaMusteriler");
                 });
 
             modelBuilder.Entity("Cafe_App.Models.Kasa", b =>
@@ -391,13 +428,18 @@ namespace Cafe_App.Migrations
                     b.Property<float>("OdenenTutar")
                         .HasColumnType("float");
 
-                    b.Property<int>("PersonelId")
+                    b.Property<int?>("PersonelId")
                         .HasColumnType("int");
+
+                    b.Property<string>("QR")
+                        .HasColumnType("longtext");
 
                     b.Property<float>("Tutar")
                         .HasColumnType("float");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("KategoriId");
 
                     b.HasIndex("PersonelId");
 
@@ -1400,8 +1442,12 @@ namespace Cafe_App.Migrations
                     b.Navigation("Siparis");
                 });
 
-            modelBuilder.Entity("Cafe_App.Models.Kampanya", b =>
+            modelBuilder.Entity("Cafe_App.Models.KampanyaMusteri", b =>
                 {
+                    b.HasOne("Cafe_App.Data.Kampanya", null)
+                        .WithMany("KampanyaMusteris")
+                        .HasForeignKey("KampanyaId");
+
                     b.HasOne("Cafe_App.Models.Musteri", "Musteri")
                         .WithMany("Kampanyalars")
                         .HasForeignKey("MusteriId")
@@ -1413,11 +1459,17 @@ namespace Cafe_App.Migrations
 
             modelBuilder.Entity("Cafe_App.Models.Masa", b =>
                 {
-                    b.HasOne("Cafe_App.Models.Personel", "Personel")
-                        .WithMany("Masalars")
-                        .HasForeignKey("PersonelId")
+                    b.HasOne("Cafe_App.Models.Kategori", "Kategori")
+                        .WithMany()
+                        .HasForeignKey("KategoriId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Cafe_App.Models.Personel", "Personel")
+                        .WithMany("Masalars")
+                        .HasForeignKey("PersonelId");
+
+                    b.Navigation("Kategori");
 
                     b.Navigation("Personel");
                 });
@@ -1777,6 +1829,11 @@ namespace Cafe_App.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Cafe_App.Data.Kampanya", b =>
+                {
+                    b.Navigation("KampanyaMusteris");
                 });
 
             modelBuilder.Entity("Cafe_App.Models.Adres", b =>

@@ -3,5 +3,244 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Masa Index</h1>
+@model Masa
+
+<!-- CSS Ekstralar -->
+<head>
+	<link href="~/admin_panel/vendor/bootstrap-datepicker-master/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+	<link href="~/admin_panel/vendor/select2/css/select2.min.css" rel="stylesheet" />
+	<link href="~/admin_panel/vendor/datatables/css/jquery.datatables.min.css" rel="stylesheet" />
+</head>
+
+<div class="content-body">
+	<div class="container-fluid">
+		<!-- Row -->
+
+		<div class="form-head d-flex mb-3 align-items-start">
+			<div class="me-auto d-none d-lg-block">
+				<h2 class="text-primary font-w600 mb-0">Cafe App Masa</h2>
+				<p class="mb-0">Cafe App Masa Masa Ekranına Hoşgeldiniz!</p>
+			</div>
+
+			<a data-bs-toggle="modal" data-bs-target="#masaModal" style="width:max-content; display: inline-block; vertical-align: middle;" type="button" class="btn btn-rounded btn-primary">
+				<span class="btn-icon-start text-primary">
+					<i class="fa fa-user-plus color-primary"></i>
+				</span>Masa Ekle
+			</a>
+		</div>
+		<br>
+
+		<div class="filter cm-content-box box-primary">
+			<div class="content-title">
+				<div class="cpa">
+					<i class="fa-solid fa-filter me-2"></i>Filtrele
+				</div>
+				<div class="tools">
+					<a href="javascript:void(0);" class="expand SlideToolHeader"><i class="fal fa-angle-down"></i></a>
+				</div>
+			</div>
+			<div class="cm-content-body form excerpt">
+				<div class="card-body">
+					<div class="row">
+						<div class="col-xl-3 col-sm-6">
+							<input type="text" class="form-control mb-3 mb-xl-0" id="exampleFormControlInput1" placeholder="Masa Adı">
+						</div>
+						<div class="col-xl-3 col-sm-6 mb-3 mb-xl-0">
+							<select class="default-select dashboard-select-2 wide w-100">
+								<option selected>Personel Rolü</option>
+								<option value="1">Published</option>
+								<option value="2">Draft</option>
+								<option value="3">Trash</option>
+								<option value="4">Private</option>
+								<option value="5">Pending</option>
+							</select>
+						</div>
+						<div class="col-xl-3 col-sm-6">
+							<input id="datepicker" class=" form-control mb-3 mb-xl-0">
+						</div>
+						<div class="col-xl-3 col-sm-6">
+							<button class="btn btn-primary" title="Aramak İçin Tıklayın" type="button"><i class="fa fa-search me-1"></i>Filtrele</button>
+							<button class="btn btn-danger light" title="Filtreyi Kaldırmak İçin Tıklayın" type="button">Kaldır</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="filter cm-content-box box-primary">
+			<div class="content-title">
+				<div class="cpa">
+					<i class="fa-solid fa-file-lines me-1"></i>Masa Listesi
+				</div>
+				<div class="tools">
+					<a href="javascript:void(0);" class="expand SlideToolHeader"><i class="fal fa-angle-down"></i></a>
+				</div>
+			</div>
+			<div class="cm-content-body form excerpt">
+				<div class="card-body">
+					
+					<div class="row">
+						@foreach (var masa in ViewBag.Masalar)
+						{
+							<div class="col-xl-4 col-lg-12 col-sm-12">
+							<div class="card overflow-hidden">
+								<div class="text-center p-3 overlay-box " style="background-image: url(https://cdnimg.webstaurantstore.com/uploads/seo_category/2019/5/table-dining-sets.jpg);">
+									<div class="profile-photo">
+										<img src="@masa.QR" width="100" class="img-fluid rounded-circle" alt="qr_image">
+									</div>
+									<h3 class="mt-3 mb-1 text-white">@masa.Kod</h3>
+									<p class="text-white mb-0">@masa.Kategori.Ad</p>
+									
+
+								</div>
+								<ul class="list-group list-group-flush">
+									<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Kapasite</span> <strong class="text-muted">@masa.Kapasite	</strong></li>
+									@switch (masa.Durum)
+									{
+										case 1 :
+											<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Müsaitlik Durumu</span> <strong class="text-muted">Boş Masa </strong></li>
+											break;
+										case 2:
+											<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Müsaitlik Durumu</span> <strong class="text-muted">Dolu Masa </strong></li>
+											break;
+										case 3:
+											<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Müsaitlik Durumu</span> <strong class="text-muted">Kirli Masa </strong></li>
+											break;
+										case 4:
+											<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Müsaitlik Durumu</span> <strong class="text-muted">Rezerve Masa </strong></li>
+											break;
+										case 5:
+											<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Müsaitlik Durumu</span> <strong class="text-muted">Kapalı Masa </strong></li>
+											break;
+									}
+									<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Toplam Tutar</span> <strong class="text-muted">@masa.Tutar	</strong></li>
+									<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Ödenen Tutar</span> <strong class="text-muted">@masa.OdenenTutar </strong></li>
+								</ul>
+								<div class="card-footer border-0 mt-0">
+										@switch (masa.Durum)
+										{
+											case 1:
+												<button class="btn btn-primary btn-lg btn-block">
+													<i class="fa fa-bell-o"></i> Sipariş Al
+												</button>
+												break;
+											case 2:
+												<button class="btn btn-primary btn-lg btn-block">
+													<i class="fa fa-bell-o"></i> Sipariş Görüntüle
+												</button>
+												break;
+											case 3:
+												<button class="btn btn-primary btn-lg btn-block">
+													<i class="fa fa-bell-o"></i> Bildirim Gönder
+												</button>
+												break;
+											case 4:
+												<button class="btn btn-primary btn-lg btn-block">
+													<i class="fa fa-bell-o"></i> Rezervazsyon Görüntüle
+												</button>
+												break;
+											case 5:
+												<button class="btn btn-primary btn-lg btn-block">
+													<i class="fa fa-bell-o"></i> Masayı Aç
+												</button>
+												break;
+										}
+									
+								</div>
+							</div>
+						</div>
+						}
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal modal-lg fade" id="masaModal">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Masa Ekle</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal">
+				</button>
+			</div>
+
+			<form asp-action="Index" class="needs-validation " method="post">
+				<div class="modal-body">
+					<div style="margin-bottom:14px" class="row">
+						<div class="form-floating col-md-6 mb-3">
+							<input id="kod" asp-for="Kod" type="text" class="form-control" placeholder="">
+							<label for="kod" class="form-label">&nbsp;&nbsp;&nbsp;Masa Kod</label>
+							<div class="valid-feedback">Valid.</div>
+							<div class="invalid-feedback">Please fill out this field.</div>
+						</div>
+						<div class="form-floating col-md-6 mb-3">
+							<input id="Kapasite" asp-for="Kapasite" type="text" class="form-control" placeholder="" required="">
+							<label for="Kapasite" class="form-label">&nbsp;&nbsp;&nbsp;Masa Kapasite</label>
+							<div class="invalid-feedback">
+								Zorunlu Alan
+							</div>
+						</div>
+					</div>
+					<div style="margin-bottom:14px" class="row">
+						<div class="form-floating col-md-6 mb-3">
+							<select id="KategoriId" asp-for="KategoriId" class="default-select form-control wide w-100 required">
+								<option selected>Masa Kategori</option>
+								@foreach (var item in ViewBag.Kategoriler)
+								{
+									<option value="@item.Id">@item.Ad</option>
+								}
+							</select>
+						</div>
+					</div>
+					<input asp-for="Gorunurluk" type="hidden" class="form-control" value=True required="">
+					<input asp-for="Durum" type="hidden" class="form-control" value=1 required="">
+					<input asp-for="Tutar" type="hidden" class="form-control" value=0 required="">
+					<input asp-for="OdenenTutar" type="hidden" class="form-control" value=0 required="">
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
+					<button type="submit" class="btn btn-primary">Kaydet</button>
+				</div>
+			</form>
+
+		</div>
+	</div>
+</div>
+
+
+<!-- JS Ekstralar -->
+@section Scripts
+{
+	<script src="~/admin_panel/vendor/bootstrap-datepicker-master/js/bootstrap-datepicker.min.js"></script>
+	<script src="~/admin_panel/vendor/select2/js/select2.full.min.js"></script>
+	<script src="~/admin_panel/js/dashboard/cms.js"></script>
+	<script src="~/admin_panel/vendor/ckeditor/ckeditor.js"></script>
+	<script src="~/admin_panel/vendor/datatables/js/jquery.datatables.min.js"></script>
+
+	<script>
+		$(function () {
+			$("#datepicker").datepicker({
+				language: 'tr',
+				format: 'dd/mm/yyyy',
+				autoclose: true,
+				todayHighlight: true
+			}).datepicker('update', new Date());
+
+		});
+
+		$(function () {
+			$("#datepicker2").datepicker({
+				language: 'tr-TR',
+				format: 'dd/mm/yyyy',
+				autoclose: true,
+				todayHighlight: true
+			}).datepicker('update', new Date());
+
+		});
+
+	</script>
+}
 

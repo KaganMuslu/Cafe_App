@@ -27,7 +27,7 @@ public partial class Musteri
 
 	public ICollection<Bildirim> Bildirimlers { get; set; } = new List<Bildirim>();
 
-    public ICollection<Kampanya> Kampanyalars { get; set; } = new List<Kampanya>();
+    public ICollection<KampanyaMusteri> Kampanyalars { get; set; } = new List<KampanyaMusteri>();
 
     public ICollection<TeslimatAdres> Teslimatadreslers { get; set; } = new List<TeslimatAdres>();
 

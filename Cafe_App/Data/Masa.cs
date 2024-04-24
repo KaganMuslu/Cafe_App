@@ -17,13 +17,17 @@ public partial class Masa
 
     public float OdenenTutar { get; set; }
 
-    public int PersonelId { get; set; }
+    public int? PersonelId { get; set; }
 
     public int KategoriId { get; set; }
+
+	public string? QR { get; set; }
 
 	public bool Gorunurluk { get; set; }
 
 	public ICollection<MasaOzellik> MasaOzelliks { get; set; } = new List<MasaOzellik>();
 
     public Personel? Personel { get; set; }
+
+    public Kategori? Kategori { get; set; }
 }
