@@ -18,9 +18,25 @@ namespace Cafe_App.Areas.Admin.Controllers
 			return View();
 		}
 
-		public IActionResult MusteriEkle()
+		[HttpPost]
+		public IActionResult Index(Cafe_App.Models.Musteri model)
 		{
-			return View();
+			if (ModelState.IsValid)
+			{
+				var musteri = _context.Musteriler.FirstOrDefault(x => x.Eposta == model.Eposta);
+				if (musteri == null)
+				{
+					_context.Musteriler.Add(model);
+					_context.SaveChanges();
+				}
+				else
+				{
+					// Hata	
+				}
+			}
+
+			ViewBag.Musteriler = _context.Musteriler.ToList();
+			return RedirectToAction("Index");
 		}
 	}
 }
