@@ -9,7 +9,9 @@ public partial class MasaSiparis
 
     public int MasaId { get; set; }
 
-    public int SiparisId { get; set; }
+	public int MusteriId { get; set; }
+
+	public int SiparisId { get; set; }
 
 	public bool Gorunurluk { get; set; }
 

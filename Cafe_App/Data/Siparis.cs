@@ -19,10 +19,6 @@ public partial class Siparis
 
     public string Not { get; set; }
 
-    public int KasaId { get; set; }
-
-    public int MutfakId { get; set; }
-
 	public bool Gorunurluk { get; set; }
 
 	public ICollection<Durum> Durumlars { get; set; } = new List<Durum>();

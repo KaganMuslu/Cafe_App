@@ -15,7 +15,9 @@ public partial class UrunMalzeme
 
 	public bool Gorunurluk { get; set; }
 
-	public Malzeme Malzeme { get; set; } = null!;
+    public bool Secenek { get; set; }
+
+    public Malzeme Malzeme { get; set; } = null!;
 
     public Urun Urun { get; set; } = null!;
 }

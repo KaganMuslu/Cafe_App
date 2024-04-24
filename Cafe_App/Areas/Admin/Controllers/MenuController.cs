@@ -18,7 +18,7 @@ namespace Cafe_App.Areas.Admin.Controllers
 		{
 			ViewBag.Menuler = _context.Menuler.Include(x => x.Kategori).ToList();
 			ViewBag.MenuUrun = _context.MenuUrunler.Include(x => x.Urun).Include(x => x.Menu).Where(x => x.Gorunurluk == true).ToList();
-			ViewBag.Kategoriler = _context.Kategoriler.ToList();
+			ViewBag.Kategoriler = _context.Kategoriler.Where(x => x.Tur == "Menu").ToList();
 			ViewBag.Urunler = _context.Urunler.Where(x => x.Gorunurluk == true).ToList();
 
 			return View();

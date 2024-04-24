@@ -443,6 +443,9 @@ namespace Cafe_App.Migrations
                     b.Property<int>("MasaId")
                         .HasColumnType("int");
 
+                    b.Property<int>("MusteriId")
+                        .HasColumnType("int");
+
                     b.Property<int>("SiparisId")
                         .HasColumnType("int");
 
@@ -560,9 +563,6 @@ namespace Cafe_App.Migrations
                     b.Property<DateOnly>("KayitTarihi")
                         .HasColumnType("date");
 
-                    b.Property<int>("MasaId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Parola")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -576,8 +576,6 @@ namespace Cafe_App.Migrations
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MasaId");
 
                     b.ToTable("Musteriler");
                 });
@@ -1150,6 +1148,9 @@ namespace Cafe_App.Migrations
                     b.Property<int>("Miktar")
                         .HasColumnType("int");
 
+                    b.Property<bool>("Secenek")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<int>("UrunId")
                         .HasColumnType("int");
 
@@ -1475,17 +1476,6 @@ namespace Cafe_App.Migrations
                     b.Navigation("Urun");
                 });
 
-            modelBuilder.Entity("Cafe_App.Models.Musteri", b =>
-                {
-                    b.HasOne("Cafe_App.Models.Masa", "Masa")
-                        .WithMany("Musterilers")
-                        .HasForeignKey("MasaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Masa");
-                });
-
             modelBuilder.Entity("Cafe_App.Models.Personel", b =>
                 {
                     b.HasOne("Cafe_App.Models.Adres", null)
@@ -1784,8 +1774,6 @@ namespace Cafe_App.Migrations
             modelBuilder.Entity("Cafe_App.Models.Masa", b =>
                 {
                     b.Navigation("MasaOzelliks");
-
-                    b.Navigation("Musterilers");
                 });
 
             modelBuilder.Entity("Cafe_App.Models.Musteri", b =>

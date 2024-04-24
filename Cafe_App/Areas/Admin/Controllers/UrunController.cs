@@ -166,6 +166,7 @@ namespace Cafe_App.Areas.Admin.Controllers
 						UrunId = urunId,
 						MalzemeId = malzemeSec.Id,
 						Miktar = miktar,
+						Secenek = true,
 						Gorunurluk = true // Varsayılan olarak görünürlük true olarak ayarlanabilir
 					};
 
