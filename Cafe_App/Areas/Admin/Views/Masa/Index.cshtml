@@ -97,19 +97,19 @@
 									@switch (masa.Durum)
 									{
 										case 1 :
-											<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Müsaitlik Durumu</span> <strong class="text-muted">Boş Masa </strong></li>
+											<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Müsaitlik Durumu</span> <strong class="text-success">Boş Masa </strong></li>
 											break;
 										case 2:
-											<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Müsaitlik Durumu</span> <strong class="text-muted">Dolu Masa </strong></li>
+											<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Müsaitlik Durumu</span> <strong class="text-danger">Dolu Masa </strong></li>
 											break;
 										case 3:
-											<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Müsaitlik Durumu</span> <strong class="text-muted">Kirli Masa </strong></li>
+											<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Müsaitlik Durumu</span> <strong class="text-warning">Kirli Masa </strong></li>
 											break;
 										case 4:
-											<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Müsaitlik Durumu</span> <strong class="text-muted">Rezerve Masa </strong></li>
+											<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Müsaitlik Durumu</span> <strong class="text-warning">Rezerve Masa </strong></li>
 											break;
 										case 5:
-											<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Müsaitlik Durumu</span> <strong class="text-muted">Kapalı Masa </strong></li>
+											<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Müsaitlik Durumu</span> <strong class="text-warning">Kapalı Masa </strong></li>
 											break;
 									}
 									<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Toplam Tutar</span> <strong class="text-muted">@masa.Tutar	</strong></li>
@@ -119,27 +119,27 @@
 										@switch (masa.Durum)
 										{
 											case 1:
-												<button class="btn btn-primary btn-lg btn-block">
-													<i class="fa fa-bell-o"></i> Sipariş Al
+												<button class="btn btn-success btn-lg btn-block">
+													<i class="fa fa-bell-o"></i> Masa Bilgileri
 												</button>
 												break;
 											case 2:
-												<button class="btn btn-primary btn-lg btn-block">
+												<button class="btn btn-danger btn-lg btn-block">
 													<i class="fa fa-bell-o"></i> Sipariş Görüntüle
 												</button>
 												break;
 											case 3:
-												<button class="btn btn-primary btn-lg btn-block">
+												<button class="btn btn-warning btn-lg btn-block">
 													<i class="fa fa-bell-o"></i> Bildirim Gönder
 												</button>
 												break;
 											case 4:
-												<button class="btn btn-primary btn-lg btn-block">
+												<button class="btn btn-warning btn-lg btn-block">
 													<i class="fa fa-bell-o"></i> Rezervazsyon Görüntüle
 												</button>
 												break;
 											case 5:
-												<button class="btn btn-primary btn-lg btn-block">
+												<button class="btn btn-warning btn-lg btn-block">
 													<i class="fa fa-bell-o"></i> Masayı Aç
 												</button>
 												break;
