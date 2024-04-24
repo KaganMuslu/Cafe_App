@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Cafe_App.Data;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cafe_App.Models
@@ -39,6 +40,8 @@ namespace Cafe_App.Models
         public DbSet<Musteri> Musteriler { get; set; }
 
         public DbSet<Mutfak> Mutfaklar { get; set; }
+
+        public DbSet<Odeme> Odemeler { get; set; }
 
         public DbSet<Ozellik> Ozellikler { get; set; }
 

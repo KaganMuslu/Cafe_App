@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cafe_App.Data;
+using System;
 using System.Collections.Generic;
 
 namespace Cafe_App.Models;
@@ -7,15 +8,13 @@ public partial class Siparis
 {
     public int Id { get; set; }
 
-    public DateOnly Tarih { get; set; }
+    public DateTime Tarih { get; set; }
 
-    public string Adres { get; set; }
+    public int AdresId { get; set; }
 
     public decimal Tutar { get; set; }
 
     public bool OdemeDurum { get; set; }
-
-    public string OdemeTuru { get; set; }
 
     public string Not { get; set; }
 
@@ -28,4 +27,7 @@ public partial class Siparis
     public Mutfak? Mutfak { get; set; }
 
     public ICollection<TeslimatSiparis> Teslimatsiparislers { get; set; } = new List<TeslimatSiparis>();
+
+    public ICollection<Odeme> Odemelers { get; set; } = new List<Odeme>();
+
 }

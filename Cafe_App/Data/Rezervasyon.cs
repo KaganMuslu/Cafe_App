@@ -17,7 +17,7 @@ public partial class Rezervasyon
 
     public string Talep { get; set; }
 
-    public bool Onay { get; set; }
+    public int Durum { get; set; }
 
     public DateOnly TalepTarihi { get; set; }
 

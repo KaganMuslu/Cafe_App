@@ -1,0 +1,392 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+@model Siparis
+
+<!-- CSS Ekstralar -->
+<head>
+	<link href="~/admin_panel/vendor/bootstrap-datepicker-master/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+	<link href="~/admin_panel/vendor/select2/css/select2.min.css" rel="stylesheet" />
+	<link href="~/admin_panel/vendor/datatables/css/jquery.datatables.min.css" rel="stylesheet" />
+</head>
+
+<div class="content-body">
+	<div class="container-fluid">
+		<!-- Row -->
+
+		<div class="form-head d-flex mb-3 align-items-start">
+			<div class="me-auto d-none d-lg-block">
+				<h2 class="text-primary font-w600 mb-0">Cafe App Sipariş</h2>
+				<p class="mb-0">Cafe App Sipariş Yönetim Ekranına Hoşgeldiniz!</p>
+			</div>
+
+			@* <a data-bs-toggle="modal" data-bs-target="#siparisModal" style="width:max-content; display: inline-block; vertical-align: middle;" type="button" class="btn btn-rounded btn-primary">
+				<span class="btn-icon-start text-primary">
+					<i class="fa fa-user-plus color-primary"></i>
+				</span>Sipariş Ekle
+			</a> *@
+		</div>
+		<br>
+
+		<div class="filter cm-content-box box-primary">
+			<div class="content-title">
+				<div class="cpa">
+					<i class="fa-solid fa-filter me-2"></i>Filtrele
+				</div>
+				<div class="tools">
+					<a href="javascript:void(0);" class="expand SlideToolHeader"><i class="fal fa-angle-down"></i></a>
+				</div>
+			</div>
+			<div class="cm-content-body form excerpt">
+				<div class="card-body">
+					<div class="row">
+						<div class="col-xl-3 col-sm-6">
+							<input type="text" class="form-control mb-3 mb-xl-0" id="exampleFormControlInput1" placeholder="Sipraiş Adı">
+						</div>
+						<div class="col-xl-3 col-sm-6 mb-3 mb-xl-0">
+							<select class="default-select dashboard-select-2 wide w-100">
+								<option selected>Personel Rolü</option>
+								<option value="1">Published</option>
+								<option value="2">Draft</option>
+								<option value="3">Trash</option>
+								<option value="4">Private</option>
+								<option value="5">Pending</option>
+							</select>
+						</div>
+						<div class="col-xl-3 col-sm-6">
+							<input id="datepicker" class=" form-control mb-3 mb-xl-0">
+						</div>
+						<div class="col-xl-3 col-sm-6">
+							<button class="btn btn-primary" title="Aramak İçin Tıklayın" type="button"><i class="fa fa-search me-1"></i>Filtrele</button>
+							<button class="btn btn-danger light" title="Filtreyi Kaldırmak İçin Tıklayın" type="button">Kaldır</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="filter cm-content-box box-primary">
+			<div class="content-title">
+				<div class="cpa">
+					<i class="fa-solid fa-file-lines me-1"></i>Sipraiş Listesi
+				</div>
+				<div class="tools">
+					<a href="javascript:void(0);" class="expand SlideToolHeader"><i class="fal fa-angle-down"></i></a>
+				</div>
+			</div>
+			<div class="cm-content-body form excerpt">
+				<div class="card-body">
+
+                    <div class="table-responsive">
+                        <table class="table table-sm mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="align-middle">Sipariş</th>
+                                    <th class="align-middle pe-7">Tarih</th>
+                                    <th class="align-middle" style="min-width: 12.5rem;">Adres</th>
+                                    <th class="align-middle text-end">Durum</th>
+                                    <th class="align-middle text-end">Ödeme Durum</th>
+                                    <th class="align-middle text-end">Ödeme Türü</th>
+                                    <th class="align-middle text-end">Not</th>
+                                    <th class="align-middle text-end">Tutar</th>
+                                    <th class="align-middle text-end">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="orders">
+                                <tr class="btn-reveal-trigger">
+                                    <td class="py-2">
+                                        <a href="#">
+                                            <strong class="text-primary">#181</strong>
+                                        </a> by <strong class="text-primary">
+                                            Ricky
+                                            Antony
+                                        </strong><br><a href="mailto:ricky@example.com">ricky@example.com</a>
+                                    </td>
+                                    <td class="py-2">20/04/2020</td>
+                                    <td class="py-2">
+                                        Ricky Antony, 2392 Main Avenue, Penasauka, New Jersey 02149
+                                        <p class="mb-0 text-500">Via Flat Rate</p>
+                                    </td>
+                                    <td class="py-2 text-end">
+                                        <span class="badge badge-success light">
+                                            Completed<span class="ms-1 fa fa-check"></span>
+                                        </span>
+                                    </td>
+                                    <td class="py-2 text-end">
+                                        <span class="badge badge-success light">
+                                            Completed<span class="ms-1 fa fa-check"></span>
+                                        </span>
+                                    </td>
+                                    <td class="py-2 text-end">
+                                        Kredi Kartı
+                                    </td>
+                                    <td class="py-2 text-end">
+                                        Hızlı lütfen!
+                                    </td>
+                                    <td class="py-2 text-end">
+                                        $99
+                                    </td>
+                                    <td class="py-2 text-end">
+                                        <div class="dropdown text-sans-serif">
+                                            <button class="btn btn-primary tp-btn-light sharp" type="button" id="order-dropdown-0" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg></span></button>
+                                            <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-0">
+                                                <div class="py-2">
+                                                    <a class="dropdown-item" href="javascript:void(0);">Completed</a><a class="dropdown-item" href="javascript:void(0);">Processing</a><a class="dropdown-item" href="javascript:void(0);">On Hold</a><a class="dropdown-item" href="javascript:void(0);">Pending</a>
+                                                    <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="javascript:void(0);">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="btn-reveal-trigger">
+                                    <td class="py-2">
+                                        <a href="#">
+                                            <strong class="text-primary">#182</strong>
+                                        </a> by <strong class="text-primary">Kin Rossow</strong><br><a href="mailto:kin@example.com">kin@example.com</a>
+                                    </td>
+                                    <td class="py-2">20/04/2020</td>
+                                    <td class="py-2">
+                                        Kin Rossow, 1 Hollywood Blvd,Beverly Hills, California 90210
+                                        <p class="mb-0 text-500">
+                                            Via Free Shipping
+                                        </p>
+                                    </td>
+                                    <td class="py-2 text-end">
+                                        <span class="badge badge-success light">
+                                            Completed<span class="ms-1 fa fa-check"></span>
+                                        </span>
+                                    </td>
+                                    <td class="py-2 text-end">
+                                        <span class="badge badge-primary light">
+                                            Processing<span class="ms-1 fa fa-redo"></span>
+                                        </span>
+                                    </td>
+                                    <td class="py-2 text-end">
+                                        Nakit
+                                    </td>
+                                    <td class="py-2 text-end">
+                                        Hızlı lütfen!
+                                    </td>
+                                    <td class="py-2 text-end">
+                                        $120
+                                    </td>
+                                    <td class="py-2 text-end">
+                                        <div class="dropdown text-sans-serif">
+                                            <button class="btn btn-primary tp-btn-light sharp" type="button" id="order-dropdown-1" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg></span></button>
+                                            <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-1">
+                                                <div class="py-2">
+                                                    <a class="dropdown-item" href="javascript:void(0);">Completed</a><a class="dropdown-item" href="javascript:void(0);">Processing</a><a class="dropdown-item" href="javascript:void(0);">On Hold</a><a class="dropdown-item" href="javascript:void(0);">Pending</a>
+                                                    <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="javascript:void(0);">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="btn-reveal-trigger">
+                                    <td class="py-2">
+                                        <a href="#">
+                                            <strong class="text-primary">#183</strong>
+                                        </a> by <strong class="text-primary">
+                                            Merry
+                                            Diana
+                                        </strong><br><a href="mailto:merry@example.com">merry@example.com</a>
+                                    </td>
+                                    <td class="py-2">30/04/2020</td>
+                                    <td class="py-2">
+                                        Merry Diana, 1 Infinite Loop, Cupertino, California 90210
+                                        <p class="mb-0 text-500">Via Link Road</p>
+                                    </td>
+                                    <td class="py-2 text-end">
+                                        <span class="badge badge-success light">
+                                            Completed<span class="ms-1 fa fa-check"></span>
+                                        </span>
+                                    </td>
+                                    <td class="py-2 text-end">
+                                        <span class="badge badge-secondary light">
+                                            On
+                                            Hold<span class="ms-1 fa fa-ban"></span>
+                                        </span>
+                                    </td>
+                                    <td class="py-2 text-end">
+                                        Nakit
+                                    </td>
+                                    <td class="py-2 text-end">
+                                        Hızlı lütfen!
+                                    </td>
+                                    <td class="py-2 text-end">
+                                        $70
+                                    </td>
+                                    <td class="py-2 text-end">
+                                        <div class="dropdown text-sans-serif">
+                                            <button class="btn btn-primary tp-btn-light sharp" type="button" id="order-dropdown-2" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg></span></button>
+                                            <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-2">
+                                                <div class="py-2">
+                                                    <a class="dropdown-item" href="javascript:void(0);">Completed</a><a class="dropdown-item" href="javascript:void(0);">Processing</a><a class="dropdown-item" href="javascript:void(0);">On Hold</a><a class="dropdown-item" href="javascript:void(0);">Pending</a>
+                                                    <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="javascript:void(0);">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="btn-reveal-trigger">
+                                    <td class="py-2">
+                                        <a href="#">
+                                            <strong class="text-primary">#184</strong>
+                                        </a> by <strong class="text-primary">
+                                            Bucky
+                                            Robert
+                                        </strong><br><a href="mailto:bucky@example.com">bucky@example.com</a>
+                                    </td>
+                                    <td class="py-2">30/04/2020</td>
+                                    <td class="py-2">
+                                        Bucky Robert, 1 Infinite Loop, Cupertino, California 90210
+                                        <p class="mb-0 text-500">Via Free Shipping</p>
+                                    </td>
+                                    <td class="py-2 text-end">
+                                        <span class="badge badge-success light">
+                                            Completed<span class="ms-1 fa fa-check"></span>
+                                        </span>
+                                    </td>
+                                    <td class="py-2 text-end">
+                                        <span class="badge badge-warning light">
+                                            Pending<span class="ms-1 fas fa-stream"></span>
+                                        </span>
+                                    </td>
+                                    <td class="py-2 text-end">
+                                        Nakit
+                                    </td>
+                                    <td class="py-2 text-end">
+                                        Hızlı lütfen!
+                                    </td>
+                                    <td class="py-2 text-end">
+                                        $92
+                                    </td>
+                                    <td class="py-2 text-end">
+                                        <div class="dropdown text-sans-serif">
+                                            <button class="btn btn-primary tp-btn-light sharp" type="button" id="order-dropdown-3" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg></span></button>
+                                            <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-3">
+                                                <div class="py-2">
+                                                    <a class="dropdown-item" href="javascript:void(0);">Completed</a><a class="dropdown-item" href="javascript:void(0);">Processing</a><a class="dropdown-item" href="javascript:void(0);">On Hold</a><a class="dropdown-item" href="javascript:void(0);">Pending</a>
+                                                    <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="javascript:void(0);">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+@* <div class="modal modal-lg fade" id="siparisModal">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Sipraiş Ekle</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal">
+				</button>
+			</div>
+
+			<form asp-action="Index" class="needs-validation " method="post">
+				<div class="modal-body">
+					<div style="margin-bottom:14px" class="row">
+						<div class="form-floating col-md-6 mb-3">
+							<input id="ad" asp-for="Firma" type="text" class="form-control" placeholder="">
+							<label for="ad" class="form-label">&nbsp;&nbsp;&nbsp;Sipraiş Firma</label>
+							<div class="valid-feedback">Valid.</div>
+							<div class="invalid-feedback">Please fill out this field.</div>
+						</div>
+						<div class="form-floating col-md-6 mb-3">
+							<input id="soyad" asp-for="AdSoyad" type="text" class="form-control" placeholder="" required="">
+							<label for="soyad" class="form-label">&nbsp;&nbsp;&nbsp;Sipraiş Ad Soyad</label>
+							<div class="invalid-feedback">
+								Zorunlu Alan
+							</div>
+						</div>
+					</div>
+					<div style="margin-bottom:14px" class="row">
+						<div class="form-floating col-md-6 mb-3">
+							<input id="tel" asp-for="Telefon" type="number" class="form-control" placeholder="" required="">
+							<label for="tel" class="form-label">&nbsp;&nbsp;&nbsp;Sipraiş Telefon</label>
+							<div class="invalid-feedback">
+								Zorunlu Alan
+							</div>
+						</div>
+						<div class="form-floating col-md-6 mb-3">
+							<input id="adres" asp-for="Adres" type="text" class="form-control" placeholder="" required="">
+							<label for="adres" class="form-label">&nbsp;&nbsp;&nbsp;Sipraiş Adres</label>
+							<div class="invalid-feedback">
+								Zorunlu Alan
+							</div>
+						</div>
+					</div>
+					<div style="margin-bottom:14px" class="row">
+						<div class="form-floating col-md-6 mb-3">
+							<input id="eposta" asp-for="Eposta" type="text" class="form-control" placeholder="" required="">
+							<label for="eposta" class="form-label">&nbsp;&nbsp;&nbsp;Sipraiş E-Posta</label>
+							<div class="invalid-feedback">
+								Zorunlu Alan
+							</div>
+						</div>
+						<div class="form-floating col-md-6 mb-3">
+							<input asp-for="KayitTarihi" id="datepicker2" class=" form-control mb-3 mb-xl-0" required>
+							<label for="datepicker2" class="form-label">&nbsp;&nbsp;&nbsp;Sipraiş Kayıt Tarihi</label>
+							<div class="invalid-feedback">
+								Zorunlu Alan
+							</div>
+						</div>
+					</div>
+                    <input asp-for="Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
+                    <input asp-for="Tarih" type="hidden" class="form-control" placeholder="" value=@DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") required="">
+                </div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
+					<button type="submit" class="btn btn-primary">Kaydet</button>
+				</div>
+			</form>
+
+		</div>
+	</div>
+</div> *@
+
+
+<!-- JS Ekstralar -->
+@section Scripts
+{
+	<script src="~/admin_panel/vendor/bootstrap-datepicker-master/js/bootstrap-datepicker.min.js"></script>
+	<script src="~/admin_panel/vendor/select2/js/select2.full.min.js"></script>
+	<script src="~/admin_panel/js/dashboard/cms.js"></script>
+	<script src="~/admin_panel/vendor/ckeditor/ckeditor.js"></script>
+	<script src="~/admin_panel/vendor/datatables/js/jquery.datatables.min.js"></script>
+
+	<script>
+		$(function () {
+			$("#datepicker").datepicker({
+				language: 'tr',
+				format: 'dd/mm/yyyy',
+				autoclose: true,
+				todayHighlight: true
+			}).datepicker('update', new Date());
+
+		});
+
+		$(function () {
+			$("#datepicker2").datepicker({
+				language: 'tr-TR',
+				format: 'dd/mm/yyyy',
+				autoclose: true,
+				todayHighlight: true
+			}).datepicker('update', new Date());
+
+		});
+
+	</script>
+}
+

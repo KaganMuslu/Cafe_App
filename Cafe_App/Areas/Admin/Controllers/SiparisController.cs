@@ -2,6 +2,7 @@
 
 namespace Cafe_App.Areas.Admin.Controllers
 {
+	[Area("Admin")]
 	public class SiparisController : Controller
 	{
 		public IActionResult Index()
