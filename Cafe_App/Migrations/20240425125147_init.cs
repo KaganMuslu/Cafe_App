@@ -697,7 +697,7 @@ namespace Cafe_App.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Tarih = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    AdresId = table.Column<int>(type: "int", nullable: false),
+                    AdresId = table.Column<int>(type: "int", nullable: true),
                     Tutar = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     OdemeDurum = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     Not = table.Column<string>(type: "longtext", nullable: false)

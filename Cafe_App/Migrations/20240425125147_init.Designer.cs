@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cafe_App.Migrations
 {
     [DbContext(typeof(IdentityDataContext))]
-    [Migration("20240425074104_init")]
+    [Migration("20240425125147_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -814,7 +814,7 @@ namespace Cafe_App.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AdresId")
+                    b.Property<int?>("AdresId")
                         .HasColumnType("int");
 
                     b.Property<bool>("Gorunurluk")
@@ -1578,21 +1578,17 @@ namespace Cafe_App.Migrations
 
             modelBuilder.Entity("Cafe_App.Models.Siparis", b =>
                 {
-                    b.HasOne("Cafe_App.Models.Kasa", "Kasa")
+                    b.HasOne("Cafe_App.Models.Kasa", null)
                         .WithMany("Siparislers")
                         .HasForeignKey("KasaId");
 
-                    b.HasOne("Cafe_App.Models.Mutfak", "Mutfak")
+                    b.HasOne("Cafe_App.Models.Mutfak", null)
                         .WithMany("Siparislers")
                         .HasForeignKey("MutfakId");
 
                     b.HasOne("Cafe_App.Models.Yorum", null)
                         .WithMany("Siparislers")
                         .HasForeignKey("YorumId");
-
-                    b.Navigation("Kasa");
-
-                    b.Navigation("Mutfak");
                 });
 
             modelBuilder.Entity("Cafe_App.Models.SiparisMenu", b =>
@@ -1604,7 +1600,7 @@ namespace Cafe_App.Migrations
                         .IsRequired();
 
                     b.HasOne("Cafe_App.Models.Siparis", "Siparis")
-                        .WithMany()
+                        .WithMany("SiparisMenuler")
                         .HasForeignKey("SiparisId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1617,7 +1613,7 @@ namespace Cafe_App.Migrations
             modelBuilder.Entity("Cafe_App.Models.SiparisUrun", b =>
                 {
                     b.HasOne("Cafe_App.Models.Siparis", "Siparis")
-                        .WithMany()
+                        .WithMany("SiparisUrunler")
                         .HasForeignKey("SiparisId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1905,6 +1901,10 @@ namespace Cafe_App.Migrations
                     b.Navigation("Durumlars");
 
                     b.Navigation("Odemelers");
+
+                    b.Navigation("SiparisMenuler");
+
+                    b.Navigation("SiparisUrunler");
 
                     b.Navigation("Teslimatsiparislers");
                 });

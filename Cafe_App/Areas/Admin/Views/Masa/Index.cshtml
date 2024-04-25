@@ -184,7 +184,7 @@
 
 												@* Masa Sipariş Görüntüle Modal *@
 												<div class="modal modal-lg fade" id="detay_@masa.Durum" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
-													<div class="modal-dialog">
+													<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
 														<div class="modal-content">
 															<div class="modal-header">
 																<h5 class="modal-title" id="imageModalLabel">Masaya Ait Siparişler</h5>
@@ -326,82 +326,91 @@
 																										<div class="social-graph-wrapper widget-facebook">
 																											<span class="s-icon"><i style="--fa-beat-fade-opacity: 1; --fa-beat-fade-scale: 1.1;" class="fa-solid fa-cart-arrow-down fa-beat-fade"></i></span>
 																										</div> 
-																										<div class="row">
 																											@{
-																												var menu = MasaSiparis.Siparis.SiparisMenuler.Menu;
-																												var urun = MasaSiparis.Siparis.SiparisUrunler.Urun;
-																												if (menu != null)
+																												var menu = MasaSiparis.Siparis.SiparisMenuler;
+																												var urun = MasaSiparis.Siparis.SiparisUrunler;
+																												if (menu.Count != 0)
 																												{
-																													<div class="col-12">
-																														<h6 class="my-1">
-																															<span class="icon-warning">
-																																<i class="fa-regular fa-list"></i>
-																															</span>
-																															Menü Ad
-																														</h6>
-																														<span class="text-muted">@menu.Ad</span>
-																													</div>
-																													<div class="col-12">
-																														<h6 class="my-1">
-																															<span class="icon-warning">
-																																<i class="fa-regular fa-list"></i>
-																															</span>
-																															Menü Fiyat
-																														</h6>
-																														<span class="text-muted">@menu.Fiyat</span>
-																													</div>
-																													<div class="col-12">
-																														<h6 class="my-1">
-																															<span class="icon-warning">
-																																<i class="fa-regular fa-list"></i>
-																															</span>
-																															Menü İndirimli Fiyat
-																														</h6>
-																														<span class="text-muted">@menu.IndirimliFiyat</span>
-																													</div>
+																													foreach (var menuItem in menu)
+																													{
+																														<li class="list-group-item d-flex justify-content-between lh-condensed">
+																															<div>
+																																<h6 class="my-1">
+																																	<span class="icon-warning">
+																																		<i class="fa-regular fa-wave-pulse"></i>
+																																	</span>
+																																	Menü Ad
+																																</h6>
+																															</div>
+																															<span class="text-muted">@menuItem.Menu.Ad</span>
+																														</li>
+																														<li class="list-group-item d-flex justify-content-between lh-condensed">
+																															<div>
+																																<h6 class="my-1">
+																																	<span class="icon-warning">
+																																		<i class="fa-regular fa-wave-pulse"></i>
+																																	</span>
+																														Menü Fiyat
+																																</h6>
+																															</div>
+																												<span class="text-muted">@menuItem.Menu.FiyatAd</span>
+																														</li>
+																														<li class="list-group-item d-flex justify-content-between lh-condensed">
+																															<div>
+																																<h6 class="my-1">
+																																	<span class="icon-warning">
+																																		<i class="fa-regular fa-wave-pulse"></i>
+																																	</span>
+																														Menü İndirimli Fiyat
+																																</h6>
+																															</div>
+																												<span class="text-muted">@menuItem.Menu.IndirimliFiyat</span>
+																														</li>
+																													}
 																												}
 																												else
 																												{
-																													<div class="col-12">
-																														<h6 class="my-1">
-																															<span class="icon-warning">
-																																<i class="fa-regular fa-list"></i>
-																															</span>
-																															Ürün Ad
-																														</h6>
-																														<span class="text-muted">@urun.Ad</span>
-																													</div>
-																													<div class="col-12">
-																														<h6 class="my-1">
-																															<span class="icon-warning">
-																																<i class="fa-regular fa-list"></i>
-																															</span>
-																															Ürün Fiyat
-																														</h6>
-																														<span class="text-muted">@urun.Fiyat</span>
-																													</div>
-																													<div class="col-12">
-																														<h6 class="my-1">
-																															<span class="icon-warning">
-																																<i class="fa-regular fa-list"></i>
-																															</span>
-																															Ürün İndirimli Fiyat
-																														</h6>
-																														<span class="text-muted">@urun.IndirimliFiyat</span>
-																													</div>
+																													foreach (var urunItem in urun)
+																													{
+																														<li class="list-group-item d-flex justify-content-between lh-condensed">
+																															<div>
+																																<h6 class="my-1">
+																																	<span class="icon-warning">
+																																		<i class="fa-regular fa-wave-pulse"></i>
+																																	</span>
+																														Ürün Ad
+																																</h6>
+																															</div>
+																												<span class="text-muted">@urunItem.Urun.Ad</span>
+																														</li>
+																														<li class="list-group-item d-flex justify-content-between lh-condensed">
+																															<div>
+																																<h6 class="my-1">
+																																	<span class="icon-warning">
+																																		<i class="fa-regular fa-wave-pulse"></i>
+																																	</span>
+																														Ürün Fiyat
+																																</h6>
+																															</div>
+																												<span class="text-muted">@urunItem.Urun.Fiyat</span>
+																														</li>
+																														<li class="list-group-item d-flex justify-content-between lh-condensed">
+																															<div>
+																																<h6 class="my-1">
+																																	<span class="icon-warning">
+																																		<i class="fa-regular fa-wave-pulse"></i>
+																																	</span>
+																														Ürün İndirimli Fiyat
+																																</h6>
+																															</div>
+																												<span class="text-muted">@urunItem.Urun.IndirimliFiyat</span>
+																														</li>
+																													}
 																												}
 
 																											}
-																											
-																											<div class="col-12">
-																												<h6 class="my-1">
-																													<span class="icon-warning">
-																														<i class="fa-regular fa-list"></i>
-																													</span>
-																													Masa Tutar
-																												</h6>
-																												<span class="text-muted">@MasaSiparis.Siparis.Tutar</span>
-																											</div>
+																								<div class="row">
+
 																											<div class="col-6 border-end">
 																												<div class="pt-3 pb-3 pl-0 pr-0 text-center">
 																													<h4 class="m-1">₺<span class="counter">@MasaSiparis.Siparis.Tutar</span></h4>
@@ -417,24 +426,6 @@
 																										</div>
 																									</div>
 																								</div>
-																								@* if (MasaSiparis.Urun.Id == urun.Id && MasaSiparis.Gorunurluk == true)
-																								{
-
-																									<li class="list-group-item d-flex justify-content-between lh-condensed">
-																										<div>
-																											<h6 class="my-0">
-																												<span class="icon-warning">
-																													<i class="fa-solid fa-wheat"></i>
-																												</span>
-																												@MasaSiparis.Malzeme.Ad
-																											</h6>
-																											<small class="text-success">₺@MasaSiparis.Malzeme.Fiyat</small>
-																											<small class="text-muted"> | </small>
-																											<small class="text-danger">@MasaSiparis.Miktar @MasaSiparis.Malzeme.Tur</small>
-																										</div>
-																										<span class="text-muted"><a asp-action="MalzemeSil" asp-route-id="@urun.Id" asp-route-malzemeId="@MasaSiparis.Malzeme.Id" class=" btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa-solid fa-trash"></i></a></span>
-																									</li>
-																								} *@
 																								
 																							}
 																						</ul>
