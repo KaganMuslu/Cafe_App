@@ -85,7 +85,8 @@
 							<div class="card overflow-hidden">
 								<div class="text-center p-3 overlay-box " style="background-image: url(https://cdnimg.webstaurantstore.com/uploads/seo_category/2019/5/table-dining-sets.jpg);">
 									<div class="profile-photo">
-										<img src="@masa.QR" width="100" class="img-fluid rounded-circle" alt="qr_image">
+										<img style="cursor: pointer;" src="@masa.QR" width="100" class="img-fluid rounded-circle" alt="qr_image"
+												data-bs-toggle="modal" data-bs-target="#imageModal" onclick="showImageModal('@masa.QR')">
 									</div>
 									<h3 class="mt-3 mb-1 text-white">@masa.Kod</h3>
 									<p class="text-white mb-0">@masa.Kategori.Ad</p>
@@ -119,29 +120,149 @@
 										@switch (masa.Durum)
 										{
 											case 1:
-												<button class="btn btn-success btn-lg btn-block">
-													<i class="fa fa-bell-o"></i> Masa Bilgileri
+												<button data-bs-toggle="modal" data-bs-target="#detay_@masa.Durum" data- class="btn btn-success btn-lg btn-block">
+													<i class="fa fa-bell-o"></i> Masa Bilgilerini Düzenle
 												</button>
+
+												@* Masa Düzenle Modal *@
+												<div class="modal fade" id="detay_@masa.Durum" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+													<div class="modal-dialog">
+														<div class="modal-content">
+															<div class="modal-header">
+																<h5 class="modal-title" id="imageModalLabel">Masa Bilgilerini Düzenle</h5>
+																<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+															</div>
+															<form asp-action="MasaGuncelle" class="needs-validation " method="post">
+																<div class="modal-body">
+																	<div style="margin-bottom:14px" class="row">
+																		<div class="form-floating col-md-6 mb-3">
+																			<input id="kod" asp-for="Kod" type="text" class="form-control" placeholder="">
+																			<label for="kod" class="form-label">&nbsp;&nbsp;&nbsp;Masa Kod</label>
+																			<div class="valid-feedback">Valid.</div>
+																			<div class="invalid-feedback">Please fill out this field.</div>
+																		</div>
+																		<div class="form-floating col-md-6 mb-3">
+																			<input id="Kapasite" asp-for="Kapasite" type="text" class="form-control" placeholder="" required="">
+																			<label for="Kapasite" class="form-label">&nbsp;&nbsp;&nbsp;Masa Kapasite</label>
+																			<div class="invalid-feedback">
+																				Zorunlu Alan
+																			</div>
+																		</div>
+																	</div>
+																	<div style="margin-bottom:14px" class="row">
+																		<div class="form-floating col-md-6 mb-3">
+																			<select id="KategoriId" asp-for="KategoriId" class="default-select form-control wide w-100 required">
+																				<option selected>Masa Kategori</option>
+																				@foreach (var item in ViewBag.Kategoriler)
+																				{
+																					<option value="@item.Id">@item.Ad</option>
+																				}
+																			</select>
+																		</div>
+																	</div>
+																	<input asp-for="Gorunurluk" type="hidden" class="form-control" value=True required="">
+																	<input asp-for="Durum" type="hidden" class="form-control" value=1 required="">
+																	<input asp-for="Tutar" type="hidden" class="form-control" value=0 required="">
+																	<input asp-for="OdenenTutar" type="hidden" class="form-control" value=0 required="">
+																	<input asp-for="Id" type="hidden" class="form-control" required="">
+																</div>
+																<div class="modal-footer">
+																	<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
+																	<button type="submit" class="btn btn-primary">Kaydet</button>
+																</div>
+															</form>
+
+														</div>
+													</div>
+												</div>
+
 												break;
 											case 2:
-												<button class="btn btn-danger btn-lg btn-block">
+												<button data-bs-toggle="modal" data-bs-target="#detay_@masa.Durum" class="btn btn-danger btn-lg btn-block">
 													<i class="fa fa-bell-o"></i> Sipariş Görüntüle
 												</button>
+
+												@* Masa Sipariş Görüntüle Modal *@
+												<div class="modal fade" id="detay_@masa.Durum" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+													<div class="modal-dialog">
+														<div class="modal-content">
+															<div class="modal-header">
+																<h5 class="modal-title" id="imageModalLabel">Masaya Ait Siparişler</h5>
+																<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+															</div>
+															<div class="modal-body">
+																
+
+
+
+															</div>
+														</div>
+													</div>
+												</div>
+
 												break;
 											case 3:
-												<button class="btn btn-warning btn-lg btn-block">
+												<button data-bs-toggle="modal" data-bs-target="#detay_@masa.Durum" class="btn btn-warning btn-lg btn-block">
 													<i class="fa fa-bell-o"></i> Bildirim Gönder
 												</button>
+
+												@* Masa Bilgi Modal *@
+												<div class="modal fade" id="detay_@masa.Durum" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+													<div class="modal-dialog">
+														<div class="modal-content">
+															<div class="modal-header">
+																<h5 class="modal-title" id="imageModalLabel">QR Resim</h5>
+																<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+															</div>
+															<div class="modal-body">
+																<img id="modalImage" src="" class="img-fluid" alt="Büyütülmüş Resim">
+															</div>
+														</div>
+													</div>
+												</div>
+
 												break;
 											case 4:
-												<button class="btn btn-warning btn-lg btn-block">
+												<button data-bs-toggle="modal" data-bs-target="#detay_@masa.Durum" class="btn btn-warning btn-lg btn-block">
 													<i class="fa fa-bell-o"></i> Rezervazsyon Görüntüle
 												</button>
+
+												@* Masa Bilgi Modal *@
+												<div class="modal fade" id="detay_@masa.Durum" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+													<div class="modal-dialog">
+														<div class="modal-content">
+															<div class="modal-header">
+																<h5 class="modal-title" id="imageModalLabel">QR Resim</h5>
+																<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+															</div>
+															<div class="modal-body">
+																<img id="modalImage" src="" class="img-fluid" alt="Büyütülmüş Resim">
+															</div>
+														</div>
+													</div>
+												</div>
+
 												break;
 											case 5:
-												<button class="btn btn-warning btn-lg btn-block">
+												<button data-bs-toggle="modal" data-bs-target="#detay_@masa.Durum" class="btn btn-warning btn-lg btn-block">
 													<i class="fa fa-bell-o"></i> Masayı Aç
 												</button>
+
+												@* Masa Bilgi Modal *@
+												<div class="modal fade" id="detay_@masa.Durum" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+													<div class="modal-dialog">
+														<div class="modal-content">
+															<div class="modal-header">
+																<h5 class="modal-title" id="imageModalLabel">QR Resim</h5>
+																<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+															</div>
+															<div class="modal-body">
+																<img id="modalImage" src="" class="img-fluid" alt="Büyütülmüş Resim">
+															</div>
+														</div>
+													</div>
+												</div>
+
 												break;
 										}
 									
@@ -158,6 +279,7 @@
 </div>
 
 <!-- Modal -->
+@* Masa Ekleme *@
 <div class="modal modal-lg fade" id="masaModal">
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
@@ -210,6 +332,20 @@
 	</div>
 </div>
 
+@* Resim Büyütme *@
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="imageModalLabel">QR Resim</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<img id="modalImage" src="" class="img-fluid" alt="Büyütülmüş Resim">
+			</div>
+		</div>
+	</div>
+</div>
 
 <!-- JS Ekstralar -->
 @section Scripts
@@ -240,6 +376,11 @@
 			}).datepicker('update', new Date());
 
 		});
+
+		function showImageModal(imageSrc) {
+			var modalImage = document.getElementById('modalImage');
+			modalImage.src = imageSrc;
+		}
 
 	</script>
 }

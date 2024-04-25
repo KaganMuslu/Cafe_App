@@ -27,6 +27,8 @@ public partial class Masa
 
 	public ICollection<MasaOzellik> MasaOzelliks { get; set; } = new List<MasaOzellik>();
 
+	public ICollection<MasaSiparis> MasaSipariss { get; set; } = new List<MasaSiparis>();
+
     public Personel? Personel { get; set; }
 
     public Kategori? Kategori { get; set; }

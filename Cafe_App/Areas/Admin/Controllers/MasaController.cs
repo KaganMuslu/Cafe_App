@@ -19,7 +19,7 @@ namespace Cafe_App.Areas.Admin.Controllers
 		public IActionResult Index()
 		{
 			ViewBag.Kategoriler = _context.Kategoriler.Where(x => x.Tur == "Masa").ToList();
-			ViewBag.Masalar = _context.Masalar.Include(x => x.Kategori).ToList();
+			ViewBag.Masalar = _context.Masalar.Include(x => x.MasaSipariss).ThenInclude(x => x.Siparis).Include(x => x.Kategori).ToList();
 			
 			return View();
 		}
