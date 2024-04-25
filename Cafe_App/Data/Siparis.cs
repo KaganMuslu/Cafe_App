@@ -10,7 +10,7 @@ public partial class Siparis
 
     public DateTime Tarih { get; set; }
 
-    public int AdresId { get; set; }
+    public int? AdresId { get; set; }
 
     public decimal Tutar { get; set; }
 
@@ -22,12 +22,12 @@ public partial class Siparis
 
 	public ICollection<Durum> Durumlars { get; set; } = new List<Durum>();
 
-    public Kasa? Kasa { get; set; }
-
-    public Mutfak? Mutfak { get; set; }
-
     public ICollection<TeslimatSiparis> Teslimatsiparislers { get; set; } = new List<TeslimatSiparis>();
 
     public ICollection<Odeme> Odemelers { get; set; } = new List<Odeme>();
+
+    public ICollection<SiparisMenu> SiparisMenuler { get; set; } = new List<SiparisMenu>();
+
+    public ICollection<SiparisUrun> SiparisUrunler { get; set; } = new List<SiparisUrun>();
 
 }

@@ -1,5 +1,6 @@
 ﻿using Cafe_App.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using QRCoder;
 using System.Drawing;
@@ -19,7 +20,10 @@ namespace Cafe_App.Areas.Admin.Controllers
 		public IActionResult Index()
 		{
 			ViewBag.Kategoriler = _context.Kategoriler.Where(x => x.Tur == "Masa").ToList();
-			ViewBag.Masalar = _context.Masalar.Include(x => x.MasaSipariss).ThenInclude(x => x.Siparis).Include(x => x.Kategori).ToList();
+			ViewBag.Masalar = _context.Masalar
+				.Include(x => x.MasaSipariss).ThenInclude(x => x.Siparis).ThenInclude(x => x.SiparisMenuler).ThenInclude(x => x.Menu)
+				.Include(x => x.MasaSipariss).ThenInclude(x => x.Siparis).ThenInclude(x => x.SiparisUrunler).ThenInclude(x => x.Urun)
+				.Include(x => x.Kategori).ToList();
 			
 			return View();
 		}
@@ -61,5 +65,37 @@ namespace Cafe_App.Areas.Admin.Controllers
 
 			return RedirectToAction("Index");
 		}
+
+		[HttpGet]
+		public IActionResult MasaBilgiler(int masaId)
+		{
+			// masaId'ye göre sorgulama işlemi yapın
+			var masaData = GetMasaDataById(masaId);
+
+			if (masaData == null)
+			{
+				// Masa verisi bulunamadığında NotFound döndür
+				return NotFound();
+			}
+
+			// Verileri JSON formatında geri döndür
+			return Json(masaData);
+		}
+
+		// masaId'ye göre sorgulama fonksiyonu
+		private Masa GetMasaDataById(int masaId)
+		{
+			var masaData = _context.Masalar.Include(x => x.MasaSipariss).ThenInclude(x => x.Siparis).FirstOrDefault(x => x.Id == masaId);
+			if (masaData == null)
+			{
+				// Hatax
+			}
+			else
+			{
+				var masaSiparisler = masaData.MasaSipariss.ToList();
+			}
+			return masaData; // Fonksiyonun türü MasaData olmalı
+		}
+
 	}
 }
