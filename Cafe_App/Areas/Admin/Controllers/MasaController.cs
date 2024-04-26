@@ -97,5 +97,47 @@ namespace Cafe_App.Areas.Admin.Controllers
 			return masaData; // Fonksiyonun türü MasaData olmalı
 		}
 
+		public IActionResult MasaGuncelle(Masa model)
+		{
+			var oldMasa = _context.Masalar.FirstOrDefault(x => x.Id == model.Id);
+			if (ModelState.IsValid && oldMasa != null)
+			{ 
+				if (model.Kod == oldMasa.Kod)
+				{
+					_context.Update(model);
+				}
+				else
+				{
+					string masaKod = model.Kod;
+					string QrLink = $"https://zartzurt.com/{masaKod}";
+
+					// QR kodu oluştur
+					QRCodeGenerator qrGenerator = new QRCodeGenerator();
+					QRCodeData qrCodeData = qrGenerator.CreateQrCode(QrLink, QRCodeGenerator.ECCLevel.Q);
+					PngByteQRCode qrCode = new PngByteQRCode(qrCodeData);
+					byte[] qrCodeImage = qrCode.GetGraphic(20);
+
+					// QR kodunu wwwroot/img klasörüne kaydet
+					string fileName = $"{model.Kod}.png"; // QR kodunun dosya adı olarak model.Kod kullanılıyor
+					string filePath = Path.Combine("wwwroot/img", fileName); // Dosya yolunu oluştur
+					System.IO.File.WriteAllBytes(filePath, qrCodeImage); // QR kodunu dosyaya kaydet
+
+					// Modelin QR sütununa dosya yolunu ekleyin
+					model.QR = $"/img/{fileName}";
+
+
+					oldMasa.Kod = model.Kod;
+					oldMasa.QR = model.QR;
+					oldMasa.KategoriId = model.KategoriId;
+					oldMasa.Kapasite = model.Kapasite;
+
+					_context.Update(oldMasa);
+				}
+			}
+
+			_context.SaveChanges();
+			return RedirectToAction("Index");
+		}
+
 	}
 }
