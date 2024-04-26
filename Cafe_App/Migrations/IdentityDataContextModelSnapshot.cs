@@ -753,14 +753,11 @@ namespace Cafe_App.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateOnly>("BaslangıcSaat")
-                        .HasColumnType("date");
+                    b.Property<TimeOnly>("BaslangicSaat")
+                        .HasColumnType("time(6)");
 
-                    b.Property<DateOnly>("BıtısSaat")
-                        .HasColumnType("date");
-
-                    b.Property<int>("Durum")
-                        .HasColumnType("int");
+                    b.Property<TimeOnly>("BitisSaat")
+                        .HasColumnType("time(6)");
 
                     b.Property<bool>("Gorunurluk")
                         .HasColumnType("tinyint(1)");
@@ -768,12 +765,15 @@ namespace Cafe_App.Migrations
                     b.Property<int>("KisiSayisi")
                         .HasColumnType("int");
 
+                    b.Property<int>("Onay")
+                        .HasColumnType("int");
+
                     b.Property<string>("Talep")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<DateOnly>("TalepTarihi")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("TalepTarihi")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<DateOnly>("Tarih")
                         .HasColumnType("date");

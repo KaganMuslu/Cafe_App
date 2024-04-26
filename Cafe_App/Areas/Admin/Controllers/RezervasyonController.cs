@@ -14,28 +14,19 @@ namespace Cafe_App.Areas.Admin.Controllers
 
 		public IActionResult Index()
 		{
-			ViewBag.Rezervasyonlar = _context.Tedarikciler.ToList();
+			ViewBag.Rezervasyonlar = _context.Rezervasyonlar.ToList();
 			return View();
 		}
 
 		[HttpPost]
-		public IActionResult Index(Tedarikci model)
+		public IActionResult Index(Rezervasyon model)
 		{
 			if (ModelState.IsValid)
 			{
-				var tedarikci = _context.Tedarikciler.FirstOrDefault(x => x.Eposta == model.Eposta);
-				if (tedarikci == null)
-				{
-					_context.Tedarikciler.Add(model);
-					_context.SaveChanges();
-				}
-				else
-				{
-					// Hata	
-				}
+				_context.Rezervasyonlar.Add(model);
+				_context.SaveChanges();
 			}
 
-			ViewBag.Tedarikciler = _context.Tedarikciler.ToList();
 			return RedirectToAction("Index");
 		}
 	}

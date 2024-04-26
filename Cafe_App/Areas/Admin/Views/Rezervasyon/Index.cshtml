@@ -1,7 +1,312 @@
 ﻿
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Rezervasyon";
 }
+@model Rezervasyon
 
-<h1>Rezervasyon Index</h1>
+<!-- CSS Ekstralar -->
+<head>
+	<link href="~/admin_panel/vendor/bootstrap-datepicker-master/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+	<link href="~/admin_panel/vendor/select2/css/select2.min.css" rel="stylesheet" />
+	<link href="~/admin_panel/vendor/datatables/css/jquery.datatables.min.css" rel="stylesheet" />
+	<link href="~/admin_panel/vendor/clockpicker/css/bootstrap-clockpicker.min.css" rel="stylesheet">
+</head>
+
+<div class="content-body">
+	<div class="container-fluid">
+		<!-- Row -->
+
+		<div class="form-head d-flex mb-3 align-items-start">
+			<div class="me-auto d-none d-lg-block">
+				<h2 class="text-primary font-w600 mb-0">Cafe App Rezervasyon</h2>
+				<p class="mb-0">Cafe App Rezervasyon Yönetim Ekranına Hoşgeldiniz!</p>
+			</div>
+
+			<a data-bs-toggle="modal" data-bs-target="#rezervasyonModal" style="width:max-content; display: inline-block; vertical-align: middle;" type="button" class="btn btn-rounded btn-primary">
+				<span class="btn-icon-start text-primary">
+					<i class="fa fa-user-plus color-primary"></i>
+				</span>Rezervasyon Ekle
+			</a>
+		</div>
+		<br>
+
+		<div class="filter cm-content-box box-primary">
+			<div class="content-title">
+				<div class="cpa">
+					<i class="fa-solid fa-filter me-2"></i>Filtrele
+				</div>
+				<div class="tools">
+					<a href="javascript:void(0);" class="expand SlideToolHeader"><i class="fal fa-angle-down"></i></a>
+				</div>
+			</div>
+			<div class="cm-content-body form excerpt">
+				<div class="card-body">
+					<div class="row">
+						<div class="col-xl-3 col-sm-6">
+							<input type="text" class="form-control mb-3 mb-xl-0" id="exampleFormControlInput1" placeholder="Rezervasyon Adı">
+						</div>
+						<div class="col-xl-3 col-sm-6 mb-3 mb-xl-0">
+							<select class="default-select dashboard-select-2 wide w-100">
+								<option selected>Personel Rolü</option>
+								<option value="1">Published</option>
+								<option value="2">Draft</option>
+								<option value="3">Trash</option>
+								<option value="4">Private</option>
+								<option value="5">Pending</option>
+							</select>
+						</div>
+						<div class="col-xl-3 col-sm-6">
+							<input id="datepicker" class=" form-control mb-3 mb-xl-0">
+						</div>
+						<div class="col-xl-3 col-sm-6">
+							<button class="btn btn-primary" title="Aramak İçin Tıklayın" type="button"><i class="fa fa-search me-1"></i>Filtrele</button>
+							<button class="btn btn-danger light" title="Filtreyi Kaldırmak İçin Tıklayın" type="button">Kaldır</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="filter cm-content-box box-primary">
+			<div class="content-title">
+				<div class="cpa">
+					<i class="fa-solid fa-file-lines me-1"></i>Rezervasyon Listesi
+				</div>
+				<div class="tools">
+					<a href="javascript:void(0);" class="expand SlideToolHeader"><i class="fal fa-angle-down"></i></a>
+				</div>
+			</div>
+			<div class="cm-content-body form excerpt">
+				<div class="card-body">
+					<div class="table-responsive">
+
+						<table class="table table-responsive-sm mb-0">
+							<thead>
+								<tr>
+									<th><strong>Id</strong></th>
+									<th><strong>TARİH</strong></th>
+									<th><strong>BAŞLANGIÇ - BİTİŞ SAATİ</strong></th>
+									<th><strong>KİŞİ SAYISI</strong></th>
+									<th><strong>TALEP</strong></th>
+									<th><strong>ONAY</strong></th>
+									<th><strong>TALEP TARİHİ</strong></th>
+									<th style="width:85px;"><strong>İşlemler</strong></th>
+								</tr>
+							</thead>
+							<tbody>
+
+								@foreach (var rezervasyon in ViewBag.Rezervasyonlar)
+								{
+									<tr>
+										<td><b>@rezervasyon.Id</b></td>
+										<td>@rezervasyon.Tarih</td>
+										<td>@rezervasyon.BaslangicSaat - @rezervasyon.BitisSaat</td>
+										<td>@rezervasyon.KisiSayisi</td>
+										<td>@rezervasyon.Talep</td>
+										@switch (@rezervasyon.Onay)
+										{
+											case 1:
+												<td class="text-warning">Onay Bekliyor</td>
+												break;
+											case 2:
+												<td class="text-success">Onaylandı</td>
+												break;
+											case 3:
+												<td class="text-success">Bitti</td>
+												break;
+											case 4:
+												<td class="text-danger">İptal Edildi</td>
+												break;
+											case 5:
+												<td class="text-danger">Onaylanmadı</td>
+												break;
+
+										}
+										<td>@rezervasyon.TalepTarihi</td>
+										<td>
+											<a data-bs-toggle="modal" data-bs-target="#rezervasyon_@rezervasyon.Id" class="btn btn-primary shadow btn-xs sharp rounded-circle me-1"><i class="fa fa-pencil"></i></a>
+											<a href="javascript:void(0);" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa fa-trash"></i></a>
+										</td>
+									</tr>
+
+									<div class="modal modal-lg fade" id="rezervasyon_@rezervasyon.Id">
+										<div class="modal-dialog modal-dialog-centered" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title">Rezervasyon Güncelle</h5>
+													<button type="button" class="btn-close" data-bs-dismiss="modal">
+													</button>
+												</div>
+
+												<form asp-action="Index" class="needs-validation " method="post">
+													<div class="modal-body">
+														<div style="margin-bottom:14px" class="row">
+															<div class="form-floating col-md-6 mb-3">
+																<input id="KisiSayisi" asp-for="KisiSayisi" type="number" class="form-control" placeholder="" required="">
+																<label for="KisiSayisi" class="form-label">&nbsp;&nbsp;&nbsp;Rezervasyon Kişi Sayısı</label>
+																<div class="invalid-feedback">
+																	Zorunlu Alan
+																</div>
+															</div>
+															<div class="form-floating col-md-6 mb-3">
+																<input id="Talep" asp-for="Talep" type="text" class="form-control" placeholder="" required="">
+																<label for="Talep" class="form-label">&nbsp;&nbsp;&nbsp;Rezervasyon Talep</label>
+																<div class="invalid-feedback">
+																	Zorunlu Alan
+																</div>
+															</div>
+														</div>
+														<div style="margin-bottom:14px" class="row">
+															<div class="form-floating col-md-6 mb-3">
+																<div class="input-group clockpicker" data-placement="bottom" data-align="top" data-autobtn-close="true">
+																	<input type="text" asp-for="BaslangicSaat" class="form-control" value="13:14">
+																	<span class="input-group-text"><i class="far fa-clock"></i></span>
+																</div>
+															</div>
+															<div class="form-floating col-md-6 mb-3">
+																<input id="BitisSaat" asp-for="BitisSaat" type="text" class="form-control" placeholder="" required="">
+																<label for="BitisSaat" class="form-label">&nbsp;&nbsp;&nbsp;Rezervasyon Bitiş Saat</label>
+																<div class="invalid-feedback">
+																	Zorunlu Alan
+																</div>
+															</div>
+														</div>
+														<div style="margin-bottom:14px" class="row">
+															<div class="form-floating col-md-6 mb-3">
+																<input asp-for="Tarih" id="datepicker2" class=" form-control mb-3 mb-xl-0" required>
+																<label for="datepicker2" class="form-label">&nbsp;&nbsp;&nbsp;Rezervasyon Tarihi</label>
+																<div class="invalid-feedback">
+																	Zorunlu Alan
+																</div>
+															</div>
+														</div>
+														<input asp-for="Gorunurluk" type="hidden" class="form-control" value=True required="">
+														<input asp-for="Onay" type="hidden" class="form-control" value=2 required="">
+														<input asp-for="TalepTarihi" type="hidden" class="form-control" value="@DateTime.Now.ToString("dd/MM/yyyy")" required="">
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
+														<button type="submit" class="btn btn-primary">Kaydet</button>
+													</div>
+												</form>
+
+											</div>
+										</div>
+									</div>
+
+								}
+
+							</tbody>
+						</table>
+
+					</div>
+					<div class="d-flex align-items-center justify-content-xl-between flex-wrap justify-content-center mt-3">
+						<small>3 sayfa içerisinden 1 numaralı sayfa gösteriliyor</small>
+						<nav aria-label="Page navigation example">
+							<ul class="pagination mb-2 mb-sm-0">
+								<li class="page-item"><a class="page-link" href="javascript:void(0);"><i class="fa-solid fa-angle-left"></i></a></li>
+								<li class="page-item"><a class="page-link" href="javascript:void(0);">1</a></li>
+								<li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
+								<li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
+								<li class="page-item"><a class="page-link " href="javascript:void(0);"><i class="fa-solid fa-angle-right"></i></a></li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal modal-lg fade" id="rezervasyonModal">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Rezervasyon Ekle</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal">
+				</button>
+			</div>
+
+			<form asp-action="Index" class="needs-validation " method="post">
+				<div class="modal-body">
+					<div style="margin-bottom:14px" class="row">
+						<div class="form-floating col-md-6 mb-3">
+							<input id="KisiSayisi" asp-for="KisiSayisi" type="number" class="form-control" placeholder="" required="">
+							<label for="KisiSayisi" class="form-label">&nbsp;&nbsp;&nbsp;Rezervasyon Kişi Sayısı</label>
+							<div class="invalid-feedback">
+								Zorunlu Alan
+							</div>
+						</div>
+						<div class="form-floating col-md-6 mb-3">
+							<input id="Talep" asp-for="Talep" type="text" class="form-control" placeholder="" required="">
+							<label for="Talep" class="form-label">&nbsp;&nbsp;&nbsp;Rezervasyon Talep</label>
+							<div class="invalid-feedback">
+								Zorunlu Alan
+							</div>
+						</div>
+					</div>
+					<div style="margin-bottom:14px" class="row">
+						<div class="form-floating col-md-6 mb-3">
+							<div class="input-group clockpicker" data-placement="bottom" data-align="top" data-autobtn-close="true">
+								<input type="text" asp-for="BaslangicSaat" class="form-control" value="13:14">
+								<span class="input-group-text"><i class="far fa-clock"></i></span>
+							</div>
+						</div>
+						<div class="form-floating col-md-6 mb-3">
+							<input id="BitisSaat" asp-for="BitisSaat" type="text" class="form-control" placeholder="" required="">
+							<label for="BitisSaat" class="form-label">&nbsp;&nbsp;&nbsp;Rezervasyon Bitiş Saat</label>
+							<div class="invalid-feedback">
+								Zorunlu Alan
+							</div>
+						</div>
+					</div>
+					<div style="margin-bottom:14px" class="row">
+						<div class="form-floating col-md-6 mb-3">
+							<input asp-for="Tarih" id="datepicker2" class=" form-control mb-3 mb-xl-0" required>
+							<label for="datepicker2" class="form-label">&nbsp;&nbsp;&nbsp;Rezervasyon Tarihi</label>
+							<div class="invalid-feedback">
+								Zorunlu Alan
+							</div>
+						</div>
+					</div>
+					<input asp-for="Gorunurluk" type="hidden" class="form-control" value=True required="">
+					<input asp-for="Onay" type="hidden" class="form-control" value=2 required="">
+					<input asp-for="TalepTarihi" type="hidden" class="form-control" value="@DateTime.Now.ToString("dd/MM/yyyy")" required="">
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
+					<button type="submit" class="btn btn-primary">Kaydet</button>
+				</div>
+			</form>
+
+		</div>
+	</div>
+</div>
+
+
+<!-- JS Ekstralar -->
+@section Scripts
+{
+	<script src="~/admin_panel/vendor/bootstrap-datepicker-master/js/bootstrap-datepicker.min.js"></script>
+	<script src="~/admin_panel/vendor/select2/js/select2.full.min.js"></script>
+	<script src="~/admin_panel/js/dashboard/cms.js"></script>
+	<script src="~/admin_panel/vendor/ckeditor/ckeditor.js"></script>
+	<script src="~/admin_panel/vendor/datatables/js/jquery.datatables.min.js"></script>
+	<script src="~/admin_panel/vendor/clockpicker/js/bootstrap-clockpicker.min.js"></script>
+
+	<script src="~/admin_panel/js/plugins-init/clock-picker-init.js"></script>
+
+	<script>
+		$(function () {
+			$("#datepicker").datepicker({
+				language: 'tr',
+				format: 'dd/mm/yyyy',
+				autoclose: true,
+				todayHighlight: true
+			}).datepicker('update', new Date());
+
+		});
+
+	</script>
+}
 

@@ -7,19 +7,19 @@ public partial class Rezervasyon
 {
     public int Id { get; set; }
 
-    public DateOnly BaslangıcSaat { get; set; }
+    public TimeOnly BaslangicSaat { get; set; }
 
-    public DateOnly BıtısSaat { get; set; }
+    public TimeOnly BitisSaat { get; set; }
 
     public DateOnly Tarih { get; set; }
 
     public int KisiSayisi { get; set; }
 
-    public string Talep { get; set; }
+    public string? Talep { get; set; }
 
-    public int Durum { get; set; }
+    public int Onay { get; set; }
 
-    public DateOnly TalepTarihi { get; set; }
+    public DateTime TalepTarihi { get; set; }
 
 	public bool Gorunurluk { get; set; }
 }

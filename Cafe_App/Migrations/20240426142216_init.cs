@@ -202,14 +202,14 @@ namespace Cafe_App.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    BaslangıcSaat = table.Column<DateOnly>(type: "date", nullable: false),
-                    BıtısSaat = table.Column<DateOnly>(type: "date", nullable: false),
+                    BaslangicSaat = table.Column<TimeOnly>(type: "time(6)", nullable: false),
+                    BitisSaat = table.Column<TimeOnly>(type: "time(6)", nullable: false),
                     Tarih = table.Column<DateOnly>(type: "date", nullable: false),
                     KisiSayisi = table.Column<int>(type: "int", nullable: false),
                     Talep = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Durum = table.Column<int>(type: "int", nullable: false),
-                    TalepTarihi = table.Column<DateOnly>(type: "date", nullable: false),
+                    Onay = table.Column<int>(type: "int", nullable: false),
+                    TalepTarihi = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Gorunurluk = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
