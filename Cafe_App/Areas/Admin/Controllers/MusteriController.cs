@@ -1,4 +1,5 @@
-﻿using Cafe_App.Models;
+﻿using Cafe_App.Areas.Admin.Models;
+using Cafe_App.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cafe_App.Areas.Admin.Controllers
@@ -14,28 +15,49 @@ namespace Cafe_App.Areas.Admin.Controllers
 
 		public IActionResult Index()
 		{
-            ViewBag.Musteriler = _context.Musteriler.ToList();
-			return View();
+			var viewModel = new MusteriViewModel
+			{
+				Musteri = new Cafe_App.Models.Musteri(),
+				Musteriler = _context.Musteriler.ToList()
+			};
+
+			return View(viewModel);
 		}
 
 		[HttpPost]
-		public IActionResult Index(Cafe_App.Models.Musteri model)
+		public IActionResult Index(MusteriViewModel model)
 		{
-			if (ModelState.IsValid)
+			var musteri = _context.Musteriler.FirstOrDefault(x => x.Eposta == model.Musteri.Eposta);
+			if (musteri == null)
 			{
-				var musteri = _context.Musteriler.FirstOrDefault(x => x.Eposta == model.Eposta);
-				if (musteri == null)
+				_context.Musteriler.Add(model.Musteri);
+			}
+			else
+			{
+				_context.Update(model.Musteri);
+			}
+
+			_context.SaveChanges();
+			return RedirectToAction("Index");
+		}
+
+		public IActionResult MusteriSil(int id)
+		{
+			var musteri = _context.Musteriler.FirstOrDefault(x => x.Id == id);
+			if (musteri != null)
+			{
+				if (musteri.Gorunurluk == true)
 				{
-					_context.Musteriler.Add(model);
-					_context.SaveChanges();
+					musteri.Gorunurluk = false;
 				}
 				else
 				{
-					// Hata	
+					musteri.Gorunurluk = true;
 				}
+				_context.Update(musteri);
+				_context.SaveChanges();
 			}
 
-			ViewBag.Musteriler = _context.Musteriler.ToList();
 			return RedirectToAction("Index");
 		}
 	}
