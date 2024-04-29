@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Personel";
 }
-@model List<Personel>
+@model Personel
 
 <!-- CSS Ekstralar -->
 <head>
@@ -21,7 +21,7 @@
 				<p class="mb-0">Cafe App Personel Yönetim Ekranına Hoşgeldiniz!</p>
 			</div>
 
-			<a asp-action="PersonelEkle" style="width:max-content; display: inline-block; vertical-align: middle;" type="button" class="btn btn-rounded btn-primary">
+			<a data-bs-toggle="modal" data-bs-target="#personelModal" style="width:max-content; display: inline-block; vertical-align: middle;" type="button" class="btn btn-rounded btn-primary">
 				<span class="btn-icon-start text-primary">
 					<i class="fa fa-user-plus color-primary"></i>
 				</span>Personel Ekle
@@ -94,7 +94,7 @@
 							</thead>
 							<tbody>
 
-								@foreach (var personel in Model)
+								@foreach (var personel in ViewBag.personeller)
 								{
 									<tr>
 										<td><b>@personel.Id</b></td>
@@ -148,6 +148,185 @@
 		</div>
 	</div>
 </div>
+
+<!-- Modal -->
+<div class="modal modal-lg fade" id="personelModal">
+	@if (ViewBag.roller.Count != 0)
+	{
+		<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Personel Ekle</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal">
+				</button>
+			</div>
+
+			<form asp-action="PersonelEkle" enctype="multipart/form-data" class="needs-validation" method="post">
+				<div class="modal-body">
+					<div style="margin-bottom:9px" class="row">
+						<div class="col-md-6 mb-3">
+							<label class="form-label">Personel Adı</label>
+							<input type="text" class="form-control" asp-for="Ad" placeholder="" required>
+							<div class="invalid-feedback">
+								Zorunlu Alan
+							</div>
+						</div>
+						<div class="col-md-6 mb-3">
+							<label class="form-label">Personel Soyadı</label>
+							<input type="text" class="form-control" asp-for="Soyad" placeholder="" required>
+							<div class="invalid-feedback">
+								Zorunlu Alan
+							</div>
+						</div>
+					</div>
+					<div style="margin-bottom:9px" class="row">
+						<div class="col-md-4 mb-3">
+							<label for="email" class="form-label">E-Posta Adresi</label>
+							<input type="text" class="form-control" asp-for="Eposta" placeholder="E-Posta" required="">
+							<div class="invalid-feedback" style="width: 100%;">
+								Zorunlu Alan
+							</div>
+						</div>
+						<div class="col-md-4 mb-3">
+							<label class="form-label">Rol </label>
+							<select asp-for="RolId" class="default-select form-control wide w-100 required">
+								<option disabled="disabled" selected>Rol</option>
+								@foreach (var item in ViewBag.roller)
+								{
+									<option value="@item.Id">@item.Ad</option>
+								}
+							</select>
+							<div class="invalid-feedback">
+								Zorunlu Alan
+							</div>
+						</div>
+						<div class="col-md-4 mb-3">
+							<label for="email" class="form-label">Maaş</label>
+							<input type="number" class="form-control" asp-for="Maas" placeholder="Maaş" required="">
+							<div class="invalid-feedback" style="width: 100%;">
+								Zorunlu Alan
+							</div>
+						</div>
+					</div>
+					<div style="margin-bottom:9px" class="row">
+						<div class="col-md-6 mb-3">
+							<label for="formFile" class="form-label">Personel Fotoğrafı</label>
+							<input asp-for="Fotograf" id="formFile" class="form-control" name="file" type="file">
+						</div>
+
+						<div class="col-md-6 mb-3">
+							<label class="form-label">Cinsiyet</label>
+							<select asp-for="Cinsiyet" class="default-select form-control required wide w-100" required>
+								<option value="" selected>Cinsiyet</option>
+								<option>Kadın</option>
+								<option>Erkek</option>
+							</select>
+							<div class="invalid-feedback">
+								Zorunlu Alan
+							</div>
+						</div>
+					</div>
+					<div style="margin-bottom:9px" class="row">
+						<div class="col-md-6 mb-3">
+							<label class="form-label">Parola</label>
+							<div class="input-group transparent-append">
+								<span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+								<input type="password" class="form-control" asp-for="Parola" placeholder="" required>
+								<span class="input-group-text show-pass border-left-end">
+									<i class="fa fa-eye-slash"></i>
+									<i class="fa fa-eye"></i>
+								</span>
+								<div class="invalid-feedback">
+									Zorunlu Alan
+								</div>
+							</div>
+							<div class="invalid-feedback">
+								Zorunlu Alan
+							</div>
+						</div>
+						<div class="col-md-6 mb-3">
+							<label class="form-label">Telefon Numarası</label>
+							<div class="input-group">
+								<span class="input-group-text">+90</span>
+								<input type="number" class="form-control border-left-end" asp-for="Telefon" placeholder="" required>
+								<div class="invalid-feedback">
+									Zorunlu Alan
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12 mb-3">
+							<div style="margin-bottom:9px" class="mb-3">
+								<label for="address" class="form-label">Adres</label>
+								<textarea asp-for="Adres" type="text" class="form-control" placeholder="" required></textarea>
+								<div class="invalid-feedback">
+									Zorunlu Alan
+								</div>
+							</div>
+						</div>
+					</div>
+					<div style="margin-bottom:9px" class="row">
+						<div class="col-md-6 mb-3">
+							<label class="form-label">Doğum Tarihi</label>
+							<input style="text-align:center" asp-for="DogumTarihi" id="datepicker" class=" form-control mb-3 mb-xl-0" required>
+						</div>
+						<div class="col-md-6 mb-3">
+							<label class="form-label">Başlama Tarihi</label>
+							<input style="text-align:center" asp-for="BaslamaTarihi" id="datepicker2" class=" form-control mb-3 mb-xl-0" required>
+						</div>
+					</div>
+					<input type="hidden" asp-for="Gorunurluk" value=true />
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
+					<button type="submit" class="btn btn-primary">Kaydet</button>
+				</div>
+			</form>
+
+		</div>
+		</div>
+	}
+	else
+	{
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Rol Ekle</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal">
+					</button>
+				</div>
+
+				<form asp-controller="Rol" asp-action="Index" class="needs-validation" method="post">
+					<div class="modal-body">
+						<div style="margin-bottom:9px" class="row">
+							<div class="col-md-6 mb-3">
+								<label class="form-label">Rol Adı</label>
+								<input asp-for="Ad" type="text" class="form-control" placeholder="" required="">
+								<input asp-for="Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
+								<div class="invalid-feedback">
+									Zorunlu Alan
+								</div>
+							</div>
+							<div class="col-md-6 mb-3">
+								<label class="form-label">Ekstra Bilgi</label>
+								<input type="text" class="form-control" placeholder="" value="" @* required="" *@>
+
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
+						<button type="submit" class="btn btn-primary">Kaydet</button>
+					</div>
+				</form>
+
+			</div>
+		</div>
+	}
+</div>
+
+
 
 <!-- JS Ekstralar -->
 @section Scripts

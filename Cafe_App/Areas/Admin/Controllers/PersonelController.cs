@@ -16,29 +16,14 @@ namespace Cafe_App.Areas.Admin.Controllers
 
         public IActionResult Index()
 		{
-            var personeller = _context.Personeller.Include(x => x.Rol).ToList();
-			return View(personeller);
-		}
-
-		public IActionResult PersonelEkle(int Id)
-		{
+            ViewBag.personeller = _context.Personeller.Include(x => x.Rol).ToList();
 			ViewBag.roller = _context.Roller.ToList();
-
-            if (Id == 0)
-            {
-                return View();
-			}
-
-            var personel = _context.Personeller.FirstOrDefault(x => x.Id == Id);
-			return View(personel);
+			return View();
 		}
 
         [HttpPost]
         public async Task<IActionResult> PersonelEkle(Personel model, IFormFile? file)
         {
-			ViewBag.roller = _context.Roller.ToList();
-			ViewBag.Kategoriler = _context.Kategoriler.ToList();
-
 			if (ModelState.IsValid && model.RolId != 0)
             {
                 
@@ -49,14 +34,12 @@ namespace Cafe_App.Areas.Admin.Controllers
                     if (!uzanti.Contains(resimuzanti))
                     {
                         ModelState.AddModelError("OgrenciFotograf", "Geçerli bir fotoğraf formatı seçiniz. *jpg,jpeg,png");
-                        return View(model);
                     }
                 }
                 else
                 {
                     ModelState.AddModelError("OgrenciFotograf", "Fotoğraf boş olamaz");
-                    return View(model);
-                }
+				}
 
                 var random = string.Format($"{Guid.NewGuid().ToString()}{Path.GetExtension(file.FileName)}");
                 var resimyolu = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", random);
@@ -76,12 +59,10 @@ namespace Cafe_App.Areas.Admin.Controllers
                     _context.Update(model);
                 }
                 _context.SaveChanges();
-
-                return RedirectToAction("Index");
             }
 
-            return View(model);
-        }
+			return RedirectToAction("Index");
+		}
 
         public IActionResult PersonelSil(int Id)
         {

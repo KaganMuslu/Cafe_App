@@ -11,8 +11,6 @@ public partial class Urun
 
     public string Aciklama { get; set; }
 
-    public string Detay { get; set; }
-
     public float Fiyat { get; set; }
 
     public int IndirimYuzdesi { get; set; }

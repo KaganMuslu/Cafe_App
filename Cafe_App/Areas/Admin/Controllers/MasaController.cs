@@ -1,4 +1,5 @@
-﻿using Cafe_App.Models;
+﻿using Cafe_App.Areas.Admin.Models;
+using Cafe_App.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
@@ -19,24 +20,31 @@ namespace Cafe_App.Areas.Admin.Controllers
 
 		public IActionResult Index()
 		{
-			ViewBag.Kategoriler = _context.Kategoriler.Where(x => x.Tur == "Masa").ToList();
-			ViewBag.Masalar = _context.Masalar
-				.Include(x => x.MasaSipariss).ThenInclude(x => x.Siparis).ThenInclude(x => x.SiparisMenuler).ThenInclude(x => x.Menu)
-				.Include(x => x.MasaSipariss).ThenInclude(x => x.Siparis).ThenInclude(x => x.SiparisUrunler).ThenInclude(x => x.Urun)
-				.Include(x => x.Kategori).ToList();
-			
-			return View();
+			// Modelleri ve kategorileri ayarlayın
+			var viewModel = new MasaViewModel
+			{
+				Masa = new Masa(),
+				Kategori = new Kategori(),
+				Kategoriler = _context.Kategoriler.Where(x => x.Tur == "Masa").ToList(),
+
+				Masalar = _context.Masalar
+					.Include(x => x.MasaSipariss).ThenInclude(x => x.Siparis).ThenInclude(x => x.SiparisMenuler).ThenInclude(x => x.Menu)
+					.Include(x => x.MasaSipariss).ThenInclude(x => x.Siparis).ThenInclude(x => x.SiparisUrunler).ThenInclude(x => x.Urun)
+					.Include(x => x.Kategori).ToList()
+			};
+
+			return View(viewModel);
 		}
 
 		[HttpPost]
-		public IActionResult Index(Masa model)
+		public IActionResult Index(MasaViewModel model)
 		{
-			if (ModelState.IsValid)
+			if (model.Masa != null)
 			{
-				var masa = _context.Masalar.FirstOrDefault(x => x.Kod == model.Kod);
+				var masa = _context.Masalar.FirstOrDefault(x => x.Kod == model.Masa.Kod);
 				if (masa == null)
 				{
-					string masaKod = model.Kod;
+					string masaKod = model.Masa.Kod;
 					string QrLink = $"https://zartzurt.com/{masaKod}";
 
 					// QR kodu oluştur
@@ -46,15 +54,28 @@ namespace Cafe_App.Areas.Admin.Controllers
 					byte[] qrCodeImage = qrCode.GetGraphic(20);
 
 					// QR kodunu wwwroot/img klasörüne kaydet
-					string fileName = $"{model.Kod}.png"; // QR kodunun dosya adı olarak model.Kod kullanılıyor
+					string fileName = $"{model.Masa.Kod}.png"; // QR kodunun dosya adı olarak model.Kod kullanılıyor
 					string filePath = Path.Combine("wwwroot/img", fileName); // Dosya yolunu oluştur
 					System.IO.File.WriteAllBytes(filePath, qrCodeImage); // QR kodunu dosyaya kaydet
 
 					// Modelin QR sütununa dosya yolunu ekleyin
-					model.QR = $"/img/{fileName}";
+					model.Masa.QR = $"/img/{fileName}";
 
 					// Modeli veritabanına ekleyin ve değişiklikleri kaydedin
-					_context.Masalar.Add(model);
+					_context.Masalar.Add(model.Masa);
+					_context.SaveChanges();
+				}
+				else
+				{
+					// Hata	
+				}
+			}
+			else if (model.Kategori != null)
+			{
+				var kategori = _context.Kategoriler.FirstOrDefault(x => x.Ad == model.Kategori.Ad);
+				if (kategori == null)
+				{
+					_context.Kategoriler.Add(model.Kategori);
 					_context.SaveChanges();
 				}
 				else
@@ -97,18 +118,20 @@ namespace Cafe_App.Areas.Admin.Controllers
 			return masaData; // Fonksiyonun türü MasaData olmalı
 		}
 
-		public IActionResult MasaGuncelle(Masa model)
+		public IActionResult MasaGuncelle(MasaViewModel model)
 		{
-			var oldMasa = _context.Masalar.FirstOrDefault(x => x.Id == model.Id);
-			if (ModelState.IsValid && oldMasa != null)
+			var oldMasa = _context.Masalar.FirstOrDefault(x => x.Id == model.Masa.Id);
+			if (oldMasa != null)
 			{ 
-				if (model.Kod == oldMasa.Kod)
+				if (model.Masa.Kod == oldMasa.Kod)
 				{
-					_context.Update(model);
+					oldMasa.Kategori = model.Masa.Kategori;
+					oldMasa.Kapasite = model.Masa.Kapasite;
+					_context.Update(oldMasa);
 				}
 				else
 				{
-					string masaKod = model.Kod;
+					string masaKod = model.Masa.Kod;
 					string QrLink = $"https://zartzurt.com/{masaKod}";
 
 					// QR kodu oluştur
@@ -118,18 +141,18 @@ namespace Cafe_App.Areas.Admin.Controllers
 					byte[] qrCodeImage = qrCode.GetGraphic(20);
 
 					// QR kodunu wwwroot/img klasörüne kaydet
-					string fileName = $"{model.Kod}.png"; // QR kodunun dosya adı olarak model.Kod kullanılıyor
+					string fileName = $"{model.Masa.Kod}.png"; // QR kodunun dosya adı olarak model.Kod kullanılıyor
 					string filePath = Path.Combine("wwwroot/img", fileName); // Dosya yolunu oluştur
 					System.IO.File.WriteAllBytes(filePath, qrCodeImage); // QR kodunu dosyaya kaydet
 
 					// Modelin QR sütununa dosya yolunu ekleyin
-					model.QR = $"/img/{fileName}";
+					model.Masa.QR = $"/img/{fileName}";
 
 
-					oldMasa.Kod = model.Kod;
-					oldMasa.QR = model.QR;
-					oldMasa.KategoriId = model.KategoriId;
-					oldMasa.Kapasite = model.Kapasite;
+					oldMasa.Kod = model.Masa.Kod;
+					oldMasa.QR = model.Masa.QR;
+					oldMasa.KategoriId = model.Masa.KategoriId;
+					oldMasa.Kapasite = model.Masa.Kapasite;
 
 					_context.Update(oldMasa);
 				}
