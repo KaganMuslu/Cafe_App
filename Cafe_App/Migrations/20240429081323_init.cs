@@ -206,7 +206,7 @@ namespace Cafe_App.Migrations
                     BitisSaat = table.Column<TimeOnly>(type: "time(6)", nullable: false),
                     Tarih = table.Column<DateOnly>(type: "date", nullable: false),
                     KisiSayisi = table.Column<int>(type: "int", nullable: false),
-                    Talep = table.Column<string>(type: "longtext", nullable: false)
+                    Talep = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Onay = table.Column<int>(type: "int", nullable: false),
                     TalepTarihi = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -404,8 +404,6 @@ namespace Cafe_App.Migrations
                     Ad = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Aciklama = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Detay = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Fiyat = table.Column<float>(type: "float", nullable: false),
                     IndirimYuzdesi = table.Column<int>(type: "int", nullable: false),

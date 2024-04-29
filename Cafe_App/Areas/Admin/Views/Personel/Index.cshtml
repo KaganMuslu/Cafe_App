@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Personel";
 }
-@model Personel
+@model PersonelViewModel
 
 <!-- CSS Ekstralar -->
 <head>
@@ -55,7 +55,7 @@
 							</select>
 						</div>
 						<div class="col-xl-3 col-sm-6">
-							<input id="datepicker" class=" form-control mb-3 mb-xl-0">
+							<input id="datepicker5" class=" form-control mb-3 mb-xl-0">
 						</div>
 						<div class="col-xl-3 col-sm-6">
 							<button class="btn btn-primary" title="Aramak İçin Tıklayın" type="button"><i class="fa fa-search me-1"></i>Filtrele</button>
@@ -94,7 +94,7 @@
 							</thead>
 							<tbody>
 
-								@foreach (var personel in ViewBag.personeller)
+								@foreach (var personel in Model.Personeller)
 								{
 									<tr>
 										<td><b>@personel.Id</b></td>
@@ -113,7 +113,7 @@
 											<td class="recent-stats"><i class="fa fa-circle text-danger me-1"></i>Görünmez</td>
 										}
 										<td>
-											<a asp-action="PersonelEkle" asp-route-id="@personel.Id" class="btn btn-primary shadow btn-xs sharp rounded-circle me-1"><i class="fa fa-pencil"></i></a>
+											<a data-bs-toggle="modal" data-bs-target="#duzenle_@personel.Id" class="btn btn-primary shadow btn-xs sharp rounded-circle me-1"><i class="fa fa-pencil"></i></a>
 											@if(personel.Gorunurluk == true)
 											{
 												<a asp-action="PersonelSil" asp-route-id="@personel.Id" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa-solid fa-trash"></i></a>
@@ -124,6 +124,158 @@
 											}
 										</td>
 									</tr>
+
+									<div class="modal modal-lg fade" id="duzenle_@personel.Id">
+										<div class="modal-dialog modal-dialog-centered" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title">Personel Düzenle</h5>
+													<button type="button" class="btn-close" data-bs-dismiss="modal">
+													</button>
+												</div>
+
+												<form asp-action="Index" enctype="multipart/form-data" class="needs-validation" method="post">
+													<div class="modal-body">
+														<div style="margin-bottom:9px" class="row">
+															<div class="col-md-6 mb-3">
+																<label class="form-label">Personel Adı</label>
+																<input type="text" class="form-control" asp-for="Personel.Ad" value="@personel.Ad" placeholder="" required>
+																<div class="invalid-feedback">
+																	Zorunlu Alan
+																</div>
+															</div>
+															<div class="col-md-6 mb-3">
+																<label class="form-label">Personel Soyadı</label>
+																<input type="text" class="form-control" asp-for="Personel.Soyad" value="@personel.Soyad" placeholder="" required>
+																<div class="invalid-feedback">
+																	Zorunlu Alan
+																</div>
+															</div>
+														</div>
+														<div style="margin-bottom:9px" class="row">
+															<div class="col-md-4 mb-3">
+																<label for="email" class="form-label">E-Posta Adresi</label>
+																<input type="text" class="form-control" asp-for="Personel.Eposta" value="@personel.Eposta" placeholder="E-Posta" required="">
+																<div class="invalid-feedback" style="width: 100%;">
+																	Zorunlu Alan
+																</div>
+															</div>
+															<div class="col-md-4 mb-3">
+																<label class="form-label">Rol </label>
+																<select asp-for="Personel.RolId" class="default-select form-control wide w-100 required">
+																	<option disabled="disabled">Rol</option>
+																	@foreach (var item in Model.Roller)
+																	{
+																		if (item.Id == personel.RolId)
+																		{
+																			<option value="@item.Id" selected>@item.Ad</option>
+																		}
+																		else
+																		{
+																			<option value="@item.Id">@item.Ad</option>
+																		}
+																	}
+																</select>
+																<div class="invalid-feedback">
+																	Zorunlu Alan
+																</div>
+															</div>
+															<div class="col-md-4 mb-3">
+																<label for="email" class="form-label">Maaş</label>
+																<input type="number" class="form-control" asp-for="Personel.Maas" value="@personel.Maas" placeholder="Maaş" required="">
+																<div class="invalid-feedback" style="width: 100%;">
+																	Zorunlu Alan
+																</div>
+															</div>
+														</div>
+														<div style="margin-bottom:9px" class="row">
+															<div class="col-md-6 mb-3">
+																<label for="formFile" class="form-label">Personel Fotoğrafı</label>
+																<input asp-for="Personel.Fotograf" id="formFile" class="form-control" value="@personel.Fotograf" name="file" type="file">
+															</div>
+
+															<div class="col-md-6 mb-3">
+																<label class="form-label">Cinsiyet</label>
+																<select asp-for="Personel.Cinsiyet" class="default-select form-control required wide w-100" required>
+																	<option value="" selected>Cinsiyet</option>
+																	@if (personel.Cinsiyet == "Kadın")
+																	{
+																		<option selected>Kadın</option>
+																		<option>Erkek</option>
+																	}
+																	else
+																	{
+																		<option>Kadın</option>
+																		<option selected>Erkek</option>
+																	}
+																</select>
+																<div class="invalid-feedback">
+																	Zorunlu Alan
+																</div>
+															</div>
+														</div>
+														<div style="margin-bottom:9px" class="row">
+															<div class="col-md-6 mb-3">
+																<label class="form-label">Parola</label>
+																<div class="input-group transparent-append">
+																	<span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+																	<input type="password" class="form-control" asp-for="Personel.Parola" placeholder="" required>
+																	<span class="input-group-text show-pass border-left-end">
+																		<i class="fa fa-eye-slash"></i>
+																		<i class="fa fa-eye"></i>
+																	</span>
+																	<div class="invalid-feedback">
+																		Zorunlu Alan
+																	</div>
+																</div>
+																<div class="invalid-feedback">
+																	Zorunlu Alan
+																</div>
+															</div>
+															<div class="col-md-6 mb-3">
+																<label class="form-label">Telefon Numarası</label>
+																<div class="input-group">
+																	<span class="input-group-text">+90</span>
+																	<input type="number" class="form-control border-left-end" asp-for="Personel.Telefon" value="@personel.Telefon" placeholder="" required>
+																	<div class="invalid-feedback">
+																		Zorunlu Alan
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-md-12 mb-3">
+																<div style="margin-bottom:9px" class="mb-3">
+																	<label for="address" class="form-label">Adres</label>
+																	<textarea asp-for="Personel.Adres" type="text" class="form-control" required>@personel.Adres</textarea>
+																	<div class="invalid-feedback">
+																		Zorunlu Alan
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div style="margin-bottom:9px" class="row">
+															<div class="col-md-6 mb-3">
+																<label class="form-label">Doğum Tarihi</label>
+																<input style="text-align:center" asp-for="Personel.DogumTarihi" value="@personel.DogumTarihi" id="datepicker3" class=" form-control mb-3 mb-xl-0" required>
+															</div>
+															<div class="col-md-6 mb-3">
+																<label class="form-label">Başlama Tarihi</label>
+																<input style="text-align:center" asp-for="Personel.BaslamaTarihi" value="@personel.BaslamaTarihi" id="datepicker4" class=" form-control mb-3 mb-xl-0" required>
+															</div>
+														</div>
+														<input type="hidden" asp-for="Personel.Gorunurluk" value=true />
+														<input type="hidden" asp-for="Personel.Id" value=@personel.Id />
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
+														<button type="submit" class="btn btn-primary">Kaydet</button>
+													</div>
+												</form>
+
+											</div>
+										</div>
+									</div>
 								}
 
 
@@ -151,7 +303,7 @@
 
 <!-- Modal -->
 <div class="modal modal-lg fade" id="personelModal">
-	@if (ViewBag.roller.Count != 0)
+	@if (Model.Roller.Count != 0)
 	{
 		<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
@@ -161,19 +313,19 @@
 				</button>
 			</div>
 
-			<form asp-action="PersonelEkle" enctype="multipart/form-data" class="needs-validation" method="post">
+			<form asp-action="Index" enctype="multipart/form-data" class="needs-validation" method="post">
 				<div class="modal-body">
 					<div style="margin-bottom:9px" class="row">
 						<div class="col-md-6 mb-3">
 							<label class="form-label">Personel Adı</label>
-							<input type="text" class="form-control" asp-for="Ad" placeholder="" required>
+							<input type="text" class="form-control" asp-for="Personel.Ad" placeholder="" required>
 							<div class="invalid-feedback">
 								Zorunlu Alan
 							</div>
 						</div>
 						<div class="col-md-6 mb-3">
 							<label class="form-label">Personel Soyadı</label>
-							<input type="text" class="form-control" asp-for="Soyad" placeholder="" required>
+								<input type="text" class="form-control" asp-for="Personel.Soyad" placeholder="" required>
 							<div class="invalid-feedback">
 								Zorunlu Alan
 							</div>
@@ -182,16 +334,16 @@
 					<div style="margin-bottom:9px" class="row">
 						<div class="col-md-4 mb-3">
 							<label for="email" class="form-label">E-Posta Adresi</label>
-							<input type="text" class="form-control" asp-for="Eposta" placeholder="E-Posta" required="">
+								<input type="text" class="form-control" asp-for="Personel.Eposta" placeholder="E-Posta" required="">
 							<div class="invalid-feedback" style="width: 100%;">
 								Zorunlu Alan
 							</div>
 						</div>
 						<div class="col-md-4 mb-3">
 							<label class="form-label">Rol </label>
-							<select asp-for="RolId" class="default-select form-control wide w-100 required">
+								<select asp-for="Personel.RolId" class="default-select form-control wide w-100 required">
 								<option disabled="disabled" selected>Rol</option>
-								@foreach (var item in ViewBag.roller)
+								@foreach (var item in Model.Roller)
 								{
 									<option value="@item.Id">@item.Ad</option>
 								}
@@ -202,7 +354,7 @@
 						</div>
 						<div class="col-md-4 mb-3">
 							<label for="email" class="form-label">Maaş</label>
-							<input type="number" class="form-control" asp-for="Maas" placeholder="Maaş" required="">
+								<input type="number" class="form-control" asp-for="Personel.Maas" placeholder="Maaş" required="">
 							<div class="invalid-feedback" style="width: 100%;">
 								Zorunlu Alan
 							</div>
@@ -211,12 +363,12 @@
 					<div style="margin-bottom:9px" class="row">
 						<div class="col-md-6 mb-3">
 							<label for="formFile" class="form-label">Personel Fotoğrafı</label>
-							<input asp-for="Fotograf" id="formFile" class="form-control" name="file" type="file">
+								<input asp-for="Personel.Fotograf" id="formFile" class="form-control" name="file" type="file">
 						</div>
 
 						<div class="col-md-6 mb-3">
 							<label class="form-label">Cinsiyet</label>
-							<select asp-for="Cinsiyet" class="default-select form-control required wide w-100" required>
+								<select asp-for="Personel.Cinsiyet" class="default-select form-control required wide w-100" required>
 								<option value="" selected>Cinsiyet</option>
 								<option>Kadın</option>
 								<option>Erkek</option>
@@ -231,7 +383,7 @@
 							<label class="form-label">Parola</label>
 							<div class="input-group transparent-append">
 								<span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-								<input type="password" class="form-control" asp-for="Parola" placeholder="" required>
+									<input type="password" class="form-control" asp-for="Personel.Parola" placeholder="" required>
 								<span class="input-group-text show-pass border-left-end">
 									<i class="fa fa-eye-slash"></i>
 									<i class="fa fa-eye"></i>
@@ -248,7 +400,7 @@
 							<label class="form-label">Telefon Numarası</label>
 							<div class="input-group">
 								<span class="input-group-text">+90</span>
-								<input type="number" class="form-control border-left-end" asp-for="Telefon" placeholder="" required>
+									<input type="number" class="form-control border-left-end" asp-for="Personel.Telefon" placeholder="" required>
 								<div class="invalid-feedback">
 									Zorunlu Alan
 								</div>
@@ -259,7 +411,7 @@
 						<div class="col-md-12 mb-3">
 							<div style="margin-bottom:9px" class="mb-3">
 								<label for="address" class="form-label">Adres</label>
-								<textarea asp-for="Adres" type="text" class="form-control" placeholder="" required></textarea>
+									<textarea asp-for="Personel.Adres" type="text" class="form-control" placeholder="" required></textarea>
 								<div class="invalid-feedback">
 									Zorunlu Alan
 								</div>
@@ -269,14 +421,14 @@
 					<div style="margin-bottom:9px" class="row">
 						<div class="col-md-6 mb-3">
 							<label class="form-label">Doğum Tarihi</label>
-							<input style="text-align:center" asp-for="DogumTarihi" id="datepicker" class=" form-control mb-3 mb-xl-0" required>
+								<input style="text-align:center" asp-for="Personel.DogumTarihi" id="datepicker1" class=" form-control mb-3 mb-xl-0" required>
 						</div>
 						<div class="col-md-6 mb-3">
 							<label class="form-label">Başlama Tarihi</label>
-							<input style="text-align:center" asp-for="BaslamaTarihi" id="datepicker2" class=" form-control mb-3 mb-xl-0" required>
+								<input style="text-align:center" asp-for="Personel.BaslamaTarihi" id="datepicker2" class=" form-control mb-3 mb-xl-0" required>
 						</div>
 					</div>
-					<input type="hidden" asp-for="Gorunurluk" value=true />
+						<input type="hidden" asp-for="Personel.Gorunurluk" value=true />
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
@@ -297,13 +449,13 @@
 					</button>
 				</div>
 
-				<form asp-controller="Rol" asp-action="Index" class="needs-validation" method="post">
+				<form asp-action="Index" class="needs-validation" method="post">
 					<div class="modal-body">
 						<div style="margin-bottom:9px" class="row">
 							<div class="col-md-6 mb-3">
 								<label class="form-label">Rol Adı</label>
-								<input asp-for="Ad" type="text" class="form-control" placeholder="" required="">
-								<input asp-for="Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
+								<input asp-for="Rol.Ad" type="text" class="form-control" placeholder="" required="">
+								<input asp-for="Rol.Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
 								<div class="invalid-feedback">
 									Zorunlu Alan
 								</div>
@@ -338,12 +490,62 @@
 	<script src="~/admin_panel/vendor/datatables/js/jquery.datatables.min.js"></script>
 
 	<script>
+
 		$(function () {
 			$("#datepicker").datepicker({
+				language: 'tr',
+				format: 'dd/mm/yyyy',
 				autoclose: true,
 				todayHighlight: true
 			}).datepicker('update', new Date());
 
 		});
+
+		$(function () {
+			$("#datepicker1").datepicker({
+				language: 'tr-TR',
+				format: 'dd/mm/yyyy',
+				autoclose: true,
+				todayHighlight: true
+			}).datepicker('update', new Date());
+
+		});
+
+		$(function () {
+			$("#datepicker2").datepicker({
+				language: 'tr-TR',
+				format: 'dd/mm/yyyy',
+				autoclose: true,
+				todayHighlight: true
+			}).datepicker('update', new Date());
+
+		});
+
+		$(function () {
+			$("#datepicker3").datepicker({
+				language: 'tr-TR',
+				format: 'dd/mm/yyyy',
+				autoclose: true,
+				todayHighlight: true
+			}).datepicker('update', new Date());
+
+		});
+
+		$(function () {
+			$("#datepicker4").datepicker({
+				language: 'tr-TR',
+				format: 'dd/mm/yyyy',
+				autoclose: true,
+				todayHighlight: true
+			}).datepicker('update', new Date());
+
+		});
+
+		document.querySelector("#formFile").onchange = function () {
+			const fileName = this.files[0]?.name;
+			const label = document.querySelector("label[for=formFile]");
+			label.innerText = fileName ?? "Fotoğraf Yükle";
+		};
+
 	</script>
 }

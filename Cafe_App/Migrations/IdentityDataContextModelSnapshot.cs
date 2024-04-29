@@ -769,7 +769,6 @@ namespace Cafe_App.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Talep")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<DateTime>("TalepTarihi")
@@ -1159,10 +1158,6 @@ namespace Cafe_App.Migrations
 
                     b.Property<bool>("Akitf")
                         .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("Detay")
-                        .IsRequired()
-                        .HasColumnType("longtext");
 
                     b.Property<float>("Fiyat")
                         .HasColumnType("float");
