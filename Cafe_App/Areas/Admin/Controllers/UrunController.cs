@@ -1,4 +1,5 @@
-﻿using Cafe_App.Models;
+﻿using Cafe_App.Areas.Admin.Models;
+using Cafe_App.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
@@ -18,97 +19,66 @@ namespace Cafe_App.Areas.Admin.Controllers
 
 		public IActionResult Index()
 		{
-            ViewBag.Urunler = _context.Urunler.Include(x => x.Kategori).ToList();
-            ViewBag.UrunMalzeme = _context.UrunMalzemeler.Include(x => x.Urun).Include(x => x.Malzeme).Where(x => x.Gorunurluk == true).ToList();
-			ViewBag.Kategoriler = _context.Kategoriler.ToList();
-			ViewBag.Malzemeler = _context.Malzemeler.Where(x => x.Gorunurluk == true).ToList();
+			var viewModel = new UrunViewModel
+			{
+				Urun = new Urun(),
+				Kategori = new Kategori(),
+				Urunler = _context.Urunler.Include(x => x.Kategori).ToList(),
+				Malzemeler = _context.Malzemeler.Where(x => x.Gorunurluk == true).ToList(),
+				UrunMalzemeler = _context.UrunMalzemeler.Include(x => x.Urun).Include(x => x.Malzeme).Where(x => x.Gorunurluk == true).ToList(),
+				Kategoriler = _context.Kategoriler.Where(x => x.Tur == "Urun").ToList(),
+			};
 
-			return View();
+			return View(viewModel);
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Index(Urun model, IFormFile? file)
+		public async Task<IActionResult> Index(UrunViewModel model, IFormFile? file)
 		{
-			ViewBag.Urunler = _context.Urunler.ToList();
-
-			if (ModelState.IsValid && model.KategoriId != 0)
+			if (model.Urun != null)
 			{
-				if (file != null)
+				if (model.Urun.KategoriId != 0)
 				{
-					var uzanti = new[] { ".jpg", ".jpeg", ".png" };
-					var resimuzanti = Path.GetExtension(file.FileName);
-					if (!uzanti.Contains(resimuzanti))
+					if (file != null)
 					{
-						ModelState.AddModelError("OgrenciFotograf", "Geçerli bir fotoğraf formatı seçiniz. *jpg,jpeg,png");
-						return View(model);
+						var uzanti = new[] { ".jpg", ".jpeg", ".png" };
+						var resimuzanti = Path.GetExtension(file.FileName);
+						if (!uzanti.Contains(resimuzanti))
+						{
+							ModelState.AddModelError("OgrenciFotograf", "Geçerli bir fotoğraf formatı seçiniz. *jpg,jpeg,png");
+							return View(model);
+						}
+
+						var fotografRandom = string.Format($"{Guid.NewGuid().ToString()}{Path.GetExtension(file.FileName)}");
+						var resimyolu = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", fotografRandom);
+						using (var stream = new FileStream(resimyolu, FileMode.Create))
+						{
+							await file.CopyToAsync(stream);
+						}
+
+						model.Urun.Fotograf = fotografRandom;
 					}
-				}
-				else
-				{
-					ModelState.AddModelError("OgrenciFotograf", "Fotoğraf boş olamaz");
-					return View(model);
-				}
+					else
+					{
+						model.Urun.Fotograf = _context.Urunler.Where(x => x.Id == model.Urun.Id).Select(x => x.Fotograf).FirstOrDefault();
+					}
 
-				var fotografRandom = string.Format($"{Guid.NewGuid().ToString()}{Path.GetExtension(file.FileName)}");
-				var resimyolu = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", fotografRandom);
-				using (var stream = new FileStream(resimyolu, FileMode.Create))
-				{
-					await file.CopyToAsync(stream);
-				}
-				model.Fotograf = fotografRandom;
-
-				if (model.Id == 0)
-				{
-					_context.Add(model);
-				}
-				else
-				{
-					_context.Update(model);
-				}
-				_context.SaveChanges();
+					if (model.Urun.Id == 0)
+					{
+						_context.Add(model.Urun);
+					}
+					else
+					{
+						_context.Update(model.Urun);
+					}
 				
-			}
-
-			return RedirectToAction("Index");
-		}
-
-		public IActionResult UrunGuncelle(int Id)
-		{
-            ViewBag.Kategoriler = _context.Kategoriler.ToList();
-			var urun = _context.Urunler.FirstOrDefault(x => x.Id == Id);
-			return View(urun);
-		}
-
-		[HttpPost]
-		public async Task<IActionResult> UrunGuncelle(Urun model, IFormFile? file)
-		{
-            ViewBag.Kategoriler = _context.Kategoriler.ToList();
-
-			if (file != null)
-			{
-				var uzanti = new[] { ".jpg", ".jpeg", ".png" };
-				var resimuzanti = Path.GetExtension(file.FileName);
-				if (!uzanti.Contains(resimuzanti))
-				{
-					ModelState.AddModelError("OgrenciFotograf", "Geçerli bir fotoğraf formatı seçiniz. *jpg,jpeg,png");
-					return View(model);
 				}
-
-				var fotografRandom = string.Format($"{Guid.NewGuid().ToString()}{Path.GetExtension(file.FileName)}");
-				var resimyolu = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", fotografRandom);
-				using (var stream = new FileStream(resimyolu, FileMode.Create))
-				{
-					await file.CopyToAsync(stream);
-				}
-
-				model.Fotograf = fotografRandom;
 			}
-			else
+			else if (model.Kategori != null)
 			{
-				model.Fotograf = _context.Urunler.Where(x => x.Id == model.Id).Select(x => x.Fotograf).FirstOrDefault();
+				_context.Add(model.Kategori);
 			}
 
-			_context.Update(model);
 			_context.SaveChanges();
 			return RedirectToAction("Index");
 		}

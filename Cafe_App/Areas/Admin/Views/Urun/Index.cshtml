@@ -3,7 +3,7 @@
 	ViewData["Title"] = "Ürün";
 	int malzemeSayı = 0;
 }
-@model Urun
+@model UrunViewModel
 
 <!-- CSS Ekstralar -->
 <head>
@@ -86,7 +86,6 @@
 									<th><strong>Id</strong></th>
 									<th><strong>Ad</strong></th>
 									<th><strong>Açıklama</strong></th>
-									<th><strong>Detay</strong></th>
 									<th><strong>KATEGORİ</strong></th>
 									<th><strong>Fİyat</strong></th>
 									<th><strong>İNDİRİMLİ FİYAT</strong></th>
@@ -96,7 +95,7 @@
 							</thead>
 							<tbody>
 
-								@foreach (var urun in ViewBag.Urunler)
+								@foreach (var urun in Model.Urunler)
 								{
 
 									<tr>
@@ -106,7 +105,6 @@
 										<th>@urun.Id</th>
 										<td><div class="d-flex align-items-center"><img src="~/img/@urun.Fotograf" class="rounded-lg me-2" width="24" alt=""> <span class="w-space-no">  @urun.Ad</span></div></td>
 										<td>@urun.Aciklama</td>
-										<td>@urun.Detay</td>
 										<td>@urun.Kategori.Ad</td>
 										<td>₺@urun.Fiyat</td>
 										<td>₺@(urun.Fiyat-urun.IndirimliFiyat)</td>
@@ -120,7 +118,7 @@
 										}
 										<td>
 											<a data-bs-toggle="modal" data-bs-target="#ürünMalzemeModal" data-urunid="@urun.Id" class="btn btn-warning shadow btn-xs sharp rounded-circle me-1"><i class="fa fa-wheat"></i></a>
-											<a asp-action="UrunGuncelle" asp-route-id="@urun.Id" class="btn btn-primary shadow btn-xs sharp rounded-circle me-1"><i class="fa fa-pencil"></i></a>
+											<a data-bs-toggle="modal" data-bs-target="#ürünGuncelle_@urun.Id" class="btn btn-primary shadow btn-xs sharp rounded-circle me-1"><i class="fa fa-pencil"></i></a>
 											@if (urun.Gorunurluk == true)
 											{
 												<a asp-action="UrunSil" asp-route-id="@urun.Id" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa-solid fa-trash"></i></a>
@@ -131,6 +129,83 @@
 											}
 										</td>
 									</tr>
+
+
+									<div class="modal modal-lg fade" id="ürünGuncelle_@urun.Id">
+										<div class="modal-dialog modal-dialog-centered" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title">Ürün Düzenle</h5>
+													<button type="button" class="btn-close" data-bs-dismiss="modal">
+													</button>
+												</div>
+
+												<form asp-action="Index" enctype="multipart/form-data" class="needs-validation" method="post">
+													<div class="modal-body">
+														<div style="margin-bottom:14px" class="row">
+															<div class="form-floating col-md-6 mb-3">
+																<input id="Ad" asp-for="Urun.Ad" type="text" value=@urun.Ad class="form-control" placeholder="">
+																<label for="Ad" class="form-label">&nbsp;&nbsp;&nbsp;Ürün Adı</label>
+																<div class="valid-feedback">Valid.</div>
+																<div class="invalid-feedback">Please fill out this field.</div>
+															</div>
+															<div class="form-floating col-md-6 mb-3">
+																<input id="Aciklama" asp-for="Urun.Aciklama" type="text" value=@urun.Aciklama class="form-control" placeholder="" required="">
+																<label for="Aciklama" class="form-label">&nbsp;&nbsp;&nbsp;Ürün Açıklama</label>
+																<div class="invalid-feedback">
+																	Zorunlu Alan
+																</div>
+															</div>
+														</div>
+														<div style="margin-bottom:14px" class="row">
+															<div class="form-floating col-md-6 mb-3">
+																<input id="Fiyat" asp-for="Urun.Fiyat" type="text" value=@urun.Fiyat class="form-control" placeholder="" required="">
+																<label for="Fiyat" class="form-label">&nbsp;&nbsp;&nbsp;Ürün Fiyat</label>
+																<div class="invalid-feedback">
+																	Zorunlu Alan
+																</div>
+															</div>
+														</div>
+														<div style="margin-bottom:14px" class="row">
+															<div class="col-md-6 mb-3">
+																<input asp-for="Urun.Fotograf" value=@urun.Fotograf id="formFile" class="form-control" name="file" type="file">
+																<div class="invalid-feedback">
+																	Zorunlu Alan
+																</div>
+															</div>
+															<div class="col-md-6 mb-3">
+																<select id="KategoriId" asp-for="Urun.KategoriId" class="default-select form-control wide w-100 required">
+																	<option >Ürün Kategori</option>
+																	@foreach (var item in Model.Kategoriler)
+																	{
+																		if (item.Id == urun.KategoriId)
+																		{
+																			<option value="@item.Id" selected>@item.Ad</option>
+																		}
+																		else
+																		{
+																			<option value="@item.Id" >@item.Ad</option>
+																		}
+																	}
+																</select>
+																<div class="invalid-feedback">
+																	Zorunlu Alan
+																</div>
+															</div>
+														</div>
+														<input asp-for="Urun.Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
+														<input asp-for="Urun.Akitf" type="hidden" class="form-control" placeholder="" value=True required="">
+														<input asp-for="Urun.Id" type="hidden" class="form-control" placeholder="" value=@urun.Id required="">
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
+														<button type="submit" class="btn btn-primary">Kaydet</button>
+													</div>
+												</form>
+
+											</div>
+										</div>
+									</div>
 
 									<div class="modal modal-lg fade" id="urun_@urun.Id">
 										<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
@@ -176,17 +251,6 @@
 																						</h6>
 																					</div>
 																					<span class="text-muted">@urun.Aciklama</span>
-																				</li>
-																				<li class="list-group-item d-flex justify-content-between lh-condensed">
-																					<div>
-																						<h6 class="my-1">
-																							<span class="icon-warning">
-																								<i class="fa-solid fa-square-info"></i>
-																							</span>
-																							Ürün Detay
-																						</h6>
-																					</div>
-																					<span class="text-muted">@urun.Detay</span>
 																				</li>
 																				<li class="list-group-item d-flex justify-content-between lh-condensed">
 																					<div>
@@ -264,7 +328,7 @@
 
 															<div class="card">
 																<div class="card-header">
-																	@foreach (var malzemeBilgi in ViewBag.UrunMalzeme)
+																	@foreach (var malzemeBilgi in Model.UrunMalzemeler)
 																	{
 																		if (malzemeBilgi.UrunId == urun.Id)
 																		{
@@ -281,7 +345,7 @@
 																	<div class="row">
 																		<div class="col-lg-12 order-lg-12 mb-4">
 																			<ul class="list-group list-group-flush mb-3">
-																				@foreach (var malzemeBilgi in ViewBag.UrunMalzeme)
+																				@foreach (var malzemeBilgi in Model.UrunMalzemeler)
 																					{
 																						if (malzemeBilgi.Urun.Id == urun.Id && malzemeBilgi.Gorunurluk == true)
 																						{
@@ -345,6 +409,8 @@
 
 <!-- Modal -->
 <div class="modal modal-lg fade" id="ürünModal">
+@if (Model.Kategoriler.Count != 0)
+{
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -357,13 +423,13 @@
 				<div class="modal-body">
 					<div style="margin-bottom:14px" class="row">
 						<div class="form-floating col-md-6 mb-3">
-							<input id="Ad" asp-for="Ad" type="text" class="form-control" placeholder="">
+							<input id="Ad" asp-for="Urun.Ad" type="text" class="form-control" placeholder="">
 							<label for="Ad" class="form-label">&nbsp;&nbsp;&nbsp;Ürün Adı</label>
 							<div class="valid-feedback">Valid.</div>
 							<div class="invalid-feedback">Please fill out this field.</div>
 						</div>
 						<div class="form-floating col-md-6 mb-3">
-							<input id="Aciklama" asp-for="Aciklama" type="text" class="form-control" placeholder="" required="">
+								<input id="Aciklama" asp-for="Urun.Aciklama" type="text" class="form-control" placeholder="" required="">
 							<label for="Aciklama" class="form-label">&nbsp;&nbsp;&nbsp;Ürün Açıklama</label>
 							<div class="invalid-feedback">
 								Zorunlu Alan
@@ -372,7 +438,7 @@
 					</div>
 					<div style="margin-bottom:14px" class="row">
 						<div class="form-floating col-md-6 mb-3">
-							<input id="Fiyat" asp-for="Fiyat" type="text" class="form-control" placeholder="" required="">
+								<input id="Fiyat" asp-for="Urun.Fiyat" type="text" class="form-control" placeholder="" required="">
 							<label for="Fiyat" class="form-label">&nbsp;&nbsp;&nbsp;Ürün Fiyat</label>
 							<div class="invalid-feedback">
 								Zorunlu Alan
@@ -381,15 +447,15 @@
 					</div>
 					<div style="margin-bottom:14px" class="row">
 						<div class="col-md-6 mb-3">
-							<input asp-for="Fotograf" id="formFile" class="form-control" name="file" type="file">
+								<input asp-for="Urun.Fotograf" id="formFile" class="form-control" name="file" type="file">
 							<div class="invalid-feedback">
 								Zorunlu Alan
 							</div>
 						</div>
 						<div class="col-md-6 mb-3">
-							<select id="KategoriId" asp-for="KategoriId" class="default-select form-control wide w-100 required">
+								<select id="KategoriId" asp-for="Urun.KategoriId" class="default-select form-control wide w-100 required">
 								<option selected>Ürün Kategori</option>
-								@foreach (var item in ViewBag.Kategoriler)
+								@foreach (var item in Model.Kategoriler)
 								{
 									<option value="@item.Id">@item.Ad</option>
 								}
@@ -399,8 +465,8 @@
 							</div>
 						</div>
 					</div>
-					<input asp-for="Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
-					<input asp-for="Akitf" type="hidden" class="form-control" placeholder="" value=True required="">
+						<input asp-for="Urun.Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
+						<input asp-for="Urun.Akitf" type="hidden" class="form-control" placeholder="" value=True required="">
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
@@ -410,6 +476,49 @@
 
 		</div>
 	</div>
+
+}
+else
+{
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Kategori Ekle</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal">
+				</button>
+			</div>
+
+			<form asp-action="Index" class="needs-validation " method="post">
+				<div class="modal-body">
+					<div style="margin-bottom:14px" class="row">
+						<div class="form-floating col-md-6 mb-3">
+							<input id="Ad" asp-for="Kategori.Ad" type="text" class="form-control" placeholder="">
+							<label for="Ad" class="form-label">&nbsp;&nbsp;&nbsp;Kategori Adı</label>
+							<div class="valid-feedback">Valid.</div>
+							<div class="invalid-feedback">Please fill out this field.</div>
+						</div>
+						<div class="col-md-6">
+								<select asp-for="Kategori.Tur" class="default-select form-control wide w-100 required">
+								<option disabled="disabled">Kategori</option>
+								<option value="Masa">Masa</option>
+								<option value="Menü">Menü</option>
+								<option value="Ürün" selected>Ürün</option>
+							</select>
+							<div class="valid-feedback">Valid.</div>
+							<div class="invalid-feedback">Please fill out this field.</div>
+						</div>
+					</div>
+						<input asp-for="Kategori.Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
+					<button type="submit" class="btn btn-primary">Kaydet</button>
+				</div>
+			</form>
+
+		</div>
+	</div>
+}
 </div>
 
 <div class="modal modal-md fade" id="ürünMalzemeModal">
@@ -426,7 +535,7 @@
 				<div class="modal-body">
 					<div id="DZ_W_Todo4" class="widget-media dz-scroll" style="height:280px; padding:20px">
 						<ul class="timeline">
-							@foreach (var item in ViewBag.Malzemeler)
+							@foreach (var item in Model.Malzemeler)
 							{
 								<li>
 									<div class="timeline-panel">
