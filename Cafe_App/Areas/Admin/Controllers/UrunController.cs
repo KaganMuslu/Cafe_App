@@ -164,7 +164,6 @@ namespace Cafe_App.Areas.Admin.Controllers
 			return RedirectToAction("Index");
 		}
 
-
 		public IActionResult MalzemeSil(int Id, int malzemeId)
 		{
 			var urunMalzeme = _context.UrunMalzemeler.Where(x => x.UrunId == Id && x.MalzemeId == malzemeId).FirstOrDefault();
