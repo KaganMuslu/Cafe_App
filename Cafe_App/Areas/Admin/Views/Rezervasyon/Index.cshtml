@@ -173,7 +173,7 @@
 														<div style="margin-bottom:14px" class="row">
 															<div class="form-floating col-md-6 mb-3">
 																<input asp-for="Tarih" id="datepicker2" class=" form-control mb-3 mb-xl-0" required>
-																<label for="datepicker2" class="form-label">&nbsp;&nbsp;&nbsp;Rezervasyon Tarihi</label>
+																<label for="datepicker" class="form-label">&nbsp;&nbsp;&nbsp;Rezervasyon Tarihi</label>
 																<div class="invalid-feedback">
 																	Zorunlu Alan
 																</div>
@@ -305,6 +305,15 @@
 				todayHighlight: true
 			}).datepicker('update', new Date());
 
+		});
+
+		$(function () {
+			$("#datepicker2").datepicker({
+				language: 'tr',
+				format: 'dd/mm/yyyy',
+				autoclose: true,
+				todayHighlight: true
+			}).datepicker('update', new Date());
 		});
 
 	</script>

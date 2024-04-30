@@ -1,4 +1,5 @@
-﻿using Cafe_App.Models;
+﻿using Cafe_App.Areas.Admin.Models;
+using Cafe_App.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,51 +16,63 @@ namespace Cafe_App.Areas.Admin.Controllers
 
 		public IActionResult Index()
 		{
-			ViewBag.StokGirdi = _context.StokGirdiler.Include(x => x.Tedarikci).Include(x => x.Malzeme).OrderByDescending(x => x.Id).ToList();
-			ViewBag.Stok = _context.Stoklar.Include(x => x.Malzeme).ToList();
-			ViewBag.Malzemeler = _context.Malzemeler.ToList();
-			ViewBag.Tedarikciler = _context.Tedarikciler.ToList();
+			var viewModel = new StokViewModel
+			{
+				StokGirdi = new StokGirdi(),
+				Tedarikci = new Tedarikci(),
+				Malzeme = new Malzeme(),
+				StokGirdiler = _context.StokGirdiler.Include(x => x.Tedarikci).Include(x => x.Malzeme).OrderByDescending(x => x.Id).ToList(),
+				Stoklar = _context.Stoklar.Include(x => x.Malzeme).ToList(),
+				Malzemeler = _context.Malzemeler.ToList(),
+				Tedarikciler = _context.Tedarikciler.ToList()
+			};
 
-
-			return View();
+			return View(viewModel);
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Index(StokGirdi model)
+		public async Task<IActionResult> Index(StokViewModel model)
 		{
-			if (ModelState.IsValid)
+			if (model.StokGirdi != null)
 			{
-				var stok = _context.Stoklar.OrderByDescending(x => x.Id).FirstOrDefault(x => x.MalzemeId == model.MalzemeId);
-				var sonStok = _context.StokGirdiler.OrderByDescending(x => x.Id).FirstOrDefault(x => x.MalzemeId == model.MalzemeId);
+				var stok = _context.Stoklar.OrderByDescending(x => x.Id).FirstOrDefault(x => x.MalzemeId == model.StokGirdi.MalzemeId);
+				var sonStok = _context.StokGirdiler.OrderByDescending(x => x.Id).FirstOrDefault(x => x.MalzemeId == model.StokGirdi.MalzemeId);
 
 				if (sonStok != null)
 				{
-					model.SonStokMiktari = stok.Miktar;
-					_context.Update(model);
+					model.StokGirdi.SonStokMiktari = stok.Miktar;
+					_context.Update(model.StokGirdi);
 				}
 
 				if (stok != null)
 				{
-					stok.Miktar += model.Miktar;
+					stok.Miktar += model.StokGirdi.Miktar;
 					_context.Update(stok);
 				}
 
-				_context.Add(model);
-				_context.SaveChanges();
-
+				_context.Add(model.StokGirdi);
+			}
+			else if (model.Tedarikci != null)
+			{
+				_context.Add(model.Tedarikci);
+			}
+			else if (model.Malzeme != null)
+			{
+				_context.Add(model.Malzeme);
 			}
 
+			_context.SaveChanges();
 			return RedirectToAction("Index");
 		}
 
 		[HttpPost]
-		public IActionResult StokGirdiGuncelle(StokGirdi model)
+		public IActionResult StokGirdiGuncelle(StokViewModel model)
 		{
-			if (ModelState.IsValid)
+			if (model.StokGirdi != null)
 			{
 				// Güncellenecek stok girdisi ve stok kaydını bul
-				var stokGirdiDegisen = _context.StokGirdiler.FirstOrDefault(x => x.Id == model.Id);
-				var stokDegisen = _context.Stoklar.FirstOrDefault(x => x.MalzemeId == model.MalzemeId);
+				var stokGirdiDegisen = _context.StokGirdiler.FirstOrDefault(x => x.Id == model.StokGirdi.Id);
+				var stokDegisen = _context.Stoklar.FirstOrDefault(x => x.MalzemeId == model.StokGirdi.MalzemeId);
 
 				// Stok ve stok girdi güncellemesini yap
 				if (stokGirdiDegisen != null && stokDegisen != null)
@@ -68,13 +81,13 @@ namespace Cafe_App.Areas.Admin.Controllers
 					stokDegisen.Miktar -= stokGirdiDegisen.Miktar;
 
 					// Stok girdi bilgilerini güncelle
-					stokGirdiDegisen.MalzemeId = model.MalzemeId;
-					stokGirdiDegisen.TedarikciId = model.TedarikciId;
-					stokGirdiDegisen.Miktar = model.Miktar;
-					stokGirdiDegisen.AlısFiyati = model.AlısFiyati;
+					stokGirdiDegisen.MalzemeId = model.StokGirdi.MalzemeId;
+					stokGirdiDegisen.TedarikciId = model.StokGirdi.TedarikciId;
+					stokGirdiDegisen.Miktar = model.StokGirdi.Miktar;
+					stokGirdiDegisen.AlısFiyati = model.StokGirdi.AlısFiyati;
 
 					// Stok miktarını yeni stok girdisini ekleyerek güncelle
-					stokDegisen.Miktar += model.Miktar;
+					stokDegisen.Miktar += model.StokGirdi.Miktar;
 					
 
 					// Güncellemeleri veritabanında kaydet

@@ -27,7 +27,6 @@ namespace Cafe_App.Areas.Admin.Controllers
 
 			if (ModelState.IsValid)
 			{
-
 				if (model.Id == 0)
 				{
 					_context.Add(model);
@@ -76,6 +75,11 @@ namespace Cafe_App.Areas.Admin.Controllers
 					{
 						malzemeUrun.Gorunurluk = false;
 					}
+					var stokGirdiMalzemeler = _context.StokGirdiler.Where(x => x.MalzemeId == Id).ToList();
+					foreach (var stokGirdiMalzeme in stokGirdiMalzemeler)
+					{
+						stokGirdiMalzeme.Gorunurluk = false;
+					}
 				}
 				else
 				{
@@ -84,6 +88,11 @@ namespace Cafe_App.Areas.Admin.Controllers
 					foreach (var malzemeUrun in malzemeUrunler)
 					{
 						malzemeUrun.Gorunurluk = true;
+					}
+					var stokGirdiMalzemeler = _context.StokGirdiler.Where(x => x.MalzemeId == Id).ToList();
+					foreach (var stokGirdiMalzeme in stokGirdiMalzemeler)
+					{
+						stokGirdiMalzeme.Gorunurluk = true;
 					}
 				}
 				_context.Update(malzeme);
