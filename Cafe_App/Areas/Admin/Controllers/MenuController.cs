@@ -39,10 +39,11 @@ namespace Cafe_App.Areas.Admin.Controllers
 				{
 					if (file != null)
 					{
-						var uzanti = new[] { ".jpg", ".jpeg", ".png" };
+						var uzanti = new[] { ".jpg", ".jpeg", ".png", ".webp" };
 						var resimuzanti = Path.GetExtension(file.FileName);
 						if (!uzanti.Contains(resimuzanti))
 						{
+							// Desteklenmeyen format hatası 
 							ModelState.AddModelError("OgrenciFotograf", "Geçerli bir fotoğraf formatı seçiniz. *jpg,jpeg,png");
 							return View(model);
 						}
@@ -58,7 +59,15 @@ namespace Cafe_App.Areas.Admin.Controllers
 					}
 					else
 					{
-						model.Menu.Fotograf = _context.Urunler.Where(x => x.Id == model.Menu.Id).Select(x => x.Fotograf).FirstOrDefault();
+						var eskiFoto = _context.Menuler.Where(x => x.Id == model.Menu.Id).Select(x => x.Fotograf).FirstOrDefault();
+						if (eskiFoto != null)
+						{
+							model.Menu.Fotograf = eskiFoto;
+						}
+						else
+						{
+							// Foto Girilmedi Hatası
+						}
 					}
 
 					if (model.Menu.Id == 0)
@@ -70,6 +79,10 @@ namespace Cafe_App.Areas.Admin.Controllers
 						_context.Update(model.Menu);
 					}
 
+				}
+				else
+				{
+					// Kategori Girilmedi Hatası
 				}
 			}
 			else if (model.Kategori != null)

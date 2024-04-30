@@ -120,7 +120,7 @@
 										}
 										<td>
 											<a data-bs-toggle="modal" data-bs-target="#menüMalzemeModal" data-menuid="@menu.Id" class="btn btn-warning shadow btn-xs sharp rounded-circle me-1"><i class="fa fa-wheat"></i></a>
-											<a asp-action="MenuGuncelle" asp-route-id="@menu.Id" class="btn btn-primary shadow btn-xs sharp rounded-circle me-1"><i class="fa fa-pencil"></i></a>
+											<a data-bs-toggle="modal" data-bs-target="#menüDüzenle_@menu.Id" class="btn btn-primary shadow btn-xs sharp rounded-circle me-1"><i class="fa fa-pencil"></i></a>
 											@if (menu.Gorunurluk == true)
 											{
 												<a asp-action="MenuSil" asp-route-id="@menu.Id" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa-solid fa-trash"></i></a>
@@ -320,6 +320,90 @@
 											</div>
 										</div>
 									</div>
+
+
+									<div class="modal modal-lg fade" id="menüDüzenle_@menu.Id">
+										<div class="modal-dialog modal-dialog-centered" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title">Menü Ekle</h5>
+												<button type="button" class="btn-close" data-bs-dismiss="modal">
+												</button>
+											</div>
+
+											<form asp-action="Index" enctype="multipart/form-data" class="needs-validation" method="post">
+												<div class="modal-body">
+													<div style="margin-bottom:14px" class="row">
+														<div class="form-floating col-md-6 mb-3">
+															<input id="Ad" asp-for="Menu.Ad" type="text" value="@menu.Ad" class="form-control" placeholder="">
+															<label for="Ad" class="form-label">&nbsp;&nbsp;&nbsp;Menü Adı</label>
+															<div class="valid-feedback">Valid.</div>
+															<div class="invalid-feedback">Please fill out this field.</div>
+														</div>
+														<div class="form-floating col-md-6 mb-3">
+															<input id="Aciklama" asp-for="Menu.Aciklama" type="text" value="@menu.Aciklama" class="form-control" placeholder="" required="">
+															<label for="Aciklama" class="form-label">&nbsp;&nbsp;&nbsp;Menü Açıklama</label>
+															<div class="invalid-feedback">
+																Zorunlu Alan
+															</div>
+														</div>
+													</div>
+													<div style="margin-bottom:14px" class="row">
+														<div class="form-floating col-md-6 mb-3">
+															<input id="Detay" asp-for="Menu.Detay" type="text" value="@menu.Detay" class="form-control" placeholder="" required="">
+															<label for="Detay" class="form-label">&nbsp;&nbsp;&nbsp;Menü Detay</label>
+															<div class="invalid-feedback">
+																Zorunlu Alan
+															</div>
+														</div>
+														<div class="form-floating col-md-6 mb-3">
+															<input id="Fiyat" asp-for="Menu.Fiyat" type="text" value="@menu.Fiyat" class="form-control" placeholder="" required="">
+															<label for="Fiyat" class="form-label">&nbsp;&nbsp;&nbsp;Menü Fiyat</label>
+															<div class="invalid-feedback">
+																Zorunlu Alan
+															</div>
+														</div>
+													</div>
+													<div style="margin-bottom:14px" class="row">
+														<div class="col-md-6 mb-3">
+															<input asp-for="Menu.Fotograf" value="@menu.Fotograf" id="formFile" class="form-control" name="file" type="file">
+															<div class="invalid-feedback">
+																Zorunlu Alan
+															</div>
+														</div>
+														<div class="col-md-6 mb-3">
+															<select id="KategoriId" asp-for="Menu.KategoriId" class="default-select form-control wide w-100 required">
+																<option>Menü Kategori</option>
+																@foreach (var item in Model.Kategoriler)
+																{
+																	if (item.Id == menu.KategoriId)
+																	{
+																		<option value="@item.Id" selected>@item.Ad</option>
+																	}
+																	else
+																	{
+																		<option value="@item.Id">@item.Ad</option>
+																	}
+																}
+															</select>
+															<div class="invalid-feedback">
+																Zorunlu Alan
+															</div>
+														</div>
+													</div>
+													<input asp-for="Menu.Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
+													<input asp-for="Menu.Akitf" type="hidden" class="form-control" placeholder="" value=True required="">
+													<input asp-for="Menu.Id" type="hidden" class="form-control" placeholder="" value=@menu.Id required="">
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
+													<button type="submit" class="btn btn-primary">Kaydet</button>
+												</div>
+											</form>
+
+										</div>
+									</div>
+									</div>
 								}
 
 							</tbody>
@@ -348,7 +432,7 @@
 <div class="modal modal-lg fade" id="menüModal">
 @if (Model.Kategoriler.Count != 0)
 {
-		<div class="modal-dialog modal-dialog-centered" role="document">
+	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title">Menü Ekle</h5>
@@ -420,7 +504,6 @@
 
 		</div>
 	</div>
-
 }
 else
 {
