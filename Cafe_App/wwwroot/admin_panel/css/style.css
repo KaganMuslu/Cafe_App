@@ -9499,10 +9499,10 @@ div, span, ol, ul {
   transition: all .2s ease;
   z-index: 5; }
   .nav-header .logo-abbr {
-    max-width: 45px; }
+    max-width: 300px; }
     @media only screen and (max-width: 35.9375rem) {
       .nav-header .logo-abbr {
-        max-width: 40px; } }
+        max-width: 300px; } }
   .nav-header .logo-compact {
     display: none; }
   @media only screen and (min-width: 1200px) and (max-width: 1400px) {
@@ -10309,7 +10309,7 @@ svg.pulse-svg {
   height: 100%;
   position: absolute;
   top: 0;
-  padding-top: 80px;
+  padding-top: 70px;
   z-index: 3;
   background-color: #fff;
   transition: all .2s ease;
@@ -19993,7 +19993,7 @@ span#counter {
   font-size: 25px !important; }
 
 .logo-abbr {
-  width: 55px; }
+  width: 230px; }
 
 .logo-compact {
   width: 130px; }

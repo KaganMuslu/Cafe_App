@@ -58,14 +58,16 @@
         <!--**********************************
             Nav header start
         ***********************************-->
-        <div class="nav-header">
+        <div style="padding-top:20px" class="nav-header">
             <a asp-controller="Admin" asp-action="Index" class="brand-logo">
-                <img class="logo-abbr" src="~/admin_panel/images/logo.png" alt="">
-                <img class="logo-compact" src="~/admin_panel/images/logo-text.png" alt="">
-                <img class="brand-title" src="~/admin_panel/images/logo-text.png" alt="">
+				<img class="logo-abbr" src="~/admin_panel/images/Cafe_App_icon.png" alt="">
+				
+				@*  <img class="logo-abbr" src="~/admin_panel/images/logo.png" alt="">
+					<img class="logo-compact" src="~/admin_panel/images/logo-text.png" alt="">
+					<img class="brand-title" src="~/admin_panel/images/logo-text.png" alt=""> *@
             </a>
 
-            <div class="nav-control">
+			<div class="nav-control">
                 <div class="hamburger">
                     <span class="line"></span><span class="line"></span><span class="line"></span>
                 </div>
@@ -716,7 +718,7 @@
             Sidebar start
         ***********************************-->
         <div class="deznav">
-            <div class="deznav-scroll">
+			<div class="deznav-scroll">
 				<ul class="metismenu" id="menu">
 					<li>
 						<a class="ai-icon"  asp-controller="Personel" asp-action="Index" aria-expanded="false">
@@ -824,6 +826,7 @@
 						<a class="ai-icon"  asp-controller="Rezervasyon" asp-action="Index" aria-expanded="false">
 							<i class="fa fa-bell-concierge"></i>
 							<span class="nav-text">Rezervasyon Yönetimi</span>
+							<i class="fa-regular fa-thumbs-up text-success"></i>
 						</a>
 					</li>
 					
