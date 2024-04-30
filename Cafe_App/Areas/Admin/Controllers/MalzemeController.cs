@@ -23,26 +23,21 @@ namespace Cafe_App.Areas.Admin.Controllers
 		[HttpPost]
 		public IActionResult Index(Malzeme model)
 		{
-			ViewBag.Malzemeler = _context.Malzemeler.ToList();
-
 			if (ModelState.IsValid)
 			{
 				if (model.Id == 0)
 				{
 					_context.Add(model);
+					var malzeme = _context.Malzemeler.OrderByDescending(x => x.Id).FirstOrDefault();
+					malzeme.Stok.MalzemeId = malzeme.Id;
 				}
 				else
 				{
 					_context.Update(model);
 				}
-				_context.SaveChanges();
-
-				var malzeme = _context.Malzemeler.OrderByDescending(x => x.Id).FirstOrDefault();
-				malzeme.Stok.MalzemeId = malzeme.Id;
-
-				_context.SaveChanges();
 			}
 
+			_context.SaveChanges();
 			return RedirectToAction("Index");
 		}
 
