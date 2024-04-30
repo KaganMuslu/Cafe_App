@@ -69,7 +69,7 @@
 											<td class="recent-stats"><i class="fa fa-circle text-danger me-1"></i>Görünmez</td>
 										}
 										<td>
-											<a asp-action="KategoriGuncelle" asp-route-id="@kategori.Id" class="btn btn-primary shadow btn-xs sharp rounded-circle me-1"><i class="fa fa-pencil"></i></a>
+											<a data-bs-toggle="modal" data-bs-target="#kategoriGuncelle_@kategori.Id" class="btn btn-primary shadow btn-xs sharp rounded-circle me-1"><i class="fa fa-pencil"></i></a>
 											@if (kategori.Gorunurluk == true)
 											{
 												<a asp-action="KategoriSil" asp-route-id="@kategori.Id" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa-solid fa-trash"></i></a>
@@ -80,6 +80,65 @@
 											}
 										</td>
 									</tr>
+
+									<div class="modal modal-lg fade" id="kategoriGuncelle_@kategori.Id">
+										<div class="modal-dialog modal-dialog-centered" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title">Kategori Ekle</h5>
+												<button type="button" class="btn-close" data-bs-dismiss="modal">
+												</button>
+											</div>
+
+											<form asp-action="Index" class="needs-validation " method="post">
+												<div class="modal-body">
+													<div style="margin-bottom:14px" class="row">
+														<div class="form-floating col-md-6 mb-3">
+															<input id="Ad" asp-for="Ad" type="text" value="@kategori.Ad" class="form-control" placeholder="">
+															<label for="Ad" class="form-label">&nbsp;&nbsp;&nbsp;Kategori Adı</label>
+															<div class="valid-feedback">Valid.</div>
+															<div class="invalid-feedback">Please fill out this field.</div>
+														</div>
+														<div class="col-md-6">
+															<select asp-for="Tur" class="default-select form-control wide w-100 required">
+																<option disabled>Kategori</option>
+																	@if (kategori.Tur == "Masa")
+																	{
+																		<option value="Masa" selected>Masa</option>
+																		<option value="Menü">Menü</option>
+																		<option value="Ürün">Ürün</option>
+																	}
+																	else if (kategori.Tur == "Menü")
+																	{
+																		<option value="Masa">Masa</option>
+																		<option value="Menü" selected>Menü</option>
+																		<option value="Ürün">Ürün</option>
+																	}
+																	else
+																	{
+																		<option value="Masa">Masa</option>
+																		<option value="Menü">Menü</option>
+																		<option value="Ürün" selected>Ürün</option>
+																	}
+
+															</select>
+															<div class="valid-feedback">Valid.</div>
+															<div class="invalid-feedback">Please fill out this field.</div>
+														</div>
+													</div>
+													<input asp-for="Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
+													<input asp-for="Id" type="hidden" class="form-control" placeholder="" value=@kategori.Id required="">
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
+													<button type="submit" class="btn btn-primary">Kaydet</button>
+												</div>
+											</form>
+
+										</div>
+									</div>
+									</div>
+
 								}
 
 							</tbody>
@@ -125,7 +184,7 @@
 									<tr>
 										<th><strong>Id</strong></th>
 										<th><strong>Ad</strong></th>
-										<th><strong>Fiyat</strong></th>
+										<th><strong>FİYAT</strong></th>
 										<th><strong>Görünürlük</strong></th>
 										<th style="width:85px;"><strong>İşlemler</strong></th>
 									</tr>
@@ -137,7 +196,7 @@
 										<tr>
 											<td><b>@urun.Id</b></td>
 											<td>@urun.Ad</td>
-											<td>@urun.Fiyat</td>
+											<td>₺@urun.Fiyat</td>
 											@if (urun.Gorunurluk == true)
 											{
 												<td class="recent-stats"><i class="fa fa-circle text-success me-1"></i>Görünür</td>

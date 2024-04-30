@@ -37,19 +37,26 @@ namespace Cafe_App.Areas.Admin.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				var kategori = _context.Kategoriler.FirstOrDefault(x => x.Ad == model.Ad);
-				if (kategori == null)
+				if (model.Id == 0)
 				{
-					_context.Kategoriler.Add(model);
-					_context.SaveChanges();
+					var kategori = _context.Kategoriler.FirstOrDefault(x => x.Ad == model.Ad);
+					if (kategori == null)
+					{
+						_context.Kategoriler.Add(model);
+					}
+					else
+					{
+						// Hata
+					}
 				}
 				else
 				{
-					// Hata	
+					_context.Update(model);
 				}
+					
 			}
 
-			ViewBag.Kategoriler = _context.Kategoriler.ToList();
+			_context.SaveChanges();
 			return RedirectToAction("Index");
 		}
 

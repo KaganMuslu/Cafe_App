@@ -373,7 +373,7 @@
 														</div>
 														<div class="col-md-6 mb-3">
 															<select id="KategoriId" asp-for="Menu.KategoriId" class="default-select form-control wide w-100 required">
-																<option>Menü Kategori</option>
+																<option disabled>Menü Kategori</option>
 																@foreach (var item in Model.Kategoriler)
 																{
 																	if (item.Id == menu.KategoriId)
