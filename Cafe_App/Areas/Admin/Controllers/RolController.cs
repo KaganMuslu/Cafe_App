@@ -1,4 +1,5 @@
-﻿using Cafe_App.Models;
+﻿using Cafe_App.Areas.Admin.Models;
+using Cafe_App.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cafe_App.Areas.Admin.Controllers
@@ -14,45 +15,56 @@ namespace Cafe_App.Areas.Admin.Controllers
 
         public IActionResult Index()
 		{
-			ViewBag.Roller = _context.Roller.ToList();
-			ViewBag.personelRolGrup = _context.Personeller
-									.Join(_context.Roller, // Roller tablosu ile birleştirme
-										personel => personel.RolId, // Personel tablosundaki RolId alanı
-										rol => rol.Id, // Rol tablosundaki Id alanı
-										(personel, rol) => new {
-											RolId = personel.RolId,
-											RolAdi = rol.Ad,
-											Personel = personel
-										}) // Personel ve Rol tablolarının birleştirilmesi
-									.GroupBy(p => p.RolId)
-									.Select(g => new
-									{
-										RolId = g.Key,
-										RolAdi = g.First().RolAdi, // Grubun ilk elemanının rol adı
-										PersonelListesi = g.Select(p => p.Personel).ToList()
-									})
-									.ToList();
+			var personelListesi = _context.Personeller
+				.Join(_context.Roller,
+					  personel => personel.RolId,
+					  rol => rol.Id,
+					  (personel, rol) => new
+					  {
+						  RolId = personel.RolId,
+						  RolAdi = rol.Ad,
+						  Personel = personel
+					  })
+				.GroupBy(p => p.RolId)
+				.Select(g => new AnonimTip
+				{
+					RolId = g.Key,
+					RolAdi = g.First().RolAdi,
+					PersonelListesi = g.Select(p => p.Personel).ToList()
+				})
+				.ToList();
 
-			return View();
+			var viewModel = new RolViewModel
+			{
+				Rol = new Rol(),
+				Roller = _context.Roller.ToList(),
+				Personeller = personelListesi // `Personeller`'i uygun şekilde ayarlayın
+			};
+
+			return View(viewModel);
 		}
 
 		[HttpPost]
-		public IActionResult Index(Rol model) // Rol Ekle Modal
+		public IActionResult Index(RolViewModel model) // Rol Ekle Modal
 		{
-			if (ModelState.IsValid)
+			if (model.Rol.Id == 0)
 			{
-				var rol = _context.Roller.FirstOrDefault(x => x.Ad == model.Ad);
+				var rol = _context.Roller.FirstOrDefault(x => x.Ad == model.Rol.Ad);
 				if (rol == null)
 				{
-					_context.Roller.Add(model);
-					_context.SaveChanges();
+					_context.Roller.Add(model.Rol);
 				}
 				else
 				{
-					// Hata	
+					// Varolan Ad Hata	
 				}
 			}
+			else
+			{
+				_context.Update(model.Rol);
+			}
 
+			_context.SaveChanges();
 			return RedirectToAction("Index");
 		}
 

@@ -321,7 +321,6 @@
 										</div>
 									</div>
 
-
 									<div class="modal modal-lg fade" id="menüDüzenle_@menu.Id">
 										<div class="modal-dialog modal-dialog-centered" role="document">
 										<div class="modal-content">
@@ -403,6 +402,71 @@
 
 										</div>
 									</div>
+									</div>
+
+									@* Ürün Seç *@
+									<div class="modal modal-md fade" id="menüMalzemeModal">
+										<div class="modal-dialog modal-dialog-centered" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title">Ürünleri Seç</h5>
+													<button type="button" class="btn-close" data-bs-dismiss="modal">
+													</button>
+												</div>
+												<form asp-action="UrunSec" class="needs-validation" method="post">
+													<input type="hidden" name="menuId" id="menuId" value="menuId">
+													<input type="hidden" name="secilenUrunler" id="secilenUrunler" value="">
+													<div class="modal-body">
+														<div id="DZ_W_Todo4" class="widget-media dz-scroll" style="height:280px; padding:20px">
+															<ul class="timeline">
+																@foreach (var item in Model.Urunler)
+																{
+																	<li>
+																		<div class="timeline-panel">
+																			@foreach (var menuUrun in Model.MenuUrunler)
+																			{
+																				if (menuUrun.MenuId == menu.Id && item.Id == menuUrun.UrunId)
+																				{
+																					<div class="form-check custom-checkbox checkbox-success check-lg me-3">
+																						<input type="checkbox" class="form-check-input toggleInput" checked>
+																					</div>
+																					<div class="media-body">
+																						<h5 class="form-check-label">@item.Ad</h5>
+																						<small class="text-muted"><strong class="text-success">₺@item.Fiyat</strong></small>
+																					</div>
+																					<div class="dropdown">
+																						<input type="text" value="@menuUrun.Miktar" class="form-control mb-3 mb-xl-0 miktarInput" placeholder="Miktar">
+																					</div>
+																				}
+																				else
+																				{
+																					<div class="form-check custom-checkbox checkbox-success check-lg me-3">
+																						<input type="checkbox" class="form-check-input toggleInput">
+																					</div>
+																					<div class="media-body">
+																						<h5 class="form-check-label">@item.Ad</h5>
+																						<small class="text-muted"><strong class="text-success">₺@item.Fiyat</strong></small>
+																					</div>
+																					<div class="dropdown">
+																						<input type="text" class="form-control mb-3 mb-xl-0 miktarInput" placeholder="Miktar" style="display: none;">
+																					</div>
+																				}
+																			}
+																			<input type="hidden" name="UrunId" value="@item.Id" />
+																		</div>
+																	</li>
+																}
+															</ul>
+														</div>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
+														<button type="submit" class="btn btn-primary">Kaydet</button>
+													</div>
+												</form>
+
+											</div>
+										</div>
 									</div>
 								}
 
@@ -548,51 +612,7 @@ else
 }
 </div>
 
-@* Ürün Seç *@
-<div class="modal modal-md fade" id="menüMalzemeModal">
-	<div class="modal-dialog modal-dialog-centered" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">Ürünleri Seç</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal">
-				</button>
-			</div>
-			<form asp-action="UrunSec" class="needs-validation" method="post">
-				<input type="hidden" name="menuId" id="menuId" value="menuId">
-				<input type="hidden" name="secilenUrunler" id="secilenUrunler" value="">
-				<div class="modal-body">
-					<div id="DZ_W_Todo4" class="widget-media dz-scroll" style="height:280px; padding:20px">
-						<ul class="timeline">
-							@foreach (var item in Model.Urunler)
-							{
-								<li>
-									<div class="timeline-panel">
-										<input type="hidden" name="UrunId" value="@item.Id" />
-										<div class="form-check custom-checkbox checkbox-success check-lg me-3">
-											<input type="checkbox" class="form-check-input toggleInput">
-										</div>
-										<div class="media-body">
-											<h5 class="form-check-label">@item.Ad</h5>
-											<small class="text-muted"><strong class="text-success">₺@item.Fiyat</strong></small>
-										</div>
-										<div class="dropdown">
-											<input type="text" class="form-control mb-3 mb-xl-0 miktarInput" placeholder="Miktar" style="display: none;">
-										</div>
-									</div>
-								</li>
-							}
-						</ul>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
-					<button type="submit" class="btn btn-primary">Kaydet</button>
-				</div>
-			</form>
 
-		</div>
-	</div>
-</div>
 
 
 

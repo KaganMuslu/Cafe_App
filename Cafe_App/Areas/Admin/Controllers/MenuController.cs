@@ -24,7 +24,6 @@ namespace Cafe_App.Areas.Admin.Controllers
 				MenuUrunler = _context.MenuUrunler.Include(x => x.Urun).Include(x => x.Menu).Where(x => x.Gorunurluk == true).ToList(),
 				Kategoriler = _context.Kategoriler.Where(x => x.Tur == "Menu").ToList(),
 				Urunler = _context.Urunler.Where(x => x.Gorunurluk == true).ToList()
-
 			};
 
 			return View(viewModel);

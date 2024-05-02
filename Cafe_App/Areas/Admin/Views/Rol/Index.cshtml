@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Rol";
 }
-@model Rol
+@model RolViewModel
 
 <!-- CSS Ekstralar -->
 <head>
@@ -54,7 +54,7 @@
 							</thead>
 							<tbody>
 
-								@foreach (var rol in ViewBag.Roller)
+								@foreach (var rol in Model.Roller)
 								{
 									<tr>
 										<th>@rol.Id</th>
@@ -68,7 +68,7 @@
 											<td class="recent-stats"><i class="fa fa-circle text-danger me-1"></i>Görünmez</td>
 										}
 										<td>
-											<a asp-action="RolGuncelle" asp-route-id="@rol.Id" class="btn btn-primary shadow btn-xs sharp rounded-circle me-1"><i class="fa fa-pencil"></i></a>
+											<a data-bs-toggle="modal" data-bs-target="#rolGuncelle_@rol.Id" class="btn btn-primary shadow btn-xs sharp rounded-circle me-1"><i class="fa fa-pencil"></i></a>
 											@if (rol.Gorunurluk == true)
 											{
 												<a asp-action="RolSil" asp-route-id="@rol.Id" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa-solid fa-trash"></i></a>
@@ -79,6 +79,47 @@
 											}
 										</td>
 									</tr>
+
+									// Rol düzenle
+									<div class="modal fade" id="rolGuncelle_@rol.Id">
+										<div class="modal-dialog modal-dialog-centered" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title">Rol Düzenle</h5>
+													<button type="button" class="btn-close" data-bs-dismiss="modal">
+													</button>
+												</div>
+
+												<form asp-action="Index" class="needs-validation" method="post">
+													<div class="modal-body">
+														<div style="margin-bottom:9px" class="row">
+															<div class="col-md-6 mb-3">
+																<label class="form-label">Rol Adı</label>
+																<input asp-for="Rol.Ad" type="text" value="@rol.Ad" class="form-control" placeholder="" required="">
+																<input asp-for="Rol.Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
+																<input asp-for="Rol.Id" type="hidden" class="form-control" placeholder="" value=@rol.Id required="">
+																<div class="invalid-feedback">
+																	Zorunlu Alan
+																</div>
+															</div>
+															<div class="col-md-6 mb-3">
+																<label class="form-label">Ekstra Bilgi</label>
+																<input type="text" class="form-control" placeholder="" value="" @* required="" *@>
+
+															</div>
+														</div>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
+														<button type="submit" class="btn btn-primary">Kaydet</button>
+													</div>
+												</form>
+
+											</div>
+										</div>
+									</div>
+
+
 								}
 
 							</tbody>
@@ -103,7 +144,7 @@
 
 
         <div class="row">
-            @foreach (var rolGrup in ViewBag.personelRolGrup)
+            @foreach (var rolGrup in Model.Personeller)
             {
                 <div class="col-xl-6 col-sm-6">
                     <div class="filter cm-content-box box-primary">
@@ -181,6 +222,7 @@
                         </div>
                     </div>
                 </div>
+
             }
         </div>
 
@@ -204,8 +246,8 @@
 					<div style="margin-bottom:9px" class="row">
 						<div class="col-md-6 mb-3">
 							<label class="form-label">Rol Adı</label>
-							<input asp-for="Ad" type="text" class="form-control" placeholder="" required="">
-							<input asp-for="Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
+							<input asp-for="Rol.Ad" type="text" class="form-control" placeholder="" required="">
+							<input asp-for="Rol.Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
 							<div class="invalid-feedback">
 								Zorunlu Alan
 							</div>
