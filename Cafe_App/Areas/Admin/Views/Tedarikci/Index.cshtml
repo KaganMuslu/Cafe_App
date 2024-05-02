@@ -32,63 +32,26 @@
 		<div class="filter cm-content-box box-primary">
 			<div class="content-title">
 				<div class="cpa">
-					<i class="fa-solid fa-filter me-2"></i>Filtrele
-				</div>
-				<div class="tools">
-					<a href="javascript:void(0);" class="expand SlideToolHeader"><i class="fal fa-angle-down"></i></a>
-				</div>
-			</div>
-			<div class="cm-content-body form excerpt">
-				<div class="card-body">
-					<div class="row">
-						<div class="col-xl-3 col-sm-6">
-							<input type="text" class="form-control mb-3 mb-xl-0" id="exampleFormControlInput1" placeholder="Tedarikçi Adı">
-						</div>
-						<div class="col-xl-3 col-sm-6 mb-3 mb-xl-0">
-							<select class="default-select dashboard-select-2 wide w-100">
-								<option selected>Personel Rolü</option>
-								<option value="1">Published</option>
-								<option value="2">Draft</option>
-								<option value="3">Trash</option>
-								<option value="4">Private</option>
-								<option value="5">Pending</option>
-							</select>
-						</div>
-						<div class="col-xl-3 col-sm-6">
-							<input id="datepicker" class=" form-control mb-3 mb-xl-0">
-						</div>
-						<div class="col-xl-3 col-sm-6">
-							<button class="btn btn-primary" title="Aramak İçin Tıklayın" type="button"><i class="fa fa-search me-1"></i>Filtrele</button>
-							<button class="btn btn-danger light" title="Filtreyi Kaldırmak İçin Tıklayın" type="button">Kaldır</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="filter cm-content-box box-primary">
-			<div class="content-title">
-				<div class="cpa">
 					<i class="fa-solid fa-file-lines me-1"></i>Tedarikçi Listesi
 				</div>
 				<div class="tools">
 					<a href="javascript:void(0);" class="expand SlideToolHeader"><i class="fal fa-angle-down"></i></a>
 				</div>
 			</div>
-			<div class="cm-content-body form excerpt">
 				<div class="card-body">
 					<div class="table-responsive">
 
-						<table class="table table-responsive-sm mb-0">
+						<table id="example" class="display">
 							<thead>
 								<tr>
-									<th><strong>Id</strong></th>
-									<th><strong>FİRMA</strong></th>
-									<th><strong>Ad-Soyad</strong></th>
-									<th><strong>E-Posta</strong></th>
-									<th><strong>TELEFON</strong></th>
-									<th><strong>ADRES</strong></th>
-									<th><strong>KAYIT TARİHİ</strong></th>
-									<th style="width:85px;"><strong>İşlemler</strong></th>
+									<th>ID</th>
+									<th>FİRMA</th>
+									<th>AD-SOYAD</th>
+									<th>E-POSTA</th>
+									<th>TELEFON</th>
+									<th>ADRES</th>
+									<th>KAYIT TARİHİ</th>
+									<th style="width:85px;">İŞLEMLER</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -114,20 +77,7 @@
 						</table>
 
 					</div>
-					<div class="d-flex align-items-center justify-content-xl-between flex-wrap justify-content-center mt-3">
-						<small>3 sayfa içerisinden 1 numaralı sayfa gösteriliyor</small>
-						<nav aria-label="Page navigation example">
-							<ul class="pagination mb-2 mb-sm-0">
-								<li class="page-item"><a class="page-link" href="javascript:void(0);"><i class="fa-solid fa-angle-left"></i></a></li>
-								<li class="page-item"><a class="page-link" href="javascript:void(0);">1</a></li>
-								<li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
-								<li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
-								<li class="page-item"><a class="page-link " href="javascript:void(0);"><i class="fa-solid fa-angle-right"></i></a></li>
-							</ul>
-						</nav>
-					</div>
 				</div>
-			</div>
 		</div>
 	</div>
 </div>
@@ -212,6 +162,7 @@
 	<script src="~/admin_panel/js/dashboard/cms.js"></script>
 	<script src="~/admin_panel/vendor/ckeditor/ckeditor.js"></script>
 	<script src="~/admin_panel/vendor/datatables/js/jquery.datatables.min.js"></script>
+	<script src="~/admin_panel/js/plugins-init/datatables.init.js"></script>
 
 	<script>
 		$(function () {

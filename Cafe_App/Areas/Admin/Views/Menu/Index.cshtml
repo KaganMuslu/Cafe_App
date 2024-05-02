@@ -33,366 +33,392 @@
 		<div class="filter cm-content-box box-primary">
 			<div class="content-title">
 				<div class="cpa">
-					<i class="fa-solid fa-filter me-2"></i>Filtrele
-				</div>
-				<div class="tools">
-					<a href="javascript:void(0);" class="expand SlideToolHeader"><i class="fal fa-angle-down"></i></a>
-				</div>
-			</div>
-			<div class="cm-content-body form excerpt">
-				<div class="card-body">
-					<div class="row">
-						<div class="col-xl-3 col-sm-6">
-							<input type="text" class="form-control mb-3 mb-xl-0" id="exampleFormControlInput1" placeholder="Ürün Adı">
-						</div>
-						<div class="col-xl-3 col-sm-6 mb-3 mb-xl-0">
-							<select class="default-select dashboard-select-2 wide w-100">
-								<option selected>Personel Rolü</option>
-								<option value="1">Published</option>
-								<option value="2">Draft</option>
-								<option value="3">Trash</option>
-								<option value="4">Private</option>
-								<option value="5">Pending</option>
-							</select>
-						</div>
-						<div class="col-xl-3 col-sm-6">
-							<input id="datepicker" class=" form-control mb-3 mb-xl-0">
-						</div>
-						<div class="col-xl-3 col-sm-6">
-							<button class="btn btn-primary" title="Aramak İçin Tıklayın" type="button"><i class="fa fa-search me-1"></i>Filtrele</button>
-							<button class="btn btn-danger light" title="Filtreyi Kaldırmak İçin Tıklayın" type="button">Kaldır</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="filter cm-content-box box-primary">
-			<div class="content-title">
-				<div class="cpa">
 					<i class="fa-solid fa-file-lines me-1"></i>Menü Listesi
 				</div>
 				<div class="tools">
 					<a href="javascript:void(0);" class="expand SlideToolHeader"><i class="fal fa-angle-down"></i></a>
 				</div>
 			</div>
-			<div class="cm-content-body form excerpt">
 				<div class="card-body">
 					<div class="table-responsive">
 
-						<table class="table table-responsive-sm mb-0">
-							<thead>
+					<table id="example" class="display">
+						<thead>
+							<tr>
+								<th></th>
+								<th>ID</th>
+								<th>AD</th>
+								<th>AÇIKLAMA</th>
+								<th>DETAY</th>
+								<th>KATEGORİ</th>
+								<th>FİYAT</th>
+								<th>İNDİRİMLİ FİYAT</th>
+								<th>GÖRÜNÜRLÜK</th>
+								<th width="12%">İŞLEMLER</th>
+							</tr>
+						</thead>
+						<tbody>
+
+							@foreach (var menu in Model.Menuler)
+							{
+
 								<tr>
-									<th><strong></strong></th>
-									<th><strong>Id</strong></th>
-									<th><strong>Ad</strong></th>
-									<th><strong>Açıklama</strong></th>
-									<th><strong>Detay</strong></th>
-									<th><strong>KATEGORİ</strong></th>
-									<th><strong>Fİyat</strong></th>
-									<th><strong>İNDİRİMLİ FİYAT</strong></th>
-									<th><strong>GÖRÜNÜRLÜK</strong></th>
-									<th width="12%"><strong>İşlemler</strong></th>
-								</tr>
-							</thead>
-							<tbody>
-
-								@foreach (var menu in Model.Menuler)
-								{
-
-									<tr>
-										<th><a data-bs-toggle="modal" data-bs-target="#menu_@menu.Id" class="btn btn-success shadow btn-xs sharp me-1" type="button"><i class="fas fa-info"></i></a></th>
-
-
-										<th>@menu.Id</th>
-										<td><div class="d-flex align-items-center"><img src="~/img/@menu.Fotograf" class="rounded-lg me-2" width="24" alt=""> <span class="w-space-no">  @menu.Ad</span></div></td>
-										<td>@menu.Aciklama</td>
-										<td>@menu.Detay</td>
-										<td>@menu.Kategori.Ad</td>
-										<td>₺@menu.Fiyat</td>
-										<td>₺@(menu.Fiyat - menu.IndirimliFiyat)</td>
+									<td><a data-bs-toggle="modal" data-bs-target="#menu_@menu.Id" class="btn btn-success shadow btn-xs sharp me-1" type="button"><i class="fas fa-info"></i></a></td>
+									<td><b>@menu.Id</b></td>
+									<td><div class="d-flex align-items-center"><img src="~/img/@menu.Fotograf" class="rounded-lg me-2" width="24" alt=""> <span class="w-space-no">  @menu.Ad</span></div></td>
+									<td>@menu.Aciklama</td>
+									<td>@menu.Detay</td>
+									<td>@menu.Kategori.Ad</td>
+									<td>₺@menu.Fiyat</td>
+									<td>₺@(menu.Fiyat - menu.IndirimliFiyat)</td>
+									@if (menu.Gorunurluk == true)
+									{
+										<td class="recent-stats"><i class="fa fa-circle text-success me-1"></i>Görünür</td>
+									}
+									else
+									{
+										<td class="recent-stats"><i class="fa fa-circle text-danger me-1"></i>Görünmez</td>
+									}
+									<td>
+										<a data-bs-toggle="modal" data-bs-target="#menüMalzemeModal" data-menuid="@menu.Id" class="btn btn-warning shadow btn-xs sharp rounded-circle me-1"><i class="fa fa-wheat"></i></a>
+										<a data-bs-toggle="modal" data-bs-target="#menüDüzenle_@menu.Id" class="btn btn-primary shadow btn-xs sharp rounded-circle me-1"><i class="fa fa-pencil"></i></a>
 										@if (menu.Gorunurluk == true)
 										{
-											<td class="recent-stats"><i class="fa fa-circle text-success me-1"></i>Görünür</td>
+											<a asp-action="MenuSil" asp-route-id="@menu.Id" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa-solid fa-trash"></i></a>
 										}
 										else
 										{
-											<td class="recent-stats"><i class="fa fa-circle text-danger me-1"></i>Görünmez</td>
+											<a asp-action="MenuSil" asp-route-id="@menu.Id" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa fa-trash-undo"></i></a>
 										}
-										<td>
-											<a data-bs-toggle="modal" data-bs-target="#menüMalzemeModal" data-menuid="@menu.Id" class="btn btn-warning shadow btn-xs sharp rounded-circle me-1"><i class="fa fa-wheat"></i></a>
-											<a data-bs-toggle="modal" data-bs-target="#menüDüzenle_@menu.Id" class="btn btn-primary shadow btn-xs sharp rounded-circle me-1"><i class="fa fa-pencil"></i></a>
-											@if (menu.Gorunurluk == true)
-											{
-												<a asp-action="MenuSil" asp-route-id="@menu.Id" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa-solid fa-trash"></i></a>
-											}
-											else
-											{
-												<a asp-action="MenuSil" asp-route-id="@menu.Id" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa fa-trash-undo"></i></a>
-											}
-										</td>
-									</tr>
+									</td>
+								</tr>
 
-									<div class="modal modal-lg fade" id="menu_@menu.Id">
-										<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title">@menu.Ad Menü Bilgisi</h5>
-													<button type="button" class="btn-close" data-bs-dismiss="modal">
-													</button>
-												</div>
-
-												<div class="modal-body">
-													<div class="row">
-														<div class="col-xl-6 col-sm-6 mb-3 mb-xl-0">
-
-															<div class="card">
-																<div class="card-header">
-																	<h4 class="card-title">@menu.Ad</h4>
-																</div>
-																<div class="card-body">
-
-																	<div class="row">
-																		<div class="col-lg-12 order-lg-12 mb-4">
-																			<ul class="list-group list-group-flush mb-3">
-
-																				<li class="list-group-item d-flex justify-content-between lh-condensed">
-																					<div>
-																						<h6 class="my-1">
-																							<span class="icon-warning">
-																								<i class="fa-solid fa-text"></i>
-																							</span>
-																							Menü Ad
-																						</h6>
-																					</div>
-																					<span class="text-muted">@menu.Ad</span>
-																				</li>
-																				<li class="list-group-item d-flex justify-content-between lh-condensed">
-																					<div>
-																						<h6 class="my-1">
-																							<span class="icon-warning">
-																								<i class="fa-solid fa-quote-right"></i>
-																							</span>
-																							Menü Açıklama
-																						</h6>
-																					</div>
-																					<span class="text-muted">@menu.Aciklama</span>
-																				</li>
-																				<li class="list-group-item d-flex justify-content-between lh-condensed">
-																					<div>
-																						<h6 class="my-1">
-																							<span class="icon-warning">
-																								<i class="fa-solid fa-square-info"></i>
-																							</span>
-																							Menü Detay
-																						</h6>
-																					</div>
-																					<span class="text-muted">@menu.Detay</span>
-																				</li>
-																				<li class="list-group-item d-flex justify-content-between lh-condensed">
-																					<div>
-																						<h6 class="my-1">
-																							<span class="icon-warning">
-																								<i class="fa-regular fa-list"></i>
-																							</span>
-																							Menü Kategori
-																						</h6>
-																					</div>
-																					<span class="text-muted">@menu.Kategori.Ad</span>
-																				</li>
-																				<li class="list-group-item d-flex justify-content-between lh-condensed">
-																					<div>
-																						<h6 class="my-1">
-																							<span class="icon-warning">
-																								<i class="fa-regular fa-money-bill"></i>
-																							</span>
-																							Menü Fiyat
-																						</h6>
-																					</div>
-																					<span class="text-muted">₺@menu.Fiyat</span>
-																				</li>
-																				<li class="list-group-item d-flex justify-content-between lh-condensed">
-																					<div>
-																						<h6 class="my-1">
-																							<span class="icon-warning">
-																								<i class="fa-sharp fa-solid fa-badge-percent"></i>
-																							</span>
-																							Menü İndirimli Fiyat
-																						</h6>
-																					</div>
-																					<span class="text-muted">₺@(menu.Fiyat - menu.IndirimliFiyat)</span>
-																				</li>
-																				<li class="list-group-item d-flex justify-content-between lh-condensed">
-																					<div>
-																						<h6 class="my-1">
-																							<span class="icon-warning">
-																								<i class="fa-regular fa-wave-pulse"></i>
-																							</span>
-																							Menü Aktiflik
-																						</h6>
-																					</div>
-																					<span class="text-muted">@menu.Akitf</span>
-																				</li>
-																				<li class="list-group-item d-flex justify-content-between lh-condensed">
-																					<div>
-																						<h6 class="my-1">
-																							<span class="icon-warning">
-																								<i class="fa-solid fa-eye-slash"></i>
-																							</span>
-																							Menü Görünürlük
-																						</h6>
-																					</div>
-																					@if (menu.Gorunurluk == true)
-																					{
-																						<span class="text-success" style="font-weight:bold">Görünür</span>
-																					}
-																					else
-																					{
-																						<span class="text-danger" style="font-weight:bold">Görünmez</span>
-																					}
-																				</li>
-
-																			</ul>
-																		</div>
-
-																	</div>
-																</div>
-															</div>
-
-														</div>
-
-														<div class="col-xl-6 col-sm-6 mb-3 mb-xl-0">
-
-															<div class="card">
-																<div class="card-header">
-																	@foreach (var urunBilgi in Model.MenuUrunler)
-																	{
-																		if (urunBilgi.MenuId == menu.Id)
-																		{
-																			menuSayı += 1;
-																		}
-																	}
-																	<h4 class="card-title">Ürünler (@menuSayı)</h4>
-																	@{
-																		menuSayı = 0;
-																	}
-																</div>
-																<div class="card-body">
-
-																	<div class="row">
-																		<div class="col-lg-12 order-lg-12 mb-4">
-																			<ul class="list-group list-group-flush mb-3">
-																				@foreach (var urunBilgi in Model.MenuUrunler)
-																				{
-																					if (urunBilgi.Menu.Id == menu.Id && urunBilgi.Gorunurluk == true)
-																					{
-
-																						<li class="list-group-item d-flex justify-content-between lh-condensed">
-																							<div>
-																								<h6 class="my-0">
-																									<span class="icon-warning">
-																										<i class="fa-solid fa-wheat"></i>
-																									</span>
-																									@urunBilgi.Urun.Ad
-																								</h6>
-																								<small class="text-success">₺@urunBilgi.Urun.Fiyat</small>
-																								<small class="text-muted"> | </small>
-																								<small class="text-danger">@urunBilgi.Miktar</small>
-																							</div>
-																							<span class="text-muted"><a asp-action="UrunSil" asp-route-id="@menu.Id" asp-route-urunId="@urunBilgi.Urun.Id" class=" btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa-solid fa-trash"></i></a></span>
-																						</li>
-																					}
-																				}
-																			</ul>
-																		</div>
-
-																	</div>
-																</div>
-															</div>
-
-														</div>
-													</div>
-												</div>
-
-												<div class="modal-footer">
-													<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
-												</div>
-
-											</div>
-										</div>
-									</div>
-
-									<div class="modal modal-lg fade" id="menüDüzenle_@menu.Id">
-										<div class="modal-dialog modal-dialog-centered" role="document">
+								<div class="modal modal-lg fade" id="menu_@menu.Id">
+									<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
 										<div class="modal-content">
 											<div class="modal-header">
-												<h5 class="modal-title">Menü Ekle</h5>
+												<h5 class="modal-title">@menu.Ad Menü Bilgisi</h5>
 												<button type="button" class="btn-close" data-bs-dismiss="modal">
 												</button>
 											</div>
 
-											<form asp-action="Index" enctype="multipart/form-data" class="needs-validation" method="post">
-												<div class="modal-body">
-													<div style="margin-bottom:14px" class="row">
-														<div class="form-floating col-md-6 mb-3">
-															<input id="Ad" asp-for="Menu.Ad" type="text" value="@menu.Ad" class="form-control" placeholder="">
-															<label for="Ad" class="form-label">&nbsp;&nbsp;&nbsp;Menü Adı</label>
-															<div class="valid-feedback">Valid.</div>
-															<div class="invalid-feedback">Please fill out this field.</div>
-														</div>
-														<div class="form-floating col-md-6 mb-3">
-															<input id="Aciklama" asp-for="Menu.Aciklama" type="text" value="@menu.Aciklama" class="form-control" placeholder="" required="">
-															<label for="Aciklama" class="form-label">&nbsp;&nbsp;&nbsp;Menü Açıklama</label>
-															<div class="invalid-feedback">
-																Zorunlu Alan
+											<div class="modal-body">
+												<div class="row">
+													<div class="col-xl-6 col-sm-6 mb-3 mb-xl-0">
+
+														<div class="card">
+															<div class="card-header">
+																<h4 class="card-title">@menu.Ad</h4>
+															</div>
+															<div class="card-body">
+
+																<div class="row">
+																	<div class="col-lg-12 order-lg-12 mb-4">
+																		<ul class="list-group list-group-flush mb-3">
+
+																			<li class="list-group-item d-flex justify-content-between lh-condensed">
+																				<div>
+																					<h6 class="my-1">
+																						<span class="icon-warning">
+																							<i class="fa-solid fa-text"></i>
+																						</span>
+																						Menü Ad
+																					</h6>
+																				</div>
+																				<span class="text-muted">@menu.Ad</span>
+																			</li>
+																			<li class="list-group-item d-flex justify-content-between lh-condensed">
+																				<div>
+																					<h6 class="my-1">
+																						<span class="icon-warning">
+																							<i class="fa-solid fa-quote-right"></i>
+																						</span>
+																						Menü Açıklama
+																					</h6>
+																				</div>
+																				<span class="text-muted">@menu.Aciklama</span>
+																			</li>
+																			<li class="list-group-item d-flex justify-content-between lh-condensed">
+																				<div>
+																					<h6 class="my-1">
+																						<span class="icon-warning">
+																							<i class="fa-solid fa-square-info"></i>
+																						</span>
+																						Menü Detay
+																					</h6>
+																				</div>
+																				<span class="text-muted">@menu.Detay</span>
+																			</li>
+																			<li class="list-group-item d-flex justify-content-between lh-condensed">
+																				<div>
+																					<h6 class="my-1">
+																						<span class="icon-warning">
+																							<i class="fa-regular fa-list"></i>
+																						</span>
+																						Menü Kategori
+																					</h6>
+																				</div>
+																				<span class="text-muted">@menu.Kategori.Ad</span>
+																			</li>
+																			<li class="list-group-item d-flex justify-content-between lh-condensed">
+																				<div>
+																					<h6 class="my-1">
+																						<span class="icon-warning">
+																							<i class="fa-regular fa-money-bill"></i>
+																						</span>
+																						Menü Fiyat
+																					</h6>
+																				</div>
+																				<span class="text-muted">₺@menu.Fiyat</span>
+																			</li>
+																			<li class="list-group-item d-flex justify-content-between lh-condensed">
+																				<div>
+																					<h6 class="my-1">
+																						<span class="icon-warning">
+																							<i class="fa-sharp fa-solid fa-badge-percent"></i>
+																						</span>
+																						Menü İndirimli Fiyat
+																					</h6>
+																				</div>
+																				<span class="text-muted">₺@(menu.Fiyat - menu.IndirimliFiyat)</span>
+																			</li>
+																			<li class="list-group-item d-flex justify-content-between lh-condensed">
+																				<div>
+																					<h6 class="my-1">
+																						<span class="icon-warning">
+																							<i class="fa-regular fa-wave-pulse"></i>
+																						</span>
+																						Menü Aktiflik
+																					</h6>
+																				</div>
+																				<span class="text-muted">@menu.Akitf</span>
+																			</li>
+																			<li class="list-group-item d-flex justify-content-between lh-condensed">
+																				<div>
+																					<h6 class="my-1">
+																						<span class="icon-warning">
+																							<i class="fa-solid fa-eye-slash"></i>
+																						</span>
+																						Menü Görünürlük
+																					</h6>
+																				</div>
+																				@if (menu.Gorunurluk == true)
+																				{
+																					<span class="text-success" style="font-weight:bold">Görünür</span>
+																				}
+																				else
+																				{
+																					<span class="text-danger" style="font-weight:bold">Görünmez</span>
+																				}
+																			</li>
+
+																		</ul>
+																	</div>
+
+																</div>
 															</div>
 														</div>
+
 													</div>
-													<div style="margin-bottom:14px" class="row">
-														<div class="form-floating col-md-6 mb-3">
-															<input id="Detay" asp-for="Menu.Detay" type="text" value="@menu.Detay" class="form-control" placeholder="" required="">
-															<label for="Detay" class="form-label">&nbsp;&nbsp;&nbsp;Menü Detay</label>
-															<div class="invalid-feedback">
-																Zorunlu Alan
-															</div>
-														</div>
-														<div class="form-floating col-md-6 mb-3">
-															<input id="Fiyat" asp-for="Menu.Fiyat" type="text" value="@menu.Fiyat" class="form-control" placeholder="" required="">
-															<label for="Fiyat" class="form-label">&nbsp;&nbsp;&nbsp;Menü Fiyat</label>
-															<div class="invalid-feedback">
-																Zorunlu Alan
-															</div>
-														</div>
-													</div>
-													<div style="margin-bottom:14px" class="row">
-														<div class="col-md-6 mb-3">
-															<input asp-for="Menu.Fotograf" value="@menu.Fotograf" id="formFile" class="form-control" name="file" type="file">
-															<div class="invalid-feedback">
-																Zorunlu Alan
-															</div>
-														</div>
-														<div class="col-md-6 mb-3">
-															<select id="KategoriId" asp-for="Menu.KategoriId" class="default-select form-control wide w-100 required">
-																<option disabled>Menü Kategori</option>
-																@foreach (var item in Model.Kategoriler)
+
+													<div class="col-xl-6 col-sm-6 mb-3 mb-xl-0">
+
+														<div class="card">
+															<div class="card-header">
+																@foreach (var urunBilgi in Model.MenuUrunler)
 																{
-																	if (item.Id == menu.KategoriId)
+																	if (urunBilgi.MenuId == menu.Id)
 																	{
-																		<option value="@item.Id" selected>@item.Ad</option>
-																	}
-																	else
-																	{
-																		<option value="@item.Id">@item.Ad</option>
+																		menuSayı += 1;
 																	}
 																}
-															</select>
-															<div class="invalid-feedback">
-																Zorunlu Alan
+																<h4 class="card-title">Ürünler (@menuSayı)</h4>
+																@{
+																	menuSayı = 0;
+																}
+															</div>
+															<div class="card-body">
+
+																<div class="row">
+																	<div class="col-lg-12 order-lg-12 mb-4">
+																		<ul class="list-group list-group-flush mb-3">
+																			@foreach (var urunBilgi in Model.MenuUrunler)
+																			{
+																				if (urunBilgi.Menu.Id == menu.Id && urunBilgi.Gorunurluk == true)
+																				{
+
+																					<li class="list-group-item d-flex justify-content-between lh-condensed">
+																						<div>
+																							<h6 class="my-0">
+																								<span class="icon-warning">
+																									<i class="fa-solid fa-wheat"></i>
+																								</span>
+																								@urunBilgi.Urun.Ad
+																							</h6>
+																							<small class="text-success">₺@urunBilgi.Urun.Fiyat</small>
+																							<small class="text-muted"> | </small>
+																							<small class="text-danger">@urunBilgi.Miktar</small>
+																						</div>
+																						<span class="text-muted"><a asp-action="UrunSil" asp-route-id="@menu.Id" asp-route-urunId="@urunBilgi.Urun.Id" class=" btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa-solid fa-trash"></i></a></span>
+																					</li>
+																				}
+																			}
+																		</ul>
+																	</div>
+
+																</div>
 															</div>
 														</div>
+
 													</div>
-													<input asp-for="Menu.Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
-													<input asp-for="Menu.Akitf" type="hidden" class="form-control" placeholder="" value=True required="">
-													<input asp-for="Menu.Id" type="hidden" class="form-control" placeholder="" value=@menu.Id required="">
+												</div>
+											</div>
+
+											<div class="modal-footer">
+												<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
+											</div>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="modal modal-lg fade" id="menüDüzenle_@menu.Id">
+									<div class="modal-dialog modal-dialog-centered" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title">Menü Ekle</h5>
+											<button type="button" class="btn-close" data-bs-dismiss="modal">
+											</button>
+										</div>
+
+										<form asp-action="Index" enctype="multipart/form-data" class="needs-validation" method="post">
+											<div class="modal-body">
+												<div style="margin-bottom:14px" class="row">
+													<div class="form-floating col-md-6 mb-3">
+														<input id="Ad" asp-for="Menu.Ad" type="text" value="@menu.Ad" class="form-control" placeholder="">
+														<label for="Ad" class="form-label">&nbsp;&nbsp;&nbsp;Menü Adı</label>
+														<div class="valid-feedback">Valid.</div>
+														<div class="invalid-feedback">Please fill out this field.</div>
+													</div>
+													<div class="form-floating col-md-6 mb-3">
+														<input id="Aciklama" asp-for="Menu.Aciklama" type="text" value="@menu.Aciklama" class="form-control" placeholder="" required="">
+														<label for="Aciklama" class="form-label">&nbsp;&nbsp;&nbsp;Menü Açıklama</label>
+														<div class="invalid-feedback">
+															Zorunlu Alan
+														</div>
+													</div>
+												</div>
+												<div style="margin-bottom:14px" class="row">
+													<div class="form-floating col-md-6 mb-3">
+														<input id="Detay" asp-for="Menu.Detay" type="text" value="@menu.Detay" class="form-control" placeholder="" required="">
+														<label for="Detay" class="form-label">&nbsp;&nbsp;&nbsp;Menü Detay</label>
+														<div class="invalid-feedback">
+															Zorunlu Alan
+														</div>
+													</div>
+													<div class="form-floating col-md-6 mb-3">
+														<input id="Fiyat" asp-for="Menu.Fiyat" type="text" value="@menu.Fiyat" class="form-control" placeholder="" required="">
+														<label for="Fiyat" class="form-label">&nbsp;&nbsp;&nbsp;Menü Fiyat</label>
+														<div class="invalid-feedback">
+															Zorunlu Alan
+														</div>
+													</div>
+												</div>
+												<div style="margin-bottom:14px" class="row">
+													<div class="col-md-6 mb-3">
+														<input asp-for="Menu.Fotograf" value="@menu.Fotograf" id="formFile" class="form-control" name="file" type="file">
+														<div class="invalid-feedback">
+															Zorunlu Alan
+														</div>
+													</div>
+													<div class="col-md-6 mb-3">
+														<select id="KategoriId" asp-for="Menu.KategoriId" class="default-select form-control wide w-100 required">
+															<option disabled>Menü Kategori</option>
+															@foreach (var item in Model.Kategoriler)
+															{
+																if (item.Id == menu.KategoriId)
+																{
+																	<option value="@item.Id" selected>@item.Ad</option>
+																}
+																else
+																{
+																	<option value="@item.Id">@item.Ad</option>
+																}
+															}
+														</select>
+														<div class="invalid-feedback">
+															Zorunlu Alan
+														</div>
+													</div>
+												</div>
+												<input asp-for="Menu.Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
+												<input asp-for="Menu.Akitf" type="hidden" class="form-control" placeholder="" value=True required="">
+												<input asp-for="Menu.Id" type="hidden" class="form-control" placeholder="" value=@menu.Id required="">
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
+												<button type="submit" class="btn btn-primary">Kaydet</button>
+											</div>
+										</form>
+
+									</div>
+								</div>
+								</div>
+
+								@* Ürün Seç *@
+								<div class="modal modal-md fade" id="menüMalzemeModal">
+									<div class="modal-dialog modal-dialog-centered" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title">Ürünleri Seç</h5>
+												<button type="button" class="btn-close" data-bs-dismiss="modal">
+												</button>
+											</div>
+											<form asp-action="UrunSec" class="needs-validation" method="post">
+												<input type="hidden" name="menuId" id="menuId" value="menuId">
+												<input type="hidden" name="secilenUrunler" id="secilenUrunler" value="">
+												<div class="modal-body">
+													<div id="DZ_W_Todo4" class="widget-media dz-scroll" style="height:280px; padding:20px">
+														<ul class="timeline">
+															@foreach (var item in Model.Urunler)
+															{
+																<li>
+																	<div class="timeline-panel">
+																		@foreach (var menuUrun in Model.MenuUrunler)
+																		{
+																			if (menuUrun.MenuId == menu.Id && item.Id == menuUrun.UrunId)
+																			{
+																				<div class="form-check custom-checkbox checkbox-success check-lg me-3">
+																					<input type="checkbox" class="form-check-input toggleInput" checked>
+																				</div>
+																				<div class="media-body">
+																					<h5 class="form-check-label">@item.Ad</h5>
+																					<small class="text-muted"><strong class="text-success">₺@item.Fiyat</strong></small>
+																				</div>
+																				<div class="dropdown">
+																					<input type="text" value="@menuUrun.Miktar" class="form-control mb-3 mb-xl-0 miktarInput" placeholder="Miktar">
+																				</div>
+																			}
+																			else
+																			{
+																				<div class="form-check custom-checkbox checkbox-success check-lg me-3">
+																					<input type="checkbox" class="form-check-input toggleInput">
+																				</div>
+																				<div class="media-body">
+																					<h5 class="form-check-label">@item.Ad</h5>
+																					<small class="text-muted"><strong class="text-success">₺@item.Fiyat</strong></small>
+																				</div>
+																				<div class="dropdown">
+																					<input type="text" class="form-control mb-3 mb-xl-0 miktarInput" placeholder="Miktar" style="display: none;">
+																				</div>
+																			}
+																		}
+																		<input type="hidden" name="UrunId" value="@item.Id" />
+																	</div>
+																</li>
+															}
+														</ul>
+													</div>
 												</div>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
@@ -402,90 +428,12 @@
 
 										</div>
 									</div>
-									</div>
+								</div>
+							}
 
-									@* Ürün Seç *@
-									<div class="modal modal-md fade" id="menüMalzemeModal">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title">Ürünleri Seç</h5>
-													<button type="button" class="btn-close" data-bs-dismiss="modal">
-													</button>
-												</div>
-												<form asp-action="UrunSec" class="needs-validation" method="post">
-													<input type="hidden" name="menuId" id="menuId" value="menuId">
-													<input type="hidden" name="secilenUrunler" id="secilenUrunler" value="">
-													<div class="modal-body">
-														<div id="DZ_W_Todo4" class="widget-media dz-scroll" style="height:280px; padding:20px">
-															<ul class="timeline">
-																@foreach (var item in Model.Urunler)
-																{
-																	<li>
-																		<div class="timeline-panel">
-																			@foreach (var menuUrun in Model.MenuUrunler)
-																			{
-																				if (menuUrun.MenuId == menu.Id && item.Id == menuUrun.UrunId)
-																				{
-																					<div class="form-check custom-checkbox checkbox-success check-lg me-3">
-																						<input type="checkbox" class="form-check-input toggleInput" checked>
-																					</div>
-																					<div class="media-body">
-																						<h5 class="form-check-label">@item.Ad</h5>
-																						<small class="text-muted"><strong class="text-success">₺@item.Fiyat</strong></small>
-																					</div>
-																					<div class="dropdown">
-																						<input type="text" value="@menuUrun.Miktar" class="form-control mb-3 mb-xl-0 miktarInput" placeholder="Miktar">
-																					</div>
-																				}
-																				else
-																				{
-																					<div class="form-check custom-checkbox checkbox-success check-lg me-3">
-																						<input type="checkbox" class="form-check-input toggleInput">
-																					</div>
-																					<div class="media-body">
-																						<h5 class="form-check-label">@item.Ad</h5>
-																						<small class="text-muted"><strong class="text-success">₺@item.Fiyat</strong></small>
-																					</div>
-																					<div class="dropdown">
-																						<input type="text" class="form-control mb-3 mb-xl-0 miktarInput" placeholder="Miktar" style="display: none;">
-																					</div>
-																				}
-																			}
-																			<input type="hidden" name="UrunId" value="@item.Id" />
-																		</div>
-																	</li>
-																}
-															</ul>
-														</div>
-													</div>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
-														<button type="submit" class="btn btn-primary">Kaydet</button>
-													</div>
-												</form>
+						</tbody>
+					</table>
 
-											</div>
-										</div>
-									</div>
-								}
-
-							</tbody>
-						</table>
-
-					</div>
-					<div class="d-flex align-items-center justify-content-xl-between flex-wrap justify-content-center mt-3">
-						<small>3 sayfa içerisinden 1 numaralı sayfa gösteriliyor</small>
-						<nav aria-label="Page navigation example">
-							<ul class="pagination mb-2 mb-sm-0">
-								<li class="page-item"><a class="page-link" href="javascript:void(0);"><i class="fa-solid fa-angle-left"></i></a></li>
-								<li class="page-item"><a class="page-link" href="javascript:void(0);">1</a></li>
-								<li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
-								<li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
-								<li class="page-item"><a class="page-link " href="javascript:void(0);"><i class="fa-solid fa-angle-right"></i></a></li>
-							</ul>
-						</nav>
-					</div>
 				</div>
 			</div>
 		</div>
@@ -624,6 +572,7 @@ else
 	<script src="~/admin_panel/js/dashboard/cms.js"></script>
 	<script src="~/admin_panel/vendor/ckeditor/ckeditor.js"></script>
 	<script src="~/admin_panel/vendor/datatables/js/jquery.datatables.min.js"></script>
+	<script src="~/admin_panel/js/plugins-init/datatables.init.js"></script>
 
 	<script>
 		$(function () {

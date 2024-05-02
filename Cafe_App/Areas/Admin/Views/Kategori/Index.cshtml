@@ -38,18 +38,17 @@
 					<a href="javascript:void(0);" class="expand SlideToolHeader"><i class="fal fa-angle-down"></i></a>
 				</div>
 			</div>
-			<div class="cm-content-body form excerpt">
 				<div class="card-body">
 					<div class="table-responsive">
 
-						<table class="table table-responsive-sm mb-0">
+						<table id="example" class="display">
 							<thead>
 								<tr>
-									<th><strong>Id</strong></th>
-									<th><strong>Ad</strong></th>
-									<th><strong>KATEGORİ</strong></th>
-									<th><strong>GÖRÜNÜRLÜK</strong></th>
-									<th style="width:85px;"><strong>İşlemler</strong></th>
+									<th>ID</th>
+									<th>AD</th>
+									<th>KATEGORİ</th>
+									<th>GÖRÜNÜRLÜK</th>
+									<th style="width:85px;">İŞLEMLER</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -57,7 +56,7 @@
 								@foreach (var kategori in ViewBag.Kategoriler)
 								{
 									<tr>
-										<th>@kategori.Id</th>
+										<td><b>@kategori.Id</b></td>
 										<td><div class="d-flex align-items-center"><span class="w-space-no">@kategori.Ad</span></div></td>
 										<td>@kategori.Tur</td>
 										@if (kategori.Gorunurluk == true)
@@ -158,7 +157,6 @@
 						</nav>
 					</div>
 				</div>
-			</div>
 		</div>
 
 
@@ -223,18 +221,6 @@
 							</table>
 
 						</div>
-						<div class="d-flex align-items-center justify-content-xl-between flex-wrap justify-content-center mt-3">
-							<small>3 sayfa içerisinden 1 numaralı sayfa gösteriliyor</small>
-							<nav aria-label="Page navigation example">
-								<ul class="pagination mb-2 mb-sm-0">
-									<li class="page-item"><a class="page-link" href="javascript:void(0);"><i class="fa-solid fa-angle-left"></i></a></li>
-									<li class="page-item"><a class="page-link" href="javascript:void(0);">1</a></li>
-									<li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
-									<li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
-									<li class="page-item"><a class="page-link " href="javascript:void(0);"><i class="fa-solid fa-angle-right"></i></a></li>
-								</ul>
-							</nav>
-						</div>
 					</div>
 				</div>
 			</div>
@@ -296,6 +282,7 @@
 	<script src="~/admin_panel/js/dashboard/cms.js"></script>
 	<script src="~/admin_panel/vendor/ckeditor/ckeditor.js"></script>
 	<script src="~/admin_panel/vendor/datatables/js/jquery.datatables.min.js"></script>
+	<script src="~/admin_panel/js/plugins-init/datatables.init.js"></script>
 
 	<script>
 		$(function () {
