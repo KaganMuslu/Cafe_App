@@ -21,13 +21,22 @@
 				<p class="mb-0">Cafe App Personel Yönetim Ekranına Hoşgeldiniz!</p>
 			</div>
 
-			<a data-bs-toggle="modal" data-bs-target="#personelModal" style="width:max-content; display: inline-block; vertical-align: middle;" type="button" class="btn btn-rounded btn-primary">
-				<span class="btn-icon-start text-primary">
-					<i class="fa fa-user-plus color-primary"></i>
-				</span>Personel Ekle
-			</a>
+			<div class="d-none d-lg-block">
+				<a data-bs-toggle="modal" data-bs-target="#personelModal" style="width:max-content; display: inline-block; vertical-align: middle;" type="button" class="btn btn-rounded btn-primary">
+					<span class="btn-icon-start text-primary">
+						<i class="fa fa-user-plus color-primary"></i>
+					</span>Personel Ekle
+				</a>
+				@if (Model.Roller.Count == 0)
+				{
+					<p style="color: red; font-size: 12px; text-align: center; padding-top:3px">İlk önce rol eklemelisiniz!</p>
+				}
+				else
+				{
+					<br>
+				}
+			</div>
 		</div>
-		<br>
 
 		<div class="filter cm-content-box box-primary">
 			<div class="content-title">
@@ -399,16 +408,14 @@
 					</button>
 				</div>
 
-				<form asp-action="Index" class="needs-validation" method="post">
+				<form asp-action="Index" method="post" novalidate>
 					<div class="modal-body">
 						<div style="margin-bottom:9px" class="row">
 							<div class="col-md-6 mb-3">
 								<label class="form-label">Rol Adı</label>
-								<input asp-for="Rol.Ad" type="text" class="form-control" placeholder="" required="">
-								<input asp-for="Rol.Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
-								<div class="invalid-feedback">
-									Zorunlu Alan
-								</div>
+								<input asp-for="Rol.Ad" type="text" class="form-control" placeholder="">
+								<input asp-for="Rol.Gorunurluk" type="hidden" class="form-control" value=True>
+								<span class="text-danger" asp-validation-for="Rol.Ad">  </span>
 							</div>
 							<div class="col-md-6 mb-3">
 								<label class="form-label">Ekstra Bilgi</label>

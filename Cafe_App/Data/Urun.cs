@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Cafe_App.Models;
 
@@ -7,10 +8,14 @@ public partial class Urun
 {
     public int Id { get; set; }
 
+    [Required]
+    [StringLength(16, MinimumLength = 2, ErrorMessage = "Ürün adı 2 ile 16 karakter arasında olmalıdır.")]
     public string Ad { get; set; }
 
-    public string Aciklama { get; set; }
+    public string? Aciklama { get; set; }
 
+    [Required]
+    [Range(0, double.MaxValue, ErrorMessage = "Maaş sadece sayı olmalıdır.")]
     public float Fiyat { get; set; }
 
     public int IndirimYuzdesi { get; set; }

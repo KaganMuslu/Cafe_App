@@ -89,21 +89,20 @@
 													</button>
 												</div>
 
-												<form asp-action="Index" class="needs-validation" method="post">
+												<form asp-action="Index" method="post" novalidate>
 													<div class="modal-body">
 														<div style="margin-bottom:9px" class="row">
 															<div class="col-md-6 mb-3">
 																<label class="form-label">Rol Adı</label>
-																<input asp-for="Rol.Ad" type="text" value="@rol.Ad" class="form-control" placeholder="" required="">
-																<input asp-for="Rol.Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
-																<input asp-for="Rol.Id" type="hidden" class="form-control" placeholder="" value=@rol.Id required="">
+																<input asp-for="@rol.Ad" type="text" value="@rol.Ad" class="form-control" placeholder="">
+
+																<span class="text-danger" asp-validation-for="Rol.Ad">  </span>
+																<input asp-for="Rol.Gorunurluk" type="hidden" class="form-control" placeholder="" value=True>
+																<input asp-for="Rol.Id" type="hidden" class="form-control" placeholder="" value=@rol.Id>
+
 																<div class="invalid-feedback">
 																	Zorunlu Alan
 																</div>
-															</div>
-															<div class="col-md-6 mb-3">
-																<label class="form-label">Ekstra Bilgi</label>
-																<input type="text" class="form-control" placeholder="" value="" @* required="" *@>
 
 															</div>
 														</div>
@@ -214,21 +213,18 @@
 				</button>
 			</div>
 			
-			<form asp-action="Index" class="needs-validation" method="post">
+			<form asp-action="Index" method="post" novalidate>
 				<div class="modal-body">
 					<div style="margin-bottom:9px" class="row">
 						<div class="col-md-6 mb-3">
 							<label class="form-label">Rol Adı</label>
 							<input asp-for="Rol.Ad" type="text" class="form-control" placeholder="" required="">
+							<span class="text-danger" asp-validation-for="Rol.Ad">  </span>
+
 							<input asp-for="Rol.Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
 							<div class="invalid-feedback">
 								Zorunlu Alan
 							</div>
-						</div>
-						<div class="col-md-6 mb-3">
-							<label class="form-label">Ekstra Bilgi</label>
-							<input type="text" class="form-control" placeholder="" value="" @* required="" *@>
-								
 						</div>
 					</div>
 				</div>

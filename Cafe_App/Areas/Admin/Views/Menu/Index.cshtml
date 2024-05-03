@@ -67,7 +67,6 @@
 									<td><b>@menu.Id</b></td>
 									<td><div class="d-flex align-items-center"><img src="~/img/@menu.Fotograf" class="rounded-lg me-2" width="24" alt=""> <span class="w-space-no">  @menu.Ad</span></div></td>
 									<td>@menu.Aciklama</td>
-									<td>@menu.Detay</td>
 									<td>@menu.Kategori.Ad</td>
 									<td>₺@menu.Fiyat</td>
 									<td>₺@(menu.Fiyat - menu.IndirimliFiyat)</td>
@@ -137,17 +136,6 @@
 																					</h6>
 																				</div>
 																				<span class="text-muted">@menu.Aciklama</span>
-																			</li>
-																			<li class="list-group-item d-flex justify-content-between lh-condensed">
-																				<div>
-																					<h6 class="my-1">
-																						<span class="icon-warning">
-																							<i class="fa-solid fa-square-info"></i>
-																						</span>
-																						Menü Detay
-																					</h6>
-																				</div>
-																				<span class="text-muted">@menu.Detay</span>
 																			</li>
 																			<li class="list-group-item d-flex justify-content-between lh-condensed">
 																				<div>
@@ -310,13 +298,6 @@
 												</div>
 												<div style="margin-bottom:14px" class="row">
 													<div class="form-floating col-md-6 mb-3">
-														<input id="Detay" asp-for="Menu.Detay" type="text" value="@menu.Detay" class="form-control" placeholder="" required="">
-														<label for="Detay" class="form-label">&nbsp;&nbsp;&nbsp;Menü Detay</label>
-														<div class="invalid-feedback">
-															Zorunlu Alan
-														</div>
-													</div>
-													<div class="form-floating col-md-6 mb-3">
 														<input id="Fiyat" asp-for="Menu.Fiyat" type="text" value="@menu.Fiyat" class="form-control" placeholder="" required="">
 														<label for="Fiyat" class="form-label">&nbsp;&nbsp;&nbsp;Menü Fiyat</label>
 														<div class="invalid-feedback">
@@ -470,13 +451,6 @@
 						</div>
 					</div>
 					<div style="margin-bottom:14px" class="row">
-						<div class="form-floating col-md-6 mb-3">
-							<input id="Detay" asp-for="Menu.Detay" type="text" class="form-control" placeholder="" required="">
-							<label for="Detay" class="form-label">&nbsp;&nbsp;&nbsp;Menü Detay</label>
-							<div class="invalid-feedback">
-								Zorunlu Alan
-							</div>
-						</div>
 						<div class="form-floating col-md-6 mb-3">
 							<input id="Fiyat" asp-for="Menu.Fiyat" type="text" class="form-control" placeholder="" required="">
 							<label for="Fiyat" class="form-label">&nbsp;&nbsp;&nbsp;Menü Fiyat</label>

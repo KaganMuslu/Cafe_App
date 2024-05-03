@@ -11,21 +11,25 @@ public partial class Personel
     public int Id { get; set; }
 
     [Required]
+    [StringLength(12, MinimumLength = 2, ErrorMessage = "Personek adı 2 ile 12 karakter arasında olmalıdır.")]
     public string Ad { get; set; }
 
     [Required]
+    [StringLength(12, MinimumLength = 2, ErrorMessage = "Personel soyadı 2 ile 12 karakter arasında olmalıdır.")]
     public string Soyad { get; set; }
 
     [Required]
     [EmailAddress]
+    [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com)$", ErrorMessage = "E-posta '@' ve '.com' içermelidir.")]
     public string Eposta { get; set; }
 
     [Required]
     [Phone]
+    [RegularExpression(@"^\d+$", ErrorMessage = "Telefon numarası sadece sayı içermelidir.")]
     public string Telefon { get; set; }
 
     [Required]
-    [Range(0.01, double.MaxValue, ErrorMessage = "Maas 0'dan büyük olmalıdır.")]
+    [Range(0, double.MaxValue, ErrorMessage = "Maaş sadece sayı olmalıdır.")]
     public float Maas { get; set; }
 
     [Required]
@@ -41,7 +45,7 @@ public partial class Personel
     public string Adres { get; set; }
 
     [Required]
-    [MinLength(8)]
+    [MinLength(8, ErrorMessage = "Parola en az 8 karakter olmalıdır.")]
     public string Parola { get; set; }
 
     public string? Fotograf { get; set; }

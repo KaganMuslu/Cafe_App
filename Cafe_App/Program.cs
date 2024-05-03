@@ -1,10 +1,14 @@
 using Cafe_App.Models;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 
 //Veri Tabaný Baðlantýsý
 builder.Services.AddDbContext<IdentityDataContext>(Options =>
