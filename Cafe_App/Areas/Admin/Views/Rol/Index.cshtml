@@ -94,9 +94,9 @@
 														<div style="margin-bottom:9px" class="row">
 															<div class="col-md-6 mb-3">
 																<label class="form-label">Rol Adı</label>
-																<input asp-for="@rol.Ad" type="text" value="@rol.Ad" class="form-control" placeholder="">
+																<input asp-for="Rol.Ad" type="text" value="@rol.Ad" class="form-control" placeholder="">
+																<span class="text-danger" asp-validation-for="Rol.Ad"></span>
 
-																<span class="text-danger" asp-validation-for="Rol.Ad">  </span>
 																<input asp-for="Rol.Gorunurluk" type="hidden" class="form-control" placeholder="" value=True>
 																<input asp-for="Rol.Id" type="hidden" class="form-control" placeholder="" value=@rol.Id>
 
