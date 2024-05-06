@@ -10,12 +10,12 @@ namespace Cafe_App.Areas.Admin.Validators
 			// Ad doğrulaması: Uzunluk 2 ila 12 karakter arasında olmalıdır.
 			RuleFor(x => x.Ad)
 				.NotEmpty().WithMessage("Personel adı boş olmamalıdır.")
-				.Length(2, 18).WithMessage("Personel adı 2 ile 18 karakter arasında olmalıdır!");
+				.Length(2, 20).WithMessage("Personel adı 2 ile 20 karakter arasında olmalıdır!");
 
 			// Soyad doğrulaması: Uzunluk 2 ila 12 karakter arasında olmalıdır.
 			RuleFor(x => x.Soyad)
 				.NotEmpty().WithMessage("Personel soyadı boş olmamalıdır.")
-				.Length(2, 12).WithMessage("Personel soyadı 2 ile 12 karakter arasında olmalıdır!");
+				.Length(2, 20).WithMessage("Personel soyadı 2 ile 20 karakter arasında olmalıdır!");
 
 			// E-posta doğrulaması: Geçerli bir e-posta adresi olmalıdır.
 			RuleFor(x => x.Eposta)
@@ -25,8 +25,7 @@ namespace Cafe_App.Areas.Admin.Validators
 			// Telefon doğrulaması: Sadece rakam içermeli ve geçerli bir telefon numarası olmalıdır.
 			RuleFor(x => x.Telefon)
 				.NotEmpty().WithMessage("Telefon numarası boş olmamalıdır.")
-				.Matches(@"^\d+$").WithMessage("Telefon numarası sadece sayı içermelidir.")
-				.Matches(@"^\+?[0-9]*$").WithMessage("Telefon numarası geçerli bir formatta olmalıdır.");
+				.Matches(@"^\+?\d{10,15}$").WithMessage("Telefon numarası geçerli bir formatta olmalıdır.");
 
 			// Maaş doğrulaması: Sadece sayı olmalıdır.
 			RuleFor(x => x.Maas)
@@ -60,7 +59,8 @@ namespace Cafe_App.Areas.Admin.Validators
 			// Parola doğrulaması: En az 8 karakter uzunluğunda olmalıdır.
 			RuleFor(x => x.Parola)
 				.NotEmpty().WithMessage("Parola boş olmamalıdır.")
-				.MinimumLength(8).WithMessage("Parola en az 8 karakter olmalıdır.");
+				.Length(8, 20).WithMessage("Parola 8 ile 20 karakter arasında olmalıdır!")
+				.Matches(@"^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).+$").WithMessage("Parola en az bir büyük harf, bir küçük harf ve bir sayı içermelidir!");
 		}
 	}
 }

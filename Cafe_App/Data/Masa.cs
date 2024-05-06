@@ -8,14 +8,11 @@ public partial class Masa
 {
     public int Id { get; set; }
 
-    [Required]
-    [MaxLength(6, ErrorMessage = "Masa kodu en fazla 6 karakter olmalıdır.")]
+	[Required(ErrorMessage = "Masa kodu boş olmamalıdır.")]
     public string Kod { get; set; }
 
-    public int Durum { get; set; }
+	public int Durum { get; set; }
 
-    [Required]
-    [Range(0, int.MaxValue, ErrorMessage = "Kapasite sadece sayı olmalıdır.")]
     public int Kapasite { get; set; }
 
     public float Tutar { get; set; }
@@ -24,6 +21,7 @@ public partial class Masa
 
     public int? PersonelId { get; set; }
 
+	[Required(ErrorMessage = "Masa kategorisi boş olmamalıdır.")]
     public int KategoriId { get; set; }
 
 	public string? QR { get; set; }

@@ -38,141 +38,60 @@
 					<a href="javascript:void(0);" class="expand SlideToolHeader"><i class="fal fa-angle-down"></i></a>
 				</div>
 			</div>
-				<div class="card-body">
-					<div class="table-responsive">
+			<div class="card-body">
+				<div class="table-responsive">
 
-						<table id="example" class="table table-responsive-sm mb-0">
-							<thead>
-								<tr>
-									<th>ID</th>
-									<th>AD-SOYAD</th>
-									<th>E-POSTA</th>
-									<th>TELEFON</th>
-									<th>KAYIT TARİHİ</th>
-									<th>DOĞUM TARİHİ</th>
-									<th>GÖRÜNÜRLÜK</th>
-									<th style="width:85px;">İŞLEMLER</th>
-								</tr>
-							</thead>
-							<tbody>
+					<table id="example" class="table table-responsive-sm mb-0">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>AD-SOYAD</th>
+								<th>E-POSTA</th>
+								<th>TELEFON</th>
+								<th>KAYIT TARİHİ</th>
+								<th>DOĞUM TARİHİ</th>
+								<th>GÖRÜNÜRLÜK</th>
+								<th style="width:85px;">İŞLEMLER</th>
+							</tr>
+						</thead>
+						<tbody>
 
-								@foreach (var musteri in Model.Musteriler)
+						@foreach (var musteri in Model.Musteriler)
+						{
+							<tr>
+								<td><b>@musteri.Id</b></td>
+								<td>@musteri.Ad @musteri.Soyad</td>
+								<td>@musteri.Eposta</td>
+								<td>@musteri.Telefon</td>
+								<td>@musteri.KayitTarihi</td>
+								<td>@musteri.Dogumtarihi</td>
+								@if (musteri.Gorunurluk == true)
 								{
-									<tr>
-										<td><b>@musteri.Id</b></td>
-										<td>@musteri.Ad @musteri.Soyad</td>
-										<td>@musteri.Eposta</td>
-										<td>@musteri.Telefon</td>
-										<td>@musteri.KayitTarihi</td>
-										<td>@musteri.Dogumtarihi</td>
-										@if (musteri.Gorunurluk == true)
-										{
-											<td class="recent-stats"><i class="fa fa-circle text-success me-1"></i>Görünür</td>
-										}
-										else
-										{
-											<td class="recent-stats"><i class="fa fa-circle text-danger me-1"></i>Görünmez</td>
-										}
-										<td>
-											<a data-bs-toggle="modal" data-bs-target="#duzenle_@musteri.Id" class="btn btn-primary shadow btn-xs sharp rounded-circle me-1"><i class="fa fa-pencil"></i></a>
-											@if (musteri.Gorunurluk == true)
-											{
-												<a asp-action="MusteriSil" asp-route-id="@musteri.Id" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa-solid fa-trash"></i></a>
-											}
-											else
-											{
-												<a asp-action="MusteriSil" asp-route-id="@musteri.Id" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa fa-trash-undo"></i></a>
-											}
-										</td>
-									</tr>
-									
-									<div class="modal modal-lg fade" id="duzenle_@musteri.Id">
-									<div class="modal-dialog modal-dialog-centered" role="document">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h5 class="modal-title">Müşteri Düzenle</h5>
-												<button type="button" class="btn-close" data-bs-dismiss="modal">
-												</button>
-											</div>
-
-											<form asp-action="Index" class="needs-validation" method="post">
-												<div class="modal-body">
-													<div style="margin-bottom:14px" class="row">
-														<div class="form-floating col-md-6 mb-3">
-															<input id="soyad" asp-for="Musteri.Ad" type="text" value="@musteri.Ad" class="form-control" placeholder="" required="">
-															<label for="soyad" class="form-label">&nbsp;&nbsp;&nbsp;Müşteri Ad</label>
-															<div class="invalid-feedback">
-																Zorunlu Alan
-															</div>
-														</div>
-														<div class="form-floating col-md-6 mb-3">
-															<input id="soyad" asp-for="Musteri.Soyad" type="text" value="@musteri.Soyad" class="form-control" placeholder="" required="">
-															<label for="soyad" class="form-label">&nbsp;&nbsp;&nbsp;Müşteri Soyad</label>
-															<div class="invalid-feedback">
-																Zorunlu Alan
-															</div>
-														</div>
-													</div>
-													<div style="margin-bottom:14px" class="row">
-														<div class="form-floating col-md-6 mb-3">
-															<input id="Eposta" asp-for="Musteri.Eposta" type="text" value="@musteri.Eposta" class="form-control" placeholder="" required="">
-															<label for="Eposta" class="form-label">&nbsp;&nbsp;&nbsp;Müşteri E-Posta</label>
-															<div class="invalid-feedback">
-																Zorunlu Alan
-															</div>
-														</div>
-														<div class="form-floating col-md-6 mb-3">
-															<input id="tel" asp-for="Musteri.Telefon" type="number" value="@musteri.Telefon" class="form-control" placeholder="" required="">
-															<label for="tel" class="form-label">&nbsp;&nbsp;&nbsp;Müşteri Telefon</label>
-															<div class="invalid-feedback">
-																Zorunlu Alan
-															</div>
-														</div>
-													</div>
-													<div style="margin-bottom:14px" class="row">
-														<div class="form-floating col-md-6 mb-3">
-															<input asp-for="Musteri.KayitTarihi" value="@musteri.KayitTarihi" id="datepicker" class=" form-control mb-3 mb-xl-0" required>
-															<label for="datepicker" class="form-label">&nbsp;&nbsp;&nbsp;Müşteri Kayıt Tarihi</label>
-															<div class="invalid-feedback">
-																Zorunlu Alan
-															</div>
-														</div>
-														<div class="form-floating col-md-6 mb-3">
-															<input asp-for="Musteri.Dogumtarihi" value="@musteri.Dogumtarihi" id="datepicker2" class=" form-control mb-3 mb-xl-0" required>
-															<label for="datepicker2" class="form-label">&nbsp;&nbsp;&nbsp;Müşteri Doğum Tarihi</label>
-															<div class="invalid-feedback">
-																Zorunlu Alan
-															</div>
-														</div>
-													</div>
-													<div style="margin-bottom:14px" class="row">
-														<div class="form-floating col-md-6 mb-3">
-															<input asp-for="Musteri.Parola" id="Parola" type="password" class=" form-control mb-3 mb-xl-0" required>
-															<label for="Parola" class="form-label">&nbsp;&nbsp;&nbsp;Müşteri Parola</label>
-															<div class="invalid-feedback">
-																Zorunlu Alan
-															</div>
-														</div>
-													</div>
-													<input asp-for="Musteri.Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
-													<input asp-for="Musteri.Id" type="hidden" class="form-control" placeholder="" value=@musteri.Id required="">
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
-													<button type="submit" class="btn btn-primary">Kaydet</button>
-												</div>
-											</form>
-
-										</div>
-									</div>
-								</div>
-
+									<td class="recent-stats"><i class="fa fa-circle text-success me-1"></i>Görünür</td>
 								}
+								else
+								{
+									<td class="recent-stats"><i class="fa fa-circle text-danger me-1"></i>Görünmez</td>
+								}
+								<td>
+									<a data-bs-toggle="modal" data-bs-target="#duzenle_@musteri.Id" class="btn btn-primary shadow btn-xs sharp rounded-circle me-1"><i class="fa fa-pencil"></i></a>
+									@if (musteri.Gorunurluk == true)
+									{
+										<a asp-action="MusteriSil" asp-route-id="@musteri.Id" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa-solid fa-trash"></i></a>
+									}
+									else
+									{
+										<a asp-action="MusteriSil" asp-route-id="@musteri.Id" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa fa-trash-undo"></i></a>
+									}
+								</td>
+							</tr>
+						}
 
-							</tbody>
-						</table>
+						</tbody>
+					</table>
 
-					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
@@ -187,66 +106,59 @@
 				</button>
 			</div>
 
-			<form asp-action="Index" class="needs-validation " method="post">
+			<form asp-action="Index" method="post" novalidate>
 				<div class="modal-body">
 					<div style="margin-bottom:14px" class="row">
 						<div class="form-floating col-md-6 mb-3">
-							<input id="soyad" asp-for="Musteri.Ad" type="text" class="form-control" placeholder="" required="">
-							<label for="soyad" class="form-label">&nbsp;&nbsp;&nbsp;Müşteri Ad</label>
-							<div class="invalid-feedback">
-								Zorunlu Alan
-							</div>
+							<input id="ad" asp-for="Musteri.Ad" type="text" class="form-control" placeholder="">
+							<label for="ad" class="form-label">&nbsp;&nbsp;&nbsp;Müşteri Ad</label>
+							<span class="text-danger" asp-validation-for="Musteri.Ad">  </span>
+
 						</div>
 						<div class="form-floating col-md-6 mb-3">
-							<input id="soyad" asp-for="Musteri.Soyad" type="text" class="form-control" placeholder="" required="">
+							<input id="soyad" asp-for="Musteri.Soyad" type="text" class="form-control" placeholder="">
 							<label for="soyad" class="form-label">&nbsp;&nbsp;&nbsp;Müşteri Soyad</label>
-							<div class="invalid-feedback">
-								Zorunlu Alan
-							</div>
+							<span class="text-danger" asp-validation-for="Musteri.Soyad">  </span>
+
 						</div>
 					</div>
 					<div style="margin-bottom:14px" class="row">
 						<div class="form-floating col-md-6 mb-3">
-							<input id="adres" asp-for="Musteri.Eposta" type="text" class="form-control" placeholder="" required="">
-							<label for="adres" class="form-label">&nbsp;&nbsp;&nbsp;Müşteri E-Posta</label>
-							<div class="invalid-feedback">
-								Zorunlu Alan
-							</div>
+							<input id="eposta" asp-for="Musteri.Eposta" type="text" class="form-control" placeholder="">
+							<label for="eposta" class="form-label">&nbsp;&nbsp;&nbsp;Müşteri E-Posta</label>
+							<span class="text-danger" asp-validation-for="Musteri.Eposta">  </span>
+
 						</div>
 						<div class="form-floating col-md-6 mb-3">
-							<input id="tel" asp-for="Musteri.Telefon" type="number" class="form-control" placeholder="" required="">
+							<input id="tel" asp-for="Musteri.Telefon" type="number" class="form-control" placeholder="">
 							<label for="tel" class="form-label">&nbsp;&nbsp;&nbsp;Müşteri Telefon</label>
-							<div class="invalid-feedback">
-								Zorunlu Alan
-							</div>
+							<span class="text-danger" asp-validation-for="Musteri.Telefon">  </span>
+
 						</div>
 					</div>
 					<div style="margin-bottom:14px" class="row">
 						<div class="form-floating col-md-6 mb-3">
-							<input asp-for="Musteri.KayitTarihi" id="datepicker" class=" form-control mb-3 mb-xl-0" required>
+							<input asp-for="Musteri.KayitTarihi" id="datepicker" class=" form-control mb-3 mb-xl-0">
 							<label for="datepicker" class="form-label">&nbsp;&nbsp;&nbsp;Müşteri Kayıt Tarihi</label>
-							<div class="invalid-feedback">
-								Zorunlu Alan
-							</div>
+							<span class="text-danger" asp-validation-for="Musteri.KayitTarihi">  </span>
+
 						</div>
 						<div class="form-floating col-md-6 mb-3">
-							<input asp-for="Musteri.Dogumtarihi" id="datepicker2" class=" form-control mb-3 mb-xl-0" required>
+							<input asp-for="Musteri.Dogumtarihi" id="datepicker2" class=" form-control mb-3 mb-xl-0">
 							<label for="datepicker2" class="form-label">&nbsp;&nbsp;&nbsp;Müşteri Doğum Tarihi</label>
-							<div class="invalid-feedback">
-								Zorunlu Alan
-							</div>
+							<span class="text-danger" asp-validation-for="Musteri.Dogumtarihi">  </span>
+
 						</div>
 					</div>
 					<div style="margin-bottom:14px" class="row">
 						<div class="form-floating col-md-6 mb-3">
-							<input asp-for="Musteri.Parola" id="Parola" type="password" class=" form-control mb-3 mb-xl-0" required>
+							<input asp-for="Musteri.Parola" id="Parola" type="password" class=" form-control mb-3 mb-xl-0">
 							<label for="Parola" class="form-label">&nbsp;&nbsp;&nbsp;Müşteri Parola</label>
-							<div class="invalid-feedback">
-								Zorunlu Alan
-							</div>
+							<span class="text-danger" asp-validation-for="Musteri.Parola">  </span>
+
 						</div>
 					</div>
-					<input asp-for="Musteri.Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
+					<input asp-for="Musteri.Gorunurluk" type="hidden" class="form-control" placeholder="" value=True>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
@@ -257,6 +169,84 @@
 		</div>
 	</div>
 </div>
+
+@* Müşteri Düzenle *@
+@foreach (var musteri in Model.Musteriler)
+{	
+	<div class="modal modal-lg fade" id="duzenle_@musteri.Id">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Müşteri Düzenle</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal">
+					</button>
+				</div>
+
+				<form asp-action="Index" class="needs-validation" method="post">
+					<div class="modal-body">
+						<div style="margin-bottom:14px" class="row">
+							<div class="form-floating col-md-6 mb-3">
+								<input id="ad" asp-for="Musteri.Ad" type="text" value="@musteri.Ad" class="form-control" placeholder="">
+								<label for="ad" class="form-label">&nbsp;&nbsp;&nbsp;Müşteri Ad</label>
+								<span class="text-danger" asp-validation-for="Musteri.Ad">  </span>
+
+							</div>
+							<div class="form-floating col-md-6 mb-3">
+								<input id="soyad" asp-for="Musteri.Soyad" type="text" value="@musteri.Soyad" class="form-control" placeholder="">
+								<label for="soyad" class="form-label">&nbsp;&nbsp;&nbsp;Müşteri Soyad</label>
+								<span class="text-danger" asp-validation-for="Musteri.Soyad">  </span>
+
+							</div>
+						</div>
+						<div style="margin-bottom:14px" class="row">
+							<div class="form-floating col-md-6 mb-3">
+								<input id="Eposta" asp-for="Musteri.Eposta" type="text" value="@musteri.Eposta" class="form-control" placeholder="">
+								<label for="Eposta" class="form-label">&nbsp;&nbsp;&nbsp;Müşteri E-Posta</label>
+								<span class="text-danger" asp-validation-for="Musteri.Eposta">  </span>
+
+							</div>
+							<div class="form-floating col-md-6 mb-3">
+								<input id="tel" asp-for="Musteri.Telefon" type="number" value="@musteri.Telefon" class="form-control" placeholder="">
+								<label for="tel" class="form-label">&nbsp;&nbsp;&nbsp;Müşteri Telefon</label>
+								<span class="text-danger" asp-validation-for="Musteri.Telefon">  </span>
+
+							</div>
+						</div>
+						<div style="margin-bottom:14px" class="row">
+							<div class="form-floating col-md-6 mb-3">
+								<input asp-for="Musteri.KayitTarihi" value="@musteri.KayitTarihi" id="datepicker" class=" form-control mb-3 mb-xl-0">
+								<label for="datepicker" class="form-label">&nbsp;&nbsp;&nbsp;Müşteri Kayıt Tarihi</label>
+								<span class="text-danger" asp-validation-for="Musteri.KayitTarihi">  </span>
+
+							</div>
+							<div class="form-floating col-md-6 mb-3">
+								<input asp-for="Musteri.Dogumtarihi" value="@musteri.Dogumtarihi" id="datepicker2" class=" form-control mb-3 mb-xl-0">
+								<label for="datepicker2" class="form-label">&nbsp;&nbsp;&nbsp;Müşteri Doğum Tarihi</label>
+								<span class="text-danger" asp-validation-for="Musteri.Dogumtarihi">  </span>
+
+							</div>
+						</div>
+						<div style="margin-bottom:14px" class="row">
+							<div class="form-floating col-md-6 mb-3">
+								<input asp-for="Musteri.Parola" id="Parola" type="password" class=" form-control mb-3 mb-xl-0">
+								<label for="Parola" class="form-label">&nbsp;&nbsp;&nbsp;Müşteri Parola</label>
+								<span class="text-danger" asp-validation-for="Musteri.Parola">  </span>
+
+							</div>
+						</div>
+						<input asp-for="Musteri.Gorunurluk" type="hidden" class="form-control" value=True>
+						<input asp-for="Musteri.Id" type="hidden" class="form-control" value=@musteri.Id>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
+						<button type="submit" class="btn btn-primary">Kaydet</button>
+					</div>
+				</form>
+
+			</div>
+		</div>
+	</div>
+}
 
 
 <!-- JS Ekstralar -->

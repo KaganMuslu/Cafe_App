@@ -8,32 +8,23 @@ public partial class Musteri
 {
     public int Id { get; set; }
 
-    [Required]
-    [StringLength(12, MinimumLength = 2, ErrorMessage = "Müşteri adı 2 ile 12 karakter arasında olmalıdır.")]
+	[Required(ErrorMessage = "Müşteri adı boş olmamalıdır.")]
     public string Ad { get; set; }
 
-    [Required]
-    [StringLength(12, MinimumLength = 2, ErrorMessage = "Müşteri soyadı 2 ile 12 karakter arasında olmalıdır.")]
-    public string Soyad { get; set; }
+	[Required(ErrorMessage = "Müşteri soyadı boş olmamalıdır.")]
+	public string Soyad { get; set; }
 
-    [Required]
-    [EmailAddress]
-    [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com)$", ErrorMessage = "E-posta '@' ve '.com' içermelidir.")]
-    public string Eposta { get; set; }
+	[Required(ErrorMessage = "Müşteri e-postası boş olmamalıdır.")]
+	public string Eposta { get; set; }
 
-    [Required]
-    [Phone]
-    [RegularExpression(@"^\d+$", ErrorMessage = "Telefon numarası sadece sayı içermelidir.")]
-    public string Telefon { get; set; }
+	[Required(ErrorMessage = "Müşteri telefon numarası boş olmamalıdır.")]
+	public string Telefon { get; set; }
 
-    [Required]
-    public DateOnly KayitTarihi { get; set; }
+	public DateOnly KayitTarihi { get; set; }
 
-    [Required]
     public DateOnly Dogumtarihi { get; set; }
 
-    [Required]
-    [MinLength(8, ErrorMessage = "Parola en az 8 karakter olmalıdır.")]
+	[Required(ErrorMessage = "Müşteri parolası boş olmamalıdır.")]
     public string Parola { get; set; }
 
 	public bool Gorunurluk { get; set; }

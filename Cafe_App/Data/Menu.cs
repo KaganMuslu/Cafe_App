@@ -8,14 +8,11 @@ public partial class Menu
 {
     public int Id { get; set; }
 
-    [Required]
-    [StringLength(16, MinimumLength = 2, ErrorMessage = "Menü adı 2 ile 16 karakter arasında olmalıdır.")]
+	[Required(ErrorMessage = "Menü adı boş olamaz.")]
     public string Ad { get; set; }
 
-    public string? Aciklama { get; set; }
+	public string? Aciklama { get; set; }
 
-    [Required]
-    [Range(0, double.MaxValue, ErrorMessage = "Maaş sadece sayı olmalıdır.")]
     public float Fiyat { get; set; }
 
     public int IndirimYuzdesi { get; set; }
@@ -28,9 +25,10 @@ public partial class Menu
 
     public bool Akitf { get; set; }
 
+	[Required(ErrorMessage = "Menü kategorisi boş olamaz.")]
     public int KategoriId { get; set; }
 
-    public bool Gorunurluk { get; set; }
+	public bool Gorunurluk { get; set; }
 
 	public Kategori? Kategori { get; set; }
 }
