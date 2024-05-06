@@ -689,8 +689,7 @@ namespace Cafe_App.Migrations
 
                     b.Property<string>("Ad")
                         .IsRequired()
-                        .HasMaxLength(12)
-                        .HasColumnType("varchar(12)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Adres")
                         .IsRequired()
@@ -731,8 +730,7 @@ namespace Cafe_App.Migrations
 
                     b.Property<string>("Soyad")
                         .IsRequired()
-                        .HasMaxLength(12)
-                        .HasColumnType("varchar(12)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Telefon")
                         .IsRequired()
@@ -764,6 +762,9 @@ namespace Cafe_App.Migrations
                     b.Property<bool>("Gorunurluk")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<int>("KayitsizMusteriId")
+                        .HasColumnType("int");
+
                     b.Property<int>("KisiSayisi")
                         .HasColumnType("int");
 
@@ -794,8 +795,7 @@ namespace Cafe_App.Migrations
 
                     b.Property<string>("Ad")
                         .IsRequired()
-                        .HasMaxLength(12)
-                        .HasColumnType("varchar(12)");
+                        .HasColumnType("longtext");
 
                     b.Property<bool>("Gorunurluk")
                         .HasColumnType("tinyint(1)");

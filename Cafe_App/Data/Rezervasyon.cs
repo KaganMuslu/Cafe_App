@@ -7,6 +7,8 @@ public partial class Rezervasyon
 {
     public int Id { get; set; }
 
+    public int KayitsizMusteriId { get; set; }
+
     public TimeOnly BaslangicSaat { get; set; }
 
     public TimeOnly BitisSaat { get; set; }

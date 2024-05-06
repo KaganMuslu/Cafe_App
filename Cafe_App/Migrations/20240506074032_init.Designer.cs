@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cafe_App.Migrations
 {
     [DbContext(typeof(IdentityDataContext))]
-    [Migration("20240503075250_init")]
+    [Migration("20240506074032_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -692,8 +692,7 @@ namespace Cafe_App.Migrations
 
                     b.Property<string>("Ad")
                         .IsRequired()
-                        .HasMaxLength(12)
-                        .HasColumnType("varchar(12)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Adres")
                         .IsRequired()
@@ -734,8 +733,7 @@ namespace Cafe_App.Migrations
 
                     b.Property<string>("Soyad")
                         .IsRequired()
-                        .HasMaxLength(12)
-                        .HasColumnType("varchar(12)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Telefon")
                         .IsRequired()
@@ -767,6 +765,9 @@ namespace Cafe_App.Migrations
                     b.Property<bool>("Gorunurluk")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<int>("KayitsizMusteriId")
+                        .HasColumnType("int");
+
                     b.Property<int>("KisiSayisi")
                         .HasColumnType("int");
 
@@ -797,8 +798,7 @@ namespace Cafe_App.Migrations
 
                     b.Property<string>("Ad")
                         .IsRequired()
-                        .HasMaxLength(12)
-                        .HasColumnType("varchar(12)");
+                        .HasColumnType("longtext");
 
                     b.Property<bool>("Gorunurluk")
                         .HasColumnType("tinyint(1)");

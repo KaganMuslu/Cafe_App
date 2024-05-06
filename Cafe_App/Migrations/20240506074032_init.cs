@@ -202,6 +202,7 @@ namespace Cafe_App.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    KayitsizMusteriId = table.Column<int>(type: "int", nullable: false),
                     BaslangicSaat = table.Column<TimeOnly>(type: "time(6)", nullable: false),
                     BitisSaat = table.Column<TimeOnly>(type: "time(6)", nullable: false),
                     Tarih = table.Column<DateOnly>(type: "date", nullable: false),
@@ -224,7 +225,7 @@ namespace Cafe_App.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Ad = table.Column<string>(type: "varchar(12)", maxLength: 12, nullable: false)
+                    Ad = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Gorunurluk = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
@@ -586,9 +587,9 @@ namespace Cafe_App.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Ad = table.Column<string>(type: "varchar(12)", maxLength: 12, nullable: false)
+                    Ad = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Soyad = table.Column<string>(type: "varchar(12)", maxLength: 12, nullable: false)
+                    Soyad = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Eposta = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),

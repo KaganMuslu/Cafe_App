@@ -5,11 +5,12 @@ using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddControllersWithViews();
 
 // Add services to the container.
-builder.Services.AddControllersWithViews().AddFluentValidation();
+builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
+builder.Services.AddValidatorsFromAssemblyContaining<IdentityDataContext>();
 
-builder.Services.AddTransient<IValidator<Rol>, RolValidator>();
 
 //Veri Tabaný Baðlantýsý
 builder.Services.AddDbContext<IdentityDataContext>(Options =>

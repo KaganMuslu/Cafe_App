@@ -7,48 +7,40 @@ namespace Cafe_App.Models;
 
 public partial class Personel
 {
-    [Required]
     public int Id { get; set; }
 
-    [Required]
-    [StringLength(12, MinimumLength = 2, ErrorMessage = "Personek adı 2 ile 12 karakter arasında olmalıdır.")]
-    public string Ad { get; set; }
+	[Required(ErrorMessage = "Personel adı boş olmamalıdır.")]
+	public string Ad { get; set; }
 
-    [Required]
-    [StringLength(12, MinimumLength = 2, ErrorMessage = "Personel soyadı 2 ile 12 karakter arasında olmalıdır.")]
+	[Required(ErrorMessage = "Personel soyadı boş olmamalıdır.")]
     public string Soyad { get; set; }
 
-    [Required]
-    [EmailAddress]
-    [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com)$", ErrorMessage = "E-posta '@' ve '.com' içermelidir.")]
-    public string Eposta { get; set; }
+	[Required(ErrorMessage = "E-posta adresi boş olmamalıdır.")]
+	public string Eposta { get; set; }
 
-    [Required]
-    [Phone]
-    [RegularExpression(@"^\d+$", ErrorMessage = "Telefon numarası sadece sayı içermelidir.")]
-    public string Telefon { get; set; }
+	[Required(ErrorMessage = "Telefon numarası boş olmamalıdır.")]
+	public string Telefon { get; set; }
 
-    [Required]
-    [Range(0, double.MaxValue, ErrorMessage = "Maaş sadece sayı olmalıdır.")]
-    public float Maas { get; set; }
+	[Required(ErrorMessage = "Maaş boş olmamalıdır.")]
 
-    [Required]
-    public DateOnly DogumTarihi { get; set; }
+	public float Maas { get; set; }
 
-    [Required]
-    public DateOnly BaslamaTarihi { get; set; }
+	[Required(ErrorMessage = "Doğum tarihi boş olmamalıdır.")]
+	public DateOnly DogumTarihi { get; set; }
 
-    [Required]
-    public string Cinsiyet { get; set; }
+	[Required(ErrorMessage = "Başlama tarihi boş olmamalıdır.")]
+	public DateOnly BaslamaTarihi { get; set; }
 
-    [Required]
-    public string Adres { get; set; }
+	[Required(ErrorMessage = "Cinsiyet boş olmamalıdır.")]
+	public string Cinsiyet { get; set; }
 
-    [Required]
-    [MinLength(8, ErrorMessage = "Parola en az 8 karakter olmalıdır.")]
-    public string Parola { get; set; }
+	[Required(ErrorMessage = "Adres boş olmamalıdır.")]
+	public string Adres { get; set; }
 
-    public string? Fotograf { get; set; }
+	[Required(ErrorMessage = "Parola boş olmamalıdır.")]
+	public string Parola { get; set; }
+
+	public string? Fotograf { get; set; }
 
     public bool Gorunurluk { get; set; }
 
@@ -56,10 +48,10 @@ public partial class Personel
 
     public ICollection<Masa> Masalars { get; set; } = new List<Masa>();
 
-    [Required]
+	[Required(ErrorMessage = "Rol boş olmamalıdır.")]
     public int RolId { get; set; }
 
-    public Rol? Rol { get; set; }
+	public Rol? Rol { get; set; }
 
     public ICollection<Teslimat> Teslimatlars { get; set; } = new List<Teslimat>();
 }

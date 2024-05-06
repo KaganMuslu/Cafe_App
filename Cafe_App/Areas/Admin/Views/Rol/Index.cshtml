@@ -79,43 +79,7 @@
 										</td>
 									</tr>
 
-									// Rol düzenle
-									<div class="modal fade" id="rolGuncelle_@rol.Id">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title">Rol Düzenle</h5>
-													<button type="button" class="btn-close" data-bs-dismiss="modal">
-													</button>
-												</div>
-
-												<form asp-action="Index" method="post" novalidate>
-													<div class="modal-body">
-														<div style="margin-bottom:9px" class="row">
-															<div class="col-md-6 mb-3">
-																<label class="form-label">Rol Adı</label>
-																<input asp-for="Rol.Ad" type="text" value="@rol.Ad" class="form-control" placeholder="">
-																<span class="text-danger" asp-validation-for="Rol.Ad"></span>
-
-																<input asp-for="Rol.Gorunurluk" type="hidden" class="form-control" placeholder="" value=True>
-																<input asp-for="Rol.Id" type="hidden" class="form-control" placeholder="" value=@rol.Id>
-
-																<div class="invalid-feedback">
-																	Zorunlu Alan
-																</div>
-
-															</div>
-														</div>
-													</div>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
-														<button type="submit" class="btn btn-primary">Kaydet</button>
-													</div>
-												</form>
-
-											</div>
-										</div>
-									</div>
+									
 
 
 								}
@@ -237,6 +201,47 @@
 		</div>
 	</div>
 </div>
+
+@foreach (var rol in Model.Roller)
+{
+	@* // Rol düzenle *@
+	<div class="modal fade" id="rolGuncelle_@rol.Id">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Rol Düzenle</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal">
+					</button>
+				</div>
+
+				<form asp-action="Index" method="post" novalidate>
+					<div class="modal-body">
+						<div style="margin-bottom:9px" class="row">
+							<div class="col-md-6 mb-3">
+								<label class="form-label">Rol Adı</label>
+								<input asp-for="Rol.Ad" type="text" value="@rol.Ad" class="form-control">
+								<span class="text-danger" asp-validation-for="Rol.Ad"></span>
+
+								<input asp-for="Rol.Gorunurluk" type="hidden" class="form-control" value=True>
+								<input asp-for="Rol.Id" type="hidden" class="form-control" value=@rol.Id>
+
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
+						<button type="submit" class="btn btn-primary">Kaydet</button>
+					</div>
+				</form>
+
+			</div>
+		</div>
+	</div>
+
+	@* <div class="col-12 col-md-6 col-lg-4">
+		<partial name="partials/_RolPartial" model="@rol" />
+	</div> *@
+}
 
 <!-- JS Ekstralar -->
 @section Scripts

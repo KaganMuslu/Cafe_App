@@ -7,7 +7,9 @@ namespace Cafe_App.Areas.Admin.Validators
 	{
 		public RolValidator()
 		{
-			RuleFor(x => x.Ad).Length(2, 12).WithMessage("Rol 2 ile 12 karakter arasında olmalıdır!");
+			RuleFor(x => x.Ad)
+				.NotNull().WithMessage("Rol adı boş olamaz!")
+				.Length(2, 12).WithMessage("Rol adı 2 ile 12 karakter arasında olmalıdır!");
 		}
 	}
 }
