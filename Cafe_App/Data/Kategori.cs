@@ -8,8 +8,7 @@ public partial class Kategori
 {
     public int Id { get; set; }
 
-    [Required]
-    [StringLength(16, MinimumLength = 2, ErrorMessage = "Kategori adı 2 ile 16 karakter arasında olmalıdır.")]
+	[Required(ErrorMessage = "Kategori adı boş olamaz.")]
     public string Ad { get; set; }
 
     public string Tur { get; set; }

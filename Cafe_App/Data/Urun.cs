@@ -8,17 +8,15 @@ public partial class Urun
 {
     public int Id { get; set; }
 
-    [Required]
-    [StringLength(16, MinimumLength = 2, ErrorMessage = "Ürün adı 2 ile 16 karakter arasında olmalıdır.")]
+	[Required(ErrorMessage = "Ürün adı boş olamaz.")]
     public string Ad { get; set; }
 
-    public string? Aciklama { get; set; }
+	public string? Aciklama { get; set; }
 
-    [Required]
-    [Range(0, double.MaxValue, ErrorMessage = "Maaş sadece sayı olmalıdır.")]
+	[Required(ErrorMessage = "Ürün fiyatı boş olamaz.")]
     public float Fiyat { get; set; }
 
-    public int IndirimYuzdesi { get; set; }
+	public int IndirimYuzdesi { get; set; }
 
     public float IndirimliFiyat { get; set; }
 

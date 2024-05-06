@@ -442,50 +442,46 @@
 				</button>
 			</div>
 
-			<form asp-action="Index" enctype="multipart/form-data" class="needs-validation" method="post">
+			<form asp-action="Index" enctype="multipart/form-data" method="post" novalidate>
 				<div class="modal-body">
 					<div style="margin-bottom:14px" class="row">
 						<div class="form-floating col-md-6 mb-3">
 							<input id="Ad" asp-for="Urun.Ad" type="text" class="form-control" placeholder="">
 							<label for="Ad" class="form-label">&nbsp;&nbsp;&nbsp;Ürün Adı</label>
-							<div class="valid-feedback">Valid.</div>
-							<div class="invalid-feedback">Please fill out this field.</div>
+							<span class="text-danger" asp-validation-for="Urun.Ad"></span>
+
 						</div>
 						<div class="form-floating col-md-6 mb-3">
-								<input id="Aciklama" asp-for="Urun.Aciklama" type="text" class="form-control" placeholder="" required="">
+							<input id="Aciklama" asp-for="Urun.Aciklama" type="text" class="form-control" placeholder="" required="">
 							<label for="Aciklama" class="form-label">&nbsp;&nbsp;&nbsp;Ürün Açıklama</label>
-							<div class="invalid-feedback">
-								Zorunlu Alan
-							</div>
+								<span class="text-danger" asp-validation-for="Urun.Aciklama"></span>
+
 						</div>
 					</div>
 					<div style="margin-bottom:14px" class="row">
 						<div class="form-floating col-md-6 mb-3">
-								<input id="Fiyat" asp-for="Urun.Fiyat" type="text" class="form-control" placeholder="" required="">
+							<input id="Fiyat" asp-for="Urun.Fiyat" type="text" class="form-control" placeholder="" required="">
 							<label for="Fiyat" class="form-label">&nbsp;&nbsp;&nbsp;Ürün Fiyat</label>
-							<div class="invalid-feedback">
-								Zorunlu Alan
-							</div>
+								<span class="text-danger" asp-validation-for="Urun.Fiyat"></span>
+
 						</div>
 					</div>
 					<div style="margin-bottom:14px" class="row">
 						<div class="col-md-6 mb-3">
-								<input asp-for="Urun.Fotograf" id="formFile" class="form-control" name="file" type="file">
-							<div class="invalid-feedback">
-								Zorunlu Alan
-							</div>
+							<input asp-for="Urun.Fotograf" id="formFile" class="form-control" name="file" type="file">
+								<span class="text-danger" asp-validation-for="Urun.Fotograf"></span>
+
 						</div>
 						<div class="col-md-6 mb-3">
-								<select id="KategoriId" asp-for="Urun.KategoriId" class="default-select form-control wide w-100 required">
-								<option selected>Ürün Kategori</option>
-								@foreach (var item in Model.Kategoriler)
-								{
-									<option value="@item.Id">@item.Ad</option>
-								}
+							<select id="KategoriId" asp-for="Urun.KategoriId" class="default-select form-control wide w-100 required">
+							<option selected>Ürün Kategori</option>
+							@foreach (var item in Model.Kategoriler)
+							{
+								<option value="@item.Id">@item.Ad</option>
+							}
 							</select>
-							<div class="invalid-feedback">
-								Zorunlu Alan
-							</div>
+								<span class="text-danger" asp-validation-for="Urun.KategoriId"></span>
+
 						</div>
 					</div>
 						<input asp-for="Urun.Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
@@ -503,43 +499,8 @@
 }
 else
 {
-	<div class="modal-dialog modal-dialog-centered" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">Kategori Ekle</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal">
-				</button>
-			</div>
-
-			<form asp-action="Index" class="needs-validation " method="post">
-				<div class="modal-body">
-					<div style="margin-bottom:14px" class="row">
-						<div class="form-floating col-md-6 mb-3">
-							<input id="Ad" asp-for="Kategori.Ad" type="text" class="form-control" placeholder="">
-							<label for="Ad" class="form-label">&nbsp;&nbsp;&nbsp;Kategori Adı</label>
-							<div class="valid-feedback">Valid.</div>
-							<div class="invalid-feedback">Please fill out this field.</div>
-						</div>
-						<div class="col-md-6">
-								<select asp-for="Kategori.Tur" class="default-select form-control wide w-100 required">
-								<option disabled="disabled">Kategori</option>
-								<option value="Masa">Masa</option>
-								<option value="Menü">Menü</option>
-								<option value="Ürün" selected>Ürün</option>
-							</select>
-							<div class="valid-feedback">Valid.</div>
-							<div class="invalid-feedback">Please fill out this field.</div>
-						</div>
-					</div>
-						<input asp-for="Kategori.Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
-					<button type="submit" class="btn btn-primary">Kaydet</button>
-				</div>
-			</form>
-
-		</div>
+	<div class="col-12 col-md-6 col-lg-4">
+		<partial name="partials/_KategoriPartial" model="Model" />
 	</div>
 }
 </div>

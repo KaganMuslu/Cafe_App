@@ -1,0 +1,40 @@
+﻿@model UrunViewModel
+
+<div class="modal-dialog modal-dialog-centered" role="document">
+	<div class="modal-content">
+		<div class="modal-header">
+			<h5 class="modal-title">Kategori Ekle</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="modal">
+			</button>
+		</div>
+
+		<form asp-action="Index" method="post" novalidate>
+			<div class="modal-body">
+				<div style="margin-bottom:14px" class="row">
+					<div class="form-floating col-md-6 mb-3">
+						<input id="Ad" asp-for="Kategori.Ad" type="text" class="form-control" placeholder="">
+						<label for="Ad" class="form-label">&nbsp;&nbsp;&nbsp;Kategori Adı</label>
+						<span class="text-danger" asp-validation-for="Kategori.Ad"></span>
+
+					</div>
+					<div class="col-md-6">
+						<select asp-for="Kategori.Tur" class="default-select form-control wide w-100 required">
+							<option disabled="disabled">Kategori</option>
+							<option value="Masa">Masa</option>
+							<option value="Menü">Menü</option>
+							<option value="Ürün" selected>Ürün</option>
+						</select>
+						<span class="text-danger" asp-validation-for="Kategori.Tur"></span>
+
+					</div>
+				</div>
+				<input asp-for="Kategori.Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
+				<button type="submit" class="btn btn-primary">Kaydet</button>
+			</div>
+		</form>
+
+	</div>
+</div>
