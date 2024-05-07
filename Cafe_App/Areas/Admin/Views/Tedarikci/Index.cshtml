@@ -92,56 +92,51 @@
 				</button>
 			</div>
 
-			<form asp-action="Index" class="needs-validation " method="post">
+			<form asp-action="Index" method="post" novalidate>
 				<div class="modal-body">
 					<div style="margin-bottom:14px" class="row">
 						<div class="form-floating col-md-6 mb-3">
-							<input id="ad" asp-for="Firma" type="text" class="form-control" placeholder="" >
-							<label for="ad" class="form-label">&nbsp;&nbsp;&nbsp;Tedarikçi Firma</label>
-							<div class="valid-feedback">Valid.</div>
-							<div class="invalid-feedback">Please fill out this field.</div>
+							<input id="Firma" asp-for="Firma" type="text" class="form-control" placeholder="">
+							<label for="Firma" class="form-label">&nbsp;&nbsp;&nbsp;Tedarikçi Firma</label>
+							<span class="text-danger" asp-validation-for="Firma">  </span>
+
 						</div>
 						<div class="form-floating col-md-6 mb-3">
-							<input id="soyad" asp-for="AdSoyad" type="text" class="form-control" placeholder="" required="">
-							<label for="soyad" class="form-label">&nbsp;&nbsp;&nbsp;Tedarikçi Ad Soyad</label>
-							<div class="invalid-feedback">
-								Zorunlu Alan
-							</div>
+							<input id="AdSoyad" asp-for="AdSoyad" type="text" class="form-control" placeholder="" required="">
+							<label for="AdSoyad" class="form-label">&nbsp;&nbsp;&nbsp;Tedarikçi Ad Soyad</label>
+							<span class="text-danger" asp-validation-for="AdSoyad">  </span>
+
 						</div>
 					</div>
 					<div style="margin-bottom:14px" class="row">
 						<div class="form-floating col-md-6 mb-3">
 							<input id="tel" asp-for="Telefon" type="number" class="form-control" placeholder="" required="">
 							<label for="tel" class="form-label">&nbsp;&nbsp;&nbsp;Tedarikçi Telefon</label>
-							<div class="invalid-feedback">
-								Zorunlu Alan
-							</div>
+							<span class="text-danger" asp-validation-for="Telefon">  </span>
+
 						</div>
 						<div class="form-floating col-md-6 mb-3">
 							<input id="adres" asp-for="Adres" type="text" class="form-control" placeholder="" required="">
 							<label for="adres" class="form-label">&nbsp;&nbsp;&nbsp;Tedarikçi Adres</label>
-							<div class="invalid-feedback">
-								Zorunlu Alan
-							</div>
+							<span class="text-danger" asp-validation-for="Adres">  </span>
+
 						</div>
 					</div>
 					<div style="margin-bottom:14px" class="row">
 						<div class="form-floating col-md-6 mb-3">
 							<input id="eposta" asp-for="Eposta" type="text" class="form-control" placeholder="" required="">
 							<label for="eposta" class="form-label">&nbsp;&nbsp;&nbsp;Tedarikçi E-Posta</label>
-							<div class="invalid-feedback">
-								Zorunlu Alan
-							</div>
+							<span class="text-danger" asp-validation-for="Eposta">  </span>
+
 						</div>
 						<div class="form-floating col-md-6 mb-3">
 							<input asp-for="KayitTarihi" id="datepicker2" class=" form-control mb-3 mb-xl-0" required>
 							<label for="datepicker2" class="form-label">&nbsp;&nbsp;&nbsp;Tedarikçi Kayıt Tarihi</label>
-							<div class="invalid-feedback">
-								Zorunlu Alan
-							</div>
+							<span class="text-danger" asp-validation-for="KayitTarihi">  </span>
+
 						</div>
 					</div>
-					<input asp-for="Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
+					<input asp-for="Gorunurluk" type="hidden" class="form-control" value=True required="">
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>

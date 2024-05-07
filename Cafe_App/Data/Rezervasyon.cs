@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Cafe_App.Models;
 
@@ -9,15 +10,19 @@ public partial class Rezervasyon
 
     public int KayitsizMusteriId { get; set; }
 
+	[Required(ErrorMessage = "Rezervasyon başlangıç saati olmamalıdır.")]
     public TimeOnly BaslangicSaat { get; set; }
 
-    public TimeOnly BitisSaat { get; set; }
+	[Required(ErrorMessage = "Rezervasyon bitiş saati boş olmamalıdır.")]
+	public TimeOnly BitisSaat { get; set; }
 
-    public DateOnly Tarih { get; set; }
+	[Required(ErrorMessage = "Personel soyadı boş olmamalıdır.")]
+	public DateOnly Tarih { get; set; }
 
-    public int KisiSayisi { get; set; }
+	[Required(ErrorMessage = "Rezervasyon tarihi boş olmamalıdır.")]
+	public int KisiSayisi { get; set; }
 
-    public string? Talep { get; set; }
+	public string? Talep { get; set; }
 
     public int Onay { get; set; }
 

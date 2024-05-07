@@ -86,97 +86,7 @@
 										}
 									</tr>
 
-									<div class="modal modal-lg fade" id="stokGirdiGuncelleModal_@stok.Id">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title">Stok Girdi Güncelle Ekle</h5>
-													<button type="button" class="btn-close" data-bs-dismiss="modal">
-													</button>
-												</div>
-
-												<form asp-action="StokGirdiGuncelle" enctype="multipart/form-data" class="needs-validation" method="post">
-													<div class="modal-body">
-														@{
-															StokGirdi stokGirdiGuncelle = null;
-															foreach (StokGirdi girdi in Model.StokGirdiler)
-															{
-																if (girdi.MalzemeId == stok.MalzemeId)
-																{
-																	stokGirdiGuncelle = girdi;
-																	break;
-																}
-															}
-														}
-														<div style="margin-bottom:14px" class="row">
-															<div class="col-md-6 mb-3">
-																<select id="MalzemeId" asp-for="StokGirdi.MalzemeId" value="@stokGirdiGuncelle?.MalzemeId" class="default-select form-control wide w-100 required">
-																	<option selected>Malzeme Ad</option>
-																	@foreach (var item in Model.Malzemeler)
-																	{
-																		if (stokGirdiGuncelle?.Malzeme?.Id == item.Id)
-																		{
-																			<option value="@item.Id" selected>@item.Ad</option>
-																		}
-																		else
-																		{
-																			<option value="@item.Id">@item.Ad</option>
-																		}
-																	}
-																</select>
-																<div class="valid-feedback">Valid.</div>
-																<div class="invalid-feedback">Please fill out this field.</div>
-															</div>
-															<div class="col-md-6 mb-3">
-																<select id="TedarikciId" asp-for="StokGirdi.TedarikciId" class="default-select form-control wide w-100 required">
-																	<option >Tedarikçi Firma</option>
-																	@foreach (var item in Model.Tedarikciler)
-																	{
-																		if (stokGirdiGuncelle?.Tedarikci?.Id == item.Id)
-																		{
-																			<option value="@item.Id" selected>@item.Firma</option>
-																		}
-																		else
-																		{
-																			<option value="@item.Id">@item.Firma</option>
-																		}
-																	}
-																</select>
-																<div class="invalid-feedback">
-																	Zorunlu Alan
-																</div>
-															</div>
-														</div>
-														<div style="margin-bottom:14px" class="row">
-															<div class="form-floating col-md-6 mb-3">
-																<input id="Miktar" asp-for="StokGirdi.Miktar" value="@stokGirdiGuncelle?.Miktar" type="number" class="form-control" placeholder="" required="">
-																<label for="Miktar" class="form-label">&nbsp;&nbsp;&nbsp;Miktar</label>
-																<div class="invalid-feedback">
-																	Zorunlu Alan
-																</div>
-															</div>
-															<div class="form-floating col-md-6 mb-3">
-																<input id="AlısFiyati" asp-for="StokGirdi.AlısFiyati" value="@stokGirdiGuncelle?.AlısFiyati" type="number" class="form-control" placeholder="" required="">
-																<label for="AlısFiyati" class="form-label">&nbsp;&nbsp;&nbsp;Alış Fiyatı</label>
-																<div class="invalid-feedback">
-																	Zorunlu Alan
-																</div>
-															</div>
-														</div>
-														<input asp-for="StokGirdi.Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
-														<input asp-for="StokGirdi.SonStokMiktari" type="hidden" class="form-control" placeholder="" value=0 required="">
-														<input asp-for="StokGirdi.Tarih" type="hidden" class="form-control" placeholder="" value=@DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") required="">
-														<input asp-for="StokGirdi.Id" type="hidden" class="form-control" placeholder="" value="@stokGirdiGuncelle?.Id" required="">
-													</div>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
-														<button type="submit" class="btn btn-primary">Kaydet</button>
-													</div>
-												</form>
-
-											</div>
-										</div>
-									</div>
+									
 
 
 								}
@@ -256,72 +166,67 @@
 	@if (Model.Tedarikciler.Count == 0)
 	{
 		<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">Tedarikçi Ekle</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal">
-					</button>
-				</div>
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Tedarikçi Ekle</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal">
+						</button>
+					</div>
 
-				<form asp-action="Index" class="needs-validation " method="post">
-					<div class="modal-body">
-						<div style="margin-bottom:14px" class="row">
-							<div class="form-floating col-md-6 mb-3">
-								<input id="ad" asp-for="Tedarikci.Firma" type="text" class="form-control" placeholder="">
-								<label for="ad" class="form-label">&nbsp;&nbsp;&nbsp;Tedarikçi Firma</label>
-								<div class="valid-feedback">Valid.</div>
-								<div class="invalid-feedback">Please fill out this field.</div>
-							</div>
-							<div class="form-floating col-md-6 mb-3">
-								<input id="soyad" asp-for="Tedarikci.AdSoyad" type="text" class="form-control" placeholder="" required="">
-								<label for="soyad" class="form-label">&nbsp;&nbsp;&nbsp;Tedarikçi Ad Soyad</label>
-								<div class="invalid-feedback">
-									Zorunlu Alan
+					<form asp-action="Index" method="post" novalidate>
+						<div class="modal-body">
+							<div style="margin-bottom:14px" class="row">
+								<div class="form-floating col-md-6 mb-3">
+									<input id="Firma" asp-for="Tedarikci.Firma" type="text" class="form-control" placeholder="">
+									<label for="Firma" class="form-label">&nbsp;&nbsp;&nbsp;Tedarikçi Firma</label>
+								<span class="text-danger" asp-validation-for="Tedarikci.Firma">  </span>
+
+								</div>
+								<div class="form-floating col-md-6 mb-3">
+								<input id="AdSoyad" asp-for="Tedarikci.AdSoyad" type="text" class="form-control" placeholder="" required="">
+									<label for="AdSoyad" class="form-label">&nbsp;&nbsp;&nbsp;Tedarikçi Ad Soyad</label>
+								<span class="text-danger" asp-validation-for="Tedarikci.AdSoyad">  </span>
+
 								</div>
 							</div>
-						</div>
-						<div style="margin-bottom:14px" class="row">
-							<div class="form-floating col-md-6 mb-3">
+							<div style="margin-bottom:14px" class="row">
+								<div class="form-floating col-md-6 mb-3">
 								<input id="tel" asp-for="Tedarikci.Telefon" type="number" class="form-control" placeholder="" required="">
-								<label for="tel" class="form-label">&nbsp;&nbsp;&nbsp;Tedarikçi Telefon</label>
-								<div class="invalid-feedback">
-									Zorunlu Alan
-								</div>
-							</div>
-							<div class="form-floating col-md-6 mb-3">
-								<input id="adres" asp-for="Tedarikci.Adres" type="text" class="form-control" placeholder="" required="">
-								<label for="adres" class="form-label">&nbsp;&nbsp;&nbsp;Tedarikçi Adres</label>
-								<div class="invalid-feedback">
-									Zorunlu Alan
-								</div>
-							</div>
-						</div>
-						<div style="margin-bottom:14px" class="row">
-							<div class="form-floating col-md-6 mb-3">
-								<input id="eposta" asp-for="Tedarikci.Eposta" type="text" class="form-control" placeholder="" required="">
-								<label for="eposta" class="form-label">&nbsp;&nbsp;&nbsp;Tedarikçi E-Posta</label>
-								<div class="invalid-feedback">
-									Zorunlu Alan
-								</div>
-							</div>
-							<div class="form-floating col-md-6 mb-3">
-								<input asp-for="Tedarikci.KayitTarihi" id="datepicker2" class=" form-control mb-3 mb-xl-0" required>
-								<label for="datepicker2" class="form-label">&nbsp;&nbsp;&nbsp;Tedarikçi Kayıt Tarihi</label>
-								<div class="invalid-feedback">
-									Zorunlu Alan
-								</div>
-							</div>
-						</div>
-						<input asp-for="Tedarikci.Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
-						<button type="submit" class="btn btn-primary">Kaydet</button>
-					</div>
-				</form>
+									<label for="tel" class="form-label">&nbsp;&nbsp;&nbsp;Tedarikçi Telefon</label>
+								<span class="text-danger" asp-validation-for="Tedarikci.Telefon">  </span>
 
+								</div>
+								<div class="form-floating col-md-6 mb-3">
+								<input id="adres" asp-for="Tedarikci.Adres" type="text" class="form-control" placeholder="" required="">
+									<label for="adres" class="form-label">&nbsp;&nbsp;&nbsp;Tedarikçi Adres</label>
+								<span class="text-danger" asp-validation-for="Tedarikci.Adres">  </span>
+
+								</div>
+							</div>
+							<div style="margin-bottom:14px" class="row">
+								<div class="form-floating col-md-6 mb-3">
+								<input id="eposta" asp-for="Tedarikci.Eposta" type="text" class="form-control" placeholder="" required="">
+									<label for="eposta" class="form-label">&nbsp;&nbsp;&nbsp;Tedarikçi E-Posta</label>
+								<span class="text-danger" asp-validation-for="Tedarikci.Eposta">  </span>
+
+								</div>
+								<div class="form-floating col-md-6 mb-3">
+								<input asp-for="Tedarikci.KayitTarihi" id="datepicker2" class=" form-control mb-3 mb-xl-0" required>
+									<label for="datepicker2" class="form-label">&nbsp;&nbsp;&nbsp;Tedarikçi Kayıt Tarihi</label>
+								<span class="text-danger" asp-validation-for="Tedarikci.KayitTarihi">  </span>
+
+								</div>
+							</div>
+						<input asp-for="Tedarikci.Gorunurluk" type="hidden" class="form-control" value=True required="">
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
+							<button type="submit" class="btn btn-primary">Kaydet</button>
+						</div>
+					</form>
+
+				</div>
 			</div>
-		</div>
 	}
 	else if (Model.Malzemeler.Count == 0)
 	{
@@ -333,54 +238,51 @@
 						</button>
 					</div>
 
-					<form asp-action="Index" class="needs-validation " method="post">
+					<form asp-action="Index" method="post" novalidate>
 						<div class="modal-body">
 							<div style="margin-bottom:14px" class="row">
 								<div class="form-floating col-md-6 mb-3">
 									<input id="Ad" asp-for="Malzeme.Ad" type="text" class="form-control" placeholder="">
 									<label for="Ad" class="form-label">&nbsp;&nbsp;&nbsp;Malzeme Adı</label>
-									<div class="valid-feedback">Valid.</div>
-									<div class="invalid-feedback">Please fill out this field.</div>
+								<span class="text-danger" asp-validation-for="Malzeme.Ad"></span>
+
 								</div>
 								<div class="form-floating col-md-6 mb-3">
-								<input id="Fiyat" asp-for="Malzeme.Fiyat" type="number" class="form-control" placeholder="" required="">
+								<input id="Fiyat" asp-for="Malzeme.Fiyat" type="number" class="form-control" placeholder="">
 									<label for="Fiyat" class="form-label">&nbsp;&nbsp;&nbsp;Malzeme Fiyat</label>
-									<div class="invalid-feedback">
-										Zorunlu Alan
-									</div>
+								<span class="text-danger" asp-validation-for="Malzeme.Fiyat"></span>
+
 								</div>
 							</div>
 							<div style="margin-bottom:14px" class="row">
 								<div class="form-floating col-md-6 mb-3">
 								<input id="minStok" asp-for="Malzeme.Stok.MinStok" type="number" class="form-control" placeholder="">
 									<label for="minStok" class="form-label">&nbsp;&nbsp;&nbsp;Minimum Stok</label>
-									<div class="valid-feedback">Valid.</div>
-									<div class="invalid-feedback">Please fill out this field.</div>
+								<span class="text-danger" asp-validation-for="Malzeme.Stok.MinStok"></span>
+
 								</div>
 								<div class="form-floating col-md-6 mb-3">
 								<input id="maxStok" asp-for="Malzeme.Stok.MaxStok" type="number" class="form-control" placeholder="" required="">
 									<label for="maxStok" class="form-label">&nbsp;&nbsp;&nbsp;Maximum Stok</label>
-									<div class="invalid-feedback">
-										Zorunlu Alan
-									</div>
+								<span class="text-danger" asp-validation-for="Malzeme.Stok.MaxStok"></span>
+
 								</div>
 							</div>
 							<div style="margin-bottom:14px; text-align:center; margin:auto; width: 50%;" class="row">
 								<div class="col-md-12 mb-3">
 								<select id="Tur" asp-for="Malzeme.Tur" class="default-select form-control wide w-100 required">
-										<option selected>Malzeme Kategori</option>
+										<option disabled selected>Malzeme Kategori</option>
 										<option value="Kilogram">Kilogram</option>
 										<option value="Litre">Litre</option>
 										<option value="Adet">Adet</option>
 									</select>
-									<div class="invalid-feedback">
-										Zorunlu Alan
-									</div>
+								<span class="text-danger" asp-validation-for="Malzeme.Tur"></span>
+
 								</div>
 							</div>
-							<input asp-for="Malzeme.Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
-							<input asp-for="Malzeme.Stok.Miktar" type="hidden" class="form-control" placeholder="" value=0 required="">
-							<input asp-for="Malzeme.Stok.Gorunurluk" type="hidden" class="form-control" placeholder="" value=true required="">
+						<input asp-for="Malzeme.Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
+						<input asp-for="Malzeme.Stok.Miktar" type="hidden" class="form-control" placeholder="" value=0 required="">
+						<input asp-for="Malzeme.Stok.Gorunurluk" type="hidden" class="form-control" placeholder="" value=true required="">
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
@@ -401,47 +303,44 @@
 				</button>
 			</div>
 
-			<form asp-action="Index" enctype="multipart/form-data" class="needs-validation" method="post">
+			<form asp-action="Index" enctype="multipart/form-data" method="post" novalidate>
 				<div class="modal-body">
 					<div style="margin-bottom:14px" class="row">
 						<div class="col-md-6 mb-3">
 							<select id="MalzemeId" asp-for="StokGirdi.MalzemeId" class="default-select form-control wide w-100 required">
-								<option selected>Malzeme Ad</option>
+								<option disabled selected>Malzeme</option>
 								@foreach (var item in Model.Malzemeler)
 								{
 									<option value="@item.Id">@item.Ad</option>
 								}
 							</select>
-							<div class="valid-feedback">Valid.</div>
-							<div class="invalid-feedback">Please fill out this field.</div>
+								<span class="text-danger" asp-validation-for="StokGirdi.MalzemeId"></span>
+
 						</div>
 						<div class="col-md-6 mb-3">
 							<select id="TedarikciId" asp-for="StokGirdi.TedarikciId" class="default-select form-control wide w-100 required">
-								<option selected>Tedarikçi Firma</option>
+								<option disabled selected>Tedarikçi Firma</option>
 								@foreach (var item in Model.Tedarikciler)
 								{
 									<option value="@item.Id">@item.Firma</option>
 								}
 							</select>
-							<div class="invalid-feedback">
-								Zorunlu Alan
-							</div>
+								<span class="text-danger" asp-validation-for="StokGirdi.TedarikciId"></span>
+
 						</div>
 					</div>
 					<div style="margin-bottom:14px" class="row">
 						<div class="form-floating col-md-6 mb-3">
-							<input id="Miktar" asp-for="StokGirdi.Miktar" type="number" class="form-control" placeholder="" required="">
+							<input id="Miktar" asp-for="StokGirdi.Miktar" type="number" class="form-control" placeholder="">
 							<label for="Miktar" class="form-label">&nbsp;&nbsp;&nbsp;Miktar</label>
-							<div class="invalid-feedback">
-								Zorunlu Alan
-							</div>
+								<span class="text-danger" asp-validation-for="StokGirdi.Miktar"></span>
+
 						</div>
 						<div class="form-floating col-md-6 mb-3">
 							<input id="AlısFiyati" asp-for="StokGirdi.AlısFiyati" type="number" class="form-control" placeholder="" required="">
 							<label for="AlısFiyati" class="form-label">&nbsp;&nbsp;&nbsp;Alış Fiyatı</label>
-							<div class="invalid-feedback">
-								Zorunlu Alan
-							</div>
+								<span class="text-danger" asp-validation-for="StokGirdi.AlısFiyati"></span>
+
 						</div>
 					</div>
 					<input asp-for="StokGirdi.Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
@@ -459,6 +358,101 @@
 	}
 </div>
 
+@* Stok Girdi Düzenle *@
+@foreach (var stok in Model.Stoklar)
+{
+	<div class="modal modal-lg fade" id="stokGirdiGuncelleModal_@stok.Id">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Stok Girdi Güncelle Ekle</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal">
+					</button>
+				</div>
+
+				<form asp-action="StokGirdiGuncelle" enctype="multipart/form-data" class="needs-validation" method="post">
+					<div class="modal-body">
+						@{
+							StokGirdi stokGirdiGuncelle = null;
+							foreach (StokGirdi girdi in Model.StokGirdiler)
+							{
+								if (girdi.MalzemeId == stok.MalzemeId)
+								{
+									stokGirdiGuncelle = girdi;
+									break;
+								}
+							}
+						}
+						<div style="margin-bottom:14px" class="row">
+							<div class="col-md-6 mb-3">
+								<select id="MalzemeId" asp-for="StokGirdi.MalzemeId" value="@stokGirdiGuncelle?.MalzemeId" class="default-select form-control wide w-100 required">
+									<option selected>Malzeme Ad</option>
+									@foreach (var item in Model.Malzemeler)
+									{
+										if (stokGirdiGuncelle?.Malzeme?.Id == item.Id)
+										{
+											<option value="@item.Id" selected>@item.Ad</option>
+										}
+										else
+										{
+											<option value="@item.Id">@item.Ad</option>
+										}
+									}
+								</select>
+								<div class="valid-feedback">Valid.</div>
+								<div class="invalid-feedback">Please fill out this field.</div>
+							</div>
+							<div class="col-md-6 mb-3">
+								<select id="TedarikciId" asp-for="StokGirdi.TedarikciId" class="default-select form-control wide w-100 required">
+									<option>Tedarikçi Firma</option>
+									@foreach (var item in Model.Tedarikciler)
+									{
+										if (stokGirdiGuncelle?.Tedarikci?.Id == item.Id)
+										{
+											<option value="@item.Id" selected>@item.Firma</option>
+										}
+										else
+										{
+											<option value="@item.Id">@item.Firma</option>
+										}
+									}
+								</select>
+								<div class="invalid-feedback">
+									Zorunlu Alan
+								</div>
+							</div>
+						</div>
+						<div style="margin-bottom:14px" class="row">
+							<div class="form-floating col-md-6 mb-3">
+								<input id="Miktar" asp-for="StokGirdi.Miktar" value="@stokGirdiGuncelle?.Miktar" type="number" class="form-control" placeholder="" required="">
+								<label for="Miktar" class="form-label">&nbsp;&nbsp;&nbsp;Miktar</label>
+								<div class="invalid-feedback">
+									Zorunlu Alan
+								</div>
+							</div>
+							<div class="form-floating col-md-6 mb-3">
+								<input id="AlısFiyati" asp-for="StokGirdi.AlısFiyati" value="@stokGirdiGuncelle?.AlısFiyati" type="number" class="form-control" placeholder="" required="">
+								<label for="AlısFiyati" class="form-label">&nbsp;&nbsp;&nbsp;Alış Fiyatı</label>
+								<div class="invalid-feedback">
+									Zorunlu Alan
+								</div>
+							</div>
+						</div>
+						<input asp-for="StokGirdi.Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
+						<input asp-for="StokGirdi.SonStokMiktari" type="hidden" class="form-control" placeholder="" value=0 required="">
+						<input asp-for="StokGirdi.Tarih" type="hidden" class="form-control" placeholder="" value=@DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") required="">
+						<input asp-for="StokGirdi.Id" type="hidden" class="form-control" placeholder="" value="@stokGirdiGuncelle?.Id" required="">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
+						<button type="submit" class="btn btn-primary">Kaydet</button>
+					</div>
+				</form>
+
+			</div>
+		</div>
+	</div>
+}
 
 <!-- JS Ekstralar -->
 @section Scripts

@@ -8,28 +8,22 @@ public partial class Tedarikci
 {
     public int Id { get; set; }
 
-    [Required]
-    [StringLength(16, MinimumLength = 2, ErrorMessage = "Tedarikçi adı 2 ile 16 karakter arasında olmalıdır.")]
+	[Required(ErrorMessage = "Ad-Soyad boş olamaz.")]
     public string AdSoyad { get; set; }
 
-    [Required]
-    [StringLength(16, MinimumLength = 2, ErrorMessage = "Firma adı 2 ile 16 karakter arasında olmalıdır.")]
-    public string Firma { get; set; }
+	[Required(ErrorMessage = "Tedarikçi firma boş olamaz.")]
+	public string Firma { get; set; }
 
-    [Required]
-    [Phone]
-    [RegularExpression(@"^\d+$", ErrorMessage = "Telefon numarası sadece sayı içermelidir.")]
-    public string Telefon { get; set; }
+	[Required(ErrorMessage = "Telefon numarası boş olamaz.")]
+	public string Telefon { get; set; }
 
-    [Required]
-    public string Adres { get; set; }
+	[Required(ErrorMessage = "Adres boş olamaz.")]
+	public string Adres { get; set; }
 
-    [Required]
-    [EmailAddress]
-    [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com)$", ErrorMessage = "E-posta '@' ve '.com' içermelidir.")]
-    public string Eposta { get; set; }
+	[Required(ErrorMessage = "E-Posta boş olamaz.")]
+	public string Eposta { get; set; }
 
-    public bool Gorunurluk { get; set; }
+	public bool Gorunurluk { get; set; }
 
     public DateOnly KayitTarihi { get; set; }
 

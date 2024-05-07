@@ -91,70 +91,7 @@
 										</td>
 									</tr>
 
-									<div class="modal modal-lg fade" id="rezervasyon_@rezervasyon.Id">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title">Rezervasyon Güncelle</h5>
-													<button type="button" class="btn-close" data-bs-dismiss="modal">
-													</button>
-												</div>
-
-												<form asp-action="Index" class="needs-validation " method="post">
-													<div class="modal-body">
-														<div style="margin-bottom:14px" class="row">
-															<div class="form-floating col-md-6 mb-3">
-																<input id="KisiSayisi" asp-for="KisiSayisi" type="number" class="form-control" placeholder="" required="">
-																<label for="KisiSayisi" class="form-label">&nbsp;&nbsp;&nbsp;Rezervasyon Kişi Sayısı</label>
-																<div class="invalid-feedback">
-																	Zorunlu Alan
-																</div>
-															</div>
-															<div class="form-floating col-md-6 mb-3">
-																<input id="Talep" asp-for="Talep" type="text" class="form-control" placeholder="" required="">
-																<label for="Talep" class="form-label">&nbsp;&nbsp;&nbsp;Rezervasyon Talep</label>
-																<div class="invalid-feedback">
-																	Zorunlu Alan
-																</div>
-															</div>
-														</div>
-														<div style="margin-bottom:14px" class="row">
-															<div class="form-floating col-md-6 mb-3">
-																<div class="input-group clockpicker" data-placement="bottom" data-align="top" data-autobtn-close="true">
-																	<input type="text" asp-for="BaslangicSaat" class="form-control" value="13:14">
-																	<span class="input-group-text"><i class="far fa-clock"></i></span>
-																</div>
-															</div>
-															<div class="form-floating col-md-6 mb-3">
-																<input id="BitisSaat" asp-for="BitisSaat" type="text" class="form-control" placeholder="" required="">
-																<label for="BitisSaat" class="form-label">&nbsp;&nbsp;&nbsp;Rezervasyon Bitiş Saat</label>
-																<div class="invalid-feedback">
-																	Zorunlu Alan
-																</div>
-															</div>
-														</div>
-														<div style="margin-bottom:14px" class="row">
-															<div class="form-floating col-md-6 mb-3">
-																<input asp-for="Tarih" id="datepicker2" class=" form-control mb-3 mb-xl-0" required>
-																<label for="datepicker" class="form-label">&nbsp;&nbsp;&nbsp;Rezervasyon Tarihi</label>
-																<div class="invalid-feedback">
-																	Zorunlu Alan
-																</div>
-															</div>
-														</div>
-														<input asp-for="Gorunurluk" type="hidden" class="form-control" value=True required="">
-														<input asp-for="Onay" type="hidden" class="form-control" value=2 required="">
-														<input asp-for="TalepTarihi" type="hidden" class="form-control" value="@DateTime.Now.ToString("dd/MM/yyyy")" required="">
-													</div>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
-														<button type="submit" class="btn btn-primary">Kaydet</button>
-													</div>
-												</form>
-
-											</div>
-										</div>
-									</div>
+									
 
 								}
 
@@ -177,46 +114,45 @@
 				</button>
 			</div>
 
-			<form asp-action="Index" class="needs-validation " method="post">
+			<form asp-action="Index" method="post" novalidate>
 				<div class="modal-body">
 					<div style="margin-bottom:14px" class="row">
 						<div class="form-floating col-md-6 mb-3">
 							<input id="KisiSayisi" asp-for="KisiSayisi" type="number" class="form-control" placeholder="" required="">
 							<label for="KisiSayisi" class="form-label">&nbsp;&nbsp;&nbsp;Rezervasyon Kişi Sayısı</label>
-							<div class="invalid-feedback">
-								Zorunlu Alan
-							</div>
+							<span class="text-danger" asp-validation-for="KisiSayisi"></span>
+
 						</div>
 						<div class="form-floating col-md-6 mb-3">
-							<input id="Talep" asp-for="Talep" type="text" class="form-control" placeholder="" required="">
+							<input id="Talep" asp-for="Talep" type="text" class="form-control" placeholder="">
 							<label for="Talep" class="form-label">&nbsp;&nbsp;&nbsp;Rezervasyon Talep</label>
-							<div class="invalid-feedback">
-								Zorunlu Alan
-							</div>
+							<span class="text-danger" asp-validation-for="Talep"></span>
+
 						</div>
 					</div>
 					<div style="margin-bottom:14px" class="row">
 						<div class="form-floating col-md-6 mb-3">
 							<div class="input-group clockpicker" data-placement="bottom" data-align="top" data-autobtn-close="true">
-								<input type="text" asp-for="BaslangicSaat" class="form-control" value="13:14">
+								<input type="text" asp-for="BaslangicSaat" class="form-control" value="12:00">
 								<span class="input-group-text"><i class="far fa-clock"></i></span>
 							</div>
+							<span class="text-danger" asp-validation-for="BaslangicSaat"></span>
 						</div>
 						<div class="form-floating col-md-6 mb-3">
-							<input id="BitisSaat" asp-for="BitisSaat" type="text" class="form-control" placeholder="" required="">
-							<label for="BitisSaat" class="form-label">&nbsp;&nbsp;&nbsp;Rezervasyon Bitiş Saat</label>
-							<div class="invalid-feedback">
-								Zorunlu Alan
+							<div class="input-group clockpicker" data-placement="bottom" data-align="top" data-autobtn-close="true">
+								<input type="text" asp-for="BitisSaat" class="form-control" value="12:00">
+								<span class="input-group-text"><i class="far fa-clock"></i></span>
 							</div>
+							<span class="text-danger" asp-validation-for="BitisSaat"></span>
+
 						</div>
 					</div>
 					<div style="margin-bottom:14px" class="row">
 						<div class="form-floating col-md-6 mb-3">
 							<input asp-for="Tarih" id="datepicker2" class=" form-control mb-3 mb-xl-0" required>
 							<label for="datepicker2" class="form-label">&nbsp;&nbsp;&nbsp;Rezervasyon Tarihi</label>
-							<div class="invalid-feedback">
-								Zorunlu Alan
-							</div>
+							<span class="text-danger" asp-validation-for="Tarih"></span>
+
 						</div>
 					</div>
 					<input asp-for="Gorunurluk" type="hidden" class="form-control" value=True required="">
@@ -233,6 +169,73 @@
 	</div>
 </div>
 
+@* Rezervasyon Düzenle *@
+@foreach (var rezervasyon in ViewBag.Rezervasyonlar)
+{
+	<div class="modal modal-lg fade" id="rezervasyon_@rezervasyon.Id">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Rezervasyon Güncelle</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal">
+					</button>
+				</div>
+
+				<form asp-action="Index" class="needs-validation " method="post">
+					<div class="modal-body">
+						<div style="margin-bottom:14px" class="row">
+							<div class="form-floating col-md-6 mb-3">
+								<input id="KisiSayisi" asp-for="KisiSayisi" type="number" class="form-control" placeholder="" required="">
+								<label for="KisiSayisi" class="form-label">&nbsp;&nbsp;&nbsp;Rezervasyon Kişi Sayısı</label>
+								<span class="text-danger" asp-validation-for="KisiSayisi"></span>
+
+							</div>
+							<div class="form-floating col-md-6 mb-3">
+								<input id="Talep" asp-for="Talep" type="text" class="form-control" placeholder="">
+								<label for="Talep" class="form-label">&nbsp;&nbsp;&nbsp;Rezervasyon Talep</label>
+								<span class="text-danger" asp-validation-for="Talep"></span>
+
+							</div>
+						</div>
+						<div style="margin-bottom:14px" class="row">
+							<div class="form-floating col-md-6 mb-3">
+								<div class="input-group clockpicker" data-placement="bottom" data-align="top" data-autobtn-close="true">
+									<input type="text" asp-for="BaslangicSaat" class="form-control" value="12:00">
+									<span class="input-group-text"><i class="far fa-clock"></i></span>
+								</div>
+								<span class="text-danger" asp-validation-for="BaslangicSaat"></span>
+							</div>
+							<div class="form-floating col-md-6 mb-3">
+								<div class="input-group clockpicker" data-placement="bottom" data-align="top" data-autobtn-close="true">
+									<input type="text" asp-for="BitisSaat" class="form-control" value="12:00">
+									<span class="input-group-text"><i class="far fa-clock"></i></span>
+								</div>
+								<span class="text-danger" asp-validation-for="BitisSaat"></span>
+
+							</div>
+						</div>
+						<div style="margin-bottom:14px" class="row">
+							<div class="form-floating col-md-6 mb-3">
+								<input asp-for="Tarih" id="datepicker2" class=" form-control mb-3 mb-xl-0" required>
+								<label for="datepicker" class="form-label">&nbsp;&nbsp;&nbsp;Rezervasyon Tarihi</label>
+								<span class="text-danger" asp-validation-for="Tarih"></span>
+
+							</div>
+						</div>
+						<input asp-for="Gorunurluk" type="hidden" class="form-control" value=True required="">
+						<input asp-for="Onay" type="hidden" class="form-control" value=2 required="">
+						<input asp-for="TalepTarihi" type="hidden" class="form-control" value="@DateTime.Now.ToString("dd/MM/yyyy")" required="">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
+						<button type="submit" class="btn btn-primary">Kaydet</button>
+					</div>
+				</form>
+
+			</div>
+		</div>
+	</div>
+}
 
 <!-- JS Ekstralar -->
 @section Scripts
