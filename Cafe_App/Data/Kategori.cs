@@ -11,7 +11,8 @@ public partial class Kategori
 	[Required(ErrorMessage = "Kategori adı boş olamaz.")]
     public string Ad { get; set; }
 
+	[Required(ErrorMessage = "Kategori türü boş olamaz.")]
     public string Tur { get; set; }
 
-    public bool Gorunurluk { get; set; }
+	public bool Gorunurluk { get; set; }
 }

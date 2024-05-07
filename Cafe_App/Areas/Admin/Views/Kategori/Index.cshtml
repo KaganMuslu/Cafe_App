@@ -80,81 +80,13 @@
 										</td>
 									</tr>
 
-									<div class="modal modal-lg fade" id="kategoriGuncelle_@kategori.Id">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h5 class="modal-title">Kategori Ekle</h5>
-												<button type="button" class="btn-close" data-bs-dismiss="modal">
-												</button>
-											</div>
-
-											<form asp-action="Index" class="needs-validation " method="post">
-												<div class="modal-body">
-													<div style="margin-bottom:14px" class="row">
-														<div class="form-floating col-md-6 mb-3">
-															<input id="Ad" asp-for="Ad" type="text" value="@kategori.Ad" class="form-control" placeholder="">
-															<label for="Ad" class="form-label">&nbsp;&nbsp;&nbsp;Kategori Adı</label>
-															<div class="valid-feedback">Valid.</div>
-															<div class="invalid-feedback">Please fill out this field.</div>
-														</div>
-														<div class="col-md-6">
-															<select asp-for="Tur" class="default-select form-control wide w-100 required">
-																<option disabled>Kategori</option>
-																	@if (kategori.Tur == "Masa")
-																	{
-																		<option value="Masa" selected>Masa</option>
-																		<option value="Menü">Menü</option>
-																		<option value="Ürün">Ürün</option>
-																	}
-																	else if (kategori.Tur == "Menü")
-																	{
-																		<option value="Masa">Masa</option>
-																		<option value="Menü" selected>Menü</option>
-																		<option value="Ürün">Ürün</option>
-																	}
-																	else
-																	{
-																		<option value="Masa">Masa</option>
-																		<option value="Menü">Menü</option>
-																		<option value="Ürün" selected>Ürün</option>
-																	}
-
-															</select>
-															<div class="valid-feedback">Valid.</div>
-															<div class="invalid-feedback">Please fill out this field.</div>
-														</div>
-													</div>
-													<input asp-for="Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
-													<input asp-for="Id" type="hidden" class="form-control" placeholder="" value=@kategori.Id required="">
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
-													<button type="submit" class="btn btn-primary">Kaydet</button>
-												</div>
-											</form>
-
-										</div>
-									</div>
-									</div>
+									
 
 								}
 
 							</tbody>
 						</table>
 
-					</div>
-					<div class="d-flex align-items-center justify-content-xl-between flex-wrap justify-content-center mt-3">
-						<small>3 sayfa içerisinden 1 numaralı sayfa gösteriliyor</small>
-						<nav aria-label="Page navigation example">
-							<ul class="pagination mb-2 mb-sm-0">
-								<li class="page-item"><a class="page-link" href="javascript:void(0);"><i class="fa-solid fa-angle-left"></i></a></li>
-								<li class="page-item"><a class="page-link" href="javascript:void(0);">1</a></li>
-								<li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
-								<li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
-								<li class="page-item"><a class="page-link " href="javascript:void(0);"><i class="fa-solid fa-angle-right"></i></a></li>
-							</ul>
-						</nav>
 					</div>
 				</div>
 		</div>
@@ -241,14 +173,14 @@
 				</button>
 			</div>
 
-			<form asp-action="Index" class="needs-validation " method="post">
+			<form asp-action="Index" method="post" novalidate>
 				<div class="modal-body">
 					<div style="margin-bottom:14px" class="row">
 						<div class="form-floating col-md-6 mb-3">
 							<input id="Ad" asp-for="Ad" type="text" class="form-control" placeholder="">
 							<label for="Ad" class="form-label">&nbsp;&nbsp;&nbsp;Kategori Adı</label>
-							<div class="valid-feedback">Valid.</div>
-							<div class="invalid-feedback">Please fill out this field.</div>
+							<span class="text-danger" asp-validation-for="Ad"></span>
+
 						</div>
 						<div class="col-md-6">
 							<select asp-for="Tur" class="default-select form-control wide w-100 required">
@@ -257,8 +189,8 @@
 								<option value="Menü">Menü</option>
 								<option value="Ürün">Ürün</option>
 							</select>
-							<div class="valid-feedback">Valid.</div>
-							<div class="invalid-feedback">Please fill out this field.</div>
+							<span class="text-danger" asp-validation-for="Tur"></span>
+
 						</div>
 					</div>
 					<input asp-for="Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
@@ -273,6 +205,67 @@
 	</div>
 </div>
 
+@* Kategori Düzenle *@
+@foreach (var kategori in ViewBag.Kategoriler)
+{
+	<div class="modal modal-lg fade" id="kategoriGuncelle_@kategori.Id">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Kategori Ekle</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal">
+					</button>
+				</div>
+
+				<form asp-action="Index" method="post" novalidate>
+					<div class="modal-body">
+						<div style="margin-bottom:14px" class="row">
+							<div class="form-floating col-md-6 mb-3">
+								<input id="Ad" asp-for="Ad" type="text" value="@kategori.Ad" class="form-control" placeholder="">
+								<label for="Ad" class="form-label">&nbsp;&nbsp;&nbsp;Kategori Adı</label>
+								<span class="text-danger" asp-validation-for="Ad"></span>
+
+							</div>
+							<div class="col-md-6">
+								<select asp-for="Tur" class="default-select form-control wide w-100 required">
+									<option disabled>Kategori</option>
+									@if (kategori.Tur == "Masa")
+									{
+										<option value="Masa" selected>Masa</option>
+										<option value="Menü">Menü</option>
+										<option value="Ürün">Ürün</option>
+									}
+									else if (kategori.Tur == "Menü")
+									{
+										<option value="Masa">Masa</option>
+										<option value="Menü" selected>Menü</option>
+										<option value="Ürün">Ürün</option>
+									}
+									else
+									{
+										<option value="Masa">Masa</option>
+										<option value="Menü">Menü</option>
+										<option value="Ürün" selected>Ürün</option>
+									}
+
+								</select>
+								<span class="text-danger" asp-validation-for="Tur"></span>
+
+							</div>
+						</div>
+						<input asp-for="Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
+						<input asp-for="Id" type="hidden" class="form-control" placeholder="" value=@kategori.Id required="">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
+						<button type="submit" class="btn btn-primary">Kaydet</button>
+					</div>
+				</form>
+
+			</div>
+		</div>
+	</div>
+}
 
 <!-- JS Ekstralar -->
 @section Scripts
