@@ -26,6 +26,7 @@ public partial class Urun
 
     public bool Akitf { get; set; }
 
+	[Required(ErrorMessage = "Ürün kategorisi boş olamaz.")]
 	public int KategoriId { get; set; }
 
 	public bool Gorunurluk { get; set; }

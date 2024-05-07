@@ -74,11 +74,17 @@ namespace Cafe_App.Areas.Admin.Controllers
 				
 				}
 			}
-			else if (model.Kategori != null)
-			{
-				_context.Add(model.Kategori);
-			}
 
+			_context.SaveChanges();
+			return RedirectToAction("Index");
+		}
+
+		public IActionResult KategoriEkle(Kategori model)
+		{
+			if (model != null)
+			{
+				_context.Add(model);
+			}
 			_context.SaveChanges();
 			return RedirectToAction("Index");
 		}

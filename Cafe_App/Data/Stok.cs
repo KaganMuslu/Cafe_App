@@ -10,13 +10,13 @@ public partial class Stok
 
     public int Miktar { get; set; }
 
-    [Required]
+	[Required(ErrorMessage = "Minimum stok boş olamaz.")]
     public int MinStok { get; set; }
 
-    [Required]
+	[Required(ErrorMessage = "Maximum stok boş olamaz.")]
     public int MaxStok { get; set; }
 
-    public bool Gorunurluk { get; set; }
+	public bool Gorunurluk { get; set; }
 
     public int MalzemeId { get; set; }
 

@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Cafe_App.Areas.Admin.Validators
 {
-	public class UrunValidator : AbstractValidator<Menu>
+	public class UrunValidator : AbstractValidator<Urun>
 	{
 		public UrunValidator()
 		{
