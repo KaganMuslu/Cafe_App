@@ -21,7 +21,7 @@
 				<p class="mb-0">Cafe App Personel Yönetim Ekranına Hoşgeldiniz!</p>
 			</div>
 
-			<div class="d-none d-lg-block">
+			<div style="text-align:center" class="d-none d-lg-block">
 				<a data-bs-toggle="modal" data-bs-target="#personelModal" style="width:max-content; display: inline-block; vertical-align: middle;" type="button" class="btn btn-rounded btn-primary">
 					<span class="btn-icon-start text-primary">
 						<i class="fa fa-user-plus color-primary"></i>
@@ -29,7 +29,7 @@
 				</a>
 				@if (Model.Roller.Count == 0)
 				{
-					<p style="color: red; font-size: 12px; text-align: center; padding-top:3px">İlk önce rol eklemelisiniz!</p>
+					<p style="color: red; font-size: 12px; text-align: center; padding-top:3px"><i class="fa-sharp fa-solid fa-up"></i> İlk önce rol eklemelisiniz! <i class="fa-sharp fa-solid fa-up"></i></p>
 				}
 				else
 				{
@@ -200,7 +200,7 @@
 						<div class="col-md-12 mb-3">
 							<div style="margin-bottom:9px" class="mb-3">
 								<label for="address" class="form-label">Adres</label>
-								<textarea asp-for="Personel.Adres" type="text" class="form-control" placeholder="" required></textarea>
+								<textarea asp-for="Personel.Adres" type="text" class="form-control" placeholder=""></textarea>
 									<span class="text-danger" asp-validation-for="Personel.Adres"></span>
 								</div>
 						</div>
@@ -379,7 +379,7 @@
 							<div class="col-md-12 mb-3">
 								<div style="margin-bottom:9px" class="mb-3">
 									<label for="address" class="form-label">Adres</label>
-									<textarea asp-for="Personel.Adres" type="text" class="form-control" required>@personel.Adres</textarea>
+									<textarea asp-for="Personel.Adres" type="text" class="form-control">@personel.Adres</textarea>
 									<span class="text-danger" asp-validation-for="Personel.Adres"></span>
 
 								</div>

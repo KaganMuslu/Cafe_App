@@ -22,11 +22,21 @@
 				<p class="mb-0">Cafe App Menü Yönetim Ekranına Hoşgeldiniz!</p>
 			</div>
 
-			<a data-bs-toggle="modal" data-bs-target="#menüModal" style="width:max-content; display: inline-block; vertical-align: middle;" type="button" class="btn btn-rounded btn-primary">
-				<span class="btn-icon-start text-primary">
-					<i class="fa fa-user-plus color-primary"></i>
-				</span>Menü Ekle
-			</a>
+			<div style="text-align:center" class="d-none d-lg-block">
+				<a data-bs-toggle="modal" data-bs-target="#menüModal" style="width:max-content; display: inline-block; vertical-align: middle;" type="button" class="btn btn-rounded btn-primary">
+					<span class="btn-icon-start text-primary">
+						<i class="fa fa-user-plus color-primary"></i>
+					</span>Menü Ekle
+				</a>
+				@if (Model.Kategoriler.Count == 0)
+				{
+					<p style="color: red; font-size: 12px; text-align: center; padding-top:3px"><i class="fa-sharp fa-solid fa-up"></i> İlk önce kategori eklemelisiniz! <i class="fa-sharp fa-solid fa-up"></i></p>
+				}
+				else
+				{
+					<br>
+				}
+			</div>
 		</div>
 		<br>
 
@@ -280,7 +290,7 @@
 												<button type="button" class="btn-close" data-bs-dismiss="modal">
 												</button>
 											</div>
-											<form asp-action="UrunSec" class="needs-validation" method="post">
+											<form asp-action="UrunSec" method="post" novalidate>
 												<input type="hidden" name="menuId" id="menuId" value="menuId">
 												<input type="hidden" name="secilenUrunler" id="secilenUrunler" value="">
 												<div class="modal-body">
@@ -422,7 +432,7 @@ else
 				</button>
 			</div>
 
-			<form asp-action="Index" class="needs-validation " method="post">
+			<form asp-action="Index" method="post" novalidate>
 				<div class="modal-body">
 					<div style="margin-bottom:14px" class="row">
 						<div class="form-floating col-md-6 mb-3">
@@ -467,7 +477,7 @@ else
 					</button>
 				</div>
 
-				<form asp-action="Index" enctype="multipart/form-data" class="needs-validation" method="post">
+				<form asp-action="Index" enctype="multipart/form-data" method="post" novalidate>
 					<div class="modal-body">
 						<div style="margin-bottom:14px" class="row">
 							<div class="form-floating col-md-6 mb-3">

@@ -44,16 +44,15 @@ namespace Cafe_App.Areas.Admin.Controllers
 					{
 						_context.Kategoriler.Add(model);
 					}
-					else
-					{
-						// Hata
-					}
 				}
 				else
 				{
 					_context.Update(model);
 				}
-					
+			}
+			else
+			{
+				return View(model);
 			}
 
 			_context.SaveChanges();

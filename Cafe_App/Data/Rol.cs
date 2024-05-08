@@ -9,9 +9,10 @@ public partial class Rol
 {
     public int Id { get; set; }
 
+	[Required(ErrorMessage = "Rol adı boş olamaz.")]
     public string Ad { get; set; }
 
-    public bool Gorunurluk { get; set; }
+	public bool Gorunurluk { get; set; }
 
 	public ICollection<Personel> Personellers { get; set; } = new List<Personel>();
 }

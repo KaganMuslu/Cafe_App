@@ -36,7 +36,7 @@ namespace Cafe_App.Areas.Admin.Controllers
 		{
 			if (model.BitisSaat <= model.BaslangicSaat)
 			{
-				return Json("Bitiş saat başlangıç saatten yüksek olmalıdır");
+				return Json("Rezervasyon bitiş saati başlangıç saatinden geç olmalıdır.");
 			}
 
 			return Json(true);

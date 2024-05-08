@@ -41,22 +41,6 @@ namespace Cafe_App.Areas.Admin.Controllers
 			return RedirectToAction("Index");
 		}
 
-		public IActionResult MalzemeGuncelle(int Id)
-		{
-			ViewBag.Kategoriler = _context.Kategoriler.ToList();
-			var urun = _context.Malzemeler.Include(x => x.Stok).FirstOrDefault(x => x.Id == Id);
-			return View(urun);
-		}
-
-		[HttpPost]
-		public IActionResult MalzemeGuncelle(Malzeme model)
-		{
-			ViewBag.Kategoriler = _context.Kategoriler.ToList();
-			_context.Update(model);
-			_context.SaveChanges();
-			return RedirectToAction("Index");
-		}
-
 		public IActionResult MalzemeSil(int Id)
 		{
 			var malzeme = _context.Malzemeler.FirstOrDefault(x => x.Id == Id);

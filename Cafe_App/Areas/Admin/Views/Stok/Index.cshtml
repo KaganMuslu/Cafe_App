@@ -21,11 +21,25 @@
 				<p class="mb-0">Cafe App Stok Yönetim Ekranına Hoşgeldiniz!</p>
 			</div>
 
-			<a data-bs-toggle="modal" data-bs-target="#stokGirdiModal" style="width:max-content; display: inline-block; vertical-align: middle;" type="button" class="btn btn-rounded btn-primary">
-				<span class="btn-icon-start text-primary">
-					<i class="fa fa-user-plus color-primary"></i>
-				</span>Girdi Ekle
-			</a>
+			<div style="text-align:center" class="d-none d-lg-block">
+				<a data-bs-toggle="modal" data-bs-target="#stokGirdiModal" style="width:max-content; display: inline-block; vertical-align: middle;" type="button" class="btn btn-rounded btn-primary">
+					<span class="btn-icon-start text-primary">
+						<i class="fa fa-user-plus color-primary"></i>
+					</span>Girdi Ekle
+				</a>
+				@if (Model.Tedarikciler.Count == 0)
+				{
+					<p style="color: red; font-size: 12px; text-align: center; padding-top:3px"><i class="fa-sharp fa-solid fa-up"></i> İlk önce tedarikçi eklemelisiniz! <i class="fa-sharp fa-solid fa-up"></i></p>
+				}
+				else if (Model.Malzemeler.Count == 0)
+				{
+					<p style="color: red; font-size: 12px; text-align: center; padding-top:3px"><i class="fa-sharp fa-solid fa-up"></i> İlk önce malzeme eklemelisiniz! <i class="fa-sharp fa-solid fa-up"></i></p>
+				}
+				else
+				{
+					<br>
+				}
+			</div>
 		</div>
 		<br>
 
@@ -370,7 +384,7 @@
 					</button>
 				</div>
 
-				<form asp-action="StokGirdiGuncelle" enctype="multipart/form-data" class="needs-validation" method="post">
+				<form asp-action="StokGirdiGuncelle" enctype="multipart/form-data" method="post" novalidate>
 					<div class="modal-body">
 						@{
 							StokGirdi stokGirdiGuncelle = null;
@@ -399,8 +413,8 @@
 										}
 									}
 								</select>
-								<div class="valid-feedback">Valid.</div>
-								<div class="invalid-feedback">Please fill out this field.</div>
+								<span class="text-danger" asp-validation-for="StokGirdi.MalzemeId"></span>
+
 							</div>
 							<div class="col-md-6 mb-3">
 								<select id="TedarikciId" asp-for="StokGirdi.TedarikciId" class="default-select form-control wide w-100 required">
@@ -417,25 +431,22 @@
 										}
 									}
 								</select>
-								<div class="invalid-feedback">
-									Zorunlu Alan
-								</div>
+								<span class="text-danger" asp-validation-for="StokGirdi.TedarikciId"></span>
+
 							</div>
 						</div>
 						<div style="margin-bottom:14px" class="row">
 							<div class="form-floating col-md-6 mb-3">
 								<input id="Miktar" asp-for="StokGirdi.Miktar" value="@stokGirdiGuncelle?.Miktar" type="number" class="form-control" placeholder="" required="">
 								<label for="Miktar" class="form-label">&nbsp;&nbsp;&nbsp;Miktar</label>
-								<div class="invalid-feedback">
-									Zorunlu Alan
-								</div>
+								<span class="text-danger" asp-validation-for="StokGirdi.Miktar"></span>
+
 							</div>
 							<div class="form-floating col-md-6 mb-3">
 								<input id="AlısFiyati" asp-for="StokGirdi.AlısFiyati" value="@stokGirdiGuncelle?.AlısFiyati" type="number" class="form-control" placeholder="" required="">
 								<label for="AlısFiyati" class="form-label">&nbsp;&nbsp;&nbsp;Alış Fiyatı</label>
-								<div class="invalid-feedback">
-									Zorunlu Alan
-								</div>
+								<span class="text-danger" asp-validation-for="StokGirdi.AlısFiyati"></span>
+
 							</div>
 						</div>
 						<input asp-for="StokGirdi.Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
