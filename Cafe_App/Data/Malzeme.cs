@@ -12,6 +12,7 @@ public partial class Malzeme
     public string Ad { get; set; }
 
 	[Required(ErrorMessage = "Malzeme kategorisi boş olamaz.")]
+	[Range(0.01, double.MaxValue, ErrorMessage = "Malzeme fiyatı pozitif olmalıdır.")]
 	public string Tur { get; set; }
 
 	public float Fiyat { get; set; }

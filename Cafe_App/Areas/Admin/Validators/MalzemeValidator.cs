@@ -13,8 +13,9 @@ namespace Cafe_App.Areas.Admin.Validators
 
 			RuleFor(x => x.Fiyat)
 				.NotEmpty().WithMessage("Malzeme fiyatı boş olmamalıdır.")
-				.GreaterThanOrEqualTo(1).WithMessage("Malzeme fiyatı pozitif olmalıdır.");
-			
+				.GreaterThanOrEqualTo(1).WithMessage("Malzeme fiyatı pozitif olmalıdır.")
+				.Must(fiyat => (fiyat * 100) % 1 == 0).WithMessage("Lütfen 0.01'in katı olan bir değer girin.");
+
 			RuleFor(x => x.Tur)
 				.NotNull().WithMessage("Malzeme kategorisi boş olamaz!");
 		}

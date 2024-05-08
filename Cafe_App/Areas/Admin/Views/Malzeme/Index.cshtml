@@ -186,7 +186,7 @@
 
 								</div>
 								<div class="form-floating col-md-6 mb-3">
-									<input id="Fiyat" asp-for="Fiyat" type="number" value="@malzeme.Fiyat" class="form-control" placeholder="" required="">
+									<input id="Fiyat" asp-for="Fiyat" type="number" value="@malzeme.Fiyat.ToString(System.Globalization.CultureInfo.InvariantCulture)" class="form-control" required="">
 									<label for="Fiyat" class="form-label">&nbsp;&nbsp;&nbsp;Malzeme Fiyat</label>
 									<span class="text-danger" asp-validation-for="Fiyat"></span>
 
