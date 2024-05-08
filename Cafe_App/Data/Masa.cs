@@ -13,9 +13,10 @@ public partial class Masa
 
 	public int Durum { get; set; }
 
+	[Required(ErrorMessage = "Masa kapasitesi boş olmamalıdır.")]
     public int Kapasite { get; set; }
 
-    public float Tutar { get; set; }
+	public float Tutar { get; set; }
 
     public float OdenenTutar { get; set; }
 

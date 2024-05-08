@@ -69,10 +69,17 @@
 								</div>
 								<ul class="list-group list-group-flush">
 									<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Kapasite</span> <strong class="text-muted">@masa.Kapasite	</strong></li>
+									<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Toplam Tutar</span> <strong class="text-muted">@masa.Tutar	</strong></li>
+									<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Ödenen Tutar</span> <strong class="text-muted">@masa.OdenenTutar </strong></li>
 									@switch (masa.Durum)
 									{
 										case 1 :
 											<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Müsaitlik Durumu</span> <strong class="text-success">Boş Masa </strong></li>
+											<li style="padding:20px">
+												<button data-bs-toggle="modal" data-bs-target="#detay_@masa.Id" data-masaId="@masa.Id" class="btn btn-success btn-lg btn-block">
+													<i class="fa fa-bell-o"></i> Masa Bilgilerini Düzenle
+												</button>
+											</li>
 											break;
 										case 2:
 											<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Müsaitlik Durumu</span> <strong class="text-danger">Dolu Masa </strong></li>
@@ -87,14 +94,10 @@
 											<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Müsaitlik Durumu</span> <strong class="text-warning">Kapalı Masa </strong></li>
 											break;
 									}
-									<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Toplam Tutar</span> <strong class="text-muted">@masa.Tutar	</strong></li>
-									<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Ödenen Tutar</span> <strong class="text-muted">@masa.OdenenTutar </strong></li>
 								</ul>
-								<div class="card-footer border-0 mt-0">
-
+								@* <div class="card-footer border-0 mt-0">
 									
-									
-								</div>
+								</div> *@
 							</div>
 						</div>
 						}
@@ -211,10 +214,6 @@
 	@switch (masa.Durum)
 	{
 		case 1:
-			<button data-bs-toggle="modal" data-bs-target="#detay_@masa.Id" data-masaId="@masa.Id" class="btn btn-success btn-lg btn-block">
-				<i class="fa fa-bell-o"></i> Masa Bilgilerini Düzenle
-			</button>
-
 			@* Masa Düzenle Modal *@
 			<div class="modal modal-lg fade" id="detay_@masa.Id" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
@@ -242,7 +241,7 @@
 								<div style="margin-bottom:14px" class="row">
 									<div class="form-floating col-md-6 mb-3">
 										<select id="KategoriId" asp-for="Masa.KategoriId" class="default-select form-control wide w-100 required">
-											<option>Masa Kategori</option>
+											<option disabled>Masa Kategori</option>
 											@foreach (var item in Model.Kategoriler)
 											{
 												if (item.Id == @masa.KategoriId)

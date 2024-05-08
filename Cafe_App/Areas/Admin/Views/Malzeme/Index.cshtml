@@ -87,87 +87,7 @@
 								}
 							</td>
 						</tr>
-						<div class="modal modal-lg fade" id="MalzemeGuncelle_@malzeme.Id">
-							<div class="modal-dialog modal-dialog-centered" role="document">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h5 class="modal-title">Malzeme Güncelle</h5>
-										<button type="button" class="btn-close" data-bs-dismiss="modal">
-										</button>
-									</div>
-
-									<form asp-action="Index" method="post" novalidate>
-										<div class="modal-body">
-											<div style="margin-bottom:14px" class="row">
-												<div class="form-floating col-md-6 mb-3">
-													<input id="Ad" asp-for="Ad" type="text" value="@malzeme.Ad" class="form-control" placeholder="">
-													<label for="Ad" class="form-label">&nbsp;&nbsp;&nbsp;Malzeme Adı</label>
-														<span class="text-danger" asp-validation-for="Ad"></span>
-
-												</div>
-												<div class="form-floating col-md-6 mb-3">
-													<input id="Fiyat" asp-for="Fiyat" type="number" value="@malzeme.Fiyat" class="form-control" placeholder="" required="">
-													<label for="Fiyat" class="form-label">&nbsp;&nbsp;&nbsp;Malzeme Fiyat</label>
-														<span class="text-danger" asp-validation-for="Fiyat"></span>
-
-												</div>
-											</div>
-											<div style="margin-bottom:14px" class="row">
-												<div class="form-floating col-md-6 mb-3">
-													<input id="minStok" asp-for="Stok.MinStok" value="@malzeme.Stok.MinStok" type="number" class="form-control" placeholder="">
-													<label for="minStok" class="form-label">&nbsp;&nbsp;&nbsp;Minimum Stok</label>
-														<span class="text-danger" asp-validation-for="Stok.MinStok"></span>
-
-												</div>
-												<div class="form-floating col-md-6 mb-3">
-													<input id="maxStok" asp-for="Stok.MaxStok" value="@malzeme.Stok.MaxStok" type="number" class="form-control" placeholder="" required="">
-													<label for="maxStok" class="form-label">&nbsp;&nbsp;&nbsp;Maximum Stok</label>
-														<span class="text-danger" asp-validation-for="Stok.MaxStok"></span>
-
-												</div>
-											</div>
-											<div style="margin-bottom:14px; text-align:center; margin:auto; width: 50%;" class="row">
-												<div class="col-md-12 mb-3">
-													<select id="Tur" asp-for="Tur" class="default-select form-control wide w-100 required">
-														<option>Malzeme Kategori</option>
-														@if (malzeme.Tur == "Kilogram")
-														{
-															<option value="Kilogram" selected>Kilogram</option>
-															<option value="Litre">Litre</option>
-															<option value="Adet">Adet</option>
-														}
-														else if (malzeme.Tur == "Litre")
-														{
-															<option value="Kilogram">Kilogram</option>
-															<option value="Litre" selected>Litre</option>
-															<option value="Adet">Adet</option>
-														}
-														else
-														{
-															<option value="Kilogram">Kilogram</option>
-															<option value="Litre">Litre</option>
-															<option value="Adet" selected>Adet</option>
-														}
-													</select>
-														<span class="text-danger" asp-validation-for="Tur"></span>
-
-												</div>
-											</div>
-											<input asp-for="Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
-											<input asp-for="Stok.Miktar" type="hidden" class="form-control" placeholder="" value=0 required="">
-											<input asp-for="Stok.Gorunurluk" type="hidden" class="form-control" placeholder="" value=true required="">
-											<input asp-for="Id" type="hidden" class="form-control" placeholder="" value=@malzeme.Id required="">
-											<input asp-for="Stok.Id" type="hidden" class="form-control" placeholder="" value=@malzeme.Stok.Id required="">
-										</div>
-										<div class="modal-footer">
-											<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
-											<button type="submit" class="btn btn-primary">Kaydet</button>
-										</div>
-									</form>
-
-								</div>
-							</div>
-						</div>
+						
 					}
 
 					</tbody>
@@ -243,6 +163,92 @@
 		</div>
 	</div>
 </div>
+
+@* Malzeme Güncelle *@
+@foreach (var malzeme in ViewBag.Malzemeler)
+{
+	<div class="modal modal-lg fade" id="MalzemeGuncelle_@malzeme.Id">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Malzeme Güncelle</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal">
+						</button>
+					</div>
+
+					<form asp-action="Index" method="post" novalidate>
+						<div class="modal-body">
+							<div style="margin-bottom:14px" class="row">
+								<div class="form-floating col-md-6 mb-3">
+									<input id="Ad" asp-for="Ad" type="text" value="@malzeme.Ad" class="form-control" placeholder="">
+									<label for="Ad" class="form-label">&nbsp;&nbsp;&nbsp;Malzeme Adı</label>
+									<span class="text-danger" asp-validation-for="Ad"></span>
+
+								</div>
+								<div class="form-floating col-md-6 mb-3">
+									<input id="Fiyat" asp-for="Fiyat" type="number" value="@malzeme.Fiyat" class="form-control" placeholder="" required="">
+									<label for="Fiyat" class="form-label">&nbsp;&nbsp;&nbsp;Malzeme Fiyat</label>
+									<span class="text-danger" asp-validation-for="Fiyat"></span>
+
+								</div>
+							</div>
+							<div style="margin-bottom:14px" class="row">
+								<div class="form-floating col-md-6 mb-3">
+									<input id="minStok" asp-for="Stok.MinStok" value="@malzeme.Stok.MinStok" type="number" class="form-control" placeholder="">
+									<label for="minStok" class="form-label">&nbsp;&nbsp;&nbsp;Minimum Stok</label>
+									<span class="text-danger" asp-validation-for="Stok.MinStok"></span>
+
+								</div>
+								<div class="form-floating col-md-6 mb-3">
+									<input id="maxStok" asp-for="Stok.MaxStok" value="@malzeme.Stok.MaxStok" type="number" class="form-control" placeholder="" required="">
+									<label for="maxStok" class="form-label">&nbsp;&nbsp;&nbsp;Maximum Stok</label>
+									<span class="text-danger" asp-validation-for="Stok.MaxStok"></span>
+
+								</div>
+							</div>
+							<div style="margin-bottom:14px; text-align:center; margin:auto; width: 50%;" class="row">
+								<div class="col-md-12 mb-3">
+									<select id="Tur" asp-for="Tur" class="default-select form-control wide w-100 required">
+										<option>Malzeme Kategori</option>
+										@if (malzeme.Tur == "Kilogram")
+										{
+											<option value="Kilogram" selected>Kilogram</option>
+											<option value="Litre">Litre</option>
+											<option value="Adet">Adet</option>
+										}
+										else if (malzeme.Tur == "Litre")
+										{
+											<option value="Kilogram">Kilogram</option>
+											<option value="Litre" selected>Litre</option>
+											<option value="Adet">Adet</option>
+										}
+										else
+										{
+											<option value="Kilogram">Kilogram</option>
+											<option value="Litre">Litre</option>
+											<option value="Adet" selected>Adet</option>
+										}
+									</select>
+									<span class="text-danger" asp-validation-for="Tur"></span>
+
+								</div>
+							</div>
+							<input asp-for="Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
+							<input asp-for="Stok.Miktar" type="hidden" class="form-control" placeholder="" value=0 required="">
+							<input asp-for="Stok.Gorunurluk" type="hidden" class="form-control" placeholder="" value=true required="">
+							<input asp-for="Id" type="hidden" class="form-control" placeholder="" value=@malzeme.Id required="">
+							<input asp-for="Stok.Id" type="hidden" class="form-control" placeholder="" value=@malzeme.Stok.Id required="">
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
+							<button type="submit" class="btn btn-primary">Kaydet</button>
+						</div>
+					</form>
+
+				</div>
+			</div>
+		</div>
+}
 
 
 <!-- JS Ekstralar -->

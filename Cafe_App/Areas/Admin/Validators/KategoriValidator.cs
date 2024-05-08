@@ -9,7 +9,7 @@ namespace Cafe_App.Areas.Admin.Validators
 		{
 			RuleFor(x => x.Ad)
 				.NotNull().WithMessage("Kategori adı boş olamaz!")
-				.Length(2, 12).WithMessage("Kategori adı 2 ile 12 karakter arasında olmalıdır!");
+				.Length(2, 30).WithMessage("Kategori adı 2 ile 30 karakter arasında olmalıdır!");
 
 			// KategoriId için doğrulama kuralları
 			/*RuleFor(x => x.Tur)

@@ -28,8 +28,6 @@ namespace Cafe_App.Areas.Admin.Controllers
 				if (model.Id == 0)
 				{
 					_context.Add(model);
-					var malzeme = _context.Malzemeler.OrderByDescending(x => x.Id).FirstOrDefault();
-					malzeme.Stok.MalzemeId = malzeme.Id;
 				}
 				else
 				{

@@ -12,12 +12,12 @@ namespace Cafe_App.Areas.Admin.Validators
 			RuleFor(x => x.AdSoyad)
 				.NotNull().WithMessage("Tedarikçi Adı-Soyadı boş olamaz!")
 				.NotEmpty().WithMessage("Tedarikçi Adı-Soyadı boş olamaz!")
-				.Length(2, 20).WithMessage("Ad-Soyad 2 ile 20 karakter arasında olmalıdır!");
+				.Length(2, 30).WithMessage("Ad-Soyad 2 ile 30 karakter arasında olmalıdır!");
 
 			RuleFor(x => x.Firma)
 				.NotNull().WithMessage("Firma adı boş olamaz!")
 				.NotEmpty().WithMessage("Firma adı boş olamaz!")
-				.Length(2, 20).WithMessage("Firma adı 2 ile 20 karakter arasında olmalıdır!");
+				.Length(2, 30).WithMessage("Firma adı 2 ile 30 karakter arasında olmalıdır!");
 
 			RuleFor(x => x.Eposta)
 				.NotNull().WithMessage("E-posta boş olamaz!")

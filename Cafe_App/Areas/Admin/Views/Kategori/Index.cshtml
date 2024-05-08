@@ -133,8 +133,7 @@
 											{
 												<td class="recent-stats"><i class="fa fa-circle text-danger me-1"></i>Görünmez</td>
 											}
-											<td>
-												<a asp-controller="Urun" asp-action="UrunGuncelle" asp-route-id="@urun.Id" class="btn btn-primary shadow btn-xs sharp rounded-circle me-1"><i class="fa fa-pencil"></i></a>
+											<td style="text-align:center">
 												@if (urun.Gorunurluk == true)
 												{
 													<a asp-action="UrunSil" asp-route-id="@urun.Id" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa-solid fa-trash"></i></a>

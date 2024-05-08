@@ -1,6 +1,7 @@
 ﻿using Cafe_App.Areas.Admin.Models;
 using Cafe_App.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cafe_App.Areas.Admin.Controllers
 {
@@ -34,6 +35,9 @@ namespace Cafe_App.Areas.Admin.Controllers
 			}
 			else
 			{
+				// Önceki soruguyu untracked yani takipsiz yapma
+				var entry = _context.Entry(musteri);
+				entry.State = EntityState.Detached;
 
 				_context.Update(model.Musteri);
 			}

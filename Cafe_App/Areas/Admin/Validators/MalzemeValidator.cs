@@ -9,7 +9,7 @@ namespace Cafe_App.Areas.Admin.Validators
 		{
 			RuleFor(x => x.Ad)
 				.NotNull().WithMessage("Malzeme adı boş olamaz!")
-				.Length(2, 12).WithMessage("Malzeme adı 2 ile 12 karakter arasında olmalıdır!");
+				.Length(2, 30).WithMessage("Malzeme adı 2 ile 30 karakter arasında olmalıdır!");
 
 			RuleFor(x => x.Fiyat)
 				.NotEmpty().WithMessage("Malzeme fiyatı boş olmamalıdır.")
