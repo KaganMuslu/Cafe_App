@@ -10,7 +10,7 @@
     });
 
     $('.clockpicker').clockpicker({
-        donetext: 'Done',
+        donetext: 'Onayla',
     }).find('input').change(function () {
         console.log(this.value);
     });

@@ -132,14 +132,14 @@
 					</div>
 					<div style="margin-bottom:14px" class="row">
 						<div class="form-floating col-md-6 mb-3">
-							<div class="input-group clockpicker" data-placement="bottom" data-align="top" data-autobtn-close="true">
+							<div class="input-group inputx" data-placement="bottom" data-align="top" data-autobtn-close="true">
 								<input type="text" asp-for="BaslangicSaat" class="form-control" value="12:00">
 								<span class="input-group-text"><i class="far fa-clock"></i></span>
 							</div>
 							<span class="text-danger" asp-validation-for="BaslangicSaat"></span>
 						</div>
 						<div class="form-floating col-md-6 mb-3">
-							<div class="input-group clockpicker" data-placement="bottom" data-align="top" data-autobtn-close="true">
+							<div class="input-group inputx" data-placement="bottom" data-align="top" data-autobtn-close="true">
 								<input type="text" asp-for="BitisSaat" class="form-control" value="12:00">
 								<span class="input-group-text"><i class="far fa-clock"></i></span>
 							</div>
@@ -200,14 +200,14 @@
 						<div style="margin-bottom:14px" class="row">
 							<div class="form-floating col-md-6 mb-3">
 								<div class="input-group clockpicker" data-placement="bottom" data-align="top" data-autobtn-close="true">
-									<input type="text" asp-for="BaslangicSaat" class="form-control" value="12:00">
+									<input type="number" asp-for="BaslangicSaat" class="form-control" value="12:00">
 									<span class="input-group-text"><i class="far fa-clock"></i></span>
 								</div>
 								<span class="text-danger" asp-validation-for="BaslangicSaat"></span>
 							</div>
 							<div class="form-floating col-md-6 mb-3">
 								<div class="input-group clockpicker" data-placement="bottom" data-align="top" data-autobtn-close="true">
-									<input type="text" asp-for="BitisSaat" class="form-control" value="12:00">
+									<input type="number" asp-for="BitisSaat" class="form-control" value="12:00">
 									<span class="input-group-text"><i class="far fa-clock"></i></span>
 								</div>
 								<span class="text-danger" asp-validation-for="BitisSaat"></span>
@@ -270,6 +270,12 @@
 			}).datepicker('update', new Date());
 		});
 
+		var input = $('.inputx').clockpicker({
+			placement: 'bottom',
+			align: 'left',
+			autoclose: true,
+			'default': 'now'
+		});
+
 	</script>
 }
-

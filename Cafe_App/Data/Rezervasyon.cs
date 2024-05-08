@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -14,6 +15,7 @@ public partial class Rezervasyon
     public TimeOnly BaslangicSaat { get; set; }
 
 	[Required(ErrorMessage = "Rezervasyon bitiş saati boş olmamalıdır.")]
+	[Remote(action: "SaatKontrol", controller: "Rezervasyon", HttpMethod = "POST", AdditionalFields = nameof(BaslangicSaat) + "," + nameof(BitisSaat))]
 	public TimeOnly BitisSaat { get; set; }
 
 	[Required(ErrorMessage = "Personel soyadı boş olmamalıdır.")]

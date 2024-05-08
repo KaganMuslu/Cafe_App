@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cafe_App.Migrations
 {
     [DbContext(typeof(IdentityDataContext))]
-    [Migration("20240506074032_init")]
+    [Migration("20240508085034_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -277,19 +277,17 @@ namespace Cafe_App.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Ad")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<int>("Ad")
+                        .HasColumnType("int");
 
                     b.Property<int>("SiparisId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Yer")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<int>("Yer")
+                        .HasColumnType("int");
 
-                    b.Property<TimeOnly>("Zaman")
-                        .HasColumnType("time(6)");
+                    b.Property<DateTime>("Zaman")
+                        .HasColumnType("datetime(6)");
 
                     b.HasKey("Id");
 
@@ -360,8 +358,7 @@ namespace Cafe_App.Migrations
 
                     b.Property<string>("Ad")
                         .IsRequired()
-                        .HasMaxLength(16)
-                        .HasColumnType("varchar(16)");
+                        .HasColumnType("longtext");
 
                     b.Property<bool>("Gorunurluk")
                         .HasColumnType("tinyint(1)");
@@ -424,8 +421,7 @@ namespace Cafe_App.Migrations
 
                     b.Property<string>("Kod")
                         .IsRequired()
-                        .HasMaxLength(6)
-                        .HasColumnType("varchar(6)");
+                        .HasColumnType("longtext");
 
                     b.Property<float>("OdenenTutar")
                         .HasColumnType("float");
@@ -542,8 +538,7 @@ namespace Cafe_App.Migrations
 
                     b.Property<string>("Ad")
                         .IsRequired()
-                        .HasMaxLength(16)
-                        .HasColumnType("varchar(16)");
+                        .HasColumnType("longtext");
 
                     b.Property<bool>("Akitf")
                         .HasColumnType("tinyint(1)");
@@ -615,8 +610,7 @@ namespace Cafe_App.Migrations
 
                     b.Property<string>("Ad")
                         .IsRequired()
-                        .HasMaxLength(12)
-                        .HasColumnType("varchar(12)");
+                        .HasColumnType("longtext");
 
                     b.Property<DateOnly>("Dogumtarihi")
                         .HasColumnType("date");
@@ -637,8 +631,7 @@ namespace Cafe_App.Migrations
 
                     b.Property<string>("Soyad")
                         .IsRequired()
-                        .HasMaxLength(12)
-                        .HasColumnType("varchar(12)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Telefon")
                         .IsRequired()
@@ -1013,8 +1006,7 @@ namespace Cafe_App.Migrations
 
                     b.Property<string>("AdSoyad")
                         .IsRequired()
-                        .HasMaxLength(16)
-                        .HasColumnType("varchar(16)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Adres")
                         .IsRequired()
@@ -1029,8 +1021,7 @@ namespace Cafe_App.Migrations
 
                     b.Property<string>("Firma")
                         .IsRequired()
-                        .HasMaxLength(16)
-                        .HasColumnType("varchar(16)");
+                        .HasColumnType("longtext");
 
                     b.Property<bool>("Gorunurluk")
                         .HasColumnType("tinyint(1)");
@@ -1161,8 +1152,7 @@ namespace Cafe_App.Migrations
 
                     b.Property<string>("Ad")
                         .IsRequired()
-                        .HasMaxLength(16)
-                        .HasColumnType("varchar(16)");
+                        .HasColumnType("longtext");
 
                     b.Property<bool>("Akitf")
                         .HasColumnType("tinyint(1)");

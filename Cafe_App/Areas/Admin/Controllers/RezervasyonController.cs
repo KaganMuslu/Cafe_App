@@ -27,7 +27,19 @@ namespace Cafe_App.Areas.Admin.Controllers
 				_context.SaveChanges();
 			}
 
-			return RedirectToAction("Index");
+			ViewBag.Rezervasyonlar = _context.Rezervasyonlar.ToList();
+			return View(model);
+		}
+
+		[AcceptVerbs("GET", "POST")]
+		public IActionResult SaatKontrol(Rezervasyon model)
+		{
+			if (model.BitisSaat <= model.BaslangicSaat)
+			{
+				return Json("Bitiş saat başlangıç saatten yüksek olmalıdır");
+			}
+
+			return Json(true);
 		}
 	}
 }

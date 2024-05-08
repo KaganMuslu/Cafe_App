@@ -110,7 +110,7 @@ namespace Cafe_App.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Ad = table.Column<string>(type: "varchar(16)", maxLength: 16, nullable: false)
+                    Ad = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Tur = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -147,9 +147,9 @@ namespace Cafe_App.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Ad = table.Column<string>(type: "varchar(12)", maxLength: 12, nullable: false)
+                    Ad = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Soyad = table.Column<string>(type: "varchar(12)", maxLength: 12, nullable: false)
+                    Soyad = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Eposta = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -368,7 +368,7 @@ namespace Cafe_App.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Ad = table.Column<string>(type: "varchar(16)", maxLength: 16, nullable: false)
+                    Ad = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Aciklama = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -400,7 +400,7 @@ namespace Cafe_App.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Ad = table.Column<string>(type: "varchar(16)", maxLength: 16, nullable: false)
+                    Ad = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Aciklama = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -633,9 +633,9 @@ namespace Cafe_App.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    AdSoyad = table.Column<string>(type: "varchar(16)", maxLength: 16, nullable: false)
+                    AdSoyad = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Firma = table.Column<string>(type: "varchar(16)", maxLength: 16, nullable: false)
+                    Firma = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Telefon = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -777,7 +777,7 @@ namespace Cafe_App.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Kod = table.Column<string>(type: "varchar(6)", maxLength: 6, nullable: false)
+                    Kod = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Durum = table.Column<int>(type: "int", nullable: false),
                     Kapasite = table.Column<int>(type: "int", nullable: false),
@@ -899,11 +899,9 @@ namespace Cafe_App.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Ad = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Zaman = table.Column<TimeOnly>(type: "time(6)", nullable: false),
-                    Yer = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Ad = table.Column<int>(type: "int", nullable: false),
+                    Zaman = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Yer = table.Column<int>(type: "int", nullable: false),
                     SiparisId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

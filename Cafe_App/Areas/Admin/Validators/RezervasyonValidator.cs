@@ -16,8 +16,7 @@ namespace Cafe_App.Areas.Admin.Validators
 
 			RuleFor(x => x.BitisSaat)
 				.NotEmpty().WithMessage("Rezervasyon bitiş saati boş olmamalıdır.")
-				.GreaterThan(x => x.BaslangicSaat).WithMessage("Bitiş zamanı başlangıç saatten sonra olmalıdır.");
-
+				.GreaterThan(x => x.BaslangicSaat).WithMessage("Bitiş saati başlangıç saatinden büyük olmalıdır.");
 
 			RuleFor(x => x.Tarih)
 				.NotEmpty().WithMessage("Rezervasyon tarihi boş olmamalıdır.");
