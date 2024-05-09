@@ -857,21 +857,9 @@
 				<p>Copyright © Designed &amp; Developed by <a href="https://github.com/KaganMuslu" target="_blank">Ünal Kağan MUSLU</a> 2024</p>
 			</div>
 		</div>
-		<!--**********************************
-			Footer end
-		***********************************-->
-		<!--**********************************
-		   Support ticket button start
-		***********************************-->
-		<!--**********************************
-		   Support ticket button end
-		***********************************-->
 
 
 	</div>
-	<!--**********************************
-		Main wrapper end
-	***********************************-->
 	<!--**********************************
 		Scripts
 	***********************************-->
@@ -898,6 +886,9 @@
 	<!-- Jquery Validation -->
 	<script src="~/admin_panel/vendor/jquery-validation/jquery.validate.min.js"></script>
 
+	<!-- imask Mask -->
+	<script src="https://unpkg.com/imask"></script>
+
 	<!-- Form validate init -->
 	<script src="~/admin_panel/js/plugins-init/jquery.validate-init.js"></script>
 
@@ -906,6 +897,48 @@
 	@{
 		await Html.RenderPartialAsync("_ValidationScriptsPartial");
 	}
+
+
+	@* iMask Masks *@
+	<script>
+		var phoneInputs = document.querySelectorAll('.phone-mask');
+		var timeInputs = document.querySelectorAll('.time-mask');
+
+		var maskOptions = {
+			mask: '(500)-000-00-00'
+		}
+
+		var timeMaskOptions = {
+			mask: 'HH:MM',
+			lazy: false, // Kullanıcının eksik veri girmesini engeller
+			blocks: {
+				HH: {
+					mask: IMask.MaskedRange,
+					from: 0,
+					to: 23,
+					maxLength: 2
+				},
+				MM: {
+					mask: IMask.MaskedRange,
+					from: 0,
+					to: 59,
+					maxLength: 2
+				}
+			}
+		};
+
+
+		phoneInputs.forEach(function (inputElement) {
+			var mask = new IMask(inputElement, maskOptions);
+		});
+
+		timeInputs.forEach(function (inputElement) {
+			var mask = new IMask(inputElement, timeMaskOptions);
+		});
+
+		
+	</script>
+
 
 </body>
 

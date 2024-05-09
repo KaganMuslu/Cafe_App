@@ -30,8 +30,7 @@ namespace Cafe_App.Areas.Admin.Validators
 
 			RuleFor(x => x.Telefon)
 				.NotNull().WithMessage("Telefon boş olamaz!")
-				.NotEmpty().WithMessage("Telefon boş olamaz!")
-				.Matches(@"^\+?\d{10,15}$").WithMessage("Telefon numarası geçersiz!");
+				.NotEmpty().WithMessage("Telefon boş olamaz!");
 
 			RuleFor(x => x.KayitTarihi)
 				.NotNull().WithMessage("Kayıt tarihi boş olamaz!");

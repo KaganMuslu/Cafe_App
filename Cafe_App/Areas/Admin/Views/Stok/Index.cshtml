@@ -205,8 +205,8 @@
 							</div>
 							<div style="margin-bottom:14px" class="row">
 								<div class="form-floating col-md-6 mb-3">
-								<input id="tel" asp-for="Tedarikci.Telefon" type="number" class="form-control" placeholder="" required="">
-									<label for="tel" class="form-label">&nbsp;&nbsp;&nbsp;Tedarikçi Telefon</label>
+								<input id="tel" asp-for="Tedarikci.Telefon" type="text" class="form-control phone-mask" placeholder="(500)-000-00-00" required="">
+								<label for="tel" class="form-label">&nbsp;&nbsp;&nbsp;Tedarikçi Telefon</label>
 								<span class="text-danger" asp-validation-for="Tedarikci.Telefon">  </span>
 
 								</div>

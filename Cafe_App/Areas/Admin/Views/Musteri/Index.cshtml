@@ -130,7 +130,7 @@
 
 						</div>
 						<div class="form-floating col-md-6 mb-3">
-							<input id="tel" asp-for="Musteri.Telefon" type="number" class="form-control" placeholder="">
+							<input id="tel" asp-for="Musteri.Telefon" type="text" placeholder="(500)-000-00-00" class="form-control phone-mask">
 							<label for="tel" class="form-label">&nbsp;&nbsp;&nbsp;Müşteri Telefon</label>
 							<span class="text-danger" asp-validation-for="Musteri.Telefon">  </span>
 
@@ -206,7 +206,7 @@
 
 							</div>
 							<div class="form-floating col-md-6 mb-3">
-								<input id="tel" asp-for="Musteri.Telefon" type="number" value="@musteri.Telefon" class="form-control" placeholder="">
+								<input id="tel" asp-for="Musteri.Telefon" type="text" value="@musteri.Telefon" class="form-control phone-mask" placeholder="(500)-000-00-00">
 								<label for="tel" class="form-label">&nbsp;&nbsp;&nbsp;Müşteri Telefon</label>
 								<span class="text-danger" asp-validation-for="Musteri.Telefon">  </span>
 

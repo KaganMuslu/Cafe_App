@@ -30,8 +30,7 @@ namespace Cafe_App.Areas.Admin.Validators
 			// Telefon için doğrulama kuralları
 			RuleFor(x => x.Telefon)
 				.NotNull().WithMessage("Telefon boş olamaz!")
-				.NotEmpty().WithMessage("Telefon boş olamaz!")
-				.Matches(@"^\+?\d{10,15}$").WithMessage("Telefon numarası geçersiz!");
+				.NotEmpty().WithMessage("Telefon boş olamaz!");
 
 			// KayitTarihi için doğrulama kuralları
 			RuleFor(x => x.KayitTarihi)

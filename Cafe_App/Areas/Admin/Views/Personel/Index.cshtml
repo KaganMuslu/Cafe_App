@@ -153,9 +153,12 @@
 						</div>
 						<div class="col-md-4 mb-3">
 							<label for="email" class="form-label">Maaş</label>
-							<input type="number" class="form-control" asp-for="Personel.Maas" required="">
-							<span class="text-danger" asp-validation-for="Personel.Maas"></span>
+							<div class="input-group transparent-append">
+								<input type="number" class="form-control" asp-for="Personel.Maas" required="">
+								<span class="input-group-text">₺</span>
 							</div>
+							<span class="text-danger" asp-validation-for="Personel.Maas"></span>
+						</div>
 					</div>
 					<div style="margin-bottom:9px" class="row">
 						<div class="col-md-6 mb-3">
@@ -191,9 +194,9 @@
 							<label class="form-label">Telefon Numarası</label>
 							<div class="input-group">
 								<span class="input-group-text">+90</span>
-								<input style="width:fit-content" type="number" class="form-control border-left-end" asp-for="Personel.Telefon" placeholder="" required>
+								<input style="width:fit-content" type="text" class="form-control border-left-end phone-mask" asp-for="Personel.Telefon" placeholder="(500)-000-00-00" required>
 								<span class="text-danger" asp-validation-for="Personel.Telefon"></span>
-								</div>
+							</div>
 						</div>
 					</div>
 					<div class="row">
@@ -249,7 +252,7 @@
 							</div>
 							<div class="col-md-6 mb-3">
 								<label class="form-label">Ekstra Bilgi</label>
-								<input type="text" class="form-control" placeholder="" value="" @* required="" *@>
+								<input type="text" class="form-control" placeholder="" value="">
 
 							</div>
 						</div>
@@ -321,9 +324,11 @@
 							</div>
 							<div class="col-md-4 mb-3">
 								<label for="email" class="form-label">Maaş</label>
-								<input type="number" class="form-control" asp-for="Personel.Maas" value="@personel.Maas" placeholder="Maaş" required="">
+								<div class="input-group transparent-append">
+									<input type="number" class="form-control" asp-for="Personel.Maas" required="">
+									<span class="input-group-text">₺</span>
+								</div>
 								<span class="text-danger" asp-validation-for="Personel.Maas"></span>
-
 							</div>
 						</div>
 						<div style="margin-bottom:9px" class="row">
@@ -369,7 +374,7 @@
 								<label class="form-label">Telefon Numarası</label>
 								<div class="input-group">
 									<span class="input-group-text">+90</span>
-									<input type="number" class="form-control border-left-end" asp-for="Personel.Telefon" value="@personel.Telefon" placeholder="" required>
+									<input type="text" class="form-control border-left-end phone-mask" asp-for="Personel.Telefon" value="@personel.Telefon" placeholder="(500)-000-00-00" required>
 									<span class="text-danger" asp-validation-for="Personel.Telefon"></span>
 
 								</div>

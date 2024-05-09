@@ -20,8 +20,8 @@ namespace Cafe_App.Areas.Admin.Validators
 				.EmailAddress().WithMessage("Geçerli bir e-posta adresi girin.");
 
 			RuleFor(x => x.Telefon)
-				.NotEmpty().WithMessage("Telefon numarası boş olmamalıdır.")
-				.Matches(@"^\+?\d{10,15}$").WithMessage("Telefon numarası geçerli bir formatta olmalıdır.");
+				.NotEmpty().WithMessage("Telefon numarası boş olmamalıdır.");
+				/*.Matches(@"^\+?\d{10,15}$").WithMessage("Telefon numarası geçerli bir formatta olmalıdır.");*/
 
 			RuleFor(x => x.Maas)
 				.NotEmpty().WithMessage("Maaş boş olmamalıdır.")
