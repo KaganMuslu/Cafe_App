@@ -124,9 +124,10 @@ namespace Cafe_App.Areas.Admin.Controllers
 			return RedirectToAction("Index");
 		}
 
+		[AcceptVerbs("GET", "POST")]
 		public IActionResult RolAdKontrol(RolViewModel model)
 		{
-			var rol = _context.Roller.Where(x => x.Ad == model.Rol.Ad).FirstOrDefault(); 
+			var rol = _context.Roller.Where(x => x.Gorunurluk == true).FirstOrDefault(x => x.Ad == model.Rol.Ad); 
 
 			if (rol != null)
 			{

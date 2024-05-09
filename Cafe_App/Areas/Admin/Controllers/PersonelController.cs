@@ -105,11 +105,31 @@ namespace Cafe_App.Areas.Admin.Controllers
 		}
 
 		[AcceptVerbs("GET", "POST")]
-		public IActionResult DogumKontrol(PersonelViewModel model)
+		public IActionResult PersonelKontrol(PersonelViewModel model)
 		{
+			var messages = new List<string>();
+
 			if (model.Personel.DogumTarihi >= DateOnly.FromDateTime(DateTime.Now))
 			{
-				return Json("Doğum tarihi geçmiş tarih olmalıdır.");
+				messages.Add("Doğum tarihi geçmiş tarih olmalıdır.");
+			}
+
+			var personelEposta = _context.Personeller.Where(x => x.Gorunurluk == true).FirstOrDefault(x => x.Eposta == model.Personel.Eposta);
+			if (personelEposta != null)
+			{
+				messages.Add("Bu E-Posta ile daha önce kayıt oluşturulmuştur.");
+			}
+
+			var personelTelefon = _context.Personeller.Where(x => x.Gorunurluk == true).FirstOrDefault(x => x.Telefon == model.Personel.Telefon);
+			if (personelTelefon != null)
+			{
+				messages.Add("Bu telefon numarası ile daha önce kayıt oluşturulmuştur.");
+			}
+
+			// Toplu olarak döndür
+			if (messages.Any())
+			{
+				return Json(messages);
 			}
 
 			return Json(true);

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -9,6 +10,7 @@ public partial class Malzeme
     public int Id { get; set; }
 
 	[Required(ErrorMessage = "Malzeme adı boş olamaz.")]
+	[Remote(action: "MalzemeKontrol", controller: "Malzeme", HttpMethod = "POST", AdditionalFields = nameof(Ad))]
     public string Ad { get; set; }
 
 	[Required(ErrorMessage = "Malzeme kategorisi boş olamaz.")]

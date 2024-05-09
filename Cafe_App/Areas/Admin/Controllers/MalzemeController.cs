@@ -1,4 +1,5 @@
-﻿using Cafe_App.Models;
+﻿using Cafe_App.Areas.Admin.Models;
+using Cafe_App.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -77,6 +78,27 @@ namespace Cafe_App.Areas.Admin.Controllers
 			}
 
 			return RedirectToAction("Index");
+		}
+
+		[AcceptVerbs("GET", "POST")]
+		public IActionResult MalzemeKontrol(Malzeme model)
+		{
+			var messages = new List<string>();
+
+			var urunAd = _context.Malzemeler.Where(x => x.Gorunurluk == true).FirstOrDefault(x => x.Ad == model.Ad);
+
+			if (urunAd != null)
+			{
+				messages.Add("Bu ada sahip bir malzeme bulunmaktadır.");
+			}
+
+			// Toplu olarak döndür
+			if (messages.Any())
+			{
+				return Json(messages);
+			}
+
+			return Json(true);
 		}
 
 	}

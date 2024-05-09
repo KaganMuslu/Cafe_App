@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -9,6 +10,7 @@ public partial class Masa
     public int Id { get; set; }
 
 	[Required(ErrorMessage = "Masa kodu boş olmamalıdır.")]
+	[Remote(action: "MasaKontrol", controller: "Masa", HttpMethod = "POST", AdditionalFields = nameof(Kod))]
     public string Kod { get; set; }
 
 	public int Durum { get; set; }

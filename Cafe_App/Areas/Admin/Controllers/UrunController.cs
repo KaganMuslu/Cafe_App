@@ -184,6 +184,28 @@ namespace Cafe_App.Areas.Admin.Controllers
 
 			return RedirectToAction("Index");
 		}
+
+		[AcceptVerbs("GET", "POST")]
+		public IActionResult UrunKontrol(UrunViewModel model)
+		{
+			var messages = new List<string>();
+
+			var urunAd = _context.Urunler.Where(x => x.Gorunurluk == true).FirstOrDefault(x => x.Ad == model.Urun.Ad);
+
+			if (urunAd != null)
+			{
+				messages.Add("Bu ada sahip bir ürün bulunmaktadır.");
+			}
+
+			// Toplu olarak döndür
+			if (messages.Any())
+			{
+				return Json(messages);
+			}
+
+			return Json(true);
+		}
+
 	}
 
 }

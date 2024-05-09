@@ -16,9 +16,11 @@ public partial class Personel
     public string Soyad { get; set; }
 
 	[Required(ErrorMessage = "E-posta adresi boş olmamalıdır.")]
+	[Remote(action: "PersonelKontrol", controller: "Personel", HttpMethod = "POST", AdditionalFields = nameof(Eposta))]
 	public string Eposta { get; set; }
 
 	[Required(ErrorMessage = "Telefon numarası boş olmamalıdır.")]
+	[Remote(action: "PersonelKontrol", controller: "Personel", HttpMethod = "POST", AdditionalFields = nameof(Telefon))]
 	public string Telefon { get; set; }
 
 	[Required(ErrorMessage = "Maaş boş olmamalıdır.")]
@@ -26,7 +28,7 @@ public partial class Personel
 	public float Maas { get; set; }
 
 	[Required(ErrorMessage = "Doğum tarihi boş olmamalıdır.")]
-	[Remote(action: "DogumKontrol", controller: "Personel", HttpMethod = "POST", AdditionalFields = nameof(DogumTarihi))]
+	[Remote(action: "PersonelKontrol", controller: "Personel", HttpMethod = "POST", AdditionalFields = nameof(DogumTarihi))]
 	public DateOnly DogumTarihi { get; set; }
 
 	[Required(ErrorMessage = "Başlama tarihi boş olmamalıdır.")]

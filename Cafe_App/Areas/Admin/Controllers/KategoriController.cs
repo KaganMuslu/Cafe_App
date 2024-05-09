@@ -116,5 +116,26 @@ namespace Cafe_App.Areas.Admin.Controllers
 			return RedirectToAction("Index");
 		}
 
+		[AcceptVerbs("GET", "POST")]
+		public IActionResult KategoriKontrol(Kategori model)
+		{
+			var messages = new List<string>();
+
+			var kategoriAd = _context.Kategoriler.Where(x => x.Gorunurluk == true).FirstOrDefault(x => x.Ad == model.Ad);
+
+			if (kategoriAd != null)
+			{
+				messages.Add("Bu ada sahip bir kategori bulunmaktadır.");
+			}
+
+			// Toplu olarak döndür
+			if (messages.Any())
+			{
+				return Json(messages);
+			}
+
+			return Json(true);
+		}
+
 	}
 }

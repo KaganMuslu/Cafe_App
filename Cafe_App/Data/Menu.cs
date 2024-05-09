@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -9,6 +10,7 @@ public partial class Menu
     public int Id { get; set; }
 
 	[Required(ErrorMessage = "Menü adı boş olamaz.")]
+	[Remote(action: "MenuKontrol", controller: "Menu", HttpMethod = "POST", AdditionalFields = nameof(Ad))]
     public string Ad { get; set; }
 
 	public string? Aciklama { get; set; }

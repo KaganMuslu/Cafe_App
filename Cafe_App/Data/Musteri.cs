@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -15,9 +16,11 @@ public partial class Musteri
 	public string Soyad { get; set; }
 
 	[Required(ErrorMessage = "Müşteri e-postası boş olmamalıdır.")]
+	[Remote(action: "MusteriKontrol", controller: "Musteri", HttpMethod = "POST", AdditionalFields = nameof(Eposta))]
 	public string Eposta { get; set; }
 
 	[Required(ErrorMessage = "Müşteri telefon numarası boş olmamalıdır.")]
+	[Remote(action: "MusteriKontrol", controller: "Musteri", HttpMethod = "POST", AdditionalFields = nameof(Telefon))]
 	public string Telefon { get; set; }
 
 	public DateOnly KayitTarihi { get; set; }

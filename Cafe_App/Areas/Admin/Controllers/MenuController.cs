@@ -228,6 +228,28 @@ namespace Cafe_App.Areas.Admin.Controllers
 
 			return RedirectToAction("Index");
 		}
+
+		[AcceptVerbs("GET", "POST")]
+		public IActionResult MenuKontrol(MenuViewModel model)
+		{
+			var messages = new List<string>();
+
+			var menuAd = _context.Menuler.Where(x => x.Gorunurluk == true).FirstOrDefault(x => x.Ad == model.Menu.Ad);
+
+			if (menuAd != null)
+			{
+				messages.Add("Bu ada sahip bir menü bulunmaktadır.");
+			}
+
+			// Toplu olarak döndür
+			if (messages.Any())
+			{
+				return Json(messages);
+			}
+
+			return Json(true);
+		}
+
 	}
 
 }

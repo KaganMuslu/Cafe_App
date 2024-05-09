@@ -162,5 +162,25 @@ namespace Cafe_App.Areas.Admin.Controllers
 			return RedirectToAction("Index");
 		}
 
+
+		[AcceptVerbs("GET", "POST")]
+		public IActionResult MasaKontrol(MasaViewModel model)
+		{
+			var messages = new List<string>();
+
+			var masaKod = _context.Masalar.Where(x => x.Gorunurluk == true).FirstOrDefault(x => x.Kod == model.Masa.Kod);
+			if (masaKod != null)
+			{
+				messages.Add("Bu kod ile daha önce masa oluşturulmuştur.");
+			}
+
+			// Toplu olarak döndür
+			if (messages.Any())
+			{
+				return Json(messages);
+			}
+
+			return Json(true);
+		}
 	}
 }
