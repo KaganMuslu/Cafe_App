@@ -104,5 +104,16 @@ namespace Cafe_App.Areas.Admin.Controllers
 			return RedirectToAction("Index");
 		}
 
+		[AcceptVerbs("GET", "POST")]
+		public IActionResult DogumKontrol(PersonelViewModel model)
+		{
+			if (model.Personel.DogumTarihi >= DateOnly.FromDateTime(DateTime.Now))
+			{
+				return Json("Doğum tarihi geçmiş tarih olmalıdır.");
+			}
+
+			return Json(true);
+		}
+
 	}
 }

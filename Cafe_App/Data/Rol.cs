@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -10,6 +11,7 @@ public partial class Rol
     public int Id { get; set; }
 
 	[Required(ErrorMessage = "Rol adı boş olamaz.")]
+	[Remote(action: "RolAdKontrol", controller: "Rol", HttpMethod = "POST", AdditionalFields = nameof(Ad))]
     public string Ad { get; set; }
 
 	public bool Gorunurluk { get; set; }

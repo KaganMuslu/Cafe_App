@@ -26,6 +26,7 @@ public partial class Personel
 	public float Maas { get; set; }
 
 	[Required(ErrorMessage = "Doğum tarihi boş olmamalıdır.")]
+	[Remote(action: "DogumKontrol", controller: "Personel", HttpMethod = "POST", AdditionalFields = nameof(DogumTarihi))]
 	public DateOnly DogumTarihi { get; set; }
 
 	[Required(ErrorMessage = "Başlama tarihi boş olmamalıdır.")]

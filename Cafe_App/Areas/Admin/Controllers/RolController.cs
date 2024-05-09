@@ -124,5 +124,17 @@ namespace Cafe_App.Areas.Admin.Controllers
 			return RedirectToAction("Index");
 		}
 
+		public IActionResult RolAdKontrol(RolViewModel model)
+		{
+			var rol = _context.Roller.Where(x => x.Ad == model.Rol.Ad).FirstOrDefault(); 
+
+			if (rol != null)
+			{
+				return Json("Bu isimde bir rol bulunmaktadır.");
+			}
+
+			return Json(true);
+		}
+
 	}
 }

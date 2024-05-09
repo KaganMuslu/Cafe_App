@@ -180,14 +180,16 @@
 			<form asp-action="Index" method="post" novalidate>
 				<div class="modal-body">
 					<div style="margin-bottom:9px" class="row">
-						<div class="col-md-6 mb-3">
-							<label class="form-label">Rol Adı</label>
-							<input asp-for="Rol.Ad" type="text" class="form-control" placeholder="" required="">
-							<span class="text-danger" asp-validation-for="Rol.Ad">  </span>
+						<div style="text-align:center; margin:auto; width: 75%;" class="row">
+							<div class="col-md-12 mb-3">
+								<label class="form-label">Rol Adı</label>
+								<input asp-for="Rol.Ad" type="text" class="form-control" placeholder="" required="">
+								<span class="text-danger" asp-validation-for="Rol.Ad">  </span>
 
-							<input asp-for="Rol.Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
-							<div class="invalid-feedback">
-								Zorunlu Alan
+								<input asp-for="Rol.Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
+								<div class="invalid-feedback">
+									Zorunlu Alan
+								</div>
 							</div>
 						</div>
 					</div>
