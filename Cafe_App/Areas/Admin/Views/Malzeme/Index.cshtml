@@ -114,13 +114,13 @@
 						<div class="form-floating col-md-6 mb-3">
 							<input id="Ad" asp-for="Ad" type="text" class="form-control" placeholder="">
 							<label for="Ad" class="form-label">&nbsp;&nbsp;&nbsp;Malzeme Adı</label>
-								<span class="text-danger" asp-validation-for="Ad"></span>
+								<span class="validation-text" asp-validation-for="Ad"></span>
 
 						</div>
 						<div class="form-floating col-md-6 mb-3">
 							<input id="Fiyat" asp-for="Fiyat" type="number" class="form-control" placeholder="">
 							<label for="Fiyat" class="form-label">&nbsp;&nbsp;&nbsp;Malzeme Fiyat</label>
-								<span class="text-danger" asp-validation-for="Fiyat"></span>
+								<span class="validation-text" asp-validation-for="Fiyat"></span>
 
 						</div>
 					</div>
@@ -128,13 +128,13 @@
 						<div class="form-floating col-md-6 mb-3">
 							<input id="minStok" asp-for="Stok.MinStok" type="number" class="form-control" placeholder="">
 							<label for="minStok" class="form-label">&nbsp;&nbsp;&nbsp;Minimum Stok</label>
-								<span class="text-danger" asp-validation-for="Stok.MinStok"></span>
+								<span class="validation-text" asp-validation-for="Stok.MinStok"></span>
 
 						</div>
 						<div class="form-floating col-md-6 mb-3">
 							<input id="maxStok" asp-for="Stok.MaxStok" type="number" class="form-control" placeholder="" required="">
 							<label for="maxStok" class="form-label">&nbsp;&nbsp;&nbsp;Maximum Stok</label>
-								<span class="text-danger" asp-validation-for="Stok.MaxStok"></span>
+								<span class="validation-text" asp-validation-for="Stok.MaxStok"></span>
 
 						</div>
 					</div>
@@ -146,7 +146,7 @@
 								<option value="Litre">Litre</option>
 								<option value="Adet">Adet</option>
 							</select>
-								<span class="text-danger" asp-validation-for="Tur"></span>
+								<span class="validation-text" asp-validation-for="Tur"></span>
 
 						</div>
 					</div>
@@ -182,13 +182,13 @@
 								<div class="form-floating col-md-6 mb-3">
 									<input id="Ad" asp-for="Ad" type="text" value="@malzeme.Ad" class="form-control" placeholder="">
 									<label for="Ad" class="form-label">&nbsp;&nbsp;&nbsp;Malzeme Adı</label>
-									<span class="text-danger" asp-validation-for="Ad"></span>
+									<span class="validation-text" asp-validation-for="Ad"></span>
 
 								</div>
 								<div class="form-floating col-md-6 mb-3">
 									<input id="Fiyat" asp-for="Fiyat" type="number" value="@malzeme.Fiyat.ToString(System.Globalization.CultureInfo.InvariantCulture)" class="form-control" required="">
 									<label for="Fiyat" class="form-label">&nbsp;&nbsp;&nbsp;Malzeme Fiyat</label>
-									<span class="text-danger" asp-validation-for="Fiyat"></span>
+									<span class="validation-text" asp-validation-for="Fiyat"></span>
 
 								</div>
 							</div>
@@ -196,13 +196,13 @@
 								<div class="form-floating col-md-6 mb-3">
 									<input id="minStok" asp-for="Stok.MinStok" value="@malzeme.Stok.MinStok" type="number" class="form-control" placeholder="">
 									<label for="minStok" class="form-label">&nbsp;&nbsp;&nbsp;Minimum Stok</label>
-									<span class="text-danger" asp-validation-for="Stok.MinStok"></span>
+									<span class="validation-text" asp-validation-for="Stok.MinStok"></span>
 
 								</div>
 								<div class="form-floating col-md-6 mb-3">
 									<input id="maxStok" asp-for="Stok.MaxStok" value="@malzeme.Stok.MaxStok" type="number" class="form-control" placeholder="" required="">
 									<label for="maxStok" class="form-label">&nbsp;&nbsp;&nbsp;Maximum Stok</label>
-									<span class="text-danger" asp-validation-for="Stok.MaxStok"></span>
+									<span class="validation-text" asp-validation-for="Stok.MaxStok"></span>
 
 								</div>
 							</div>
@@ -229,7 +229,7 @@
 											<option value="Adet" selected>Adet</option>
 										}
 									</select>
-									<span class="text-danger" asp-validation-for="Tur"></span>
+									<span class="validation-text" asp-validation-for="Tur"></span>
 
 								</div>
 							</div>

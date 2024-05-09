@@ -184,7 +184,7 @@
 							<div class="col-md-12 mb-3">
 								<label class="form-label">Rol Adı</label>
 								<input asp-for="Rol.Ad" type="text" class="form-control" placeholder="" required="">
-								<span class="text-danger" asp-validation-for="Rol.Ad">  </span>
+								<span class="validation-text" asp-validation-for="Rol.Ad">  </span>
 
 								<input asp-for="Rol.Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
 								<div class="invalid-feedback">
@@ -222,7 +222,7 @@
 							<div class="col-md-6 mb-3">
 								<label class="form-label">Rol Adı</label>
 								<input asp-for="Rol.Ad" type="text" value="@rol.Ad" class="form-control">
-								<span class="text-danger" asp-validation-for="Rol.Ad"></span>
+								<span class="validation-text" asp-validation-for="Rol.Ad"></span>
 
 								<input asp-for="Rol.Gorunurluk" type="hidden" class="form-control" value=True>
 								<input asp-for="Rol.Id" type="hidden" class="form-control" value=@rol.Id>

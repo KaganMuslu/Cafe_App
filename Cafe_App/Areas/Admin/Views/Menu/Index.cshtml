@@ -373,13 +373,13 @@
 						<div class="form-floating col-md-6 mb-3">
 							<input id="Ad" asp-for="Menu.Ad" type="text" class="form-control" placeholder="">
 							<label for="Ad" class="form-label">&nbsp;&nbsp;&nbsp;Menü Adı</label>
-							<span class="text-danger" asp-validation-for="Menu.Ad"></span>
+								<span class="validation-text" asp-validation-for="Menu.Ad"></span>
 
 						</div>
 						<div class="form-floating col-md-6 mb-3">
 							<input id="Aciklama" asp-for="Menu.Aciklama" type="text" class="form-control" placeholder="">
 							<label for="Aciklama" class="form-label">&nbsp;&nbsp;&nbsp;Menü Açıklama</label>
-							<span class="text-danger" asp-validation-for="Menu.Aciklama"></span>
+								<span class="validation-text" asp-validation-for="Menu.Aciklama"></span>
 
 						</div>
 					</div>
@@ -387,14 +387,14 @@
 						<div class="form-floating col-md-6 mb-3">
 							<input id="Fiyat" asp-for="Menu.Fiyat" type="number" class="form-control" placeholder="">
 							<label for="Fiyat" class="form-label">&nbsp;&nbsp;&nbsp;Menü Fiyat</label>
-							<span class="text-danger" asp-validation-for="Menu.Fiyat"></span>
+								<span class="validation-text" asp-validation-for="Menu.Fiyat"></span>
 
 						</div>
 					</div>
 					<div style="margin-bottom:14px" class="row">
 						<div class="col-md-6 mb-3">
 							<input asp-for="Menu.Fotograf" id="formFile" class="form-control" name="file" type="file">
-							<span class="text-danger" asp-validation-for="Menu.Fotograf"></span>
+								<span class="validation-text" asp-validation-for="Menu.Fotograf"></span>
 
 						</div>
 						<div class="col-md-6 mb-3">
@@ -405,7 +405,7 @@
 									<option value="@item.Id">@item.Ad</option>
 								}
 							</select>
-							<span class="text-danger" asp-validation-for="Menu.KategoriId"></span>
+								<span class="validation-text" asp-validation-for="Menu.KategoriId"></span>
 
 						</div>
 					</div>
@@ -437,7 +437,7 @@ else
 						<div class="form-floating col-md-6 mb-3">
 							<input id="Ad" asp-for="Kategori.Ad" type="text" class="form-control" placeholder="">
 							<label for="Ad" class="form-label">&nbsp;&nbsp;&nbsp;Kategori Adı</label>
-							<span class="text-danger" asp-validation-for="Kategori.Ad"></span>
+								<span class="validation-text" asp-validation-for="Kategori.Ad"></span>
 
 						</div>
 						<div class="col-md-6">
@@ -447,7 +447,7 @@ else
 								<option value="Menü" selected>Menü</option>
 								<option value="Ürün">Ürün</option>
 							</select>
-							<span class="text-danger" asp-validation-for="Kategori.Tur"></span>
+								<span class="validation-text" asp-validation-for="Kategori.Tur"></span>
 
 						</div>
 					</div>
@@ -482,13 +482,13 @@ else
 							<div class="form-floating col-md-6 mb-3">
 								<input id="Ad" asp-for="Menu.Ad" type="text" value="@menu.Ad" class="form-control" placeholder="">
 								<label for="Ad" class="form-label">&nbsp;&nbsp;&nbsp;Menü Adı</label>
-								<span class="text-danger" asp-validation-for="Menu.Ad"></span>
+								<span class="validation-text" asp-validation-for="Menu.Ad"></span>
 
 							</div>
 							<div class="form-floating col-md-6 mb-3">
 								<input id="Aciklama" asp-for="Menu.Aciklama" type="text" value="@menu.Aciklama" class="form-control" placeholder="" required="">
 								<label for="Aciklama" class="form-label">&nbsp;&nbsp;&nbsp;Menü Açıklama</label>
-								<span class="text-danger" asp-validation-for="Menu.Aciklama"></span>
+								<span class="validation-text" asp-validation-for="Menu.Aciklama"></span>
 
 							</div>
 						</div>
@@ -496,14 +496,14 @@ else
 							<div class="form-floating col-md-6 mb-3">
 								<input id="Fiyat" asp-for="Menu.Fiyat" type="text" value="@menu.Fiyat" class="form-control" placeholder="" required="">
 								<label for="Fiyat" class="form-label">&nbsp;&nbsp;&nbsp;Menü Fiyat</label>
-								<span class="text-danger" asp-validation-for="Menu.Fiyat"></span>
+								<span class="validation-text" asp-validation-for="Menu.Fiyat"></span>
 
 							</div>
 						</div>
 						<div style="margin-bottom:14px" class="row">
 							<div class="col-md-6 mb-3">
 								<input asp-for="Menu.Fotograf" value="@menu.Fotograf" id="formFile" class="form-control" name="file" type="file">
-								<span class="text-danger" asp-validation-for="Menu.Fotograf"></span>
+								<span class="validation-text" asp-validation-for="Menu.Fotograf"></span>
 
 							</div>
 							<div class="col-md-6 mb-3">
@@ -521,7 +521,7 @@ else
 										}
 									}
 								</select>
-								<span class="text-danger" asp-validation-for="Menu.KategoriId"></span>
+								<span class="validation-text" asp-validation-for="Menu.KategoriId"></span>
 
 							</div>
 						</div>

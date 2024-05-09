@@ -193,13 +193,13 @@
 								<div class="form-floating col-md-6 mb-3">
 									<input id="Firma" asp-for="Tedarikci.Firma" type="text" class="form-control" placeholder="">
 									<label for="Firma" class="form-label">&nbsp;&nbsp;&nbsp;Tedarikçi Firma</label>
-								<span class="text-danger" asp-validation-for="Tedarikci.Firma">  </span>
+								<span class="validation-text" asp-validation-for="Tedarikci.Firma">  </span>
 
 								</div>
 								<div class="form-floating col-md-6 mb-3">
 								<input id="AdSoyad" asp-for="Tedarikci.AdSoyad" type="text" class="form-control" placeholder="" required="">
 									<label for="AdSoyad" class="form-label">&nbsp;&nbsp;&nbsp;Tedarikçi Ad Soyad</label>
-								<span class="text-danger" asp-validation-for="Tedarikci.AdSoyad">  </span>
+								<span class="validation-text" asp-validation-for="Tedarikci.AdSoyad">  </span>
 
 								</div>
 							</div>
@@ -207,13 +207,13 @@
 								<div class="form-floating col-md-6 mb-3">
 								<input id="tel" asp-for="Tedarikci.Telefon" type="text" class="form-control phone-mask" placeholder="(500)-000-00-00" required="">
 								<label for="tel" class="form-label">&nbsp;&nbsp;&nbsp;Tedarikçi Telefon</label>
-								<span class="text-danger" asp-validation-for="Tedarikci.Telefon">  </span>
+								<span class="validation-text" asp-validation-for="Tedarikci.Telefon">  </span>
 
 								</div>
 								<div class="form-floating col-md-6 mb-3">
 								<input id="adres" asp-for="Tedarikci.Adres" type="text" class="form-control" placeholder="" required="">
 									<label for="adres" class="form-label">&nbsp;&nbsp;&nbsp;Tedarikçi Adres</label>
-								<span class="text-danger" asp-validation-for="Tedarikci.Adres">  </span>
+								<span class="validation-text" asp-validation-for="Tedarikci.Adres">  </span>
 
 								</div>
 							</div>
@@ -221,13 +221,13 @@
 								<div class="form-floating col-md-6 mb-3">
 								<input id="eposta" asp-for="Tedarikci.Eposta" type="text" class="form-control" placeholder="" required="">
 									<label for="eposta" class="form-label">&nbsp;&nbsp;&nbsp;Tedarikçi E-Posta</label>
-								<span class="text-danger" asp-validation-for="Tedarikci.Eposta">  </span>
+								<span class="validation-text" asp-validation-for="Tedarikci.Eposta">  </span>
 
 								</div>
 								<div class="form-floating col-md-6 mb-3">
 								<input asp-for="Tedarikci.KayitTarihi" id="datepicker2" class=" form-control mb-3 mb-xl-0" required>
 									<label for="datepicker2" class="form-label">&nbsp;&nbsp;&nbsp;Tedarikçi Kayıt Tarihi</label>
-								<span class="text-danger" asp-validation-for="Tedarikci.KayitTarihi">  </span>
+								<span class="validation-text" asp-validation-for="Tedarikci.KayitTarihi">  </span>
 
 								</div>
 							</div>
@@ -258,13 +258,13 @@
 								<div class="form-floating col-md-6 mb-3">
 									<input id="Ad" asp-for="Malzeme.Ad" type="text" class="form-control" placeholder="">
 									<label for="Ad" class="form-label">&nbsp;&nbsp;&nbsp;Malzeme Adı</label>
-								<span class="text-danger" asp-validation-for="Malzeme.Ad"></span>
+								<span class="validation-text" asp-validation-for="Malzeme.Ad"></span>
 
 								</div>
 								<div class="form-floating col-md-6 mb-3">
 								<input id="Fiyat" asp-for="Malzeme.Fiyat" type="number" class="form-control" placeholder="">
 									<label for="Fiyat" class="form-label">&nbsp;&nbsp;&nbsp;Malzeme Fiyat</label>
-								<span class="text-danger" asp-validation-for="Malzeme.Fiyat"></span>
+								<span class="validation-text" asp-validation-for="Malzeme.Fiyat"></span>
 
 								</div>
 							</div>
@@ -272,13 +272,13 @@
 								<div class="form-floating col-md-6 mb-3">
 								<input id="minStok" asp-for="Malzeme.Stok.MinStok" type="number" class="form-control" placeholder="">
 									<label for="minStok" class="form-label">&nbsp;&nbsp;&nbsp;Minimum Stok</label>
-								<span class="text-danger" asp-validation-for="Malzeme.Stok.MinStok"></span>
+								<span class="validation-text" asp-validation-for="Malzeme.Stok.MinStok"></span>
 
 								</div>
 								<div class="form-floating col-md-6 mb-3">
 								<input id="maxStok" asp-for="Malzeme.Stok.MaxStok" type="number" class="form-control" placeholder="" required="">
 									<label for="maxStok" class="form-label">&nbsp;&nbsp;&nbsp;Maximum Stok</label>
-								<span class="text-danger" asp-validation-for="Malzeme.Stok.MaxStok"></span>
+								<span class="validation-text" asp-validation-for="Malzeme.Stok.MaxStok"></span>
 
 								</div>
 							</div>
@@ -290,7 +290,7 @@
 										<option value="Litre">Litre</option>
 										<option value="Adet">Adet</option>
 									</select>
-								<span class="text-danger" asp-validation-for="Malzeme.Tur"></span>
+								<span class="validation-text" asp-validation-for="Malzeme.Tur"></span>
 
 								</div>
 							</div>
@@ -328,7 +328,7 @@
 									<option value="@item.Id">@item.Ad</option>
 								}
 							</select>
-								<span class="text-danger" asp-validation-for="StokGirdi.MalzemeId"></span>
+								<span class="validation-text" asp-validation-for="StokGirdi.MalzemeId"></span>
 
 						</div>
 						<div class="col-md-6 mb-3">
@@ -339,7 +339,7 @@
 									<option value="@item.Id">@item.Firma</option>
 								}
 							</select>
-								<span class="text-danger" asp-validation-for="StokGirdi.TedarikciId"></span>
+								<span class="validation-text" asp-validation-for="StokGirdi.TedarikciId"></span>
 
 						</div>
 					</div>
@@ -347,13 +347,13 @@
 						<div class="form-floating col-md-6 mb-3">
 							<input id="Miktar" asp-for="StokGirdi.Miktar" type="number" class="form-control" placeholder="">
 							<label for="Miktar" class="form-label">&nbsp;&nbsp;&nbsp;Miktar</label>
-								<span class="text-danger" asp-validation-for="StokGirdi.Miktar"></span>
+								<span class="validation-text" asp-validation-for="StokGirdi.Miktar"></span>
 
 						</div>
 						<div class="form-floating col-md-6 mb-3">
 							<input id="AlısFiyati" asp-for="StokGirdi.AlısFiyati" type="number" class="form-control" placeholder="" required="">
 							<label for="AlısFiyati" class="form-label">&nbsp;&nbsp;&nbsp;Alış Fiyatı</label>
-								<span class="text-danger" asp-validation-for="StokGirdi.AlısFiyati"></span>
+								<span class="validation-text" asp-validation-for="StokGirdi.AlısFiyati"></span>
 
 						</div>
 					</div>
@@ -413,7 +413,7 @@
 										}
 									}
 								</select>
-								<span class="text-danger" asp-validation-for="StokGirdi.MalzemeId"></span>
+								<span class="validation-text" asp-validation-for="StokGirdi.MalzemeId"></span>
 
 							</div>
 							<div class="col-md-6 mb-3">
@@ -431,7 +431,7 @@
 										}
 									}
 								</select>
-								<span class="text-danger" asp-validation-for="StokGirdi.TedarikciId"></span>
+								<span class="validation-text" asp-validation-for="StokGirdi.TedarikciId"></span>
 
 							</div>
 						</div>
@@ -439,13 +439,13 @@
 							<div class="form-floating col-md-6 mb-3">
 								<input id="Miktar" asp-for="StokGirdi.Miktar" value="@stokGirdiGuncelle?.Miktar" type="number" class="form-control" placeholder="" required="">
 								<label for="Miktar" class="form-label">&nbsp;&nbsp;&nbsp;Miktar</label>
-								<span class="text-danger" asp-validation-for="StokGirdi.Miktar"></span>
+								<span class="validation-text" asp-validation-for="StokGirdi.Miktar"></span>
 
 							</div>
 							<div class="form-floating col-md-6 mb-3">
 								<input id="AlısFiyati" asp-for="StokGirdi.AlısFiyati" value="@stokGirdiGuncelle?.AlısFiyati" type="number" class="form-control" placeholder="" required="">
 								<label for="AlısFiyati" class="form-label">&nbsp;&nbsp;&nbsp;Alış Fiyatı</label>
-								<span class="text-danger" asp-validation-for="StokGirdi.AlısFiyati"></span>
+								<span class="validation-text" asp-validation-for="StokGirdi.AlısFiyati"></span>
 
 							</div>
 						</div>

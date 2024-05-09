@@ -126,19 +126,19 @@
 						<div class="col-md-6 mb-3">
 							<label class="form-label">Personel Adı</label>
 							<input type="text" class="form-control" asp-for="Personel.Ad" placeholder="" >
-							<span class="text-danger" asp-validation-for="Personel.Ad"></span>
+								<span class="validation-text" asp-validation-for="Personel.Ad"></span>
 							</div>
 						<div class="col-md-6 mb-3">
 							<label class="form-label">Personel Soyadı</label>
 							<input type="text" class="form-control" asp-for="Personel.Soyad" placeholder="" required>
-							<span class="text-danger" asp-validation-for="Personel.Soyad"></span>
+								<span class="validation-text" asp-validation-for="Personel.Soyad"></span>
 							</div>
 					</div>
 					<div style="margin-bottom:9px" class="row">
 						<div class="col-md-4 mb-3">
 							<label for="email" class="form-label">E-Posta Adresi</label>
 								<input type="text" class="form-control" asp-for="Personel.Eposta" placeholder="E-Posta" required="">
-								<span class="text-danger" asp-validation-for="Personel.Eposta"></span>
+								<span class="validation-text" asp-validation-for="Personel.Eposta"></span>
 							</div>
 						<div class="col-md-4 mb-3">
 							<label class="form-label">Rol </label>
@@ -149,7 +149,7 @@
 								<option value="@item.Id">@item.Ad</option>
 							}
 							</select>
-							<span class="text-danger" asp-validation-for="Personel.RolId"></span>
+								<span class="validation-text" asp-validation-for="Personel.RolId"></span>
 						</div>
 						<div class="col-md-4 mb-3">
 							<label for="email" class="form-label">Maaş</label>
@@ -157,14 +157,14 @@
 								<input type="number" class="form-control" asp-for="Personel.Maas" required="">
 								<span class="input-group-text">₺</span>
 							</div>
-							<span class="text-danger" asp-validation-for="Personel.Maas"></span>
+								<span class="validation-text" asp-validation-for="Personel.Maas"></span>
 						</div>
 					</div>
 					<div style="margin-bottom:9px" class="row">
 						<div class="col-md-6 mb-3">
 							<label for="formFile" class="form-label">Personel Fotoğrafı</label>
 							<input asp-for="Personel.Fotograf" id="formFile" class="form-control" name="file" type="file">
-							<span class="text-danger" asp-validation-for="Personel.Fotograf"></span>
+								<span class="validation-text" asp-validation-for="Personel.Fotograf"></span>
 							</div>
 
 						<div class="col-md-6 mb-3">
@@ -174,7 +174,7 @@
 								<option>Kadın</option>
 								<option>Erkek</option>
 							</select>
-							<span class="text-danger" asp-validation-for="Personel.Cinsiyet"></span>
+								<span class="validation-text" asp-validation-for="Personel.Cinsiyet"></span>
 						</div>
 					</div>
 					<div style="margin-bottom:9px" class="row">
@@ -187,7 +187,7 @@
 								<i class="fa fa-eye-slash"></i>
 								<i class="fa fa-eye"></i>
 								</span>
-								<span class="text-danger" asp-validation-for="Personel.Parola"></span>
+									<span class="validation-text" asp-validation-for="Personel.Parola"></span>
 							</div>
 						</div>
 						<div class="col-md-6 mb-3">
@@ -195,7 +195,7 @@
 							<div class="input-group">
 								<span class="input-group-text">+90</span>
 								<input style="width:fit-content" type="text" class="form-control border-left-end phone-mask" asp-for="Personel.Telefon" placeholder="(500)-000-00-00" required>
-								<span class="text-danger" asp-validation-for="Personel.Telefon"></span>
+									<span class="validation-text" asp-validation-for="Personel.Telefon"></span>
 							</div>
 						</div>
 					</div>
@@ -204,7 +204,7 @@
 							<div style="margin-bottom:9px" class="mb-3">
 								<label for="address" class="form-label">Adres</label>
 								<textarea asp-for="Personel.Adres" type="text" class="form-control" placeholder=""></textarea>
-									<span class="text-danger" asp-validation-for="Personel.Adres"></span>
+									<span class="validation-text" asp-validation-for="Personel.Adres"></span>
 								</div>
 						</div>
 					</div>
@@ -212,12 +212,12 @@
 						<div class="col-md-6 mb-3">
 							<label class="form-label">Doğum Tarihi</label>
 								<input style="text-align:center" asp-for="Personel.DogumTarihi" id="datepicker" class=" form-control mb-3 mb-xl-0 datepicker" required>
-								<span class="text-danger" asp-validation-for="Personel.DogumTarihi"></span>
+								<span class="validation-text" asp-validation-for="Personel.DogumTarihi"></span>
 							</div>
 						<div class="col-md-6 mb-3">
 							<label class="form-label">Başlama Tarihi</label>
 								<input style="text-align:center" asp-for="Personel.BaslamaTarihi" id="datepicker1" class=" form-control mb-3 mb-xl-0 datepicker1" required>
-								<span class="text-danger" asp-validation-for="Personel.BaslamaTarihi"></span>
+								<span class="validation-text" asp-validation-for="Personel.BaslamaTarihi"></span>
 							</div>
 					</div>
 						<input type="hidden" asp-for="Personel.Gorunurluk" value=true />
@@ -248,7 +248,7 @@
 								<label class="form-label">Rol Adı</label>
 								<input asp-for="Rol.Ad" type="text" class="form-control" placeholder="">
 								<input asp-for="Rol.Gorunurluk" type="hidden" class="form-control" value=True>
-								<span class="text-danger" asp-validation-for="Rol.Ad">  </span>
+								<span class="validation-text" asp-validation-for="Rol.Ad">  </span>
 							</div>
 							<div class="col-md-6 mb-3">
 								<label class="form-label">Ekstra Bilgi</label>
@@ -286,13 +286,13 @@
 							<div class="col-md-6 mb-3">
 								<label class="form-label">Personel Adı</label>
 								<input type="text" class="form-control" asp-for="Personel.Ad" value="@personel.Ad" placeholder="">
-								<span class="text-danger" asp-validation-for="Personel.Ad"></span>
+								<span class="validation-text" asp-validation-for="Personel.Ad"></span>
 
 							</div>
 							<div class="col-md-6 mb-3">
 								<label class="form-label">Personel Soyadı</label>
 								<input type="text" class="form-control" asp-for="Personel.Soyad" value="@personel.Soyad" placeholder="" required>
-								<span class="text-danger" asp-validation-for="Personel.Soyad"></span>
+								<span class="validation-text" asp-validation-for="Personel.Soyad"></span>
 
 							</div>
 						</div>
@@ -300,7 +300,7 @@
 							<div class="col-md-4 mb-3">
 								<label for="email" class="form-label">E-Posta Adresi</label>
 								<input type="text" class="form-control" asp-for="Personel.Eposta" value="@personel.Eposta" placeholder="E-Posta" required="">
-								<span class="text-danger" asp-validation-for="Personel.Eposta"></span>
+								<span class="validation-text" asp-validation-for="Personel.Eposta"></span>
 
 							</div>
 							<div class="col-md-4 mb-3">

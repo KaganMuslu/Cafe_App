@@ -112,13 +112,13 @@
 						<div class="form-floating col-md-6 mb-3">
 							<input id="ad" asp-for="Musteri.Ad" type="text" class="form-control" placeholder="">
 							<label for="ad" class="form-label">&nbsp;&nbsp;&nbsp;Müşteri Ad</label>
-							<span class="text-danger" asp-validation-for="Musteri.Ad">  </span>
+							<span class="validation-text" asp-validation-for="Musteri.Ad">  </span>
 
 						</div>
 						<div class="form-floating col-md-6 mb-3">
 							<input id="soyad" asp-for="Musteri.Soyad" type="text" class="form-control" placeholder="">
 							<label for="soyad" class="form-label">&nbsp;&nbsp;&nbsp;Müşteri Soyad</label>
-							<span class="text-danger" asp-validation-for="Musteri.Soyad">  </span>
+							<span class="validation-text" asp-validation-for="Musteri.Soyad">  </span>
 
 						</div>
 					</div>
@@ -126,13 +126,13 @@
 						<div class="form-floating col-md-6 mb-3">
 							<input id="eposta" asp-for="Musteri.Eposta" type="text" class="form-control" placeholder="">
 							<label for="eposta" class="form-label">&nbsp;&nbsp;&nbsp;Müşteri E-Posta</label>
-							<span class="text-danger" asp-validation-for="Musteri.Eposta">  </span>
+							<span class="validation-text" asp-validation-for="Musteri.Eposta">  </span>
 
 						</div>
 						<div class="form-floating col-md-6 mb-3">
 							<input id="tel" asp-for="Musteri.Telefon" type="text" placeholder="(500)-000-00-00" class="form-control phone-mask">
 							<label for="tel" class="form-label">&nbsp;&nbsp;&nbsp;Müşteri Telefon</label>
-							<span class="text-danger" asp-validation-for="Musteri.Telefon">  </span>
+							<span class="validation-text" asp-validation-for="Musteri.Telefon">  </span>
 
 						</div>
 					</div>
@@ -140,13 +140,13 @@
 						<div class="form-floating col-md-6 mb-3">
 							<input asp-for="Musteri.KayitTarihi" id="datepicker" class=" form-control mb-3 mb-xl-0">
 							<label for="datepicker" class="form-label">&nbsp;&nbsp;&nbsp;Müşteri Kayıt Tarihi</label>
-							<span class="text-danger" asp-validation-for="Musteri.KayitTarihi">  </span>
+							<span class="validation-text" asp-validation-for="Musteri.KayitTarihi">  </span>
 
 						</div>
 						<div class="form-floating col-md-6 mb-3">
 							<input asp-for="Musteri.Dogumtarihi" id="datepicker2" class=" form-control mb-3 mb-xl-0">
 							<label for="datepicker2" class="form-label">&nbsp;&nbsp;&nbsp;Müşteri Doğum Tarihi</label>
-							<span class="text-danger" asp-validation-for="Musteri.Dogumtarihi">  </span>
+							<span class="validation-text" asp-validation-for="Musteri.Dogumtarihi">  </span>
 
 						</div>
 					</div>
@@ -154,7 +154,7 @@
 						<div class="form-floating col-md-6 mb-3">
 							<input asp-for="Musteri.Parola" id="Parola" type="password" class=" form-control mb-3 mb-xl-0">
 							<label for="Parola" class="form-label">&nbsp;&nbsp;&nbsp;Müşteri Parola</label>
-							<span class="text-danger" asp-validation-for="Musteri.Parola">  </span>
+							<span class="validation-text" asp-validation-for="Musteri.Parola">  </span>
 
 						</div>
 					</div>
@@ -188,13 +188,13 @@
 							<div class="form-floating col-md-6 mb-3">
 								<input id="ad" asp-for="Musteri.Ad" type="text" value="@musteri.Ad" class="form-control" placeholder="">
 								<label for="ad" class="form-label">&nbsp;&nbsp;&nbsp;Müşteri Ad</label>
-								<span class="text-danger" asp-validation-for="Musteri.Ad">  </span>
+								<span class="validation-text" asp-validation-for="Musteri.Ad">  </span>
 
 							</div>
 							<div class="form-floating col-md-6 mb-3">
 								<input id="soyad" asp-for="Musteri.Soyad" type="text" value="@musteri.Soyad" class="form-control" placeholder="">
 								<label for="soyad" class="form-label">&nbsp;&nbsp;&nbsp;Müşteri Soyad</label>
-								<span class="text-danger" asp-validation-for="Musteri.Soyad">  </span>
+								<span class="validation-text" asp-validation-for="Musteri.Soyad">  </span>
 
 							</div>
 						</div>
@@ -202,13 +202,13 @@
 							<div class="form-floating col-md-6 mb-3">
 								<input id="Eposta" asp-for="Musteri.Eposta" type="text" value="@musteri.Eposta" class="form-control" placeholder="">
 								<label for="Eposta" class="form-label">&nbsp;&nbsp;&nbsp;Müşteri E-Posta</label>
-								<span class="text-danger" asp-validation-for="Musteri.Eposta">  </span>
+								<span class="validation-text" asp-validation-for="Musteri.Eposta">  </span>
 
 							</div>
 							<div class="form-floating col-md-6 mb-3">
 								<input id="tel" asp-for="Musteri.Telefon" type="text" value="@musteri.Telefon" class="form-control phone-mask" placeholder="(500)-000-00-00">
 								<label for="tel" class="form-label">&nbsp;&nbsp;&nbsp;Müşteri Telefon</label>
-								<span class="text-danger" asp-validation-for="Musteri.Telefon">  </span>
+								<span class="validation-text" asp-validation-for="Musteri.Telefon">  </span>
 
 							</div>
 						</div>
@@ -216,13 +216,13 @@
 							<div class="form-floating col-md-6 mb-3">
 								<input asp-for="Musteri.KayitTarihi" value="@musteri.KayitTarihi" id="datepicker" class=" form-control mb-3 mb-xl-0">
 								<label for="datepicker" class="form-label">&nbsp;&nbsp;&nbsp;Müşteri Kayıt Tarihi</label>
-								<span class="text-danger" asp-validation-for="Musteri.KayitTarihi">  </span>
+								<span class="validation-text" asp-validation-for="Musteri.KayitTarihi">  </span>
 
 							</div>
 							<div class="form-floating col-md-6 mb-3">
 								<input asp-for="Musteri.Dogumtarihi" value="@musteri.Dogumtarihi" id="datepicker2" class=" form-control mb-3 mb-xl-0">
 								<label for="datepicker2" class="form-label">&nbsp;&nbsp;&nbsp;Müşteri Doğum Tarihi</label>
-								<span class="text-danger" asp-validation-for="Musteri.Dogumtarihi">  </span>
+								<span class="validation-text" asp-validation-for="Musteri.Dogumtarihi">  </span>
 
 							</div>
 						</div>
@@ -230,7 +230,7 @@
 							<div class="form-floating col-md-6 mb-3">
 								<input asp-for="Musteri.Parola" id="Parola" type="password" class=" form-control mb-3 mb-xl-0">
 								<label for="Parola" class="form-label">&nbsp;&nbsp;&nbsp;Müşteri Parola</label>
-								<span class="text-danger" asp-validation-for="Musteri.Parola">  </span>
+								<span class="validation-text" asp-validation-for="Musteri.Parola">  </span>
 
 							</div>
 						</div>

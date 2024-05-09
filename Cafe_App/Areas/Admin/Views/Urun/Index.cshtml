@@ -118,13 +118,13 @@
 															<div class="form-floating col-md-6 mb-3">
 																<input id="Ad" asp-for="Urun.Ad" type="text" value=@urun.Ad class="form-control" placeholder="">
 																<label for="Ad" class="form-label">&nbsp;&nbsp;&nbsp;Ürün Adı</label>
-															<span class="text-danger" asp-validation-for="Urun.Ad"></span>
+															<span class="validation-text" asp-validation-for="Urun.Ad"></span>
 
 															</div>
 															<div class="form-floating col-md-6 mb-3">
 																<input id="Aciklama" asp-for="Urun.Aciklama" type="text" value=@urun.Aciklama class="form-control" placeholder="" required="">
 																<label for="Aciklama" class="form-label">&nbsp;&nbsp;&nbsp;Ürün Açıklama</label>
-															<span class="text-danger" asp-validation-for="Urun.Aciklama"></span>
+															<span class="validation-text" asp-validation-for="Urun.Aciklama"></span>
 
 															</div>
 														</div>
@@ -132,14 +132,14 @@
 															<div class="form-floating col-md-6 mb-3">
 																<input id="Fiyat" asp-for="Urun.Fiyat" type="text" value=@urun.Fiyat class="form-control" placeholder="" required="">
 																<label for="Fiyat" class="form-label">&nbsp;&nbsp;&nbsp;Ürün Fiyat</label>
-															<span class="text-danger" asp-validation-for="Urun.Fiyat"></span>
+															<span class="validation-text" asp-validation-for="Urun.Fiyat"></span>
 
 															</div>
 														</div>
 														<div style="margin-bottom:14px" class="row">
 															<div class="col-md-6 mb-3">
 																<input asp-for="Urun.Fotograf" value=@urun.Fotograf id="formFile" class="form-control" name="file" type="file">
-															<span class="text-danger" asp-validation-for="Urun.Fotograf"></span>
+															<span class="validation-text" asp-validation-for="Urun.Fotograf"></span>
 
 															</div>
 															<div class="col-md-6 mb-3">
@@ -157,7 +157,7 @@
 																		}
 																	}
 																</select>
-															<span class="text-danger" asp-validation-for="Urun.KategoriId"></span>
+															<span class="validation-text" asp-validation-for="Urun.KategoriId"></span>
 
 															</div>
 														</div>
@@ -454,13 +454,13 @@
 						<div class="form-floating col-md-6 mb-3">
 							<input id="Ad" asp-for="Urun.Ad" type="text" class="form-control" placeholder="">
 							<label for="Ad" class="form-label">&nbsp;&nbsp;&nbsp;Ürün Adı</label>
-							<span class="text-danger" asp-validation-for="Urun.Ad"></span>
+								<span class="validation-text" asp-validation-for="Urun.Ad"></span>
 
 						</div>
 						<div class="form-floating col-md-6 mb-3">
 							<input id="Aciklama" asp-for="Urun.Aciklama" type="text" class="form-control">
 							<label for="Aciklama" class="form-label">&nbsp;&nbsp;&nbsp;Ürün Açıklama</label>
-							<span class="text-danger" asp-validation-for="Urun.Aciklama"></span>
+								<span class="validation-text" asp-validation-for="Urun.Aciklama"></span>
 
 						</div>
 					</div>
@@ -468,14 +468,14 @@
 						<div class="form-floating col-md-6 mb-3">
 							<input id="Fiyat" asp-for="Urun.Fiyat" type="number" class="form-control" placeholder="" required="">
 							<label for="Fiyat" class="form-label">&nbsp;&nbsp;&nbsp;Ürün Fiyat</label>
-								<span class="text-danger" asp-validation-for="Urun.Fiyat"></span>
+								<span class="validation-text" asp-validation-for="Urun.Fiyat"></span>
 
 						</div>
 					</div>
 					<div style="margin-bottom:14px" class="row">
 						<div class="col-md-6 mb-3">
 							<input asp-for="Urun.Fotograf" id="formFile" class="form-control" name="file" type="file">
-								<span class="text-danger" asp-validation-for="Urun.Fotograf"></span>
+								<span class="validation-text" asp-validation-for="Urun.Fotograf"></span>
 
 						</div>
 						<div class="col-md-6 mb-3">
@@ -486,7 +486,7 @@
 									<option value="@item.Id">@item.Ad</option>
 								}
 							</select>
-							<span class="text-danger" asp-validation-for="Urun.KategoriId"></span>
+								<span class="validation-text" asp-validation-for="Urun.KategoriId"></span>
 
 						</div>
 					</div>
