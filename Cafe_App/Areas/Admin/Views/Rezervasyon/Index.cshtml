@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Rezervasyon";
 }
-@model Rezervasyon
+@model RezervasyonViewModel
 
 <!-- CSS Ekstralar -->
 <head>
@@ -22,11 +22,25 @@
 				<p class="mb-0">Cafe App Rezervasyon Yönetim Ekranına Hoşgeldiniz!</p>
 			</div>
 
-			<a data-bs-toggle="modal" data-bs-target="#rezervasyonModal" style="width:max-content; display: inline-block; vertical-align: middle;" type="button" class="btn btn-rounded btn-primary">
-				<span class="btn-icon-start text-primary">
-					<i class="fa fa-user-plus color-primary"></i>
-				</span>Rezervasyon Ekle
-			</a>
+			<div style="text-align:center" class="d-none d-lg-block">
+				<a data-bs-toggle="modal" data-bs-target="#rezervasyonModal" style="width:max-content; display: inline-block; vertical-align: middle;" type="button" class="btn btn-rounded btn-primary">
+					<span class="btn-icon-start text-primary">
+						<i class="fa fa-user-plus color-primary"></i>
+					</span>Rezervasyon Ekle
+				</a>
+				@if (Model.Kategoriler.Count == 0)
+				{
+					<p style="color: red; font-size: 12px; text-align: center; padding-top:3px"><i class="fa-sharp fa-solid fa-up"></i> İlk önce kategori eklemelisiniz! <i class="fa-sharp fa-solid fa-up"></i></p>
+				}
+				else if(Model.Masalar.Count == 0)
+				{
+					<p style="color: red; font-size: 12px; text-align: center; padding-top:3px"><i class="fa-sharp fa-solid fa-up"></i> İlk önce masa eklemelisiniz! <i class="fa-sharp fa-solid fa-up"></i></p>
+				}
+				else
+				{
+					<br>
+				}
+			</div>
 		</div>
 		<br>
 
@@ -46,26 +60,29 @@
 							<thead>
 								<tr>
 									<th>ID</th>
+									<th>MASA KODU</th>
 									<th>TARİH</th>
 									<th>BAŞLANGIÇ - BİTİŞ SAATİ</th>
 									<th>KİŞİ SAYISI</th>
 									<th>TALEP</th>
 									<th>ONAY</th>
 									<th>TALEP TARİHİ</th>
+									<th>GÖRÜNÜRLÜK</th>
 									<th style="width:85px;">İŞLEMLER</th>
 								</tr>
 							</thead>
 							<tbody>
 
-								@foreach (var rezervasyon in ViewBag.Rezervasyonlar)
+								@foreach (var rezervasyon in Model.MasaRezervasyonlar)
 								{
 									<tr>
-										<td><b>@rezervasyon.Id</b></td>
-										<td>@rezervasyon.Tarih</td>
-										<td>@rezervasyon.BaslangicSaat - @rezervasyon.BitisSaat</td>
-										<td>@rezervasyon.KisiSayisi</td>
-										<td>@rezervasyon.Talep</td>
-										@switch (@rezervasyon.Onay)
+										<td><b>@rezervasyon.Rezervasyon.Id</b></td>
+										<td><b>@rezervasyon.Masa.Kod</b></td>
+										<td>@rezervasyon.Rezervasyon.Tarih</td>
+										<td>@rezervasyon.Rezervasyon.BaslangicSaat - @rezervasyon.Rezervasyon.BitisSaat</td>
+										<td>@rezervasyon.Rezervasyon.KisiSayisi</td>
+										<td>@rezervasyon.Rezervasyon.Talep</td>
+									@switch (@rezervasyon.Rezervasyon.Onay)
 										{
 											case 1:
 												<td class="text-warning">Onay Bekliyor</td>
@@ -84,14 +101,22 @@
 												break;
 
 										}
-										<td>@rezervasyon.TalepTarihi</td>
+										<td>@rezervasyon.Rezervasyon.TalepTarihi</td>
 										<td>
-											<a data-bs-toggle="modal" data-bs-target="#rezervasyon_@rezervasyon.Id" class="btn btn-primary shadow btn-xs sharp rounded-circle me-1"><i class="fa fa-pencil"></i></a>
+											@if (rezervasyon.Gorunurluk == true)
+											{
+												<a asp-action="RezervasyonSil" asp-route-id="@rezervasyon.Id" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa-solid fa-trash"></i></a>
+											}
+											else
+											{
+											<a asp-action="RezervasyonSil" asp-route-id="@rezervasyon.Id" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa fa-trash-undo"></i></a>
+											}
+										</td>
+										<td>
+										<a data-bs-toggle="modal" data-bs-target="#rezervasyon_@rezervasyon.Rezervasyon.Id" class="btn btn-primary shadow btn-xs sharp rounded-circle me-1"><i class="fa fa-pencil"></i></a>
 											<a href="javascript:void(0);" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa fa-trash"></i></a>
 										</td>
 									</tr>
-
-									
 
 								}
 
@@ -106,6 +131,101 @@
 
 <!-- Modal -->
 <div class="modal modal-lg fade" id="rezervasyonModal">
+	@if (Model.Kategoriler.Count == 0)
+{
+	// bunların controllerda eklememelerini yap
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Kategori Ekle</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal">
+				</button>
+			</div>
+
+			<form asp-action="Index" method="post" novalidate>
+				<div class="modal-body">
+					<div style="margin-bottom:14px" class="row">
+						<div class="form-floating col-md-6 mb-3">
+							<input id="Ad" asp-for="Kategori.Ad" type="text" class="form-control" placeholder="">
+							<label for="Ad" class="form-label">&nbsp;&nbsp;&nbsp;Kategori Adı</label>
+							<span class="validation-text" asp-validation-for="Kategori.Ad"></span>
+
+						</div>
+						<div class="col-md-6">
+							<select asp-for="Kategori.Tur" class="default-select form-control wide w-100 required">
+								<option disabled>Kategori</option>
+								<option value="Masa" selected>Masa</option>
+								<option value="Menü">Menü</option>
+								<option value="Ürün">Ürün</option>
+							</select>
+							<span class="validation-text" asp-validation-for="Kategori.Tur"></span>
+
+						</div>
+					</div>
+					<input asp-for="Kategori.Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
+					<button type="submit" class="btn btn-primary">Kaydet</button>
+				</div>
+			</form>
+
+		</div>
+	</div>
+}
+else if (Model.Masalar.Count == 0)
+{
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Masa Ekle</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal">
+				</button>
+			</div>
+
+			<form asp-action="Index" method="post" novalidate>
+				<div class="modal-body">
+					<div style="margin-bottom:14px" class="row">
+						<div class="form-floating col-md-6 mb-3">
+							<input id="kod" asp-for="Masa.Kod" type="text" class="form-control" placeholder="">
+							<label for="kod" class="form-label">&nbsp;&nbsp;&nbsp;Masa Kod</label>
+							<span class="validation-text" asp-validation-for="Masa.Kod"></span>
+
+						</div>
+						<div class="form-floating col-md-6 mb-3">
+							<input id="Kapasite" asp-for="Masa.Kapasite" type="number" class="form-control" placeholder="" required="">
+							<label for="Kapasite" class="form-label">&nbsp;&nbsp;&nbsp;Masa Kapasite</label>
+							<span class="validation-text" asp-validation-for="Masa.Kapasite"></span>
+
+						</div>
+					</div>
+					<div style="margin-bottom:14px" class="row">
+						<div class="form-floating col-md-6 mb-3">
+							<select id="KategoriId" asp-for="Masa.KategoriId" class="default-select form-control wide w-100 required">
+								<option value=0 disabled selected>Masa Kategori</option>
+								@foreach (var item in Model.Kategoriler)
+								{
+									<option value="@item.Id">@item.Ad</option>
+								}
+							</select>
+							<span class="validation-text" asp-validation-for="Masa.KategoriId"></span>
+						</div>
+					</div>
+					<input asp-for="Masa.Gorunurluk" type="hidden" class="form-control" value=True required="">
+					<input asp-for="Masa.Durum" type="hidden" class="form-control" value=1 required="">
+					<input asp-for="Masa.Tutar" type="hidden" class="form-control" value=0 required="">
+					<input asp-for="Masa.OdenenTutar" type="hidden" class="form-control" value=0 required="">
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
+					<button type="submit" class="btn btn-primary">Kaydet</button>
+				</div>
+			</form>
+		</div>
+	</div>
+}
+else
+{
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -118,15 +238,15 @@
 				<div class="modal-body">
 					<div style="margin-bottom:14px" class="row">
 						<div class="form-floating col-md-6 mb-3">
-							<input id="KisiSayisi" asp-for="KisiSayisi" type="number" class="form-control" placeholder="" required="">
+							<input id="KisiSayisi" asp-for="Rezervasyon.KisiSayisi" type="number" class="form-control" placeholder="" required="">
 							<label for="KisiSayisi" class="form-label">&nbsp;&nbsp;&nbsp;Rezervasyon Kişi Sayısı</label>
-							<span class="validation-text" asp-validation-for="KisiSayisi"></span>
+							<span class="validation-text" asp-validation-for="Rezervasyon.KisiSayisi"></span>
 
 						</div>
 						<div class="form-floating col-md-6 mb-3">
-							<input id="Talep" asp-for="Talep" type="text" class="form-control" placeholder="">
+							<input id="Talep" asp-for="Rezervasyon.Talep" type="text" class="form-control" placeholder="">
 							<label for="Talep" class="form-label">&nbsp;&nbsp;&nbsp;Rezervasyon Talep</label>
-							<span class="validation-text" asp-validation-for="Talep"></span>
+							<span class="validation-text" asp-validation-for="Rezervasyon.Talep"></span>
 
 						</div>
 					</div>
@@ -134,32 +254,43 @@
 						<div class="col-md-6 mb-3">
 							<label class="form-label">Başlangıç Saat</label>
 							<div class="input-group inputx" data-placement="bottom" data-align="top" data-autobtn-close="true">
-								<input type="text" asp-for="BaslangicSaat" class="form-control time-mask" value="12:00">
+								<input type="text" asp-for="Rezervasyon.BaslangicSaat" class="form-control time-mask" value="12:00">
 								<span class="input-group-text"><i class="far fa-clock"></i></span>
 							</div>
-							<span class="validation-text" asp-validation-for="BaslangicSaat"></span>
+							<span class="validation-text" asp-validation-for="Rezervasyon.BaslangicSaat"></span>
 						</div>
 						<div class="col-md-6 mb-3">
 								<label class="form-label">Bitiş Saat</label>
 							<div class="input-group inputx" data-placement="bottom" data-align="top" data-autobtn-close="true">
-								<input type="text" asp-for="BitisSaat" class="form-control time-mask" value="12:00">
+								<input type="text" asp-for="Rezervasyon.BitisSaat" class="form-control time-mask" value="12:00">
 								<span class="input-group-text"><i class="far fa-clock"></i></span>
 							</div>
-							<span class="validation-text" asp-validation-for="BitisSaat"></span>
+							<span class="validation-text" asp-validation-for="Rezervasyon.BitisSaat"></span>
 
 						</div>
 					</div>
 					<div style="margin-bottom:14px" class="row">
 						<div class="form-floating col-md-6 mb-3">
-							<input asp-for="Tarih" id="datepicker2" class=" form-control mb-3 mb-xl-0" required>
+							<input asp-for="Rezervasyon.Tarih" id="datepicker2" class="form-control mb-3 mb-xl-0 datepicker" required>
 							<label for="datepicker2" class="form-label">&nbsp;&nbsp;&nbsp;Rezervasyon Tarihi</label>
-							<span class="validation-text" asp-validation-for="Tarih"></span>
+							<span class="validation-text" asp-validation-for="Rezervasyon.Tarih"></span>
 
 						</div>
+                        <div class="col-md-6 mb-3">
+							<select asp-for="MasaRezervasyon.MasaId" class="default-select form-control wide w-100 required">
+								<option value=0 disabled="disabled" selected>Masa</option>
+								@foreach (var item in Model.Masalar)
+								{
+									<option value="@item.Id">@item.Kod</option>
+								}
+							</select>
+							<span class="validation-text" asp-validation-for="MasaRezervasyon.MasaId"></span>
+                        </div>
 					</div>
-					<input asp-for="Gorunurluk" type="hidden" class="form-control" value=True required="">
-					<input asp-for="Onay" type="hidden" class="form-control" value=2 required="">
-					<input asp-for="TalepTarihi" type="hidden" class="form-control" value="@DateTime.Now.ToString("dd/MM/yyyy")" required="">
+					<input asp-for="MasaRezervasyon.Gorunurluk" type="hidden" class="form-control" value=True required="">
+					<input asp-for="Rezervasyon.Gorunurluk" type="hidden" class="form-control" value=True required="">
+					<input asp-for="Rezervasyon.Onay" type="hidden" class="form-control" value=2 required="">
+					<input asp-for="Rezervasyon.TalepTarihi" type="hidden" class="form-control" value="@DateTime.Now.ToString("dd/MM/yyyy")" required="">
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
@@ -169,10 +300,11 @@
 
 		</div>
 	</div>
+}
 </div>
 
 @* Rezervasyon Düzenle *@
-@foreach (var rezervasyon in ViewBag.Rezervasyonlar)
+@foreach (var rezervasyon in Model.MasaRezervasyonlar)
 {
 	<div class="modal modal-lg fade" id="rezervasyon_@rezervasyon.Id">
 		<div class="modal-dialog modal-dialog-centered" role="document">
@@ -187,15 +319,15 @@
 					<div class="modal-body">
 						<div style="margin-bottom:14px" class="row">
 							<div class="form-floating col-md-6 mb-3">
-								<input id="KisiSayisi" asp-for="KisiSayisi" type="number" class="form-control" placeholder="" required="">
+								<input value="@rezervasyon.Rezervasyon.KisiSayisi" id="KisiSayisi" asp-for="Rezervasyon.KisiSayisi" type="number" class="form-control" required="">
 								<label for="KisiSayisi" class="form-label">&nbsp;&nbsp;&nbsp;Rezervasyon Kişi Sayısı</label>
-								<span class="validation-text" asp-validation-for="KisiSayisi"></span>
+								<span class="validation-text" asp-validation-for="Rezervasyon.KisiSayisi"></span>
 
 							</div>
 							<div class="form-floating col-md-6 mb-3">
-								<input id="Talep" asp-for="Talep" type="text" class="form-control" placeholder="">
+								<input value="@rezervasyon.Rezervasyon.Talep" id="Talep" asp-for="Rezervasyon.Talep" type="text" class="form-control" placeholder="">
 								<label for="Talep" class="form-label">&nbsp;&nbsp;&nbsp;Rezervasyon Talep</label>
-								<span class="validation-text" asp-validation-for="Talep"></span>
+								<span class="validation-text" asp-validation-for="Rezervasyon.Talep"></span>
 
 							</div>
 						</div>
@@ -203,32 +335,51 @@
 							<div class="col-md-6 mb-3">
 								<label class="form-label">Başlangıç Saat</label>
 								<div class="input-group clockpicker" data-placement="bottom" data-align="top" data-autobtn-close="true">
-									<input type="text" asp-for="BaslangicSaat" class="form-control time-mask" value="12:00">
+									<input value="@rezervasyon.Rezervasyon.BaslangicSaat" type="text" asp-for="Rezervasyon.BaslangicSaat" class="form-control time-mask">
 									<span class="input-group-text"><i class="far fa-clock"></i></span>
 								</div>
-								<span class="validation-text" asp-validation-for="BaslangicSaat"></span>
+								<span class="validation-text" asp-validation-for="Rezervasyon.BaslangicSaat"></span>
 							</div>
 							<div class="col-md-6 mb-3">
 								<label class="form-label">Bitiş Saat</label>
 								<div class="input-group clockpicker" data-placement="bottom" data-align="top" data-autobtn-close="true">
-									<input type="text" asp-for="BitisSaat" class="form-control time-mask" value="12:00">
+									<input value="@rezervasyon.Rezervasyon.BitisSaat" type="text" asp-for="Rezervasyon.BitisSaat" class="form-control time-mask">
 									<span class="input-group-text"><i class="far fa-clock"></i></span>
 								</div>
-								<span class="validation-text" asp-validation-for="BitisSaat"></span>
+								<span class="validation-text" asp-validation-for="Rezervasyon.BitisSaat"></span>
 
 							</div>
 						</div>
 						<div style="margin-bottom:14px" class="row">
 							<div class="form-floating col-md-6 mb-3">
-								<input asp-for="Tarih" id="datepicker2" class=" form-control mb-3 mb-xl-0" required>
+								<input value="@rezervasyon.Rezervasyon.Tarih" asp-for="Rezervasyon.Tarih" id="datepicker" class=" form-control mb-3 mb-xl-0 datepicker" required>
 								<label for="datepicker" class="form-label">&nbsp;&nbsp;&nbsp;Rezervasyon Tarihi</label>
-								<span class="validation-text" asp-validation-for="Tarih"></span>
+								<span class="validation-text" asp-validation-for="Rezervasyon.Tarih"></span>
 
 							</div>
+							<div class="col-md-6 mb-3">
+								<label class="form-label">Masa</label>
+								<select value="@rezervasyon.MasaId" asp-for="MasaRezervasyon.MasaId" class="default-select form-control wide w-100 required">
+									<option value=0 disabled>Masa</option>
+									@foreach (var item in Model.Masalar)
+									{
+										if (item.Id == rezervasyon.MasaId)
+										{
+											<option value="@item.Id" selected>@item.Kod</option>
+										}
+										else
+										{
+											<option value="@item.Id">@item.Kod</option>
+										}
+									}
+								</select>
+								<span class="validation-text" asp-validation-for="MasaRezervasyon.MasaId"></span>
+							</div>
 						</div>
-						<input asp-for="Gorunurluk" type="hidden" class="form-control" value=True required="">
-						<input asp-for="Onay" type="hidden" class="form-control" value=2 required="">
-						<input asp-for="TalepTarihi" type="hidden" class="form-control" value="@DateTime.Now.ToString("dd/MM/yyyy")" required="">
+						<input asp-for="MasaRezervasyon.Gorunurluk" type="hidden" class="form-control" value=True required="">
+						<input asp-for="Rezervasyon.Gorunurluk" type="hidden" class="form-control" value=True required="">
+						<input asp-for="Rezervasyon.Onay" type="hidden" class="form-control" value=2 required="">
+						<input asp-for="Rezervasyon.TalepTarihi" type="hidden" class="form-control" value="@DateTime.Now.ToString("dd/MM/yyyy")" required="">
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
@@ -256,22 +407,13 @@
 
 	<script>
 		$(function () {
-			$("#datepicker").datepicker({
+			$(".datepicker").datepicker({
 				language: 'tr',
 				format: 'dd/mm/yyyy',
 				autoclose: true,
 				todayHighlight: true
 			}).datepicker('update', new Date());
 
-		});
-
-		$(function () {
-			$("#datepicker2").datepicker({
-				language: 'tr',
-				format: 'dd/mm/yyyy',
-				autoclose: true,
-				todayHighlight: true
-			}).datepicker('update', new Date());
 		});
 
 		var input = $('.inputx').clockpicker({

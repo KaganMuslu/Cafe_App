@@ -1,5 +1,7 @@
-﻿using Cafe_App.Models;
+﻿using Cafe_App.Areas.Admin.Models;
+using Cafe_App.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cafe_App.Areas.Admin.Controllers
 {
@@ -14,29 +16,84 @@ namespace Cafe_App.Areas.Admin.Controllers
 
 		public IActionResult Index()
 		{
-			ViewBag.Rezervasyonlar = _context.Rezervasyonlar.ToList();
-			return View();
+			// Modelleri ve kategorileri ayarlayın
+			var viewModel = new RezervasyonViewModel
+			{
+				Rezervasyon = new Rezervasyon(),
+				Masa = new Masa(),
+				Kategori = new Kategori(),
+				MasaRezervasyon = new MasaRezervasyon(),
+				Rezervasyonlar = _context.Rezervasyonlar.ToList(),
+				Masalar = _context.Masalar.ToList(),
+				Kategoriler = _context.Kategoriler.Where(x => x.Tur == "Masa").ToList(),
+
+				MasaRezervasyonlar = _context.MasaRezervasyonlar
+					.Include(x => x.Masa).Include(x => x.Rezervasyon).ToList()
+			};
+			
+			return View(viewModel);
 		}
 
 		[HttpPost]
-		public IActionResult Index(Rezervasyon model)
+		public IActionResult Index(RezervasyonViewModel model)
 		{
-			if (ModelState.IsValid)
+			if (model.Rezervasyon != null)
 			{
-				_context.Rezervasyonlar.Add(model);
+				_context.Add(model.Rezervasyon);
 				_context.SaveChanges();
+				if (model.MasaRezervasyon != null)
+				{
+					model.MasaRezervasyon.RezervasyonId = model.Rezervasyon.Id;
+					_context.Add(model.MasaRezervasyon);
+				}
+			}
+			else if(model.Kategori != null)
+			{
+				_context.Add(model.Kategori);
+			}
+			else if(model.Masa != null)
+			{
+				_context.Add(model.Masa);
 			}
 
-			ViewBag.Rezervasyonlar = _context.Rezervasyonlar.ToList();
-			return View(model);
+			_context.SaveChanges();
+			return RedirectToAction("Index");
+		}
+
+
+		[AcceptVerbs("GET", "POST")]
+		public IActionResult SaatKontrol(RezervasyonViewModel model)
+		{
+			if (model.Rezervasyon.BitisSaat <= model.Rezervasyon.BaslangicSaat)
+			{
+				return Json("Rezervasyon bitiş saati başlangıç saatinden geç olmalıdır.");
+			}
+
+			return Json(true);
 		}
 
 		[AcceptVerbs("GET", "POST")]
-		public IActionResult SaatKontrol(Rezervasyon model)
+		public IActionResult TarihKontrol(RezervasyonViewModel model)
 		{
-			if (model.BitisSaat <= model.BaslangicSaat)
+			var messages = new List<string>();
+
+			// Veritabanındaki rezervasyonları kontrol etmek için sorgu
+			bool rezervasyonVarMi = _context.Rezervasyonlar
+				.Any(r => r.Tarih == model.Rezervasyon.Tarih && (
+					(model.Rezervasyon.BaslangicSaat >= r.BaslangicSaat && model.Rezervasyon.BaslangicSaat < r.BitisSaat) ||
+					(model.Rezervasyon.BitisSaat > r.BaslangicSaat && model.Rezervasyon.BitisSaat <= r.BitisSaat) ||
+					(model.Rezervasyon.BaslangicSaat <= r.BaslangicSaat && model.Rezervasyon.BitisSaat >= r.BitisSaat)
+				));
+
+			if (rezervasyonVarMi)
 			{
-				return Json("Rezervasyon bitiş saati başlangıç saatinden geç olmalıdır.");
+				messages.Add("Bu tarihte bu saatler arasında rezervasyon oluşturulmuştur.");
+			}
+
+			// Toplu olarak döndür
+			if (messages.Any())
+			{
+				return Json(messages);
 			}
 
 			return Json(true);
