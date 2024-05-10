@@ -1,0 +1,190 @@
+﻿@{
+	ViewData["Title"] = "Masa Özellik";
+}
+@model MasaOzellikViewModel
+
+<!-- CSS Ekstralar -->
+<head>
+	<link href="~/admin_panel/vendor/bootstrap-datepicker-master/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+	<link href="~/admin_panel/vendor/select2/css/select2.min.css" rel="stylesheet" />
+	<link href="~/admin_panel/vendor/datatables/css/jquery.datatables.min.css" rel="stylesheet" />
+</head>
+
+<div class="content-body">
+	<div class="container-fluid">
+		<!-- Row -->
+
+		<div class="form-head d-flex mb-3 align-items-start">
+			<div class="me-auto d-none d-lg-block">
+				<h2 class="text-primary font-w600 mb-0">Cafe App Masa Özellik</h2>
+				<p class="mb-0">Cafe App Personel Masa Özellik Ekranına Hoşgeldiniz!</p>
+			</div>
+
+			<a data-bs-toggle="modal" data-bs-target="#masaOzellikModal" style="width:max-content; display: inline-block; vertical-align: middle; margin-left:px" type="button" class="btn btn-rounded btn-primary">
+				<span class="btn-icon-start text-primary">
+					<i class="fa fa-user-plus color-primary"></i>
+				</span>Masa Özellik Ekle
+			</a>
+
+		</div>
+		<br>
+
+		<div class="filter cm-content-box box-primary">
+			<div class="content-title">
+				<div class="cpa">
+					<i class="fa-solid fa-file-lines me-1"></i>Masa Özellik Listesi
+				</div>
+				<div class="tools">
+					<a href="javascript:void(0);" class="expand SlideToolHeader"><i class="fal fa-angle-down"></i></a>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="table-responsive">
+
+					<table id="example" class="display">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>AD</th>
+								<th>GÖRÜNÜRLÜK</th>
+								<th style="width:85px;">İŞLEMLER</th>
+							</tr>
+						</thead>
+						<tbody>
+
+						@foreach (var ozellik in Model.Ozellikler)
+						{
+
+							<tr>
+								<td><b>@ozellik.Id</b></td>
+								<td>@ozellik.Ad</td>
+								@if (ozellik.Gorunurluk == true)
+								{
+									<td class="recent-stats"><i class="fa fa-circle text-success me-1"></i>Görünür</td>
+								}
+								else
+								{
+									<td class="recent-stats"><i class="fa fa-circle text-danger me-1"></i>Görünmez</td>
+								}
+
+								<td>
+									<a data-bs-toggle="modal" data-bs-target="#masaOzellikGuncelle_@ozellik.Id" class="btn btn-primary shadow btn-xs sharp rounded-circle me-1"><i class="fa fa-pencil"></i></a>
+									@if (ozellik.Gorunurluk == true)
+									{
+										<a asp-action="MasaOzellikSil" asp-route-id="@ozellik.Id" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa-solid fa-trash"></i></a>
+									}
+									else
+									{
+										<a asp-action="MasaOzellikSil" asp-route-id="@ozellik.Id" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa fa-trash-undo"></i></a>
+									}
+								</td>
+							</tr>
+
+						}
+
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="masaOzellikModal">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Özellik Ekle</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal">
+				</button>
+			</div>
+
+			<form asp-action="Index" method="post" novalidate>
+				<div class="modal-body">
+					<div style="margin-bottom:9px" class="row">
+						<div style="text-align:center; margin:auto; width: 75%;" class="row">
+							<div class="col-md-12 mb-3">
+								<label class="form-label">Özellik Adı</label>
+								<input asp-for="Ozellik.Ad" type="text" class="form-control" placeholder="" required="">
+								<span class="validation-text" asp-validation-for="Ozellik.Ad">  </span>
+
+								<input asp-for="Ozellik.Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
+								<div class="invalid-feedback">
+									Zorunlu Alan
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
+					<button type="submit" class="btn btn-primary">Kaydet</button>
+				</div>
+			</form>
+
+		</div>
+	</div>
+</div>
+
+@foreach (var ozellik in Model.Ozellikler)
+{
+	@* // Özellik düzenle *@
+	<div class="modal fade" id="masaOzellikGuncelle_@ozellik.Id">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Özellik Düzenle</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal">
+					</button>
+				</div>
+
+				<form asp-action="Index" method="post" novalidate>
+					<div class="modal-body">
+						<div style="margin-bottom:9px" class="row">
+							<div class="col-md-6 mb-3">
+								<label class="form-label">Özellik Adı</label>
+								<input asp-for="Ozellik.Ad" type="text" value="@ozellik.Ad" class="form-control">
+								<span class="validation-text" asp-validation-for="Ozellik.Ad"></span>
+
+								<input asp-for="Ozellik.Gorunurluk" type="hidden" class="form-control" value=True>
+								<input asp-for="Ozellik.Id" type="hidden" class="form-control" value=@ozellik.Id>
+
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
+						<button type="submit" class="btn btn-primary">Kaydet</button>
+					</div>
+				</form>
+
+			</div>
+		</div>
+	</div>
+}
+
+<!-- JS Ekstralar -->
+@section Scripts
+{
+	<script src="~/admin_panel/vendor/bootstrap-datepicker-master/js/bootstrap-datepicker.min.js"></script>
+	<script src="~/admin_panel/vendor/select2/js/select2.full.min.js"></script>
+	<script src="~/admin_panel/js/dashboard/cms.js"></script>
+	<script src="~/admin_panel/vendor/ckeditor/ckeditor.js"></script>
+	<script src="~/admin_panel/vendor/datatables/js/jquery.datatables.min.js"></script>
+	<script src="~/admin_panel/js/plugins-init/datatables.init.js"></script>
+
+	<script>
+		$(function () {
+			$("#datepicker").datepicker({
+				autoclose: true,
+				todayHighlight: true
+			}).datepicker('update', new Date());
+
+		});
+	</script>
+}
+
