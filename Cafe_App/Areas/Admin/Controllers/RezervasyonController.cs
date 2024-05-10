@@ -60,6 +60,28 @@ namespace Cafe_App.Areas.Admin.Controllers
 			return RedirectToAction("Index");
 		}
 
+		public IActionResult RezervasyonSil(int Id)
+		{
+			var rezervasyon = _context.Rezervasyonlar.FirstOrDefault(x => x.Id == Id);
+			if (rezervasyon != null)
+			{
+				if (rezervasyon.Gorunurluk == true)
+				{
+
+					rezervasyon.Gorunurluk = false;
+				}
+				else
+				{
+					rezervasyon.Gorunurluk = true;
+				}
+
+				_context.Update(rezervasyon);
+				_context.SaveChanges();
+			}
+
+			return RedirectToAction("Index");
+		}
+
 
 		[AcceptVerbs("GET", "POST")]
 		public IActionResult SaatKontrol(RezervasyonViewModel model)

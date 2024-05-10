@@ -103,18 +103,25 @@
 										}
 										<td>@rezervasyon.Rezervasyon.TalepTarihi</td>
 										<td>
-											@if (rezervasyon.Gorunurluk == true)
+											@if (rezervasyon.Rezervasyon.Gorunurluk == true)
+											{
+												<span class="text-success" style="font-weight:bold">Görünür</span>
+											}
+											else
+											{
+												<span class="text-danger" style="font-weight:bold">Görünmez</span>
+											}
+										</td>
+										<td>
+											<a data-bs-toggle="modal" data-bs-target="#rezervasyon_@rezervasyon.Rezervasyon.Id" class="btn btn-primary shadow btn-xs sharp rounded-circle me-1"><i class="fa fa-pencil"></i></a>
+											@if (rezervasyon.Rezervasyon.Gorunurluk == true)
 											{
 												<a asp-action="RezervasyonSil" asp-route-id="@rezervasyon.Id" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa-solid fa-trash"></i></a>
 											}
 											else
 											{
-											<a asp-action="RezervasyonSil" asp-route-id="@rezervasyon.Id" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa fa-trash-undo"></i></a>
+												<a asp-action="RezervasyonSil" asp-route-id="@rezervasyon.Id" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa fa-trash-undo"></i></a>
 											}
-										</td>
-										<td>
-										<a data-bs-toggle="modal" data-bs-target="#rezervasyon_@rezervasyon.Rezervasyon.Id" class="btn btn-primary shadow btn-xs sharp rounded-circle me-1"><i class="fa fa-pencil"></i></a>
-											<a href="javascript:void(0);" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa fa-trash"></i></a>
 										</td>
 									</tr>
 
