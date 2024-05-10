@@ -51,6 +51,7 @@
 									<th>TELEFON</th>
 									<th>ADRES</th>
 									<th>KAYIT TARİHİ</th>
+									<th>GÖRÜNÜRLÜK</th>
 									<th style="width:85px;">İŞLEMLER</th>
 								</tr>
 							</thead>
@@ -66,9 +67,25 @@
 										<td>@tedarikci.Telefon</td>
 										<td>@tedarikci.Adres</td>
 										<td>@tedarikci.KayitTarihi</td>
+											@if (tedarikci.Gorunurluk == true)
+											{
+											<td class="recent-stats"><i class="fa fa-circle text-success me-1"></i>Görünür</td>
+											}
+											else
+											{
+											<td class="recent-stats"><i class="fa fa-circle text-danger me-1"></i>Görünmez</td>
+											}
+										
 										<td>
-											<a href="javascript:void(0);" class="btn btn-primary shadow btn-xs sharp rounded-circle me-1"><i class="fa fa-pencil"></i></a>
-											<a href="javascript:void(0);" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa fa-trash"></i></a>
+										<a data-bs-toggle="modal" data-bs-target="#tedarikciGuncelle_@tedarikci.Id" class="btn btn-primary shadow btn-xs sharp rounded-circle me-1"><i class="fa fa-pencil"></i></a>
+										@if (tedarikci.Gorunurluk == true)
+										{
+											<a asp-action="RolSil" asp-route-id="@tedarikci.Id" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa-solid fa-trash"></i></a>
+										}
+										else
+										{
+											<a asp-action="RolSil" asp-route-id="@tedarikci.Id" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa fa-trash-undo"></i></a>
+										}
 										</td>
 									</tr>
 								}
@@ -147,6 +164,74 @@
 		</div>
 	</div>
 </div>
+
+@foreach (var tedarikci in ViewBag.Tedarikciler)
+{
+	<div class="modal modal-lg fade" id="tedarikciGuncelle_@tedarikci.Id">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Tedarikçi Güncelle</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal">
+					</button>
+				</div>
+
+				<form asp-action="Index" method="post" novalidate>
+					<div class="modal-body">
+						<div style="margin-bottom:14px" class="row">
+							<div class="form-floating col-md-6 mb-3">
+								<input value="@tedarikci.Firma" id="Firma" asp-for="Firma" type="text" class="form-control" placeholder="">
+								<label for="Firma" class="form-label">&nbsp;&nbsp;&nbsp;Tedarikçi Firma</label>
+								<span class="validation-text" asp-validation-for="Firma">  </span>
+
+							</div>
+							<div class="form-floating col-md-6 mb-3">
+								<input value="@tedarikci.AdSoyad" id="AdSoyad" asp-for="AdSoyad" type="text" class="form-control" placeholder="" required="">
+								<label for="AdSoyad" class="form-label">&nbsp;&nbsp;&nbsp;Tedarikçi Ad Soyad</label>
+								<span class="validation-text" asp-validation-for="AdSoyad">  </span>
+
+							</div>
+						</div>
+						<div style="margin-bottom:14px" class="row">
+							<div class="form-floating col-md-6 mb-3">
+								<input value="@tedarikci.Telefon" id="tel" asp-for="Telefon" type="text" class="form-control phone-mask" placeholder="(500)-000-00-00" required="">
+								<label for="tel" class="form-label">&nbsp;&nbsp;&nbsp;Tedarikçi Telefon</label>
+								<span class="validation-text" asp-validation-for="Telefon">  </span>
+
+							</div>
+							<div class="form-floating col-md-6 mb-3">
+								<input value="@tedarikci.Adres" id="adres" asp-for="Adres" type="text" class="form-control" placeholder="" required="">
+								<label for="adres" class="form-label">&nbsp;&nbsp;&nbsp;Tedarikçi Adres</label>
+								<span class="validation-text" asp-validation-for="Adres">  </span>
+
+							</div>
+						</div>
+						<div style="margin-bottom:14px" class="row">
+							<div class="form-floating col-md-6 mb-3">
+								<input value="@tedarikci.Eposta" id="eposta" asp-for="Eposta" type="text" class="form-control" placeholder="" required="">
+								<label for="eposta" class="form-label">&nbsp;&nbsp;&nbsp;Tedarikçi E-Posta</label>
+								<span class="validation-text" asp-validation-for="Eposta">  </span>
+
+							</div>
+							<div class="form-floating col-md-6 mb-3">
+								<input value="@tedarikci.KayitTarihi" asp-for="KayitTarihi" id="datepicker2" class=" form-control mb-3 mb-xl-0" required>
+								<label for="datepicker2" class="form-label">&nbsp;&nbsp;&nbsp;Tedarikçi Kayıt Tarihi</label>
+								<span class="validation-text" asp-validation-for="KayitTarihi">  </span>
+
+							</div>
+						</div>
+						<input asp-for="Gorunurluk" type="hidden" class="form-control" value=True required="">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
+						<button type="submit" class="btn btn-primary">Kaydet</button>
+					</div>
+				</form>
+
+			</div>
+		</div>
+	</div>
+}
 
 
 <!-- JS Ekstralar -->

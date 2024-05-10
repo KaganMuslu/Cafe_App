@@ -40,6 +40,26 @@ namespace Cafe_App.Areas.Admin.Controllers
 			return RedirectToAction("Index");
 		}
 
+		public IActionResult TedarikciSil(int Id)
+		{
+			var tedarikci = _context.Tedarikciler.FirstOrDefault(x => x.Id == Id);
+			if (tedarikci != null)
+			{
+				if (tedarikci.Gorunurluk == true)
+				{
+					tedarikci.Gorunurluk = false;
+				}
+				else
+				{
+					tedarikci.Gorunurluk = true;
+				}
+				_context.Update(tedarikci);
+				_context.SaveChanges();
+			}
+
+			return RedirectToAction("Index");
+		}
+
 		[AcceptVerbs("GET", "POST")]
 		public IActionResult TedarikciKontrol(Tedarikci model)
 		{
