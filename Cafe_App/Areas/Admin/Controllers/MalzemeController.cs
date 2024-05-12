@@ -85,15 +85,23 @@ namespace Cafe_App.Areas.Admin.Controllers
 		{
 			var messages = new List<string>();
 
-			var urunAd = _context.Malzemeler.Where(x => x.Gorunurluk == true).FirstOrDefault(x => x.Ad == model.Ad);
+			var urunAd = _context.Malzemeler.FirstOrDefault(x => x.Ad == model.Ad && x.Gorunurluk == true && x.Id != model.Id);
 
 			if (urunAd != null)
 			{
 				messages.Add("Bu ada sahip bir malzeme bulunmaktadır.");
 			}
 
-			// Toplu olarak döndür
-			if (messages.Any())
+			if (model.Stok?.MinStok != null && model.Stok?.MaxStok != null)
+			{
+				if (model.Stok.MinStok > model.Stok.MaxStok)
+				{
+					messages.Add("Maximum stok minimum stoktan büyük olmalıdır.");
+				}
+			}
+
+            // Toplu olarak döndür
+            if (messages.Any())
 			{
 				return Json(messages);
 			}

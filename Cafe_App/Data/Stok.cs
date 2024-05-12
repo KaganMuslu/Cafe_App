@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -13,10 +14,11 @@ public partial class Stok
 	[Required(ErrorMessage = "Minimum stok boş olamaz.")]
     public int MinStok { get; set; }
 
-	[Required(ErrorMessage = "Maximum stok boş olamaz.")]
+    [Required(ErrorMessage = "Maximum stok boş olamaz.")]
+	[Remote(action: "MalzemeKontrol", controller: "Malzeme", HttpMethod = "POST", AdditionalFields = nameof(MinStok) + "," + nameof(MaxStok) )]
     public int MaxStok { get; set; }
 
-	public bool Gorunurluk { get; set; }
+    public bool Gorunurluk { get; set; }
 
     public int MalzemeId { get; set; }
 
