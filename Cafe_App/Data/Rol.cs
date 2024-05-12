@@ -12,7 +12,7 @@ public partial class Rol
 
 	[Required(ErrorMessage = "Rol adı boş olamaz.")]
 	[Remote(action: "RolAdKontrol", controller: "Rol", HttpMethod = "POST", AdditionalFields = nameof(Ad))]
-    public string Ad { get; set; }
+	public string Ad { get; set; }
 
 	public bool Gorunurluk { get; set; }
 

@@ -10,7 +10,7 @@ public partial class Masa
     public int Id { get; set; }
 
 	[Required(ErrorMessage = "Masa kodu boş olmamalıdır.")]
-	[Remote(action: "MasaKontrol", controller: "Masa", HttpMethod = "POST", AdditionalFields = nameof(Kod))]
+	[Remote(action: "MasaKontrol", controller: "Masa", HttpMethod = "POST", AdditionalFields = nameof(Kod) + "," + nameof(Id))]
     public string Kod { get; set; }
 
 	public int Durum { get; set; }

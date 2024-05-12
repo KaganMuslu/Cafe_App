@@ -56,7 +56,8 @@ namespace Cafe_App.Areas.Admin.Controllers
 				}
 				else
 				{
-					// Varolan Ad Hata	
+					rol.Gorunurluk = true;
+					_context.Update(rol);
 				}
 			}
 			else
@@ -73,16 +74,24 @@ namespace Cafe_App.Areas.Admin.Controllers
 			var rol = _context.Roller.FirstOrDefault(x => x.Id == Id);
 			if (rol != null)
 			{
-				if (rol.Gorunurluk == true)
+				var rolPersoneller = _context.Personeller.Where(x => x.RolId == rol.Id && x.Gorunurluk == true).FirstOrDefault();
+				if (rolPersoneller != null)
 				{
-					rol.Gorunurluk = false;
+					// Bu role ait personel bulunduğu için rol silinemez
 				}
 				else
 				{
-					rol.Gorunurluk = true;
+					if (rol.Gorunurluk == true)
+					{
+						rol.Gorunurluk = false;
+					}
+					else
+					{
+						rol.Gorunurluk = true;
+					}
+					_context.Update(rol);
+					_context.SaveChanges();
 				}
-				_context.Update(rol);
-				_context.SaveChanges();
 			}
 
 			return RedirectToAction("Index");

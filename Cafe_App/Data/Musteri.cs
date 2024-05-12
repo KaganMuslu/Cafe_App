@@ -16,15 +16,16 @@ public partial class Musteri
 	public string Soyad { get; set; }
 
 	[Required(ErrorMessage = "Müşteri e-postası boş olmamalıdır.")]
-	[Remote(action: "MusteriKontrol", controller: "Musteri", HttpMethod = "POST", AdditionalFields = nameof(Eposta))]
+	[Remote(action: "MusteriKontrol", controller: "Musteri", HttpMethod = "POST", AdditionalFields = nameof(Eposta) + "," + nameof(Id) )]
 	public string Eposta { get; set; }
 
 	[Required(ErrorMessage = "Müşteri telefon numarası boş olmamalıdır.")]
-	[Remote(action: "MusteriKontrol", controller: "Musteri", HttpMethod = "POST", AdditionalFields = nameof(Telefon))]
+	[Remote(action: "MusteriKontrol", controller: "Musteri", HttpMethod = "POST", AdditionalFields = nameof(Telefon) + "," + nameof(Id) )]
 	public string Telefon { get; set; }
 
 	public DateOnly KayitTarihi { get; set; }
 
+	[Remote(action: "MusteriKontrol", controller: "Musteri", HttpMethod = "POST", AdditionalFields = nameof(Dogumtarihi))]
     public DateOnly Dogumtarihi { get; set; }
 
 	[Required(ErrorMessage = "Müşteri parolası boş olmamalıdır.")]

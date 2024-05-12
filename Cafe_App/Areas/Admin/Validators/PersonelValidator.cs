@@ -34,10 +34,10 @@ namespace Cafe_App.Areas.Admin.Validators
 				.NotEmpty().WithMessage("Başlama tarihi boş olmamalıdır.");
 
 			RuleFor(x => x.Cinsiyet)
-				.NotEqual("Cinsiyet").WithMessage("Cinsiyet boş olmamalıdır.");
+				.NotEqual("Cinsiyet").WithMessage("Cinsiyet seçilmelidir.");
 
 			RuleFor(x => x.RolId)
-				.NotEqual(0).WithMessage("Rol boş olmamalıdır.");
+				.NotEqual(0).WithMessage("Rol seçilmelidir.");
 
 			// Fotograf doğrulaması: Boş olmamalıdır.
 			/*RuleFor(x => x.Fotograf)

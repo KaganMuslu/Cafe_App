@@ -71,13 +71,18 @@ namespace Cafe_App.Areas.Admin.Controllers
 		{
 			var messages = new List<string>();
 
-			var musteriEposta = _context.Musteriler.FirstOrDefault(x => x.Eposta == model.Musteri.Eposta);
+			if (model.Musteri.Dogumtarihi >= DateOnly.FromDateTime(DateTime.Now))
+			{
+				messages.Add("Doğum tarihi geçmiş tarih olmalıdır.");
+			}
+
+			var musteriEposta = _context.Musteriler.FirstOrDefault(x => x.Eposta == model.Musteri.Eposta && x.Id != model.Musteri.Id && x.Gorunurluk == true);
 			if (musteriEposta != null)
 			{
 				messages.Add("Bu E-Posta ile daha önce kayıt oluşturulmuştur.");
 			}
 
-			var musteriTelefon = _context.Musteriler.FirstOrDefault(x => x.Telefon == model.Musteri.Telefon);
+			var musteriTelefon = _context.Musteriler.FirstOrDefault(x => x.Telefon == model.Musteri.Telefon && x.Id != model.Musteri.Id && x.Gorunurluk == true);
 			if (musteriTelefon != null)
 			{
 				messages.Add("Bu telefon numarası ile daha önce kayıt oluşturulmuştur.");

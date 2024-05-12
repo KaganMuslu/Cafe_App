@@ -57,5 +57,26 @@ namespace Cafe_App.Areas.Admin.Controllers
 			_context.SaveChanges();
 			return RedirectToAction("Index");
 		}
+		
+		public IActionResult MasaOzellikSil(int Id)
+		{
+			var ozellik = _context.Ozellikler.FirstOrDefault(x => x.Id == Id);
+			if (ozellik != null)
+			{
+				if (ozellik.Gorunurluk == true)
+				{
+					ozellik.Gorunurluk = false;
+				}
+				else
+				{
+					ozellik.Gorunurluk = true;
+				}
+				_context.Update(ozellik);
+				_context.SaveChanges();
+			}
+
+			return RedirectToAction("Index");
+		}
+
 	}
 }

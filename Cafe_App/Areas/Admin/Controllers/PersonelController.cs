@@ -21,7 +21,7 @@ namespace Cafe_App.Areas.Admin.Controllers
 			{
 				Personel = new Personel(),
 				Rol= new Rol(),
-				Roller = _context.Roller.ToList(),
+				Roller = _context.Roller.Where(x => x.Gorunurluk == true).ToList(),
 			    Personeller = _context.Personeller.Include(x => x.Rol).ToList()
 		    };
 
@@ -33,14 +33,13 @@ namespace Cafe_App.Areas.Admin.Controllers
         {
             if (model.Personel != null)
             {
-				
 				if (file != null)
 				{
 					var uzanti = new[] { ".jpg", ".jpeg", ".png" };
 					var resimuzanti = Path.GetExtension(file.FileName);
 					if (!uzanti.Contains(resimuzanti))
 					{
-						ModelState.AddModelError("OgrenciFotograf", "Geçerli bir fotoğraf formatı seçiniz. *jpg,jpeg,png");
+						ModelState.AddModelError("PersonelFotograf", "Geçerli bir fotoğraf formatı seçiniz. *jpg,jpeg,png");
 					}
 
 					var random = string.Format($"{Guid.NewGuid().ToString()}{Path.GetExtension(file.FileName)}");
@@ -60,10 +59,6 @@ namespace Cafe_App.Areas.Admin.Controllers
 							.Select(x => x.Fotograf)
 							.FirstOrDefault();
 					}
-					else
-					{
-						ModelState.AddModelError("OgrenciFotograf", "Fotoğraf boş olamaz");
-					}
 				}
 
 				if (model.Personel.Id == 0)
@@ -77,7 +72,16 @@ namespace Cafe_App.Areas.Admin.Controllers
 			}
 			else if (model.Rol != null)
 			{
-				_context.Roller.Add(model.Rol);
+				var rol = _context.Roller.FirstOrDefault(x => x.Ad == model.Rol.Ad);
+				if (rol != null)
+				{
+					rol.Gorunurluk = true;
+					_context.Update(rol);
+				}
+				else
+				{
+					_context.Roller.Add(model.Rol);
+				}
 			}
 
 			_context.SaveChanges();
@@ -115,13 +119,13 @@ namespace Cafe_App.Areas.Admin.Controllers
 			}
 
 			var personelEposta = _context.Personeller.Where(x => x.Gorunurluk == true).FirstOrDefault(x => x.Eposta == model.Personel.Eposta);
-			if (personelEposta != null)
+			if (personelEposta != null && personelEposta.Id != model.Personel.Id)
 			{
 				messages.Add("Bu E-Posta ile daha önce kayıt oluşturulmuştur.");
 			}
 
 			var personelTelefon = _context.Personeller.Where(x => x.Gorunurluk == true).FirstOrDefault(x => x.Telefon == model.Personel.Telefon);
-			if (personelTelefon != null)
+			if (personelTelefon != null && personelTelefon.Id != model.Personel.Id)
 			{
 				messages.Add("Bu telefon numarası ile daha önce kayıt oluşturulmuştur.");
 			}
@@ -130,6 +134,20 @@ namespace Cafe_App.Areas.Admin.Controllers
 			if (messages.Any())
 			{
 				return Json(messages);
+			}
+
+			return Json(true);
+		}
+
+
+		[AcceptVerbs("GET", "POST")]
+		public IActionResult RolAdKontrol(RolViewModel model)
+		{
+			var rol = _context.Roller.Where(x => x.Gorunurluk == true).FirstOrDefault(x => x.Ad == model.Rol.Ad);
+
+			if (rol != null)
+			{
+				return Json("Bu isimde bir rol bulunmaktadır.");
 			}
 
 			return Json(true);

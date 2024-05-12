@@ -29,7 +29,7 @@
 				</a>
 				@if (Model.Roller.Count == 0)
 				{
-					<p style="color: red; font-size: 12px; text-align: center; padding-top:3px"><i class="fa-sharp fa-solid fa-up"></i> İlk önce rol eklemelisiniz! <i class="fa-sharp fa-solid fa-up"></i></p>
+					<p style="color: red; font-size: 12px; text-align: center; padding-top:3px; margin-block:inherit"><i class="fa-sharp fa-solid fa-up"></i> İlk önce rol eklemelisiniz! <i class="fa-sharp fa-solid fa-up"></i></p>
 				}
 				else
 				{
@@ -211,12 +211,12 @@
 					<div style="margin-bottom:9px" class="row">
 						<div class="col-md-6 mb-3">
 							<label class="form-label">Doğum Tarihi</label>
-								<input style="text-align:center" asp-for="Personel.DogumTarihi" id="datepicker" class=" form-control mb-3 mb-xl-0 datepicker" required>
+								<input style="text-align:center" asp-for="Personel.DogumTarihi" class=" form-control mb-3 mb-xl-0 datepicker" required>
 								<span class="validation-text" asp-validation-for="Personel.DogumTarihi"></span>
 							</div>
 						<div class="col-md-6 mb-3">
 							<label class="form-label">Başlama Tarihi</label>
-								<input style="text-align:center" asp-for="Personel.BaslamaTarihi" id="datepicker1" class=" form-control mb-3 mb-xl-0 datepicker1" required>
+								<input style="text-align:center" asp-for="Personel.BaslamaTarihi" class=" form-control mb-3 mb-xl-0 datepicker" required>
 								<span class="validation-text" asp-validation-for="Personel.BaslamaTarihi"></span>
 							</div>
 					</div>
@@ -243,17 +243,12 @@
 
 				<form asp-action="Index" method="post" novalidate>
 					<div class="modal-body">
-						<div style="margin-bottom:9px" class="row">
-							<div class="col-md-6 mb-3">
+						<div style="text-align:center; margin:auto; width: 50%;" class="row">
+							<div class="col-md-12 mb-3">
 								<label class="form-label">Rol Adı</label>
 								<input asp-for="Rol.Ad" type="text" class="form-control" placeholder="">
 								<input asp-for="Rol.Gorunurluk" type="hidden" class="form-control" value=True>
 								<span class="validation-text" asp-validation-for="Rol.Ad">  </span>
-							</div>
-							<div class="col-md-6 mb-3">
-								<label class="form-label">Ekstra Bilgi</label>
-								<input type="text" class="form-control" placeholder="" value="">
-
 							</div>
 						</div>
 					</div>
@@ -325,7 +320,7 @@
 							<div class="col-md-4 mb-3">
 								<label for="email" class="form-label">Maaş</label>
 								<div class="input-group transparent-append">
-									<input type="number" class="form-control" asp-for="Personel.Maas" required="">
+									<input value="@personel.Maas" type="number" class="form-control" asp-for="Personel.Maas" required="">
 									<span class="input-group-text">₺</span>
 								</div>
 								<span class="text-danger" asp-validation-for="Personel.Maas"></span>
@@ -384,7 +379,8 @@
 							<div class="col-md-12 mb-3">
 								<div style="margin-bottom:9px" class="mb-3">
 									<label for="address" class="form-label">Adres</label>
-									<textarea asp-for="Personel.Adres" type="text" class="form-control">@personel.Adres</textarea>
+									@Html.TextArea("Personel.Adres", @personel.Adres, new { @class = "form-control" })
+	
 									<span class="text-danger" asp-validation-for="Personel.Adres"></span>
 
 								</div>
@@ -393,12 +389,12 @@
 						<div style="margin-bottom:9px" class="row">
 							<div class="col-md-6 mb-3">
 								<label class="form-label">Doğum Tarihi</label>
-								<input style="text-align:center" asp-for="Personel.DogumTarihi" value="@personel.DogumTarihi" id="datepicker" class=" form-control mb-3 mb-xl-0 datepicker" required>
+								<input style="text-align:center" asp-for="Personel.DogumTarihi" value="@personel.DogumTarihi" class="form-control mb-3 mb-xl-0 datepicker2" required>
 								<span class="text-danger" asp-validation-for="Personel.DogumTarihi"></span>
 							</div>
 							<div class="col-md-6 mb-3">
 								<label class="form-label">Başlama Tarihi</label>
-								<input style="text-align:center" asp-for="Personel.BaslamaTarihi" value="@personel.BaslamaTarihi" id="datepicker1" class=" form-control mb-3 mb-xl-0 datepicker1" required>
+								<input style="text-align:center" asp-for="Personel.BaslamaTarihi" value="@personel.BaslamaTarihi" class="form-control mb-3 mb-xl-0 datepicker2" required>
 								<span class="text-danger" asp-validation-for="Personel.BaslamaTarihi"></span>
 							</div>
 						</div>
@@ -438,13 +434,13 @@
 			}).datepicker('update', new Date());
 		});
 
-		$(function () {
-			$(".datepicker1").datepicker({
-				language: 'tr-TR',
-				format: 'dd/mm/yyyy',
-				autoclose: true,
-				todayHighlight: true
-			}).datepicker('update', new Date());
+		$('.datepicker2').datepicker({
+			autoclose: true,
+			todayHighlight: true,
+			format: 'dd/mm/yyyy',
+		});
+		$('.datepicker2').on('changeDate', function () {
+			$('.datepicker2').datepicker('getFormattedDate')
 		});
 
 		document.querySelector("#formFile").onchange = function () {

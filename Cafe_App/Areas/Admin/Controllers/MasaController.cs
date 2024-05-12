@@ -168,7 +168,7 @@ namespace Cafe_App.Areas.Admin.Controllers
 		{
 			var messages = new List<string>();
 
-			var masaKod = _context.Masalar.Where(x => x.Gorunurluk == true).FirstOrDefault(x => x.Kod == model.Masa.Kod);
+			var masaKod = _context.Masalar.FirstOrDefault(x => x.Kod == model.Masa.Kod && x.Gorunurluk == true && x.Id != model.Masa.Id);
 			if (masaKod != null)
 			{
 				messages.Add("Bu kod ile daha önce masa oluşturulmuştur.");
