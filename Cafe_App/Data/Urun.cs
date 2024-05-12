@@ -10,7 +10,7 @@ public partial class Urun
     public int Id { get; set; }
 
 	[Required(ErrorMessage = "Ürün adı boş olamaz.")]
-	[Remote(action: "UrunKontrol", controller: "Urun", HttpMethod = "POST", AdditionalFields = nameof(Ad))]
+	[Remote(action: "UrunKontrol", controller: "Urun", HttpMethod = "POST", AdditionalFields = nameof(Ad) + "," + nameof(Id) )]
     public string Ad { get; set; }
 
 	public string? Aciklama { get; set; }

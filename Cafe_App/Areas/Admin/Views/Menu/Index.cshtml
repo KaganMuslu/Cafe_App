@@ -388,27 +388,26 @@
 							<input id="Fiyat" asp-for="Menu.Fiyat" type="number" class="form-control" placeholder="">
 							<label for="Fiyat" class="form-label">&nbsp;&nbsp;&nbsp;Menü Fiyat</label>
 								<span class="validation-text" asp-validation-for="Menu.Fiyat"></span>
-
 						</div>
-					</div>
-					<div style="margin-bottom:14px" class="row">
+
 						<div class="col-md-6 mb-3">
 							<input asp-for="Menu.Fotograf" id="formFile" class="form-control" name="file" type="file">
-								<span class="validation-text" asp-validation-for="Menu.Fotograf"></span>
-
-						</div>
-						<div class="col-md-6 mb-3">
-							<select id="KategoriId" asp-for="Menu.KategoriId" class="default-select form-control wide w-100 required">
-								<option value=0 disabled selected>Menü Kategori</option>
-								@foreach (var item in Model.Kategoriler)
-								{
-									<option value="@item.Id">@item.Ad</option>
-								}
-							</select>
-								<span class="validation-text" asp-validation-for="Menu.KategoriId"></span>
-
+							<span class="validation-text" asp-validation-for="Menu.Fotograf"></span>
 						</div>
 					</div>
+						<div style="text-align:center; margin:auto; width: 50%;" class="row">
+						
+							<div class="col-md-12 mb-3">
+								<select id="KategoriId" asp-for="Menu.KategoriId" class="default-select form-control wide w-100 required">
+									<option value=0 disabled selected>Menü Kategori</option>
+									@foreach (var item in Model.Kategoriler)
+									{
+										<option value="@item.Id">@item.Ad</option>
+									}
+								</select>
+									<span class="validation-text" asp-validation-for="Menu.KategoriId"></span>
+							</div>
+						</div>
 					<input asp-for="Menu.Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
 					<input asp-for="Menu.Akitf" type="hidden" class="form-control" placeholder="" value=True required="">
 				</div>
@@ -498,15 +497,15 @@ else
 								<label for="Fiyat" class="form-label">&nbsp;&nbsp;&nbsp;Menü Fiyat</label>
 								<span class="validation-text" asp-validation-for="Menu.Fiyat"></span>
 
-							</div>
-						</div>
-						<div style="margin-bottom:14px" class="row">
+                            </div>
 							<div class="col-md-6 mb-3">
-								<input asp-for="Menu.Fotograf" value="@menu.Fotograf" id="formFile" class="form-control" name="file" type="file">
-								<span class="validation-text" asp-validation-for="Menu.Fotograf"></span>
+                                <input asp-for="Menu.Fotograf" value="@menu.Fotograf" id="formFile" class="form-control" name="file" type="file">
+                                <span class="validation-text" asp-validation-for="Menu.Fotograf"></span>
 
-							</div>
-							<div class="col-md-6 mb-3">
+                            </div>
+						</div>
+						<div style="text-align:center; margin:auto; width: 50%;" class="row">
+							<div class="col-md-12 mb-3">
 								<select id="KategoriId" asp-for="Menu.KategoriId" class="default-select form-control wide w-100 required">
 									<option disabled>Menü Kategori</option>
 									@foreach (var item in Model.Kategoriler)
@@ -525,9 +524,9 @@ else
 
 							</div>
 						</div>
-						<input asp-for="Menu.Gorunurluk" type="hidden" class="form-control" placeholder="" value=True required="">
-						<input asp-for="Menu.Akitf" type="hidden" class="form-control" placeholder="" value=True required="">
-						<input asp-for="Menu.Id" type="hidden" class="form-control" placeholder="" value=@menu.Id required="">
+						<input asp-for="Menu.Gorunurluk" type="hidden" class="form-control" placeholder="" value=True>
+						<input asp-for="Menu.Akitf" type="hidden" class="form-control" placeholder="" value=True>
+						<input asp-for="Menu.Id" type="hidden" class="form-control" placeholder="" value=@menu.Id>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>

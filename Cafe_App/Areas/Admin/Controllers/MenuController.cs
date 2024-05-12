@@ -234,7 +234,7 @@ namespace Cafe_App.Areas.Admin.Controllers
 		{
 			var messages = new List<string>();
 
-			var menuAd = _context.Menuler.Where(x => x.Gorunurluk == true).FirstOrDefault(x => x.Ad == model.Menu.Ad);
+			var menuAd = _context.Menuler.FirstOrDefault(x => x.Ad == model.Menu.Ad && x.Gorunurluk == true && x.Id != model.Menu.Id);
 
 			if (menuAd != null)
 			{

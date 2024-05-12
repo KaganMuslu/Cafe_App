@@ -190,7 +190,7 @@ namespace Cafe_App.Areas.Admin.Controllers
 		{
 			var messages = new List<string>();
 
-			var urunAd = _context.Urunler.Where(x => x.Gorunurluk == true).FirstOrDefault(x => x.Ad == model.Urun.Ad);
+			var urunAd = _context.Urunler.FirstOrDefault(x => x.Ad == model.Urun.Ad && x.Gorunurluk == true && x.Id != model.Urun.Id);
 
 			if (urunAd != null)
 			{

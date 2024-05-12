@@ -10,7 +10,7 @@ public partial class Menu
     public int Id { get; set; }
 
 	[Required(ErrorMessage = "Menü adı boş olamaz.")]
-	[Remote(action: "MenuKontrol", controller: "Menu", HttpMethod = "POST", AdditionalFields = nameof(Ad))]
+	[Remote(action: "MenuKontrol", controller: "Menu", HttpMethod = "POST", AdditionalFields = nameof(Ad) + "," + nameof(Id) )]
     public string Ad { get; set; }
 
 	public string? Aciklama { get; set; }
