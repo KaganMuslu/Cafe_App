@@ -25,11 +25,14 @@ namespace Cafe_App.Areas.Admin.Controllers
 			{
 				Masa = new Masa(),
 				Kategori = new Kategori(),
-				Kategoriler = _context.Kategoriler.Where(x => x.Tur == "Masa").ToList(),
+				Kategoriler = _context.Kategoriler.Where(x => x.Tur == "Masa" && x.Gorunurluk == true).ToList(),
+				MasaOzellikler = _context.MasaOzellikler.Where(x => x.Gorunurluk == true).ToList(),
+				Ozellikler = _context.Ozellikler.Where(x => x.Gorunurluk == true).ToList(),
 
 				Masalar = _context.Masalar
 					.Include(x => x.MasaSipariss).ThenInclude(x => x.Siparis).ThenInclude(x => x.SiparisMenuler).ThenInclude(x => x.Menu)
 					.Include(x => x.MasaSipariss).ThenInclude(x => x.Siparis).ThenInclude(x => x.SiparisUrunler).ThenInclude(x => x.Urun)
+					.Include(x => x.MasaOzellikler).ThenInclude(x => x.Ozellik)
 					.Include(x => x.Kategori).ToList()
 			};
 
@@ -159,6 +162,36 @@ namespace Cafe_App.Areas.Admin.Controllers
 			}
 
 			_context.SaveChanges();
+			return RedirectToAction("Index");
+		}
+
+		[HttpPost]
+		public IActionResult MasaOzellikSec(MasaViewModel model)
+		{
+			if (model.SecilenOzellikler != null)
+			{
+				var masaOzelliklerEski = _context.MasaOzellikler.Where(x => x.MasaId == model.Masa.Id).ToList();
+				foreach (var eskOzellik in masaOzelliklerEski)
+				{
+					_context.Remove(eskOzellik);
+				}
+
+				foreach (var ozellikId in model.SecilenOzellikler)
+				{
+					var masaOzellik = new MasaOzellik
+					{
+						OzellikId = ozellikId,
+						MasaId = model.Masa.Id,
+						Gorunurluk = true
+					};
+
+					_context.Add(masaOzellik);
+					
+				}
+
+				_context.SaveChanges();
+			}
+
 			return RedirectToAction("Index");
 		}
 

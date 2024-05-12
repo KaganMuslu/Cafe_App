@@ -1464,7 +1464,7 @@ namespace Cafe_App.Migrations
             modelBuilder.Entity("Cafe_App.Models.MasaOzellik", b =>
                 {
                     b.HasOne("Cafe_App.Models.Masa", "Masa")
-                        .WithMany("MasaOzelliks")
+                        .WithMany("MasaOzellikler")
                         .HasForeignKey("MasaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1842,7 +1842,7 @@ namespace Cafe_App.Migrations
 
             modelBuilder.Entity("Cafe_App.Models.Masa", b =>
                 {
-                    b.Navigation("MasaOzelliks");
+                    b.Navigation("MasaOzellikler");
 
                     b.Navigation("MasaSipariss");
                 });

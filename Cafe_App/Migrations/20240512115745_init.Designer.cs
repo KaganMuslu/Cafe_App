@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cafe_App.Migrations
 {
     [DbContext(typeof(IdentityDataContext))]
-    [Migration("20240510064241_init")]
+    [Migration("20240512115745_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -1467,7 +1467,7 @@ namespace Cafe_App.Migrations
             modelBuilder.Entity("Cafe_App.Models.MasaOzellik", b =>
                 {
                     b.HasOne("Cafe_App.Models.Masa", "Masa")
-                        .WithMany("MasaOzelliks")
+                        .WithMany("MasaOzellikler")
                         .HasForeignKey("MasaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1845,7 +1845,7 @@ namespace Cafe_App.Migrations
 
             modelBuilder.Entity("Cafe_App.Models.Masa", b =>
                 {
-                    b.Navigation("MasaOzelliks");
+                    b.Navigation("MasaOzellikler");
 
                     b.Navigation("MasaSipariss");
                 });

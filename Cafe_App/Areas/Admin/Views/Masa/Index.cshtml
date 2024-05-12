@@ -74,6 +74,18 @@
 
 								</div>
 								<ul class="list-group list-group-flush">
+									@{
+										string ozellikler = "";
+										foreach (var ozellik in masa.MasaOzellikler)
+										{
+											ozellikler += ozellik.Ozellik.Ad + ", ";
+										}
+										if (ozellikler.Length > 0)
+										{
+											// Son virgülü kaldır
+											ozellikler = ozellikler.Substring(0, ozellikler.Length - 2);
+										}
+									}
 									<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Kapasite</span> <strong class="text-muted">@masa.Kapasite	</strong></li>
 									<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Toplam Tutar</span> <strong class="text-muted">@masa.Tutar	</strong></li>
 									<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Ödenen Tutar</span> <strong class="text-muted">@masa.OdenenTutar </strong></li>
@@ -81,6 +93,8 @@
 									{
 										case 1 :
 											<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Müsaitlik Durumu</span> <strong class="text-success">Boş Masa </strong></li>
+											<h5 class="mt-3 text-center">Özellikler</h5>
+											<h6 class="text-muted text-center">@ozellikler</h6>
 											<li style="padding: 20px;">
 												<div class="row">
 													<div class="col">
@@ -229,62 +243,53 @@
 @foreach (var masa in Model.Masalar)
 {
 	<div class="modal modal-lg fade" id="ozellik_@masa.Id" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="imageModalLabel">Masa Bilgilerini Düzenle</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<form asp-action="MasaGuncelle" method="post" novalidate>
-				<div class="modal-body">
-					<div style="margin-bottom:14px" class="row">
-						<div class="form-floating col-md-6 mb-3">
-							<input id="kod" asp-for="Masa.Kod" value="@masa.Kod" type="text" class="form-control" placeholder="">
-							<label for="kod" class="form-label">&nbsp;&nbsp;&nbsp;Masa Kod</label>
-							<span class="validation-text" asp-validation-for="Masa.Kod"></span>
-
-						</div>
-						<div class="form-floating col-md-6 mb-3">
-							<input id="Kapasite" asp-for="Masa.Kapasite" value="@masa.Kapasite" type="text" class="form-control" placeholder="" required="">
-							<label for="Kapasite" class="form-label">&nbsp;&nbsp;&nbsp;Masa Kapasite</label>
-							<span class="validation-text" asp-validation-for="Masa.Kapasite"></span>
-
+		<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="imageModalLabel">Masa Özelliklerini Seç</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<form asp-action="MasaOzellikSec" method="post" novalidate>
+					<div class="modal-body">
+					
+						<div style="text-align:center; margin:auto; width: 75%;" class="row">
+							<div class="form-floating col-md-12 mb-3">
+								<label class="form-label text-center">@masa.Kod kodlu masaya ait özellikleri seç</label>
+								<br>
+								<select asp-for="SecilenOzellikler" multiple class="default-select form-control wide mt-3">
+									@foreach (var item in Model.Ozellikler)
+									{
+										bool ozellikSecili = false;
+										foreach (var masaozellik in masa.MasaOzellikler)
+										{
+											if (masaozellik.Ozellik.Id == item.Id)
+											{
+												<option value="@item.Id" selected>@item.Ad</option>
+												ozellikSecili = true;
+												break; // Eşleşme bulunduğunda döngüyü kır
+											}
+										}
+										// Eğer eşleşme bulunamadıysa, seçilmemiş bir seçenek ekle
+										if (!ozellikSecili)
+										{
+											<option value="@item.Id">@item.Ad</option>
+										}
+									}
+								</select>
+								<span class="validation-text" asp-validation-for="Masa.KategoriId"></span>
+							</div>
 						</div>
 					</div>
-					<div style="margin-bottom:14px" class="row">
-						<div class="form-floating col-md-6 mb-3">
-							<select id="KategoriId" asp-for="Masa.KategoriId" class="default-select form-control wide w-100 required">
-								<option disabled>Masa Kategori</option>
-								@foreach (var item in Model.Kategoriler)
-								{
-									if (item.Id == @masa.KategoriId)
-									{
-										<option value="@item.Id" selected>@item.Ad</option>
-									}
-									else
-									{
-										<option value="@item.Id">@item.Ad</option>
-									}
-								}
-							</select>
-							<span class="validation-text" asp-validation-for="Masa.KategoriId"></span>
-						</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
+						<button type="submit" class="btn btn-primary">Kaydet</button>
 					</div>
-					<input asp-for="Masa.Gorunurluk" type="hidden" class="form-control" value=True>
-					<input asp-for="Masa.Durum" type="hidden" class="form-control" value=1>
-					<input asp-for="Masa.Tutar" type="hidden" class="form-control" value=0>
-					<input asp-for="Masa.OdenenTutar" type="hidden" class="form-control" value=0>
-					<input asp-for="Masa.Id" type="hidden" value="@masa.Id" class="form-control">
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
-					<button type="submit" class="btn btn-primary">Kaydet</button>
-				</div>
+					<input type="hidden" asp-for="Masa.Id" value=@masa.Id>
 			</form>
 
 		</div>
+		</div>
 	</div>
-</div>
 }
 
 @* Masa Düzenleme ve Bilgileri *@

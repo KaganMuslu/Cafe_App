@@ -31,11 +31,12 @@ public partial class Masa
 
 	public bool Gorunurluk { get; set; }
 
-	public ICollection<MasaOzellik> MasaOzelliks { get; set; } = new List<MasaOzellik>();
-
 	public ICollection<MasaSiparis> MasaSipariss { get; set; } = new List<MasaSiparis>();
 
     public Personel? Personel { get; set; }
 
     public Kategori? Kategori { get; set; }
+
+	public ICollection<MasaOzellik> MasaOzellikler { get; set; } = new List<MasaOzellik>();
+
 }
