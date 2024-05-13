@@ -1,7 +1,9 @@
-﻿using Cafe_App.Areas.Admin.Models;
+﻿using Cafe_App.Areas.Admin.Data;
+using Cafe_App.Areas.Admin.Models;
 using Cafe_App.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace Cafe_App.Areas.Admin.Controllers
@@ -155,58 +157,30 @@ namespace Cafe_App.Areas.Admin.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult UrunSec(int menuId, List<string> secilenUrunler)
+		public IActionResult UrunSec(int menuId, string secilenUrunler)
 		{
-			if (menuId <= 0 || secilenUrunler == null || secilenUrunler.Count == 0)
+			var menu = JsonConvert.DeserializeObject<List<Uruns>>(secilenUrunler);
+
+			var sorgu = _context.MenuUrunler.Where(x => x.MenuId == menuId).ToList();
+			foreach (var sorguSil in sorgu)
 			{
-				// Hata durumu işlemleri
-				return RedirectToAction("Index");
+				_context.Remove(sorguSil);
 			}
 
-			var malzemeler = secilenUrunler[0];
-
-			JArray malzemeArray = JArray.Parse(malzemeler);
-
-			foreach (var malzeme in malzemeArray)
+			foreach (var item in menu)
 			{
-				// İlk öğeyi alıyoruz
-				JObject ilkUrun = (JObject)malzeme;
+				var urunSec = _context.Urunler.FirstOrDefault(x => x.Id == item.UrunId);
 
-				// Malzeme ve miktarını alıyoruz
-				string urunAdi = ilkUrun.Properties().First().Name;
-				int miktar = (int)ilkUrun[urunAdi];
-
-				var urunSec = _context.Urunler.FirstOrDefault(x => x.Ad == urunAdi);
-
-				var sorgu = _context.MenuUrunler.FirstOrDefault(x => x.MenuId == menuId && x.UrunId == urunSec.Id);
-
-				if (sorgu == null)
+				if (urunSec != null)
 				{
-					var menuUrun = new MenuUrun
+					_context.MenuUrunler.Add(new MenuUrun
 					{
 						MenuId = menuId,
 						UrunId = urunSec.Id,
-						Miktar = miktar,
-						Gorunurluk = true // Varsayılan olarak görünürlük true olarak ayarlanabilir
-					};
-
-					_context.MenuUrunler.Add(menuUrun);
+						Miktar = int.Parse(item.Miktar),
+						Gorunurluk = true
+					});
 				}
-				else if (sorgu.Gorunurluk == false)
-				{
-					sorgu.Miktar = miktar;
-					sorgu.Gorunurluk = true;
-				}
-				else if (sorgu.Miktar != miktar)
-				{
-					sorgu.Miktar = miktar;
-				}
-				else
-				{
-					// Hata gönder bu malzeme zaten ekli!: Malzeme adı
-					break;
-				}
-
 			}
 
 			_context.SaveChanges();

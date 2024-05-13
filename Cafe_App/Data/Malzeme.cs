@@ -22,4 +22,5 @@ public partial class Malzeme
     public bool Gorunurluk { get; set; }
 
 	public Stok? Stok { get; set; }
+
 }

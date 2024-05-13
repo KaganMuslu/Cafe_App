@@ -15,5 +15,7 @@ namespace Cafe_App.Areas.Admin.Models
         public List<UrunMalzeme> UrunMalzemeler { get; set; }
 
         public List<Kategori> Kategoriler { get; set; }
-    }
+
+		public string SecilenMalzemeler { get; set; }
+	}
 }

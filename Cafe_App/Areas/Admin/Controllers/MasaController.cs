@@ -90,6 +90,27 @@ namespace Cafe_App.Areas.Admin.Controllers
 			return RedirectToAction("Index");
 		}
 
+		public IActionResult MasaSil(int Id)
+		{
+			var masa = _context.Masalar.FirstOrDefault(x => x.Durum == 1 && x.Id == Id);
+			if (masa != null)
+			{
+				if (masa.Gorunurluk == true)
+				{
+					masa.Gorunurluk = false;
+				}
+				else
+				{
+					masa.Gorunurluk = true;
+				}
+				_context.Update(masa);
+				_context.SaveChanges();
+				
+			}
+
+			return RedirectToAction("Index");
+		}
+
 		[HttpGet]
 		public IActionResult MasaBilgiler(int masaId)
 		{

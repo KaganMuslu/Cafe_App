@@ -88,7 +88,7 @@
 										<td class="recent-stats"><i class="fa fa-circle text-danger me-1"></i>Görünmez</td>
 									}
 									<td>
-										<a data-bs-toggle="modal" data-bs-target="#menüMalzemeModal" data-menuid="@menu.Id" class="btn btn-warning shadow btn-xs sharp rounded-circle me-1"><i class="fa fa-wheat"></i></a>
+										<a data-bs-toggle="modal" data-bs-target="#menüMalzemeModal_@menu.Id" data-menuid="@menu.Id" class="btn btn-warning shadow btn-xs sharp rounded-circle me-1"><i class="fa fa-wheat"></i></a>
 										<a data-bs-toggle="modal" data-bs-target="#menüDüzenle_@menu.Id" class="btn btn-primary shadow btn-xs sharp rounded-circle me-1"><i class="fa fa-pencil"></i></a>
 										@if (menu.Gorunurluk == true)
 										{
@@ -280,70 +280,7 @@
 									</div>
 								</div>
 
-								@* Ürün Seç *@
-								<div class="modal modal-md fade" id="menüMalzemeModal">
-									<div class="modal-dialog modal-dialog-centered" role="document">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h5 class="modal-title">Ürünleri Seç</h5>
-												<button type="button" class="btn-close" data-bs-dismiss="modal">
-												</button>
-											</div>
-											<form asp-action="UrunSec" method="post" novalidate>
-												<input type="hidden" name="menuId" id="menuId" value="menuId">
-												<input type="hidden" name="secilenUrunler" id="secilenUrunler" value="">
-												<div class="modal-body">
-													<div id="DZ_W_Todo4" class="widget-media dz-scroll" style="height:280px; padding:20px">
-														<ul class="timeline">
-															@foreach (var item in Model.Urunler)
-															{
-																<li>
-																	<div class="timeline-panel">
-																		@foreach (var menuUrun in Model.MenuUrunler)
-																		{
-																			if (menuUrun.MenuId == menu.Id && item.Id == menuUrun.UrunId)
-																			{
-																				<div class="form-check custom-checkbox checkbox-success check-lg me-3">
-																					<input type="checkbox" class="form-check-input toggleInput" checked>
-																				</div>
-																				<div class="media-body">
-																					<h5 class="form-check-label">@item.Ad</h5>
-																					<small class="text-muted"><strong class="text-success">₺@item.Fiyat</strong></small>
-																				</div>
-																				<div class="dropdown">
-																					<input type="text" value="@menuUrun.Miktar" class="form-control mb-3 mb-xl-0 miktarInput" placeholder="Miktar">
-																				</div>
-																			}
-																			else
-																			{
-																				<div class="form-check custom-checkbox checkbox-success check-lg me-3">
-																					<input type="checkbox" class="form-check-input toggleInput">
-																				</div>
-																				<div class="media-body">
-																					<h5 class="form-check-label">@item.Ad</h5>
-																					<small class="text-muted"><strong class="text-success">₺@item.Fiyat</strong></small>
-																				</div>
-																				<div class="dropdown">
-																					<input type="text" class="form-control mb-3 mb-xl-0 miktarInput" placeholder="Miktar" style="display: none;">
-																				</div>
-																			}
-																		}
-																		<input type="hidden" name="UrunId" value="@item.Id" />
-																	</div>
-																</li>
-															}
-														</ul>
-													</div>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
-													<button type="submit" class="btn btn-primary">Kaydet</button>
-												</div>
-											</form>
-
-										</div>
-									</div>
-								</div>
+								
 							}
 
 						</tbody>
@@ -463,6 +400,55 @@ else
 }
 </div>
 
+@* Ürün Seç *@
+@foreach (var menu in Model.Menuler)
+{
+	<div class="modal modal-md fade" id="menüMalzemeModal_@menu.Id">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Ürünleri Seç</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+				</div>
+				<form action="@Url.Action("UrunSec")" method="post" class="urunForm">
+					<div class="modal-body">
+						@foreach (var item in Model.Urunler)
+						{
+							<div class="form-check">
+								@{
+									// Ürünün menülerle ilişkilendirilip ilişkilendirilmediğini kontrol ediyoruz
+									var menuUrun = Model.MenuUrunler.FirstOrDefault(mu => mu.UrunId == item.Id && mu.MenuId == menu.Id);
+									if (menuUrun != null)
+									{
+										<input type="checkbox" class="form-check-input" value="@item.Id" checked>
+										<label class="form-check-label">@item.Ad - <strong class="text-success">₺@item.Fiyat</strong></label>
+										<input type="number" class="form-control" name="miktar" placeholder="Miktar" value="@menuUrun.Miktar">
+									}
+									else
+									{
+										<input type="checkbox" class="form-check-input custom-checkbox checkbox-success" value="@item.Id">
+										<label class="form-check-label">@item.Ad - <strong class="text-success">₺@item.Fiyat</strong></label>
+										<input type="number" class="form-control" name="miktar" placeholder="Miktar" style="display:none;">
+									}
+								}
+							</div>
+						}
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
+						<button type="button" class="btn btn-primary submitBtn">Kaydet</button>
+					</div>
+
+					<input type="hidden" name="menuId" value="@menu.Id" />
+					<input asp-for="@Model.SecilenUrunler" class="secilenUrun" type="hidden" />
+
+				</form>
+			</div>
+		</div>
+	</div>
+}
+
 @* Menü Düzenle *@
 @foreach (var menu in Model.Menuler)
 {
@@ -572,45 +558,31 @@ else
 
 		});
 
-		$(document).ready(function () {
-
-			$('a[data-bs-toggle="modal"]').on('click', function () {
-				var menuId = $(this).data('menuid');
-				$('#menuId').val(menuId);
-			});
-
-			// Kaydet butonuna tıklandığında
-			$('#menüMalzemeModal').on('click', '.btn-primary', function () {
-				// Seçilen ürünlere ait miktar inputlarını al
-				var secilenUrunler = [];
-				$('.toggleInput:checked').each(function () {
-					var miktarInput = $(this).closest('.timeline-panel').find('.dropdown .form-control');
-					var miktar = miktarInput.val().trim();
-					if (miktar !== '') {
-						var urunAdi = $(this).closest('.timeline-panel').find('.form-check-label').text().trim();
-						var urunObjesi = {};
-						urunObjesi[urunAdi] = parseInt(miktar);
-						secilenUrunler.push(urunObjesi);
-					}
-				});
-
-				// Seçilen ürünlerin bilgilerini hidden inputa ekle
-				$('#secilenUrunler').val(JSON.stringify(secilenUrunler));
-			});
-
-
-			// JavaScript kullanarak inputları göster/gizle
-			document.querySelectorAll('.toggleInput').forEach(function (checkbox) {
-				checkbox.addEventListener('change', function () {
-					var input = this.closest('.timeline-panel').querySelector('input[type="text"]');
-					if (this.checked) {
-						input.style.display = 'block';
-					} else {
-						input.style.display = 'none';
-					}
-				});
-			});
+		$('input[type="checkbox"]').change(function () {
+			var input = $(this).siblings('input[name="miktar"]');
+			if ($(this).is(':checked')) {
+				input.show();
+			} else {
+				input.hide();
+			}
 		});
+
+		$('.submitBtn').click(function (e) {
+			e.preventDefault();
+			var secilenUrunler = [];
+			var form = $(this).closest('form'); // Bu butona ait formu bul
+			form.find('input[type="checkbox"]:checked').each(function () { // Form içindeki seçili checkboxları bul
+				var urunId = $(this).val();
+				var miktar = $(this).siblings('input[name="miktar"]').val();
+				secilenUrunler.push({ UrunId: urunId, Miktar: miktar });
+			});
+			var jsonData = JSON.stringify(secilenUrunler);
+			form.find(".secilenUrun").val(jsonData);
+			form.submit();
+		});
+
+
+
 
 		// Fotoğraf
 		document.querySelector("#formFile").onchange = function () {

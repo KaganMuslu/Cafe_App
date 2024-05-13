@@ -1,7 +1,9 @@
-﻿using Cafe_App.Areas.Admin.Models;
+﻿using Cafe_App.Areas.Admin.Data;
+using Cafe_App.Areas.Admin.Models;
 using Cafe_App.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 
@@ -89,6 +91,26 @@ namespace Cafe_App.Areas.Admin.Controllers
 			return RedirectToAction("Index");
 		}
 
+		public IActionResult MalzemeSecilebilir(int urunId, int malzemeId)
+		{
+			var urunMalzeme = _context.UrunMalzemeler.FirstOrDefault(x => x.UrunId == urunId && x.MalzemeId == malzemeId);
+			if (urunMalzeme != null)
+			{
+				if (urunMalzeme.Secenek == true)
+				{
+					urunMalzeme.Secenek = false;
+				}
+				else
+				{
+					urunMalzeme.Secenek = true;
+				}
+
+				_context.SaveChanges();
+			}
+
+			return RedirectToAction("Index");
+		}
+
 		public IActionResult UrunSil(int Id)
 		{
 			var urun = _context.Urunler.FirstOrDefault(x => x.Id == Id);
@@ -110,65 +132,37 @@ namespace Cafe_App.Areas.Admin.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult MalzemeSec(int urunId, List<string> secilenMalzemeler)
+		public IActionResult MalzemeSec(int urunId, string secilenMalzemeler)
 		{
-			if (urunId <= 0 || secilenMalzemeler == null || secilenMalzemeler.Count == 0)
+			var urun = JsonConvert.DeserializeObject<List<Malzemelers>>(secilenMalzemeler);
+
+			var sorgu = _context.UrunMalzemeler.Where(x => x.UrunId == urunId).ToList();
+			foreach (var sorguSil in sorgu)
 			{
-				// Hata durumu işlemleri
-				return RedirectToAction("Index");
+				_context.Remove(sorguSil);
 			}
 
-			var malzemeler = secilenMalzemeler[0];
-
-			JArray malzemeArray = JArray.Parse(malzemeler);
-
-			foreach (var malzeme in malzemeArray)
+			foreach (var item in urun)
 			{
-				// İlk öğeyi alıyoruz
-				JObject ilkMalzeme = (JObject)malzeme;
+				var malzemeSec = _context.Malzemeler.FirstOrDefault(x => x.Id == item.MalzemeId);
 
-				// Malzeme ve miktarını alıyoruz
-				string malzemeAdi = ilkMalzeme.Properties().First().Name;
-				int miktar = (int)ilkMalzeme[malzemeAdi];
-
-				var malzemeSec = _context.Malzemeler.FirstOrDefault(x => x.Ad == malzemeAdi);
-
-				var sorgu = _context.UrunMalzemeler.FirstOrDefault(x => x.UrunId == urunId && x.MalzemeId == malzemeSec.Id);
-
-				if(sorgu == null)
+				if (malzemeSec != null)
 				{
-					var urunMalzeme = new UrunMalzeme
+					_context.UrunMalzemeler.Add(new UrunMalzeme
 					{
 						UrunId = urunId,
 						MalzemeId = malzemeSec.Id,
-						Miktar = miktar,
-						Secenek = true,
-						Gorunurluk = true // Varsayılan olarak görünürlük true olarak ayarlanabilir
-					};
-
-					_context.UrunMalzemeler.Add(urunMalzeme);
+						Miktar = int.Parse(item.Miktar),
+						Gorunurluk = true
+					});
 				}
-				else if (sorgu.Gorunurluk == false)
-				{
-					sorgu.Miktar = miktar;
-					sorgu.Gorunurluk = true;
-				}
-				else if (sorgu.Miktar != miktar)
-				{
-					sorgu.Miktar = miktar;
-				}
-				else
-				{
-					// Hata gönder bu malzeme zaten ekli!: Malzeme adı
-					break;
-				}
-				
 			}
-			
+
 			_context.SaveChanges();
 
 			return RedirectToAction("Index");
 		}
+
 
 		public IActionResult MalzemeSil(int Id, int malzemeId)
 		{

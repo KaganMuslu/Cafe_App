@@ -89,6 +89,14 @@
 									<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Kapasite</span> <strong class="text-muted">@masa.Kapasite	</strong></li>
 									<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Toplam Tutar</span> <strong class="text-muted">@masa.Tutar	</strong></li>
 									<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Ödenen Tutar</span> <strong class="text-muted">@masa.OdenenTutar </strong></li>
+									@if (masa.Gorunurluk == true)
+									{
+										<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Görünürlük</span> <strong class="text-success">Görünür</strong></li>
+									}
+									else
+									{
+										<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Görünürlük</span> <strong class="text-danger">Görünmez</strong></li>
+									}
 									@switch (masa.Durum)
 									{
 										case 1 :
@@ -106,6 +114,13 @@
 														<a data-bs-toggle="modal" data-bs-target="#ozellik_@masa.Id" data-masaId="@masa.Id" class="btn btn-info btn-lg btn-block">
 															<i class="fa-sharp fa-solid fa-circle-star"></i>Özellik
 														</a>
+													</div>
+												</div>
+												<div class="row mt-2">
+													<div class="col">
+													<a asp-action="MasaSil" asp-route-Id="@masa.Id" class="btn btn-danger btn-lg btn-block">
+														<i class="fa-solid fa-trash"></i> Sil
+													</a>
 													</div>
 												</div>
 											</li>
