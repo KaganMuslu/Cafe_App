@@ -72,7 +72,7 @@
 								{
 
 									<tr>
-										<th><a data-bs-toggle="modal" data-bs-target="#urun_@urun.Id" class="btn btn-success shadow btn-xs sharp me-1" type="button"><i class="fas fa-info"></i></a></th>
+										<td><a data-bs-toggle="modal" data-bs-target="#urun_@urun.Id" class="btn btn-success shadow btn-xs sharp me-1" type="button"><i class="fas fa-info"></i></a></td>
 										
 										<th>@urun.Id</th>
 										<td><div class="d-flex align-items-center"><img src="~/img/@urun.Fotograf" class="rounded-lg me-2" width="24" alt=""> <span class="w-space-no">  @urun.Ad</span></div></td>
@@ -89,7 +89,7 @@
 											<td class="recent-stats"><i class="fa fa-circle text-danger me-1"></i>Görünmez</td>
 										}
 										<td>
-											<a data-bs-toggle="modal" data-bs-target="#ürünMalzemeModal" data-urunid="@urun.Id" class="btn btn-warning shadow btn-xs sharp rounded-circle me-1"><i class="fa fa-wheat"></i></a>
+											<a data-bs-toggle="modal" data-bs-target="#ürünMalzemeModal_@urun.Id" data-urunid="@urun.Id" class="btn btn-warning shadow btn-xs sharp rounded-circle me-1"><i class="fa fa-wheat"></i></a>
 											<a data-bs-toggle="modal" data-bs-target="#ürünGuncelle_@urun.Id" class="btn btn-primary shadow btn-xs sharp rounded-circle me-1"><i class="fa fa-pencil"></i></a>
 											@if (urun.Gorunurluk == true)
 											{
@@ -280,7 +280,7 @@
 									</div>
 
 									@* Malzeme Seç *@
-									<div class="modal modal-md fade" id="ürünMalzemeModal">
+									<div class="modal modal-md fade" id="ürünMalzemeModal_@urun.Id">
 										<div class="modal-dialog modal-dialog-centered" role="document">
 											<div class="modal-content">
 												<div class="modal-header">
@@ -294,52 +294,49 @@
 													<div class="modal-body">
 														<div id="DZ_W_Todo4" class="widget-media dz-scroll" style="height:280px; padding:20px">
 															<ul class="timeline">
-																@foreach (var item in Model.Malzemeler)
-																{
-																	<li>
-																		<div class="timeline-panel">
-																			@foreach (var urunMalzeme in Model.UrunMalzemeler)
-																			{
-																				if (urunMalzeme.UrunId == urun.Id && item.Id == urunMalzeme.MalzemeId)
-																				{
-																					<div class="form-check custom-checkbox checkbox-success check-lg me-3">
-																						<input id="toggle_@urun.Id" type="checkbox" class="form-check-input toggleInput" checked>
-																					</div>
-																					<div class="media-body">
-																						<h5 class="form-check-label">@item.Ad</h5>
-																						<small class="text-muted">@item.Tur  <strong class="text-success">₺@item.Fiyat</small>
-																					</div>
-																					<div class="dropdown">
-																						<input type="text" value="@urunMalzeme.Miktar" class="form-control mb-3 mb-xl-0 miktarInput" placeholder="Miktar">
-																					</div>
-																					<div class="form-check custom-checkbox checkbox-success check-lg me-3">
-																						<input name="check_@item.Id" type="checkbox" class="form-check-input">
-																					</div>
-																				}
-																				else
-																				{
-																					<div class="form-check custom-checkbox checkbox-success check-lg me-3">
-																						<input id="toggle_@urun.Id" type="checkbox" class="form-check-input toggleInput">
-																					</div>
-																					<div class="media-body">
-																						<h5 class="form-check-label">@item.Ad</h5>
-																						<small class="text-muted">@item.Tur  <strong class="text-success">₺@item.Fiyat</small>
-																					</div>
-																					<div class="dropdown">
-																						<input type="text" class="form-control mb-3 mb-xl-0 miktarInput" placeholder="Miktar" style="display: none;">
-																					</div>
-																					<div class="form-check custom-checkbox checkbox-success check-lg me-3">
-																						<input name="check_@item.Id" type="checkbox" class="form-check-input">
-																					</div>
-																				}
+															@foreach (var item in Model.Malzemeler)
+															{
+																<li>
+																	<div class="timeline-panel">
+																		@if (Model.UrunMalzemeler.Any(x => x.UrunId == urun.Id && item.Id == x.MalzemeId))
+																		{
+																			var urunMalzeme = Model.UrunMalzemeler.FirstOrDefault(urunMalzeme => urunMalzeme.UrunId == urun.Id && item.Id == urunMalzeme.MalzemeId);
+																			<div class="form-check custom-checkbox checkbox-success check-lg me-3">
+																				<input id="toggle_@urun.Id" type="checkbox" class="form-check-input toggleInput" checked>
+																			</div>
+																			<div class="media-body">
+																				<h5 class="form-check-label">@item.Ad</h5>
+																				<small class="text-muted">@item.Tur  <strong class="text-success">₺@item.Fiyat</strong></small>
+																			</div>
+																			<div class="dropdown">
+																				<input type="text" value="@urunMalzeme.Miktar" class="form-control mb-3 mb-xl-0 miktarInput" placeholder="Miktar">
+																			</div>
+																			<div class="form-check custom-checkbox checkbox-success check-lg me-3">
+																				<input name="check_@item.Id" type="checkbox" class="form-check-input">
+																			</div>
+																		}
+																		else
+																		{
+																			<div class="form-check custom-checkbox checkbox-success check-lg me-3">
+																				<input id="toggle_@urun.Id" type="checkbox" class="form-check-input toggleInput">
+																			</div>
+																			<div class="media-body">
+																				<h5 class="form-check-label">@item.Ad</h5>
+																				<small class="text-muted">@item.Tur  <strong class="text-success">₺@item.Fiyat</strong></small>
+																			</div>
+																			<div class="dropdown">
+																				<input type="text" class="form-control mb-3 mb-xl-0 miktarInput" placeholder="Miktar" style="display: none;">
+																			</div>
+																			<div class="form-check custom-checkbox checkbox-success check-lg me-3">
+																				<input name="check_@item.Id" type="checkbox" class="form-check-input">
+																			</div>
+																		}
 
-																				<input type="hidden" name="MalzemeId" value="@item.Id" />
-																			}
+																		<input type="hidden" name="MalzemeId" value="@item.Id" />
+																	</div>
+																</li>
+															}
 
-																			
-																		</div>
-																	</li>
-																}
 															</ul>
 														</div>
 													</div>
