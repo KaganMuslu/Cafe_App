@@ -1,0 +1,624 @@
+﻿@{
+	ViewData["Title"] = "İndirim";
+}
+@model IndirimViewModel
+
+<!-- CSS Ekstralar -->
+<head>
+	<link href="~/admin_panel/vendor/bootstrap-datepicker-master/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+	<link href="~/admin_panel/vendor/select2/css/select2.min.css" rel="stylesheet" />
+	<link href="~/admin_panel/vendor/datatables/css/jquery.datatables.min.css" rel="stylesheet" />
+</head>
+
+<div class="content-body">
+	<div class="container-fluid">
+		<!-- Row -->
+
+		<div class="form-head d-flex mb-3 align-items-start">
+			<div class="me-auto d-none d-lg-block">
+				<h2 class="text-primary font-w600 mb-0">Cafe App İndirim</h2>
+				<p class="mb-0">Cafe App İndirim Yönetim Ekranına Hoşgeldiniz!</p>
+			</div>
+
+			<div style="text-align:center" class="d-none d-lg-block">
+				@if (Model.Kategoriler.Count == 0)
+				{
+					<a asp-controller="Kategori" asp-action="Index" style="width:max-content; display: inline-block; vertical-align: middle;" type="button" class="btn btn-rounded btn-primary">
+						<span class="btn-icon-start text-primary">
+							<i class="fa fa-user-plus color-primary"></i>
+						</span>İndirim Ekle
+					</a>
+				
+					<p style="color: red; font-size: 12px; text-align: center; padding-top:3px; margin-block:inherit"><i class="fa-sharp fa-solid fa-up"></i> İlk önce kategori eklemelisiniz! <i class="fa-sharp fa-solid fa-up"></i></p>
+				}
+				else if (Model.Urunler.Count == 0)
+				{
+					<a asp-controller="Urun" asp-action="Index" style="width:max-content; display: inline-block; vertical-align: middle;" type="button" class="btn btn-rounded btn-primary">
+						<span class="btn-icon-start text-primary">
+							<i class="fa fa-user-plus color-primary"></i>
+						</span>İndirim Ekle
+					</a>
+
+					<p style="color: red; font-size: 12px; text-align: center; padding-top:3px; margin-block:inherit"><i class="fa-sharp fa-solid fa-up"></i> İlk önce ürün eklemelisiniz! <i class="fa-sharp fa-solid fa-up"></i></p>
+				}
+				else if (Model.Menuler.Count == 0)
+				{
+					<a asp-controller="Menu" asp-action="Index" style="width:max-content; display: inline-block; vertical-align: middle;" type="button" class="btn btn-rounded btn-primary">
+						<span class="btn-icon-start text-primary">
+							<i class="fa fa-user-plus color-primary"></i>
+						</span>İndirim Ekle
+					</a>
+
+					<p style="color: red; font-size: 12px; text-align: center; padding-top:3px; margin-block:inherit"><i class="fa-sharp fa-solid fa-up"></i> İlk önce menü eklemelisiniz! <i class="fa-sharp fa-solid fa-up"></i></p>
+				}
+				else
+				{
+					<a data-bs-toggle="modal" data-bs-target="#urunIndirimModal" style="width:max-content; display: inline-block; vertical-align: middle;" type="button" class="btn btn-rounded btn-primary">
+						<span class="btn-icon-start text-primary">
+							<i class="fa fa-user-plus color-primary"></i>
+						</span>İndirim Ekle
+					</a>
+
+					<br>
+				}
+			</div>
+		</div>
+		<br>
+
+		<div class="filter cm-content-box box-primary">
+			<div class="content-title">
+				<div class="cpa">
+					<i class="fa-solid fa-file-lines me-1"></i>Ürün Listesi
+				</div>
+				<div class="tools">
+					<a href="javascript:void(0);" class="expand SlideToolHeader"><i class="fal fa-angle-down"></i></a>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="table-responsive">
+
+						<table id="example" class="display">
+							<thead>
+								<tr>
+									<th></th>
+									<th>ID</th>
+									<th>AD</th>
+									<th>FİYAT</th>
+									<th>İNDİRİMLİ FİYAT</th>
+									<th>GÖRÜNÜRLÜK</th>
+									<th class="text-center" width="12%">İŞLEMLER</th>
+								</tr>
+							</thead>
+							<tbody>
+
+								@foreach (var urun in Model.Urunler)
+								{
+
+									<tr>
+										<td><a data-bs-toggle="modal" data-bs-target="#urun_@urun.Id" class="btn btn-success shadow btn-xs sharp me-1" type="button"><i class="fas fa-info"></i></a></td>
+
+										<th>@urun.Id</th>
+										<td><div class="d-flex align-items-center"><img src="~/img/@urun.Fotograf" class="rounded-lg me-2" width="24" alt=""> <span class="w-space-no">  @urun.Ad</span></div></td>
+										<td>₺@urun.Fiyat</td>
+										<td>₺@(urun.Fiyat - urun.IndirimliFiyat)</td>
+										@if (urun.Gorunurluk == true)
+										{
+											<td class="recent-stats"><i class="fa fa-circle text-success me-1"></i>Görünür</td>
+										}
+										else
+										{
+											<td class="recent-stats"><i class="fa fa-circle text-danger me-1"></i>Görünmez</td>
+										}
+										<td class="text-center">
+											@if (urun.Gorunurluk == true)
+											{
+												<a asp-action="UrunSil" asp-route-id="@urun.Id" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa-solid fa-trash"></i></a>
+											}
+											else
+											{
+												<a asp-action="UrunSil" asp-route-id="@urun.Id" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa fa-trash-undo"></i></a>
+											}
+										</td>
+									</tr>
+
+									@* Ürün Bilgisi *@
+									<div class="modal modal-lg fade" id="urun_@urun.Id">
+										<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title">@urun.Ad Ürün Bilgisi</h5>
+													<button type="button" class="btn-close" data-bs-dismiss="modal">
+													</button>
+												</div>
+
+												<div class="modal-body">
+													<div class="row">
+														<div class="col-xl-6 col-sm-6 mb-3 mb-xl-0">
+															<div class="card">
+																<div class="card-header">
+																	<h4 class="card-title">@urun.Ad</h4>
+																</div>
+																<div class="card-body">
+
+																	<div class="row">
+																		<div class="col-lg-12 order-lg-12 mb-4">
+																			<ul class="list-group list-group-flush mb-3">
+
+																				<li class="list-group-item d-flex justify-content-between lh-condensed">
+																					<div>
+																						<h6 class="my-1">
+																							<span class="icon-warning">
+																								<i class="fa-solid fa-text"></i>
+																							</span>
+																							Ürün Ad
+																						</h6>
+																					</div>
+																					<span class="text-muted text-end">@urun.Ad</span>
+																				</li>
+																				<li class="list-group-item d-flex justify-content-between lh-condensed">
+																					<div>
+																						<h6 class="my-1">
+																							<span class="icon-warning">
+																								<i class="fa-solid fa-quote-right"></i>
+																							</span>
+																							Ürün Açıklama
+																						</h6>
+																					</div>
+																					<span class="text-muted text-end">@urun.Aciklama</span>
+																				</li>
+																				<li class="list-group-item d-flex justify-content-between lh-condensed">
+																					<div>
+																						<h6 class="my-1">
+																							<span class="icon-warning">
+																								<i class="fa-regular fa-list"></i>
+																							</span>
+																							Ürün Kategori
+																						</h6>
+																					</div>
+																					<span class="text-muted text-end">@urun.Kategori.Ad</span>
+																				</li>
+																				<li class="list-group-item d-flex justify-content-between lh-condensed">
+																					<div>
+																						<h6 class="my-1">
+																							<span class="icon-warning">
+																								<i class="fa-regular fa-money-bill"></i>
+																							</span>
+																							Ürün Fiyat
+																						</h6>
+																					</div>
+																					<span class="text-muted text-end">₺@urun.Fiyat</span>
+																				</li>
+																				<li class="list-group-item d-flex justify-content-between lh-condensed">
+																					<div>
+																						<h6 class="my-1">
+																							<span class="icon-warning">
+																								<i class="fa-sharp fa-solid fa-badge-percent"></i>
+																							</span>
+																							Ürün İndirimli Fiyat
+																						</h6>
+																					</div>
+																					<span class="text-muted text-end">₺@(urun.Fiyat - urun.IndirimliFiyat)</span>
+																				</li>
+																				<li class="list-group-item d-flex justify-content-between lh-condensed">
+																					<div>
+																						<h6 class="my-1">
+																							<span class="icon-warning">
+																								<i class="fa-regular fa-wave-pulse"></i>
+																							</span>
+																							Ürün Aktiflik
+																						</h6>
+																					</div>
+																					<span class="text-muted text-end">@urun.Akitf</span>
+																				</li>
+																				<li class="list-group-item d-flex justify-content-between lh-condensed">
+																					<div>
+																						<h6 class="my-1">
+																							<span class="icon-warning">
+																								<i class="fa-solid fa-eye-slash"></i>
+																							</span>
+																							Ürün Görünürlük
+																						</h6>
+																					</div>
+																					@if (urun.Gorunurluk == true)
+																					{
+																						<span class="text-success text-end" style="font-weight:bold">Görünür</span>
+																					}
+																					else
+																					{
+																						<span class="text-danger text-end" style="font-weight:bold">Görünmez</span>
+																					}
+																				</li>
+
+																			</ul>
+																		</div>
+
+																	</div>
+																</div>
+															</div>
+														</div>
+
+
+														<div class="col-xl-6 col-sm-6 mb-3 mb-xl-0">
+															<div class="card">
+																<div class="card-header">
+																	İndirim Miktarı
+																</div>
+																<div class="card-body">
+
+																	<div class="row">
+																		<div class="col-lg-12 order-lg-12 mb-4">
+																			<ul class="list-group list-group-flush mb-3">
+																				<h6>bum bum bum</h6>
+																			</ul>
+																		</div>
+																	</div>
+																</div>
+															</div>
+
+														</div>
+													</div>
+												</div>
+
+												<div class="modal-footer">
+													<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
+												</div>
+
+											</div>
+										</div>
+									</div>
+
+								}
+
+							</tbody>
+						</table>
+
+					</div>
+			</div>
+		</div>
+
+
+		<div class="filter cm-content-box box-primary">
+			<div class="content-title">
+				<div class="cpa">
+					<i class="fa-solid fa-file-lines me-1"></i>Menü Listesi
+				</div>
+				<div class="tools">
+					<a href="javascript:void(0);" class="expand SlideToolHeader"><i class="fal fa-angle-down"></i></a>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="table-responsive">
+
+					<table id="example3" class="display">
+						<thead>
+							<tr>
+								<th></th>
+								<th>ID</th>
+								<th>AD</th>
+								<th>FİYAT</th>
+								<th>İNDİRİMLİ FİYAT</th>
+								<th>GÖRÜNÜRLÜK</th>
+								<th class="text-center" width="12%">İŞLEMLER</th>
+							</tr>
+						</thead>
+						<tbody>
+
+							@foreach (var menu in Model.Menuler)
+							{
+
+								<tr>
+									<td><a data-bs-toggle="modal" data-bs-target="#menu_@menu.Id" class="btn btn-success shadow btn-xs sharp me-1" type="button"><i class="fas fa-info"></i></a></td>
+
+									<th>@menu.Id</th>
+									<td><div class="d-flex align-items-center"><img src="~/img/@menu.Fotograf" class="rounded-lg me-2" width="24" alt=""> <span class="w-space-no">  @menu.Ad</span></div></td>
+									<td>₺@menu.Fiyat</td>
+									<td>₺@(menu.Fiyat - menu.IndirimliFiyat)</td>
+									@if (menu.Gorunurluk == true)
+									{
+										<td class="recent-stats"><i class="fa fa-circle text-success me-1"></i>Görünür</td>
+									}
+									else
+									{
+										<td class="recent-stats"><i class="fa fa-circle text-danger me-1"></i>Görünmez</td>
+									}
+									<td class="text-center">
+										@if (menu.Gorunurluk == true)
+										{
+											<a asp-action="MenuSil" asp-route-id="@menu.Id" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa-solid fa-trash"></i></a>
+										}
+										else
+										{
+											<a asp-action="MenuSil" asp-route-id="@menu.Id" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa fa-trash-undo"></i></a>
+										}
+									</td>
+								</tr>
+
+								@* Menü Bilgisi *@
+								<div class="modal modal-lg fade" id="menu_@menu.Id">
+									<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title">@menu.Ad Menü Bilgisi</h5>
+												<button type="button" class="btn-close" data-bs-dismiss="modal">
+												</button>
+											</div>
+
+											<div class="modal-body">
+												<div class="row">
+													<div class="col-xl-6 col-sm-6 mb-3 mb-xl-0">
+														<div class="card">
+															<div class="card-header">
+																<h4 class="card-title">@menu.Ad</h4>
+															</div>
+															<div class="card-body">
+
+																<div class="row">
+																	<div class="col-lg-12 order-lg-12 mb-4">
+																		<ul class="list-group list-group-flush mb-3">
+
+																			<li class="list-group-item d-flex justify-content-between lh-condensed">
+																				<div>
+																					<h6 class="my-1">
+																						<span class="icon-warning">
+																							<i class="fa-solid fa-text"></i>
+																						</span>
+																						Menü Ad
+																					</h6>
+																				</div>
+																				<span class="text-muted text-end">@menu.Ad</span>
+																			</li>
+																			<li class="list-group-item d-flex justify-content-between lh-condensed">
+																				<div>
+																					<h6 class="my-1">
+																						<span class="icon-warning">
+																							<i class="fa-solid fa-quote-right"></i>
+																						</span>
+																						Menü Açıklama
+																					</h6>
+																				</div>
+																				<span class="text-muted text-end">@menu.Aciklama</span>
+																			</li>
+																			<li class="list-group-item d-flex justify-content-between lh-condensed">
+																				<div>
+																					<h6 class="my-1">
+																						<span class="icon-warning">
+																							<i class="fa-regular fa-list"></i>
+																						</span>
+																						Menü Kategori
+																					</h6>
+																				</div>
+																				<span class="text-muted text-end">@menu.Kategori.Ad</span>
+																			</li>
+																			<li class="list-group-item d-flex justify-content-between lh-condensed">
+																				<div>
+																					<h6 class="my-1">
+																						<span class="icon-warning">
+																							<i class="fa-regular fa-money-bill"></i>
+																						</span>
+																						Menü Fiyat
+																					</h6>
+																				</div>
+																				<span class="text-muted text-end">₺@menu.Fiyat</span>
+																			</li>
+																			<li class="list-group-item d-flex justify-content-between lh-condensed">
+																				<div>
+																					<h6 class="my-1">
+																						<span class="icon-warning">
+																							<i class="fa-sharp fa-solid fa-badge-percent"></i>
+																						</span>
+																						Menü İndirimli Fiyat
+																					</h6>
+																				</div>
+																				<span class="text-muted text-end">₺@(menu.Fiyat - menu.IndirimliFiyat)</span>
+																			</li>
+																			<li class="list-group-item d-flex justify-content-between lh-condensed">
+																				<div>
+																					<h6 class="my-1">
+																						<span class="icon-warning">
+																							<i class="fa-regular fa-wave-pulse"></i>
+																						</span>
+																						Menü Aktiflik
+																					</h6>
+																				</div>
+																				<span class="text-muted text-end">@menu.Akitf</span>
+																			</li>
+																			<li class="list-group-item d-flex justify-content-between lh-condensed">
+																				<div>
+																					<h6 class="my-1">
+																						<span class="icon-warning">
+																							<i class="fa-solid fa-eye-slash"></i>
+																						</span>
+																						Menü Görünürlük
+																					</h6>
+																				</div>
+																				@if (menu.Gorunurluk == true)
+																				{
+																					<span class="text-success text-end" style="font-weight:bold">Görünür</span>
+																				}
+																				else
+																				{
+																					<span class="text-danger text-end" style="font-weight:bold">Görünmez</span>
+																				}
+																			</li>
+
+																		</ul>
+																	</div>
+
+																</div>
+															</div>
+														</div>
+													</div>
+
+
+													<div class="col-xl-6 col-sm-6 mb-3 mb-xl-0">
+														<div class="card">
+															<div class="card-header">
+																Menü İndirim Bilgisi
+															</div>
+															<div class="card-body">
+
+																<div class="row">
+																	<div class="col-lg-12 order-lg-12 mb-4">
+																		<ul class="list-group list-group-flush mb-3">
+																			<h6>Bum Tam Tam</h6>
+																		</ul>
+																	</div>
+																</div>
+															</div>
+														</div>
+
+													</div>
+												</div>
+											</div>
+
+											<div class="modal-footer">
+												<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
+											</div>
+
+										</div>
+									</div>
+								</div>
+
+							}
+
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+
+@* Ürün İndirim *@
+<div class="modal modal-md fade" id="urunIndirimModal">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">İndirimleri Seç</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+			</div>
+			<form asp-action="UrunIndirim" method="post">
+				<div class="modal-body">
+
+					<div class="form-floating col-md-12 mb-3">
+						<label class="form-label text-center">İndirim uygulanacak ürünleri seç</label>
+						<br>
+						<select asp-for="SecilenUrunler" multiple class="default-select form-control wide mt-3">
+							<option value="x" selected>Ürün Seç</option>
+							@foreach (var item in Model.Urunler)
+							{
+								if (item.IndirimliFiyat == 0 && item.IndirimYuzdesi == 0)
+								{
+									<option value="@item.Id">@item.Ad</option>
+								}								
+								else
+								{
+									<option value="@item.Id" selected>@item.Ad</option>
+								}
+							}
+						</select>
+						<span class="validation-text" asp-validation-for="SecilenUrunler"></span>
+					</div>
+
+
+					<div class="form-floating col-md-12 mb-3">
+						<label class="form-label text-center">İndirim uygulanacak menüler seç</label>
+						<br>
+						<select asp-for="SecilenMenuler" multiple class="default-select form-control wide mt-3">
+							<option value="x" selected>Menü Seç</option>
+							@foreach (var item in Model.Menuler)
+							{
+								if (item.IndirimliFiyat == 0 && item.IndirimYuzdesi == 0)
+								{
+									<option value="@item.Id">@item.Ad</option>
+								}
+								else
+								{
+									<option value="@item.Id" selected>@item.Ad</option>
+								}
+							}
+						</select>
+						<span class="validation-text" asp-validation-for="SecilenMenuler"></span>
+					</div>
+
+					<br>
+
+
+					<div style="margin-bottom:14px" class="row">
+						<!-- indirim doldurulacak form alanları -->
+						<div class="form-floating col-md-6 mb-3">
+							<input id="indirimId" asp-for="IndirimMiktari" type="number" class="form-control" placeholder="">
+							<label for="indirimId" class="form-label">&nbsp;&nbsp;&nbsp;İndirim Miktarı</label>
+							<span class="validation-text" asp-validation-for="IndirimMiktari"></span>
+						</div>
+						<div class="form-floating col-md-6 mb-3">
+							<input id="indirimMiktar" asp-for="IndririmYuzdesi" type="number" class="form-control" placeholder="">
+							<label for="indirimMiktar" class="form-label">&nbsp;&nbsp;&nbsp;İndirim Yüzdesi</label>
+						</div>
+						<span class="validation-text text-center" asp-validation-for="IndririmYuzdesi"></span>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
+					<button type="submit" class="btn btn-primary">Kaydet</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+<!-- JS Ekstralar -->
+@section Scripts
+{
+	<script src="~/admin_panel/vendor/bootstrap-datepicker-master/js/bootstrap-datepicker.min.js"></script>
+	<script src="~/admin_panel/vendor/select2/js/select2.full.min.js"></script>
+	<script src="~/admin_panel/js/dashboard/cms.js"></script>
+	<script src="~/admin_panel/vendor/ckeditor/ckeditor.js"></script>
+	<script src="~/admin_panel/vendor/datatables/js/jquery.datatables.min.js"></script>
+	<script src="~/admin_panel/js/plugins-init/datatables.init.js"></script>
+
+	<script>
+		$(function () {
+			$("#datepicker").datepicker({
+				language: 'tr',
+				format: 'dd/mm/yyyy',
+				autoclose: true,
+				todayHighlight: true
+			}).datepicker('update', new Date());
+
+		});
+
+		$(function () {
+			$("#datepicker2").datepicker({
+				language: 'tr-TR',
+				format: 'dd/mm/yyyy',
+				autoclose: true,
+				todayHighlight: true
+			}).datepicker('update', new Date());
+
+		});
+
+		// $('.submitBtn').click(function (e) {
+		// 	e.preventDefault();
+		// 	var secilenMalzemeler = [];
+		// 	var form = $(this).closest('form'); // Bu butona ait formu bul
+		// 	form.find('input[type="checkbox"]:checked').each(function () { // Form içindeki seçili checkboxları bul
+		// 		var malzemeId = $(this).val();
+		// 		var miktar = $(this).siblings('input[name="miktar"]').val();
+		// 		secilenMalzemeler.push({ MalzemeId: malzemeId, Miktar: miktar });
+		// 	});
+		// 	var jsonData = JSON.stringify(secilenMalzemeler);
+		// 	form.find(".secilenMalzeme").val(jsonData);
+		// 	form.submit();
+		// });
+
+	</script>
+}
+
