@@ -18,10 +18,10 @@ namespace Cafe_App.Areas.Admin.Models
 
 		public List<Kategori> Kategoriler { get; set; }
 
-		public string? SecilenUrunler { get; set; }
+		public string[]? SecilenUrunler { get; set; }
 
 		[Remote(action: "IndirimSecilenKontrol", controller: "Indirim", HttpMethod = "POST", AdditionalFields = nameof(SecilenUrunler) + "," + nameof(SecilenMenuler) )]
-		public string? SecilenMenuler { get; set; }
+		public string[]? SecilenMenuler { get; set; }
 
 		public int IndirimMiktari { get; set; }
 

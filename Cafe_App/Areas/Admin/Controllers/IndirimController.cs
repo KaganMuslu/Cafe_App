@@ -35,11 +35,14 @@ namespace Cafe_App.Areas.Admin.Controllers
 		{
 			var messages = new List<string>();
 
-			if (model.SecilenMenuler == null && model.SecilenUrunler == null) 
+			var menuler = model.SecilenMenuler.Where(val => val != "x").ToArray();
+			var urunler = model.SecilenUrunler.Where(val => val != "x").ToArray();
+
+			if (menuler.Length == 0 && urunler.Length == 0) 
 			{ 
 				messages.Add("İndirim için menü veya ürün seçilmelidir.");
 			}
-			else if (model.SecilenMenuler != null && model.SecilenUrunler != null)
+			else if (menuler.Length >= 1 && urunler.Length >= 1)
 			{
 				messages.Add("İndirim menü ve ürün aynı anda seçilmemelidir.");
 			}
