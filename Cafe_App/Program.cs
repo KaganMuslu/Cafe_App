@@ -47,7 +47,7 @@ app.MapControllerRoute(
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{area=Admin}/{controller=Admin}/{action=Index}/{id?}");
+    pattern: "{area=Musteri}/{controller=Musteri}/{action=Index}/{id?}");
     //pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
