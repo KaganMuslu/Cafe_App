@@ -37,7 +37,9 @@ namespace Cafe_App.Models
 
         public DbSet<Menu> Menuler { get; set; }
 
-        public DbSet<MenuUrun> MenuUrunler { get; set; }
+        public DbSet<MenuIndirim> MenuIndirimler { get; set; }
+
+		public DbSet<MenuUrun> MenuUrunler { get; set; }
 
         public DbSet<Musteri> Musteriler { get; set; }
 
@@ -73,7 +75,9 @@ namespace Cafe_App.Models
 
         public DbSet<Urun> Urunler { get; set; }
 
-        public DbSet<UrunMalzeme> UrunMalzemeler { get; set; }
+        public DbSet<UrunIndirim> UrunIndirimler { get; set; }
+
+		public DbSet<UrunMalzeme> UrunMalzemeler { get; set; }
 
         public DbSet<Yorum> Yorumlar { get; set; }
     }

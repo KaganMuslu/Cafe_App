@@ -17,10 +17,6 @@ public partial class Menu
 
     public float Fiyat { get; set; }
 
-    public int? IndirimYuzdesi { get; set; }
-
-	public float? IndirimliFiyat { get; set; }
-
 	public DateOnly IndirimTarihi { get; set; }
 
     public string? Fotograf { get; set; }

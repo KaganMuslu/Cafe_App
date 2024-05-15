@@ -142,6 +142,26 @@ namespace Cafe_App.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "MenuIndirimler",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    MenuId = table.Column<int>(type: "int", nullable: false),
+                    IndirimMiktari = table.Column<int>(type: "int", nullable: true),
+                    IndirimYuzdesi = table.Column<int>(type: "int", nullable: true),
+                    BaslangıcTarihi = table.Column<DateOnly>(type: "date", nullable: false),
+                    BitisTarihi = table.Column<DateOnly>(type: "date", nullable: false),
+                    OlusturmaTarihi = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Gorunurluk = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MenuIndirimler", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "Musteriler",
                 columns: table => new
                 {
@@ -232,6 +252,26 @@ namespace Cafe_App.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Roller", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "UrunIndirimler",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    UrunId = table.Column<int>(type: "int", nullable: false),
+                    IndirimMiktari = table.Column<int>(type: "int", nullable: true),
+                    IndirimYuzdesi = table.Column<int>(type: "int", nullable: true),
+                    BaslangıcTarihi = table.Column<DateOnly>(type: "date", nullable: false),
+                    BitisTarihi = table.Column<DateOnly>(type: "date", nullable: false),
+                    OlusturmaTarihi = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Gorunurluk = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UrunIndirimler", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -373,8 +413,6 @@ namespace Cafe_App.Migrations
                     Aciklama = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Fiyat = table.Column<float>(type: "float", nullable: false),
-                    IndirimYuzdesi = table.Column<int>(type: "int", nullable: false),
-                    IndirimliFiyat = table.Column<float>(type: "float", nullable: false),
                     IndirimTarihi = table.Column<DateOnly>(type: "date", nullable: false),
                     Fotograf = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -405,9 +443,6 @@ namespace Cafe_App.Migrations
                     Aciklama = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Fiyat = table.Column<float>(type: "float", nullable: false),
-                    IndirimYuzdesi = table.Column<int>(type: "int", nullable: false),
-                    IndirimliFiyat = table.Column<float>(type: "float", nullable: false),
-                    IndirimTarihi = table.Column<DateOnly>(type: "date", nullable: false),
                     Fotograf = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Akitf = table.Column<bool>(type: "tinyint(1)", nullable: false),
@@ -1431,6 +1466,9 @@ namespace Cafe_App.Migrations
                 name: "MasaSiparisler");
 
             migrationBuilder.DropTable(
+                name: "MenuIndirimler");
+
+            migrationBuilder.DropTable(
                 name: "MenuUrunler");
 
             migrationBuilder.DropTable(
@@ -1453,6 +1491,9 @@ namespace Cafe_App.Migrations
 
             migrationBuilder.DropTable(
                 name: "TeslimatSiparisler");
+
+            migrationBuilder.DropTable(
+                name: "UrunIndirimler");
 
             migrationBuilder.DropTable(
                 name: "UrunMalzemeler");

@@ -552,12 +552,6 @@ namespace Cafe_App.Migrations
                     b.Property<DateOnly>("IndirimTarihi")
                         .HasColumnType("date");
 
-                    b.Property<int>("IndirimYuzdesi")
-                        .HasColumnType("int");
-
-                    b.Property<float>("IndirimliFiyat")
-                        .HasColumnType("float");
-
                     b.Property<int>("KategoriId")
                         .HasColumnType("int");
 
@@ -566,6 +560,40 @@ namespace Cafe_App.Migrations
                     b.HasIndex("KategoriId");
 
                     b.ToTable("Menuler");
+                });
+
+            modelBuilder.Entity("Cafe_App.Models.MenuIndirim", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateOnly>("BaslangıcTarihi")
+                        .HasColumnType("date");
+
+                    b.Property<DateOnly>("BitisTarihi")
+                        .HasColumnType("date");
+
+                    b.Property<bool>("Gorunurluk")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int?>("IndirimMiktari")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("IndirimYuzdesi")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MenuId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("OlusturmaTarihi")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MenuIndirimler");
                 });
 
             modelBuilder.Entity("Cafe_App.Models.MenuUrun", b =>
@@ -1163,15 +1191,6 @@ namespace Cafe_App.Migrations
                     b.Property<bool>("Gorunurluk")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<DateOnly>("IndirimTarihi")
-                        .HasColumnType("date");
-
-                    b.Property<int>("IndirimYuzdesi")
-                        .HasColumnType("int");
-
-                    b.Property<float>("IndirimliFiyat")
-                        .HasColumnType("float");
-
                     b.Property<int>("KategoriId")
                         .HasColumnType("int");
 
@@ -1180,6 +1199,40 @@ namespace Cafe_App.Migrations
                     b.HasIndex("KategoriId");
 
                     b.ToTable("Urunler");
+                });
+
+            modelBuilder.Entity("Cafe_App.Models.UrunIndirim", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateOnly>("BaslangıcTarihi")
+                        .HasColumnType("date");
+
+                    b.Property<DateOnly>("BitisTarihi")
+                        .HasColumnType("date");
+
+                    b.Property<bool>("Gorunurluk")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int?>("IndirimMiktari")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("IndirimYuzdesi")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("OlusturmaTarihi")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("UrunId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UrunIndirimler");
                 });
 
             modelBuilder.Entity("Cafe_App.Models.UrunMalzeme", b =>

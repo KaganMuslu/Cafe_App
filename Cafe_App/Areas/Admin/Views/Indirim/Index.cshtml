@@ -100,7 +100,7 @@
 										<th>@urun.Id</th>
 										<td><div class="d-flex align-items-center"><img src="~/img/@urun.Fotograf" class="rounded-lg me-2" width="24" alt=""> <span class="w-space-no">  @urun.Ad</span></div></td>
 										<td>₺@urun.Fiyat</td>
-										<td>₺@(urun.Fiyat - urun.IndirimliFiyat)</td>
+										<td>₺xxx</td>
 										@if (urun.Gorunurluk == true)
 										{
 											<td class="recent-stats"><i class="fa fa-circle text-success me-1"></i>Görünür</td>
@@ -197,7 +197,7 @@
 																							Ürün İndirimli Fiyat
 																						</h6>
 																					</div>
-																					<span class="text-muted text-end">₺@(urun.Fiyat - urun.IndirimliFiyat)</span>
+																				<span class="text-muted text-end">₺xxx</span>
 																				</li>
 																				<li class="list-group-item d-flex justify-content-between lh-condensed">
 																					<div>
@@ -312,7 +312,7 @@
 									<th>@menu.Id</th>
 									<td><div class="d-flex align-items-center"><img src="~/img/@menu.Fotograf" class="rounded-lg me-2" width="24" alt=""> <span class="w-space-no">  @menu.Ad</span></div></td>
 									<td>₺@menu.Fiyat</td>
-									<td>₺@(menu.Fiyat - menu.IndirimliFiyat)</td>
+									<td>₺xxx</td>
 									@if (menu.Gorunurluk == true)
 									{
 										<td class="recent-stats"><i class="fa fa-circle text-success me-1"></i>Görünür</td>
@@ -409,7 +409,7 @@
 																						Menü İndirimli Fiyat
 																					</h6>
 																				</div>
-																				<span class="text-muted text-end">₺@(menu.Fiyat - menu.IndirimliFiyat)</span>
+																				<span class="text-muted text-end">₺xxx</span>
 																			</li>
 																			<li class="list-group-item d-flex justify-content-between lh-condensed">
 																				<div>
@@ -507,13 +507,13 @@
 						<label class="form-label text-center">İndirim uygulanacak ürünleri seç</label>
 						<br>
 						<select asp-for="SecilenUrunler" multiple class="default-select form-control wide mt-3">
-							<option value="x" selected>Ürün Seç</option>
 							@foreach (var item in Model.Urunler)
 							{
-								if (item.IndirimliFiyat == 0 && item.IndirimYuzdesi == 0)
+								var indirim = Model.UrunIndirimler?.FirstOrDefault(x => x.Id == item.Id);
+								if (indirim == null)
 								{
 									<option value="@item.Id">@item.Ad</option>
-								}								
+								}
 								else
 								{
 									<option value="@item.Id" selected>@item.Ad</option>
@@ -528,10 +528,10 @@
 						<label class="form-label text-center">İndirim uygulanacak menüler seç</label>
 						<br>
 						<select asp-for="SecilenMenuler" multiple class="default-select form-control wide mt-3">
-							<option value="x" selected>Menü Seç</option>
 							@foreach (var item in Model.Menuler)
 							{
-								if (item.IndirimliFiyat == 0 && item.IndirimYuzdesi == 0)
+								var indirim = Model.MenuIndirimler?.FirstOrDefault(x => x.Id == item.Id);
+								if (indirim == null)
 								{
 									<option value="@item.Id">@item.Ad</option>
 								}
@@ -541,7 +541,7 @@
 								}
 							}
 						</select>
-						<span class="validation-text" asp-validation-for="SecilenMenuler"></span>
+						<span class="validation-text text-center" asp-validation-for="SecilenMenuler"></span>
 					</div>
 
 					<br>
@@ -560,11 +560,26 @@
 						</div>
 						<span class="validation-text text-center" asp-validation-for="IndririmYuzdesi"></span>
 					</div>
+
+					<div style="margin-bottom:14px" class="row">
+						<!-- indirim doldurulacak form alanları -->
+						<div class="col-md-6 mb-3">
+							<label for="indirimBaslangıc" class="form-label">&nbsp;&nbsp;&nbsp;Başlangıç Tarihi</label>
+							<input id="indirimBaslangıc" asp-for="BaslangıcTarihi" class="form-control datepicker" placeholder="">
+							<span class="validation-text" asp-validation-for="BaslangıcTarihi"></span>
+						</div>
+						<div class="col-md-6 mb-3">
+							<label for="indirimBitis" class="form-label">&nbsp;&nbsp;&nbsp;Bitiş Tarihi</label>
+							<input id="indirimBitis" asp-for="BitisTarihi" class="form-control datepicker" placeholder="">
+						</div>
+						<span class="validation-text text-center" asp-validation-for="BitisTarihi"></span>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
 					<button type="submit" class="btn btn-primary">Kaydet</button>
 				</div>
+				<input asp-for="OlusturmaTarihi" type="hidden" class="form-control" value="@DateTime.Now.ToString("dd/MM/yyyy")">
 			</form>
 		</div>
 	</div>
@@ -586,7 +601,7 @@
 
 	<script>
 		$(function () {
-			$("#datepicker").datepicker({
+			$(".datepicker").datepicker({
 				language: 'tr',
 				format: 'dd/mm/yyyy',
 				autoclose: true,
@@ -604,20 +619,6 @@
 			}).datepicker('update', new Date());
 
 		});
-
-		// $('.submitBtn').click(function (e) {
-		// 	e.preventDefault();
-		// 	var secilenMalzemeler = [];
-		// 	var form = $(this).closest('form'); // Bu butona ait formu bul
-		// 	form.find('input[type="checkbox"]:checked').each(function () { // Form içindeki seçili checkboxları bul
-		// 		var malzemeId = $(this).val();
-		// 		var miktar = $(this).siblings('input[name="miktar"]').val();
-		// 		secilenMalzemeler.push({ MalzemeId: malzemeId, Miktar: miktar });
-		// 	});
-		// 	var jsonData = JSON.stringify(secilenMalzemeler);
-		// 	form.find(".secilenMalzeme").val(jsonData);
-		// 	form.submit();
-		// });
 
 	</script>
 }

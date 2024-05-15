@@ -19,12 +19,6 @@ namespace Cafe_App.Areas.Admin.Validators
 				.NotEmpty().WithMessage("Menü fiyatı boş olmamalıdır.")
 				.GreaterThanOrEqualTo(1).WithMessage("Menü fiyatı pozitif olmalıdır.");
 
-			RuleFor(x => x.IndirimliFiyat)
-				.GreaterThanOrEqualTo(1).WithMessage("Menü fiyatı pozitif olmalıdır.");
-
-			RuleFor(x => x.IndirimYuzdesi)
-				.GreaterThanOrEqualTo(1).WithMessage("Menü fiyatı pozitif olmalıdır.");
-
 			/*RuleFor(x => x.Fotograf)
 				 .NotNull().WithMessage("Fotoğraf boş olmamalıdır.");*/
 
