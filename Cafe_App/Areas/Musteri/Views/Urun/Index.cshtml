@@ -1,9 +1,24 @@
 ﻿@{
     ViewData["Title"] = "Ürün";
 }
-@model List<Urun>
+@using X.PagedList
+@using X.PagedList.Mvc.Core
+@model IPagedList<Urun>
 
-    <div class="breadcumb-wrapper" data-bg-src="/img/update_2/bg/breadcumb_bg_2.jpg">
+<style>
+    .pagination-container ul.pagination {
+        display: flex;
+        justify-content: center;
+        list-style: none;
+        padding: 0;
+    }
+
+        .pagination-container ul.pagination li {
+            margin: 0 5px;
+        }
+</style>
+
+    <div class="breadcumb-wrapper" data-bg-src="/home_panel/img/update_2/bg/breadcumb_bg_2.jpg">
         <div class="container z-index-common">
             <div class="breadcumb-content">
                 <h1 class="breadcumb-title">ÜRÜNLER</h1>
@@ -18,18 +33,19 @@
         <div class="container">
             <div class="th-sort-bar">
                 <div class="row justify-content-between align-items-center">
-                    <div class="col-md">
-                        <p class="woocommerce-result-count">Showing 1–12 of 16 results</p>
-                    </div>
+
+                <div class="col-md">
+                    <p class="woocommerce-result-count">@ViewBag.TotalCount sonuçtan @ViewBag.StartCount–@ViewBag.EndCount arası gösteriliyor</p>
+                </div>
+
                     <div class="col-md-auto">
                         <form class="woocommerce-ordering" method="get">
-                            <select name="orderby" class="orderby" aria-label="Shop order">
-                                <option value="menu_order" selected="selected">Default Sorting</option>
-                                <option value="popularity">Sort by popularity</option>
-                                <option value="rating">Sort by average rating</option>
-                                <option value="date">Sort by latest</option>
-                                <option value="price">Sort by price: low to high</option>
-                                <option value="price-desc">Sort by price: high to low</option>
+                            <select name="orderby" class="orderby" aria-label="Listeleme">
+                            <option value="menu_order" selected="selected">Varsayılan Sırala</option>
+                            <option value="rating">Ortalama Derecelendirmeye Göre Sırala</option>
+                            <option value="date">En Yeniye Göre Sırala</option>
+                            <option value="price">Fiyata Göre Düşükten Yükseğe</option>
+                            <option value="price-desc">Fiyata Göre Yüksekten Düşüğe</option>
                             </select>
                         </form>
                     </div>
@@ -40,7 +56,7 @@
                 {
                     <div class="col-xl-3 col-lg-4 col-sm-6">
                         <div class="th-product">
-                            <div class="product-img"><img src="~/img/@urun.Fotograf" alt="Product Image"></div>
+                        <div class="product-img"><img style="height:240px" src="~/img/@urun.Fotograf" alt="Product Image"></div>
                             <div class="product-content">
                                 <a href="shop.html" class="category">@urun.Kategori.Ad</a>
                                 <div class="product-rating">
@@ -56,12 +72,7 @@
                 }
             </div>
             <div class="th-pagination text-center pt-50">
-                <ul>
-                    <li><a href="blog.html">1</a></li>
-                    <li><a href="blog.html">2</a></li>
-                    <li><a href="blog.html">3</a></li>
-                    <li><a href="blog.html"><i class="far fa-arrow-right"></i></a></li>
-                </ul>
+                @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))
             </div>
-        </div>
+
     </section>
