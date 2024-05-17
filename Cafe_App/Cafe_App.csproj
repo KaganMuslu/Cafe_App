@@ -23,7 +23,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\Musteri\Data\" />
-    <Folder Include="Areas\Musteri\Models\" />
     <Folder Include="wwwroot\img\" />
   </ItemGroup>
 

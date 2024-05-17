@@ -591,6 +591,9 @@ namespace Cafe_App.Migrations
                     b.Property<DateTime>("OlusturmaTarihi")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<float?>("YeniFiyat")
+                        .HasColumnType("float");
+
                     b.HasKey("Id");
 
                     b.ToTable("MenuIndirimler");
@@ -1229,6 +1232,9 @@ namespace Cafe_App.Migrations
 
                     b.Property<int>("UrunId")
                         .HasColumnType("int");
+
+                    b.Property<float?>("YeniFiyat")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 

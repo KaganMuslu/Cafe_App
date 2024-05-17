@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cafe_App.Migrations
 {
     [DbContext(typeof(IdentityDataContext))]
-    [Migration("20240515092626_init")]
+    [Migration("20240517081657_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -593,6 +593,9 @@ namespace Cafe_App.Migrations
 
                     b.Property<DateTime>("OlusturmaTarihi")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<float?>("YeniFiyat")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
@@ -1232,6 +1235,9 @@ namespace Cafe_App.Migrations
 
                     b.Property<int>("UrunId")
                         .HasColumnType("int");
+
+                    b.Property<float?>("YeniFiyat")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 

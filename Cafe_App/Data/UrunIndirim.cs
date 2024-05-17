@@ -16,6 +16,8 @@ public partial class UrunIndirim
 
     public int? IndirimYuzdesi { get; set; }
 
+    public float? YeniFiyat { get; set; }
+
     public DateOnly BaslangıcTarihi { get; set; }
 
     public DateOnly BitisTarihi { get; set; }
@@ -23,4 +25,6 @@ public partial class UrunIndirim
     public DateTime OlusturmaTarihi { get; set; }
 
     public bool Gorunurluk { get; set; }
+
+    public Urun? Urun { get; set; }
 }

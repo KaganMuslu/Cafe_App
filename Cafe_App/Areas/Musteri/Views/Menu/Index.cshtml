@@ -1,15 +1,30 @@
 ﻿@{
     ViewData["Title"] = "Menü";
 }
-@model List<Menu>
+@model IPagedList<Menu>
+@using X.PagedList
+@using X.PagedList.Mvc.Core
+
+<style>
+    .pagination-container ul.pagination {
+        display: flex;
+        justify-content: center;
+        list-style: none;
+        padding: 0;
+    }
+
+        .pagination-container ul.pagination li {
+            margin: 0 5px;
+        }
+</style>
 
 <div class="breadcumb-wrapper" data-bg-src="/home_panel/img/update_2/bg/breadcumb_bg_2.jpg">
     <div class="container z-index-common">
         <div class="breadcumb-content">
-            <h1 class="breadcumb-title">ÜRÜNLER</h1>
+            <h1 class="breadcumb-title">MENÜLER</h1>
             <ul class="breadcumb-menu">
-                <li><a asp-controller="Urun" asp-action="Index">Ana Sayfa</a></li>
-                <li>Ürünler</li>
+                <li><a asp-controller="Musteri" asp-action="Index">Ana Sayfa</a></li>
+                <li>Menüler</li>
             </ul>
         </div>
     </div>
@@ -19,17 +34,16 @@
         <div class="th-sort-bar">
             <div class="row justify-content-between align-items-center">
                 <div class="col-md">
-                    <p class="woocommerce-result-count">Showing 1–12 of 16 results</p>
+                    <p class="woocommerce-result-count">@ViewBag.TotalCount sonuçtan @ViewBag.StartCount–@ViewBag.EndCount arası gösteriliyor</p>
                 </div>
                 <div class="col-md-auto">
                     <form class="woocommerce-ordering" method="get">
-                        <select name="orderby" class="orderby" aria-label="Shop order">
-                            <option value="menu_order" selected="selected">Default Sorting</option>
-                            <option value="popularity">Sort by popularity</option>
-                            <option value="rating">Sort by average rating</option>
-                            <option value="date">Sort by latest</option>
-                            <option value="price">Sort by price: low to high</option>
-                            <option value="price-desc">Sort by price: high to low</option>
+                        <select name="orderby" class="orderby" aria-label="Listeleme">
+                            <option value="menu_order" selected="selected">Varsayılan Sırala</option>
+                            <option value="rating">Ortalama Derecelendirmeye Göre Sırala</option>
+                            <option value="date">En Yeniye Göre Sırala</option>
+                            <option value="price">Fiyata Göre Düşükten Yükseğe</option>
+                            <option value="price-desc">Fiyata Göre Yüksekten Düşüğe</option>
                         </select>
                     </form>
                 </div>
@@ -48,20 +62,72 @@
                                 (4.00)
                             </div>
                             <h3 class="product-title"><a href="shop-details.html">@menu.Ad</a></h3>
-                            <span class="price">@menu.Fiyat<del>$99.99</del></span>
-                            <div class="actions"><a href="#QuickView" class="icon-btn popup-content"><i class="fal fa-eye"></i></a> <a href="cart.html" class="icon-btn"><i class="fal fa-cart-plus"></i></a> <a href="wishlist.html" class="icon-btn"><i class="fal fa-heart"></i></a></div>
+                            <span class="price">@menu.Fiyat ₺<del>99.99 ₺</del></span>
+                            <div class="actions"><a href="#QuickView_@menu.Id" class="icon-btn popup-content"><i class="fal fa-eye"></i></a> <a href="cart.html" class="icon-btn"><i class="fal fa-cart-plus"></i></a> <a href="wishlist.html" class="icon-btn"><i class="fal fa-heart"></i></a></div>
                         </div>
                     </div>
                 </div>
+
+                <div id="QuickView_@menu.Id" class="white-popup mfp-hide">
+                    <div class="container bg-white">
+                        <div class="row">
+                            <div class="col-lg-7">
+                                <div class="product-thumb-area">
+                                    <div class="product-thumb-tab" data-asnavfor=".product-big-img">
+                                        <div class="tab-btn active"><img src="~/img/@menu.Fotograf" alt="Product Thumb"></div>
+                                        <div class="tab-btn"><img src="/home_panel/img/menu/menu_thumb_1_2.png" alt="Product Thumb"></div>
+                                        <div class="tab-btn"><img src="/home_panel/img/menu/menu_thumb_1_3.png" alt="Product Thumb"></div>
+                                        <div class="tab-btn"><img src="/home_panel/img/menu/menu_thumb_1_4.png" alt="Product Thumb"></div>
+                                        <div class="tab-btn"><img src="/home_panel/img/menu/menu_thumb_1_5.png" alt="Product Thumb"></div>
+                                    </div>
+                                    <div class="product-big-img th-carousel" data-slide-show="1" data-md-slide-show="1" data-fade="true">
+                                        <div class="col-auto">
+                                            <div class="img"><img src="~/img/@menu.Fotograf" alt="Product Image"></div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="img"><img src="/home_panel/img/menu/product_details_1_2.png" alt="Product Image"></div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="img"><img src="/home_panel/img/menu/product_details_1_3.png" alt="Product Image"></div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="img"><img src="/home_panel/img/menu/product_details_1_4.png" alt="Product Image"></div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="img"><img src="/home_panel/img/menu/product_details_1_5.png" alt="Product Image"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-5 align-self-center">
+                                <div class="product-about">
+                                    <div class="product-rating">
+                                        <div class="star-rating" role="img" aria-label="Rated 5.00 out of 5"><span style="width:100%">Rated <strong class="rating">5.00</strong> out of 5 based on <span class="rating">1</span> customer rating</span></div>
+                                        <a href="shop-details.html" class="woocommerce-review-link">(<span class="count">3</span> değerlendirme)</a>
+                                    </div>
+                                    <h2 class="product-title">@menu.Ad</h2>
+                                    <p class="price">@menu.Fiyat ₺<del>$350.99</del></p>
+                                    <p class="text">@menu.Aciklama</p>
+                                    <div class="actions">
+                                        <div class="quantity"><input type="number" class="qty-input" step="1" min="1" max="100" name="quantity" value="1" title="Qty"> <button class="quantity-plus qty-btn"><i class="far fa-chevron-up"></i></button> <button class="quantity-minus qty-btn"><i class="far fa-chevron-down"></i></button></div>
+                                        <button class="th-btn">Sepete Ekle</button> <a class="icon-btn" href="wishlist.html"><i class="fal fa-heart"></i></a>
+                                    </div>
+                                    <div class="product_meta"><span class="sku_wrapper">SKU: <span class="sku">C2546</span></span> <span class="posted_in">Kategori: <a href="shop.html" rel="tag">@menu.Kategori.Ad</a></span> <span>Tags: <a href="shop.html">Fast Food</a><a href="shop.html">Grill</a></span></div>
+                                    <div class="share">
+                                        <p class="share-title"><i class="fa-solid fa-share"></i> Paylaş</p>
+                                        <div class="th-social"><a target="_blank" href="https://facebook.com/"><i class="fab fa-facebook-f"></i></a> <a target="_blank" href="https://twitter.com/"><i class="fab fa-twitter"></i></a> <a target="_blank" href="https://instagram.com/"><i class="fab fa-instagram"></i></a> <a target="_blank" href="https://linkedin.com/"><i class="fab fa-linkedin-in"></i></a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button title="Close (Esc)" type="button" class="mfp-close">×</button>
+                    </div>
+                </div>
+
             }
         </div>
         <div class="th-pagination text-center pt-50">
-            <ul>
-                <li><a href="blog.html">1</a></li>
-                <li><a href="blog.html">2</a></li>
-                <li><a href="blog.html">3</a></li>
-                <li><a href="blog.html"><i class="far fa-arrow-right"></i></a></li>
-            </ul>
+            @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))
         </div>
     </div>
 </section>

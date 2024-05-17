@@ -65,6 +65,179 @@
 		</div>
 		<br>
 
+		@* Ürün İndirimleri *@
+		<div class="filter cm-content-box box-primary">
+			<div class="content-title">
+				<div class="cpa">
+					<i class="fa-solid fa-file-lines me-1"></i>Ürün İndirim Listesi
+				</div>
+				<div class="tools">
+					<a href="javascript:void(0);" class="expand SlideToolHeader"><i class="fal fa-angle-down"></i></a>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="table-responsive">
+
+					<table class="display example3">
+						<thead>
+							<tr>
+								<th></th>
+								<th>ÜRÜN AD</th>
+								<th>İNDİRİMLİ FİYAT</th>
+								<th>İNDİRİMLİ MİKTARI</th>
+								<th>İNDİRİMLİ YÜZDESİ</th>
+								<th>İNDİRİM BAŞLANGIÇ</th>
+								<th>İNDİRİM BİTİŞ</th>
+								<th>İNDİRİM OLUŞTURMA</th>
+								<th>GÖRÜNÜRLÜK</th>
+								<th class="text-center" width="12%">İŞLEMLER</th>
+							</tr>
+						</thead>
+						<tbody>
+
+							@foreach (var urunIndirim in Model.UrunIndirimler)
+							{
+								<tr>
+									<th>@urunIndirim.Id</th>
+									<td><div class="d-flex align-items-center"><img src="~/img/@urunIndirim.Urun.Fotograf" class="rounded-lg me-2" width="24" alt=""> <span class="w-space-no">  @urunIndirim.Urun.Ad</span></div></td>
+									<td>₺@urunIndirim.YeniFiyat</td>
+									@if (urunIndirim.IndirimMiktari != null)
+									{
+										<td>₺@urunIndirim.IndirimMiktari</td>
+									}
+									else
+									{
+										<td> - </td>
+									}
+									@if (urunIndirim.IndirimYuzdesi != null)
+									{
+										<td>₺@urunIndirim.IndirimYuzdesi</td>
+									}
+									else
+									{
+										<td> - </td>
+									}
+									<td>@urunIndirim.BaslangıcTarihi</td>
+									<td>@urunIndirim.BitisTarihi</td>
+									<td>@urunIndirim.OlusturmaTarihi</td>
+									@if (urunIndirim.Gorunurluk == true)
+									{
+										<td class="recent-stats"><i class="fa fa-circle text-success me-1"></i>Görünür</td>
+									}
+									else
+									{
+										<td class="recent-stats"><i class="fa fa-circle text-danger me-1"></i>Görünmez</td>
+									}
+									<td class="text-center">
+										@if (urunIndirim.Gorunurluk == true)
+										{
+											<a asp-action="UrunIndirimSil" asp-route-id="@urunIndirim.Id" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa-solid fa-trash"></i></a>
+										}
+										else
+										{
+											<a asp-action="UrunIndirimSil" asp-route-id="@urunIndirim.Id" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa fa-trash-undo"></i></a>
+										}
+									</td>
+								</tr>
+
+
+							}
+
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+
+		</div>
+
+		@* Menü İndirimleri *@
+		<div class="filter cm-content-box box-primary">
+			<div class="content-title">
+				<div class="cpa">
+					<i class="fa-solid fa-file-lines me-1"></i>Menü İndirim Listesi
+				</div>
+				<div class="tools">
+					<a href="javascript:void(0);" class="expand SlideToolHeader"><i class="fal fa-angle-down"></i></a>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="table-responsive">
+
+					<table class="display example3">
+						<thead>
+							<tr>
+								<th></th>
+								<th>MENÜ AD</th>
+								<th>İNDİRİMLİ FİYAT</th>
+								<th>İNDİRİMLİ MİKTARI</th>
+								<th>İNDİRİM BAŞLANGIÇ</th>
+								<th>İNDİRİMLİ YÜZDESİ</th>
+								<th>İNDİRİM BİTİŞ</th>
+								<th>İNDİRİM OLUŞTURMA</th>
+								<th>GÖRÜNÜRLÜK</th>
+								<th class="text-center" width="12%">İŞLEMLER</th>
+							</tr>
+						</thead>
+						<tbody>
+
+							@foreach (var menuIndirim in Model.MenuIndirimler)
+							{
+								<tr>
+									<th>@menuIndirim.Id</th>
+									<td><div class="d-flex align-items-center"><img src="~/img/@menuIndirim.Menu.Fotograf" class="rounded-lg me-2" width="24" alt=""> <span class="w-space-no">  @menuIndirim.Menu.Ad</span></div></td>
+									<td>₺@menuIndirim.YeniFiyat</td>
+									@if (menuIndirim.IndirimMiktari != null)
+									{
+										<td>₺@menuIndirim.IndirimMiktari</td>
+									}
+									else
+									{
+										<td> - </td>
+									}
+									@if (menuIndirim.IndirimYuzdesi != null)
+									{
+										<td>₺@menuIndirim.IndirimYuzdesi</td>
+									}
+									else
+									{
+										<td> - </td>
+									}
+									<td>@menuIndirim.BaslangıcTarihi</td>
+									<td>@menuIndirim.BitisTarihi</td>
+									<td>@menuIndirim.OlusturmaTarihi</td>
+									@if (menuIndirim.Gorunurluk == true)
+									{
+										<td class="recent-stats"><i class="fa fa-circle text-success me-1"></i>Görünür</td>
+									}
+									else
+									{
+										<td class="recent-stats"><i class="fa fa-circle text-danger me-1"></i>Görünmez</td>
+									}
+									<td class="text-center">
+										@if (menuIndirim.Gorunurluk == true)
+										{
+											<a asp-action="MenuIndirimSil" asp-route-id="@menuIndirim.Id" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa-solid fa-trash"></i></a>
+										}
+										else
+										{
+											<a asp-action="MenuIndirimSil" asp-route-id="@menuIndirim.Id" class="btn btn-danger shadow btn-xs sharp rounded-circle"><i class="fa fa-trash-undo"></i></a>
+										}
+									</td>
+								</tr>
+
+
+							}
+
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+		</div>
+
+		<br>
+
 		<div class="filter cm-content-box box-primary">
 			<div class="content-title">
 				<div class="cpa">
@@ -77,7 +250,7 @@
 			<div class="card-body">
 				<div class="table-responsive">
 
-						<table id="example" class="display">
+					<table class="display example3">
 							<thead>
 								<tr>
 									<th></th>
@@ -289,7 +462,7 @@
 			<div class="card-body">
 				<div class="table-responsive">
 
-					<table id="example3" class="display">
+					<table class="display example3">
 						<thead>
 							<tr>
 								<th></th>
@@ -509,15 +682,7 @@
 						<select asp-for="SecilenUrunler" multiple class="default-select form-control wide mt-3">
 							@foreach (var item in Model.Urunler)
 							{
-								var indirim = Model.UrunIndirimler?.FirstOrDefault(x => x.Id == item.Id);
-								if (indirim == null)
-								{
-									<option value="@item.Id">@item.Ad</option>
-								}
-								else
-								{
-									<option value="@item.Id" selected>@item.Ad</option>
-								}
+								<option value="@item.Id">@item.Ad</option>
 							}
 						</select>
 						<span class="validation-text" asp-validation-for="SecilenUrunler"></span>
@@ -530,15 +695,7 @@
 						<select asp-for="SecilenMenuler" multiple class="default-select form-control wide mt-3">
 							@foreach (var item in Model.Menuler)
 							{
-								var indirim = Model.MenuIndirimler?.FirstOrDefault(x => x.Id == item.Id);
-								if (indirim == null)
-								{
-									<option value="@item.Id">@item.Ad</option>
-								}
-								else
-								{
-									<option value="@item.Id" selected>@item.Ad</option>
-								}
+								<option value="@item.Id">@item.Ad</option>
 							}
 						</select>
 						<span class="validation-text text-center" asp-validation-for="SecilenMenuler"></span>
@@ -600,6 +757,15 @@
 	<script src="~/admin_panel/js/plugins-init/datatables.init.js"></script>
 
 	<script>
+		$('.example3').DataTable({
+			language: {
+				paginate: {
+					next: '<i class="fa fa-angle-double-right" aria-hidden="true"></i>',
+					previous: '<i class="fa fa-angle-double-left" aria-hidden="true"></i>'
+				}
+			}
+		});
+
 		$(function () {
 			$(".datepicker").datepicker({
 				language: 'tr',

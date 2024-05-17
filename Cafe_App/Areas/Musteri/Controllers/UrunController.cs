@@ -1,7 +1,6 @@
 ﻿using Cafe_App.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Drawing.Printing;
 using X.PagedList;
 
 namespace Cafe_App.Areas.Musteri.Controllers
