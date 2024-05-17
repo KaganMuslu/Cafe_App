@@ -273,7 +273,14 @@
 										<th>@urun.Id</th>
 										<td><div class="d-flex align-items-center"><img src="~/img/@urun.Fotograf" class="rounded-lg me-2" width="24" alt=""> <span class="w-space-no">  @urun.Ad</span></div></td>
 										<td>₺@urun.Fiyat</td>
-										<td>₺xxx</td>
+										@if (@Model.MenuIndirimler.OrderByDescending(x => x.Id).FirstOrDefault(x => x.Id == urun.Id)?.YeniFiyat != null)
+										{
+											<td>₺@Model.UrunIndirimler.OrderByDescending(x => x.Id).FirstOrDefault(x => x.Id == urun.Id)?.YeniFiyat</td>
+										}
+										else
+										{
+											<td> - </td>
+										}
 										@if (urun.Gorunurluk == true)
 										{
 											<td class="recent-stats"><i class="fa fa-circle text-success me-1"></i>Görünür</td>
@@ -485,7 +492,14 @@
 									<th>@menu.Id</th>
 									<td><div class="d-flex align-items-center"><img src="~/img/@menu.Fotograf" class="rounded-lg me-2" width="24" alt=""> <span class="w-space-no">  @menu.Ad</span></div></td>
 									<td>₺@menu.Fiyat</td>
-									<td>₺xxx</td>
+									@if (@Model.MenuIndirimler.OrderByDescending(x => x.Id).FirstOrDefault(x => x.Id == menu.Id)?.YeniFiyat != null)
+									{
+										<td>₺@Model.MenuIndirimler.OrderByDescending(x => x.Id).FirstOrDefault(x => x.Id == menu.Id)?.YeniFiyat</td>
+									}
+									else
+									{
+										<td> - </td>
+									}
 									@if (menu.Gorunurluk == true)
 									{
 										<td class="recent-stats"><i class="fa fa-circle text-success me-1"></i>Görünür</td>
