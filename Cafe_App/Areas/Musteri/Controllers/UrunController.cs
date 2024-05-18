@@ -1,6 +1,8 @@
 ﻿using Cafe_App.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
 using X.PagedList;
 
 namespace Cafe_App.Areas.Musteri.Controllers
@@ -28,6 +30,17 @@ namespace Cafe_App.Areas.Musteri.Controllers
             ViewBag.EndCount = endCount;
 
             return View(urunler);
+        }
+
+        public IActionResult UrunDetay(int id)
+        {
+            var urun = _context.Urunler.Include(x => x.Kategori).FirstOrDefault(x => x.Id == id);
+            if (urun == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            return View(urun);
         }
 
     }

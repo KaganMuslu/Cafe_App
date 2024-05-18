@@ -1,0 +1,393 @@
+﻿
+@{
+    ViewData["Title"] = "Menü Detay";
+}
+
+@model Menu
+
+<div id="QuickView" class="white-popup mfp-hide">
+    <div class="container bg-white">
+        <div class="row">
+            <div class="col-lg-7">
+                <div class="product-thumb-area">
+                    <div class="product-thumb-tab" data-asnavfor=".product-big-img">
+                        <div class="tab-btn active"><img src="~/img/@Model.Fotograf" alt="Product Thumb"></div>
+                        <div class="tab-btn"><img src="~/home_panel/img/menu/menu_thumb_1_2.png" alt="Product Thumb"></div>
+                        <div class="tab-btn"><img src="~/home_panel/img/menu/menu_thumb_1_3.png" alt="Product Thumb"></div>
+                        <div class="tab-btn"><img src="~/home_panel/img/menu/menu_thumb_1_4.png" alt="Product Thumb"></div>
+                        <div class="tab-btn"><img src="~/home_panel/img/menu/menu_thumb_1_5.png" alt="Product Thumb"></div>
+                    </div>
+                    <div class="product-big-img th-carousel" data-slide-show="1" data-md-slide-show="1" data-fade="true">
+                        <div class="col-auto">
+                            <div class="img"><img src="~/img/@Model.Fotograf" alt="Product Image"></div>
+                        </div>
+                        <div class="col-auto">
+                            <div class="img"><img src="~/home_panel/img/menu/product_details_1_2.png" alt="Product Image"></div>
+                        </div>
+                        <div class="col-auto">
+                            <div class="img"><img src="~/home_panel/img/menu/product_details_1_3.png" alt="Product Image"></div>
+                        </div>
+                        <div class="col-auto">
+                            <div class="img"><img src="~/home_panel/img/menu/product_details_1_4.png" alt="Product Image"></div>
+                        </div>
+                        <div class="col-auto">
+                            <div class="img"><img src="~/home_panel/img/menu/product_details_1_5.png" alt="Product Image"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 align-self-center">
+                <div class="product-about">
+                    <div class="product-rating">
+                        <div class="star-rating" role="img" aria-label="Rated 5.00 out of 5"><span style="width:100%">Rated <strong class="rating">5.00</strong> out of 5 based on <span class="rating">1</span> customer rating</span></div>
+                        <a href="shop-details.html" class="woocommerce-review-link">(<span class="count">3</span> kullanıcı değerlendirmesi)</a>
+                    </div>
+                    <h2 class="product-title">@Model.Ad</h2>
+                    <p class="price">@Model.Fiyat ₺<del>$350.99</del></p>
+                    <p class="text">@Model.Aciklama</p>
+                    <div class="actions">
+                        <div class="quantity"><input type="number" class="qty-input" step="1" min="1" max="100" name="quantity" value="1" title="Qty"> <button class="quantity-plus qty-btn"><i class="far fa-chevron-up"></i></button> <button class="quantity-minus qty-btn"><i class="far fa-chevron-down"></i></button></div>
+                        <button class="th-btn">Sepete Ekle</button> <a class="icon-btn" href="wishlist.html"><i class="fal fa-heart"></i></a>
+                    </div>
+                    <div class="product_meta"><span class="sku_wrapper">SKU: <span class="sku">C2546</span></span> <span class="posted_in">Kategori: <a href="shop.html" rel="tag">@Model.Kategori?.Ad</a></span> <span>Etiketler: <a href="shop.html">Fast Food</a><a href="shop.html">Grill</a></span></div>
+                    <div class="share">
+                        <p class="share-title"><i class="fa-solid fa-share"></i> Paylaş</p>
+                        <div class="th-social"><a target="_blank" href="https://facebook.com/"><i class="fab fa-facebook-f"></i></a> <a target="_blank" href="https://twitter.com/"><i class="fab fa-twitter"></i></a> <a target="_blank" href="https://instagram.com/"><i class="fab fa-instagram"></i></a> <a target="_blank" href="https://linkedin.com/"><i class="fab fa-linkedin-in"></i></a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button title="Kapat (Esc)" type="button" class="mfp-close">×</button>
+    </div>
+</div>
+
+<section class="th-product-wrapper product-details space-top space-extra-bottom">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7">
+                <div class="product-thumb-area">
+                    <div class="product-thumb-tab" data-asnavfor=".product-big-img">
+                        <div class="tab-btn active"><img src="~/home_panel/img/menu/menu_thumb_1_1.png" alt="Product Thumb"></div>
+                        <div class="tab-btn"><img src="~/home_panel/img/menu/menu_thumb_1_2.png" alt="Product Thumb"></div>
+                        <div class="tab-btn"><img src="~/home_panel/img/menu/menu_thumb_1_3.png" alt="Product Thumb"></div>
+                        <div class="tab-btn"><img src="~/home_panel/img/menu/menu_thumb_1_4.png" alt="Product Thumb"></div>
+                        <div class="tab-btn"><img src="~/home_panel/img/menu/menu_thumb_1_5.png" alt="Product Thumb"></div>
+                    </div>
+                    <div class="product-big-img th-carousel" data-slide-show="1" data-md-slide-show="1" data-fade="true">
+                        <div class="col-auto">
+                            <div class="img"><img src="~/home_panel/img/menu/product_details_1_1.png" alt="Product Image"></div>
+                        </div>
+                        <div class="col-auto">
+                            <div class="img"><img src="~/home_panel/img/menu/product_details_1_2.png" alt="Product Image"></div>
+                        </div>
+                        <div class="col-auto">
+                            <div class="img"><img src="~/home_panel/img/menu/product_details_1_3.png" alt="Product Image"></div>
+                        </div>
+                        <div class="col-auto">
+                            <div class="img"><img src="~/home_panel/img/menu/product_details_1_4.png" alt="Product Image"></div>
+                        </div>
+                        <div class="col-auto">
+                            <div class="img"><img src="~/home_panel/img/menu/product_details_1_5.png" alt="Product Image"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 align-self-center">
+                <div class="product-about">
+                    <div class="product-rating">
+                        <div class="star-rating" role="img" aria-label="Rated 5.00 out of 5"><span style="width:100%">Rated <strong class="rating">5.00</strong> out of 5 based on <span class="rating">1</span> customer rating</span></div>
+                        <a href="shop-details.html" class="woocommerce-review-link">(<span class="count">3</span> kullanıcı değerlendirmesi)</a>
+                    </div>
+                    <h2 class="product-title">@Model.Ad</h2>
+                    <p class="price">@Model.Fiyat ₺<del>$350.99</del></p>
+                    <p class="text">@Model.Aciklama</p>
+                    <div class="actions">
+                        <div class="quantity"><input type="number" class="qty-input" step="1" min="1" max="100" name="quantity" value="1" title="Qty"> <button class="quantity-plus qty-btn"><i class="far fa-chevron-up"></i></button> <button class="quantity-minus qty-btn"><i class="far fa-chevron-down"></i></button></div>
+                        <button class="th-btn">Sepete Ekle</button> <a class="icon-btn" href="wishlist.html"><i class="fal fa-heart"></i></a>
+                    </div>
+                    <div class="product_meta"><span class="sku_wrapper">SKU: <span class="sku">C2546</span></span> <span class="posted_in">Kategori: <a href="shop.html" rel="tag">@Model.Kategori.Ad</a></span> <span>Etiketler: <a href="shop.html">Fast Food</a><a href="shop.html">Grill</a></span></div>
+                    <div class="share">
+                        <p class="share-title"><i class="fa-solid fa-share"></i> Paylaş</p>
+                        <div class="th-social"><a target="_blank" href="https://facebook.com/"><i class="fab fa-facebook-f"></i></a> <a target="_blank" href="https://twitter.com/"><i class="fab fa-twitter"></i></a> <a target="_blank" href="https://instagram.com/"><i class="fab fa-instagram"></i></a> <a target="_blank" href="https://linkedin.com/"><i class="fab fa-linkedin-in"></i></a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ul class="nav product-tab-style1" id="productTab" role="tablist">
+            <li class="nav-item" role="presentation"><a class="nav-link th-btn" id="description-tab" data-bs-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="false">Ürün Açıklaması</a></li>
+            <li class="nav-item" role="presentation"><a class="nav-link th-btn active" id="reviews-tab" data-bs-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="true">Kullanıcı DEĞERLENDİRMELERİ</a></li>
+        </ul>
+        <div class="tab-content" id="productTabContent">
+            <div class="tab-pane fade" id="description" role="tabpanel" aria-labelledby="description-tab">
+                <p>
+                    Günlük kalori gereksinimimizin % 15 kadarını da proteinlerden alınmalıdır. Protein insan vücudunda birçok yapının temel
+                    taşıdır. Sağlıklı kas iskelet yapısı ve hormonal durum için mutlaka belli oranda tüketilmelidir. Et, balık,
+                    tavuk, yumurta ve baklagiller başlıca protein kaynağıdır. Günlük kalorinin %15 kadarı da yağlarda alınmalıdır
+                    , ancak bunun içinde doymuş katı yağ oranı mümkün olduğunca az olmalıdır.Hayvansal besinler zaten bir miktar yağ içerir,
+                    ek olarak 1-2 tatlı kaşığı zeytinyağı tüketimi önerilebilir.
+                </p>
+            </div>
+            <div class="tab-pane fade show active" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                <div class="woocommerce-Reviews">
+                    <div class="th-comments-wrap">
+                        <ul class="comment-list">
+                            <li class="review th-comment-item">
+                                <div class="th-post-comment">
+                                    <div class="comment-avater"><img src="~/home_panel/img/blog/comment-author-3.jpg" alt="Comment Author"></div>
+                                    <div class="comment-content">
+                                        <h4 class="name">Mark Jack</h4>
+                                        <span class="commented-on"><i class="fal fa-calendar-alt"></i>22 April, 2023</span>
+                                        <div class="star-rating" role="img" aria-label="Rated 5.00 out of 5"><span style="width:100%">Rated <strong class="rating">5.00</strong> out of 5 based on <span class="rating">1</span> customer rating</span></div>
+                                        <p class="text">Completely build enabled web-readiness and distributed customer service. Proactively customize.</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="review th-comment-item">
+                                <div class="th-post-comment">
+                                    <div class="comment-avater"><img src="~/home_panel/img/blog/comment-author-2.jpg" alt="Comment Author"></div>
+                                    <div class="comment-content">
+                                        <h4 class="name">Alexa Deo</h4>
+                                        <span class="commented-on"><i class="fal fa-calendar-alt"></i>26 April, 2023</span>
+                                        <div class="star-rating" role="img" aria-label="Rated 5.00 out of 5"><span style="width:100%">Rated <strong class="rating">5.00</strong> out of 5 based on <span class="rating">1</span> customer rating</span></div>
+                                        <p class="text">Completely build enabled web-readiness and distributed customer service. Proactively customize.</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="review th-comment-item">
+                                <div class="th-post-comment">
+                                    <div class="comment-avater"><img src="~/home_panel/img/blog/comment-author-1.jpg" alt="Comment Author"></div>
+                                    <div class="comment-content">
+                                        <h4 class="name">Tara sing</h4>
+                                        <span class="commented-on"><i class="fal fa-calendar-alt"></i>26 April, 2023</span>
+                                        <div class="star-rating" role="img" aria-label="Rated 5.00 out of 5"><span style="width:100%">Rated <strong class="rating">5.00</strong> out of 5 based on <span class="rating">1</span> customer rating</span></div>
+                                        <p class="text">Completely build enabled web-readiness and distributed customer service. Proactively customize.</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="review th-comment-item">
+                                <div class="th-post-comment">
+                                    <div class="comment-avater"><img src="~/home_panel/img/blog/comment-author-3.jpg" alt="Comment Author"></div>
+                                    <div class="comment-content">
+                                        <h4 class="name">Tara sing</h4>
+                                        <span class="commented-on"><i class="fal fa-calendar-alt"></i>26 April, 2023</span>
+                                        <div class="star-rating" role="img" aria-label="Rated 5.00 out of 5"><span style="width:100%">Rated <strong class="rating">5.00</strong> out of 5 based on <span class="rating">1</span> customer rating</span></div>
+                                        <p class="text">Completely build enabled web-readiness and distributed customer service. Proactively customize.</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="th-comment-form">
+                        <div class="form-title">
+                            <h3 class="blog-inner-title">İnceleme ekle</h3>
+                        </div>
+                        <div class="row">
+                            <div class="form-group rating-select d-flex align-items-center">
+                                <label>Sizin dereceniz</label>
+                                <p class="stars"><span><a class="star-1" href="#">1</a> <a class="star-2" href="#">2</a> <a class="star-3" href="#">3</a> <a class="star-4" href="#">4</a> <a class="star-5" href="#">5</a></span></p>
+                            </div>
+                            <div class="col-12 form-group"><textarea placeholder="Mesaj yaz" class="form-control"></textarea> <i class="text-title far fa-pencil-alt"></i></div>
+                            <div class="col-md-6 form-group"><input type="text" placeholder="Adınız" class="form-control"> <i class="text-title far fa-user"></i></div>
+                            <div class="col-md-6 form-group"><input type="text" placeholder="Mail Adresiniz" class="form-control"> <i class="text-title far fa-envelope"></i></div>
+                            <div class="col-12 form-group">
+                                <input id="reviewcheck" name="reviewcheck" type="checkbox"> <label for="reviewcheck">
+                                    Bir dahaki sefere yorum yaptığımda kullanılmak üzere adımı, e-posta adresimi ve web site adresimi bu tarayıcıya kaydet.
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="col-12 form-group mb-0"><button class="th-btn rounded-2">Gönder</button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="space-extra-top mb-30">
+            <div class="title-area text-center">
+                <h2 class="sec-title">İlgili Ürünler</h2>
+                <p class="sec-text ms-auto me-auto">Tercihlerinize özel ürünlerimiz</p>
+            </div>
+            <div class="row slider-shadow th-carousel" data-slide-show="4" data-lg-slide-show="3" data-md-slide-show="2" data-sm-slide-show="2" data-xs-slide-show="1" data-arrows="true">
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <div class="th-product">
+                        <div class="product-img"><img src="~/home_panel/img/menu/menu_1_1.png" alt="Product Image"></div>
+                        <div class="product-content">
+                            <a href="shop.html" class="category">Chicken</a>
+                            <div class="product-rating">
+                                <div class="star-rating" role="img" aria-label="Rated 4.00 out of 5"><span style="width:75%">Rated <strong class="rating">4.00</strong> out of 5</span></div>
+                                (4.00)
+                            </div>
+                            <h3 class="product-title"><a href="shop-details.html">Daria Shevtsova</a></h3>
+                            <span class="price">$80.85<del>$99.99</del></span>
+                            <div class="actions"><a href="#QuickView" class="icon-btn popup-content"><i class="fal fa-eye"></i></a> <a href="cart.html" class="icon-btn"><i class="fal fa-cart-plus"></i></a> <a href="wishlist.html" class="icon-btn"><i class="fal fa-heart"></i></a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <div class="th-product">
+                        <div class="product-img"><img src="~/home_panel/img/menu/menu_1_2.png" alt="Product Image"></div>
+                        <div class="product-content">
+                            <a href="shop.html" class="category">Chicken</a>
+                            <div class="product-rating">
+                                <div class="star-rating" role="img" aria-label="Rated 4.00 out of 5"><span style="width:75%">Rated <strong class="rating">4.00</strong> out of 5</span></div>
+                                (4.00)
+                            </div>
+                            <h3 class="product-title"><a href="shop-details.html">Chicken Masala</a></h3>
+                            <span class="price">$90.85</span>
+                            <div class="actions"><a href="#QuickView" class="icon-btn popup-content"><i class="fal fa-eye"></i></a> <a href="cart.html" class="icon-btn"><i class="fal fa-cart-plus"></i></a> <a href="wishlist.html" class="icon-btn"><i class="fal fa-heart"></i></a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <div class="th-product">
+                        <div class="product-img"><img src="~/home_panel/img/menu/menu_1_3.png" alt="Product Image"></div>
+                        <div class="product-content">
+                            <a href="shop.html" class="category">Pizza</a>
+                            <div class="product-rating">
+                                <div class="star-rating" role="img" aria-label="Rated 4.00 out of 5"><span style="width:75%">Rated <strong class="rating">4.00</strong> out of 5</span></div>
+                                (4.00)
+                            </div>
+                            <h3 class="product-title"><a href="shop-details.html">Sicilian Pizza</a></h3>
+                            <span class="price">$60.85</span>
+                            <div class="actions"><a href="#QuickView" class="icon-btn popup-content"><i class="fal fa-eye"></i></a> <a href="cart.html" class="icon-btn"><i class="fal fa-cart-plus"></i></a> <a href="wishlist.html" class="icon-btn"><i class="fal fa-heart"></i></a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <div class="th-product">
+                        <div class="product-img"><img src="~/home_panel/img/menu/menu_1_4.png" alt="Product Image"></div>
+                        <div class="product-content">
+                            <a href="shop.html" class="category">Mutton</a>
+                            <div class="product-rating">
+                                <div class="star-rating" role="img" aria-label="Rated 4.00 out of 5"><span style="width:75%">Rated <strong class="rating">4.00</strong> out of 5</span></div>
+                                (4.00)
+                            </div>
+                            <h3 class="product-title"><a href="shop-details.html">Beef Masala</a></h3>
+                            <span class="price">$70.85</span>
+                            <div class="actions"><a href="#QuickView" class="icon-btn popup-content"><i class="fal fa-eye"></i></a> <a href="cart.html" class="icon-btn"><i class="fal fa-cart-plus"></i></a> <a href="wishlist.html" class="icon-btn"><i class="fal fa-heart"></i></a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <div class="th-product">
+                        <div class="product-img"><img src="~/home_panel/img/menu/menu_1_5.png" alt="Product Image"></div>
+                        <div class="product-content">
+                            <a href="shop.html" class="category">Breakfast</a>
+                            <div class="product-rating">
+                                <div class="star-rating" role="img" aria-label="Rated 4.00 out of 5"><span style="width:75%">Rated <strong class="rating">4.00</strong> out of 5</span></div>
+                                (4.00)
+                            </div>
+                            <h3 class="product-title"><a href="shop-details.html">Martin Widenka</a></h3>
+                            <span class="price">$20.85</span>
+                            <div class="actions"><a href="#QuickView" class="icon-btn popup-content"><i class="fal fa-eye"></i></a> <a href="cart.html" class="icon-btn"><i class="fal fa-cart-plus"></i></a> <a href="wishlist.html" class="icon-btn"><i class="fal fa-heart"></i></a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <div class="th-product">
+                        <div class="product-img"><img src="~/home_panel/img/menu/menu_1_6.png" alt="Product Image"></div>
+                        <div class="product-content">
+                            <a href="shop.html" class="category">Nodles</a>
+                            <div class="product-rating">
+                                <div class="star-rating" role="img" aria-label="Rated 4.00 out of 5"><span style="width:75%">Rated <strong class="rating">4.00</strong> out of 5</span></div>
+                                (4.00)
+                            </div>
+                            <h3 class="product-title"><a href="shop-details.html">Wendy Chicken</a></h3>
+                            <span class="price">$10.85</span>
+                            <div class="actions"><a href="#QuickView" class="icon-btn popup-content"><i class="fal fa-eye"></i></a> <a href="cart.html" class="icon-btn"><i class="fal fa-cart-plus"></i></a> <a href="wishlist.html" class="icon-btn"><i class="fal fa-heart"></i></a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <div class="th-product">
+                        <div class="product-img"><img src="~/home_panel/img/menu/menu_1_7.png" alt="Product Image"></div>
+                        <div class="product-content">
+                            <a href="shop.html" class="category">Kabab</a>
+                            <div class="product-rating">
+                                <div class="star-rating" role="img" aria-label="Rated 4.00 out of 5"><span style="width:75%">Rated <strong class="rating">4.00</strong> out of 5</span></div>
+                                (4.00)
+                            </div>
+                            <h3 class="product-title"><a href="shop-details.html">BBQ Chicken</a></h3>
+                            <span class="price">$20.85</span>
+                            <div class="actions"><a href="#QuickView" class="icon-btn popup-content"><i class="fal fa-eye"></i></a> <a href="cart.html" class="icon-btn"><i class="fal fa-cart-plus"></i></a> <a href="wishlist.html" class="icon-btn"><i class="fal fa-heart"></i></a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <div class="th-product">
+                        <div class="product-img"><img src="~/home_panel/img/menu/menu_1_8.png" alt="Product Image"></div>
+                        <div class="product-content">
+                            <a href="shop.html" class="category">Ice Cream</a>
+                            <div class="product-rating">
+                                <div class="star-rating" role="img" aria-label="Rated 4.00 out of 5"><span style="width:75%">Rated <strong class="rating">4.00</strong> out of 5</span></div>
+                                (4.00)
+                            </div>
+                            <h3 class="product-title"><a href="shop-details.html">Cheese Butter</a></h3>
+                            <span class="price">$12.85</span>
+                            <div class="actions"><a href="#QuickView" class="icon-btn popup-content"><i class="fal fa-eye"></i></a> <a href="cart.html" class="icon-btn"><i class="fal fa-cart-plus"></i></a> <a href="wishlist.html" class="icon-btn"><i class="fal fa-heart"></i></a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <div class="th-product">
+                        <div class="product-img"><img src="~/home_panel/img/menu/menu_1_9.png" alt="Product Image"></div>
+                        <div class="product-content">
+                            <a href="shop.html" class="category">Biriyani</a>
+                            <div class="product-rating">
+                                <div class="star-rating" role="img" aria-label="Rated 4.00 out of 5"><span style="width:75%">Rated <strong class="rating">4.00</strong> out of 5</span></div>
+                                (4.00)
+                            </div>
+                            <h3 class="product-title"><a href="shop-details.html">Hydrabadi Biriany</a></h3>
+                            <span class="price">$20.85</span>
+                            <div class="actions"><a href="#QuickView" class="icon-btn popup-content"><i class="fal fa-eye"></i></a> <a href="cart.html" class="icon-btn"><i class="fal fa-cart-plus"></i></a> <a href="wishlist.html" class="icon-btn"><i class="fal fa-heart"></i></a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <div class="th-product">
+                        <div class="product-img"><img src="~/home_panel/img/menu/menu_1_10.png" alt="Product Image"></div>
+                        <div class="product-content">
+                            <a href="shop.html" class="category">Vagetable</a>
+                            <div class="product-rating">
+                                <div class="star-rating" role="img" aria-label="Rated 4.00 out of 5"><span style="width:75%">Rated <strong class="rating">4.00</strong> out of 5</span></div>
+                                (4.00)
+                            </div>
+                            <h3 class="product-title"><a href="shop-details.html">Chicken Pokora</a></h3>
+                            <span class="price">$12.85</span>
+                            <div class="actions"><a href="#QuickView" class="icon-btn popup-content"><i class="fal fa-eye"></i></a> <a href="cart.html" class="icon-btn"><i class="fal fa-cart-plus"></i></a> <a href="wishlist.html" class="icon-btn"><i class="fal fa-heart"></i></a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <div class="th-product">
+                        <div class="product-img"><img src="~/home_panel/img/menu/menu_1_11.png" alt="Product Image"></div>
+                        <div class="product-content">
+                            <a href="shop.html" class="category">Fried Rice</a>
+                            <div class="product-rating">
+                                <div class="star-rating" role="img" aria-label="Rated 4.00 out of 5"><span style="width:75%">Rated <strong class="rating">4.00</strong> out of 5</span></div>
+                                (4.00)
+                            </div>
+                            <h3 class="product-title"><a href="shop-details.html">Mutton Fried Rice</a></h3>
+                            <span class="price">$12.85</span>
+                            <div class="actions"><a href="#QuickView" class="icon-btn popup-content"><i class="fal fa-eye"></i></a> <a href="cart.html" class="icon-btn"><i class="fal fa-cart-plus"></i></a> <a href="wishlist.html" class="icon-btn"><i class="fal fa-heart"></i></a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <div class="th-product">
+                        <div class="product-img"><img src="~/home_panel/img/menu/menu_1_12.png" alt="Product Image"></div>
+                        <div class="product-content">
+                            <a href="shop.html" class="category">Vagetable</a>
+                            <div class="product-rating">
+                                <div class="star-rating" role="img" aria-label="Rated 4.00 out of 5"><span style="width:75%">Rated <strong class="rating">4.00</strong> out of 5</span></div>
+                                (4.00)
+                            </div>
+                            <h3 class="product-title"><a href="shop-details.html">Vegetable Salad</a></h3>
+                            <span class="price">$10.85</span>
+                            <div class="actions"><a href="#QuickView" class="icon-btn popup-content"><i class="fal fa-eye"></i></a> <a href="cart.html" class="icon-btn"><i class="fal fa-cart-plus"></i></a> <a href="wishlist.html" class="icon-btn"><i class="fal fa-heart"></i></a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
