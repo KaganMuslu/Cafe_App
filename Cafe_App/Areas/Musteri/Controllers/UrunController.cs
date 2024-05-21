@@ -29,6 +29,11 @@ namespace Cafe_App.Areas.Musteri.Controllers
             ViewBag.StartCount = startCount;
             ViewBag.EndCount = endCount;
 
+            var simdikiTarih = DateOnly.FromDateTime(DateTime.Now);
+            ViewBag.UrunIndirimler = _context.UrunIndirimler
+                .Where(x => x.BaslangıcTarihi <= simdikiTarih && x.BitisTarihi >= simdikiTarih)
+                .ToList();
+
             return View(urunler);
         }
 

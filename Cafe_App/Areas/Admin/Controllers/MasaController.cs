@@ -47,8 +47,9 @@ namespace Cafe_App.Areas.Admin.Controllers
 				var masa = _context.Masalar.FirstOrDefault(x => x.Kod == model.Masa.Kod);
 				if (masa == null)
 				{
-					string masaKod = model.Masa.Kod;
-					string QrLink = $"https://zartzurt.com/{masaKod}";
+					model.Masa.Link = new string(Enumerable.Range(0, 6).Select(_ => "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"[new Random().Next(36)]).ToArray());
+					string masaLink = model.Masa.Link;
+					string QrLink = $"http://192.168.1.132:5000/Musteri/Musteri?masa={masaLink}";
 
 					// QR kodu oluştur
 					QRCodeGenerator qrGenerator = new QRCodeGenerator();
@@ -155,8 +156,9 @@ namespace Cafe_App.Areas.Admin.Controllers
 				}
 				else
 				{
-					string masaKod = model.Masa.Kod;
-					string QrLink = $"https://zartzurt.com/{masaKod}";
+                    model.Masa.Link = new string(Enumerable.Range(0, 6).Select(_ => "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"[new Random().Next(36)]).ToArray());
+                    string masaLink = model.Masa.Link;
+                    string QrLink = $"http://192.168.1.132:5000/Musteri/Musteri?masa={masaLink}";
 
 					// QR kodu oluştur
 					QRCodeGenerator qrGenerator = new QRCodeGenerator();
@@ -173,8 +175,9 @@ namespace Cafe_App.Areas.Admin.Controllers
 					model.Masa.QR = $"/img/{fileName}";
 
 
+					oldMasa.Link = model.Masa.Link;
 					oldMasa.Kod = model.Masa.Kod;
-					oldMasa.QR = model.Masa.QR;
+                    oldMasa.QR = model.Masa.QR;
 					oldMasa.KategoriId = model.Masa.KategoriId;
 					oldMasa.Kapasite = model.Masa.Kapasite;
 

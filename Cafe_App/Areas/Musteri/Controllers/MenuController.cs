@@ -29,7 +29,12 @@ namespace Cafe_App.Areas.Musteri.Controllers
             ViewBag.StartCount = startCount;
             ViewBag.EndCount = endCount;
 
-            return View(menuler);
+			var simdikiTarih = DateOnly.FromDateTime(DateTime.Now);
+			ViewBag.MenuIndirimler = _context.MenuIndirimler
+				.Where(x => x.BaslangıcTarihi <= simdikiTarih && x.BitisTarihi >= simdikiTarih)
+				.ToList();
+
+			return View(menuler);
         }
 
         public IActionResult MenuDetay(int id)

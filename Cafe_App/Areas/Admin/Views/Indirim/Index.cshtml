@@ -84,8 +84,8 @@
 								<th></th>
 								<th>ÜRÜN AD</th>
 								<th>İNDİRİMLİ FİYAT</th>
-								<th>İNDİRİMLİ MİKTARI</th>
-								<th>İNDİRİMLİ YÜZDESİ</th>
+								<th>İNDİRİM MİKTARI</th>
+								<th>İNDİRİM YÜZDESİ</th>
 								<th>İNDİRİM BAŞLANGIÇ</th>
 								<th>İNDİRİM BİTİŞ</th>
 								<th>İNDİRİM OLUŞTURMA</th>
@@ -111,7 +111,7 @@
 									}
 									@if (urunIndirim.IndirimYuzdesi != null)
 									{
-										<td>₺@urunIndirim.IndirimYuzdesi</td>
+										<td>%@urunIndirim.IndirimYuzdesi</td>
 									}
 									else
 									{
@@ -170,9 +170,9 @@
 								<th></th>
 								<th>MENÜ AD</th>
 								<th>İNDİRİMLİ FİYAT</th>
-								<th>İNDİRİMLİ MİKTARI</th>
+								<th>İNDİRİM MİKTARI</th>
+								<th>İNDİRİM YÜZDESİ</th>
 								<th>İNDİRİM BAŞLANGIÇ</th>
-								<th>İNDİRİMLİ YÜZDESİ</th>
 								<th>İNDİRİM BİTİŞ</th>
 								<th>İNDİRİM OLUŞTURMA</th>
 								<th>GÖRÜNÜRLÜK</th>
@@ -197,7 +197,7 @@
 									}
 									@if (menuIndirim.IndirimYuzdesi != null)
 									{
-										<td>₺@menuIndirim.IndirimYuzdesi</td>
+										<td>%@menuIndirim.IndirimYuzdesi</td>
 									}
 									else
 									{

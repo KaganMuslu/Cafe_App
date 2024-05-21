@@ -64,9 +64,9 @@
 							<td><div class="d-flex align-items-center"><span class="w-space-no">@malzeme.Ad</span></div></td>
 							<td>@malzeme.Tur</td>
 							<td>@malzeme.Fiyat</td>
-							<td>@malzeme.Stok.Miktar</td>
-							<td>@malzeme.Stok.MinStok</td>
-							<td>@malzeme.Stok.MaxStok</td>
+							<td>@malzeme.Stok?.Miktar</td>
+							<td>@malzeme.Stok?.MinStok</td>
+							<td>@malzeme.Stok?.MaxStok</td>
 							@if (malzeme.Gorunurluk == true)
 							{
 								<td class="recent-stats"><i class="fa fa-circle text-success me-1"></i>Görünür</td>
@@ -194,13 +194,13 @@
 							</div>
 							<div style="margin-bottom:14px" class="row">
 								<div class="form-floating col-md-6 mb-3">
-									<input id="minStok" asp-for="Stok.MinStok" value="@malzeme.Stok.MinStok" type="number" class="form-control" placeholder="">
+									<input id="minStok" asp-for="Stok.MinStok" value="@malzeme.Stok?.MinStok" type="number" class="form-control" placeholder="">
 									<label for="minStok" class="form-label">&nbsp;&nbsp;&nbsp;Minimum Stok</label>
 									<span class="validation-text" asp-validation-for="Stok.MinStok"></span>
 
 								</div>
 								<div class="form-floating col-md-6 mb-3">
-									<input id="maxStok" asp-for="Stok.MaxStok" value="@malzeme.Stok.MaxStok" type="number" class="form-control" placeholder="" required="">
+									<input id="maxStok" asp-for="Stok.MaxStok" value="@malzeme.Stok?.MaxStok" type="number" class="form-control" placeholder="" required="">
 									<label for="maxStok" class="form-label">&nbsp;&nbsp;&nbsp;Maximum Stok</label>
 									<span class="validation-text" asp-validation-for="Stok.MaxStok"></span>
 
@@ -237,7 +237,7 @@
 							<input asp-for="Stok.Miktar" type="hidden" class="form-control" placeholder="" value=0 required="">
 							<input asp-for="Stok.Gorunurluk" type="hidden" class="form-control" placeholder="" value=true required="">
 							<input asp-for="Id" type="hidden" class="form-control" placeholder="" value=@malzeme.Id required="">
-							<input asp-for="Stok.Id" type="hidden" class="form-control" placeholder="" value=@malzeme.Stok.Id required="">
+							<input asp-for="Stok.Id" type="hidden" class="form-control" placeholder="" value=@malzeme.Stok?.Id required="">
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>

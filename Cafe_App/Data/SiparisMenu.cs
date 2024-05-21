@@ -9,13 +9,15 @@ public partial class SiparisMenu
 
     public int Miktar { get; set; }
 
-    public int MenuId { get; set; }
+	public float Fiyat { get; set; }
+
+	public int MenuId { get; set; }
 
     public int SiparisId { get; set; }
 
-    public int YorumId { get; set; }
+    public int? YorumId { get; set; }
 
-    public string Detay { get; set; }
+    public string? Detay { get; set; }
 
 	public bool Gorunurluk { get; set; }
 

@@ -1,4 +1,25 @@
-﻿
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@using Newtonsoft.Json
+
+@{
+    var cartJson = HttpContextAccessor.HttpContext.Session.GetString("Cart");
+    var cart = string.IsNullOrEmpty(cartJson) ? new Cart() : JsonConvert.DeserializeObject<Cart>(cartJson);
+
+    float toplam = 0;
+    foreach (var item in cart.Items)
+    {
+
+        if (item.Urun != null)
+        {
+            toplam += (item.Fiyat * item.Quantity);
+        }
+        else
+        {
+            toplam += (item.Fiyat * item.Quantity);
+        }
+    }
+}
+
 <!doctype html>
 <html class="no-js" lang="zxx">
 <!-- Mirrored from themeholy.com/html/pizzan/demo/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 01 Apr 2024 12:14:34 GMT -->
@@ -34,6 +55,9 @@
     <link rel="stylesheet" href="/home_panel/css/app.min.css">
     <link rel="stylesheet" href="/home_panel/css/fontawesome.min.css">
     <link rel="stylesheet" href="/home_panel/css/style.css">
+
+    <link href="/css/toastr.css" rel="stylesheet" />
+    <link href="/css/toastr.min.css" rel="stylesheet" />
 </head>
 <body>
     <div class="preloader">
@@ -45,21 +69,75 @@
         <div class="sidemenu-content">
             <button class="closeButton sideMenuCls"><i class="far fa-times"></i></button>
             <div class="widget woocommerce widget_shopping_cart">
-                <h3 class="widget_title">Shopping cart</h3>
+                <h3 class="widget_title">Sepet</h3>
                 <div class="widget_shopping_cart_content">
                     <ul class="woocommerce-mini-cart cart_list product_list_widget">
-                        <li class="woocommerce-mini-cart-item mini_cart_item"><a href="#" class="remove remove_from_cart_button"><i class="far fa-times"></i></a> <a href="#"><img src="/home_panel/img/menu/menu_thumb_1_1.png" alt="Cart Image">Daria Shevtsova</a> <span class="quantity">1 × <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>40.00</span></span></li>
-                        <li class="woocommerce-mini-cart-item mini_cart_item"><a href="#" class="remove remove_from_cart_button"><i class="far fa-times"></i></a> <a href="#"><img src="/home_panel/img/menu/menu_thumb_1_2.png" alt="Cart Image">Chicken Masala</a> <span class="quantity">1 × <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>99.00</span></span></li>
-                        <li class="woocommerce-mini-cart-item mini_cart_item"><a href="#" class="remove remove_from_cart_button"><i class="far fa-times"></i></a> <a href="#"><img src="/home_panel/img/menu/menu_thumb_1_3.png" alt="Cart Image">Sicilian Pizza</a> <span class="quantity">1 × <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>56.00</span></span></li>
-                        <li class="woocommerce-mini-cart-item mini_cart_item"><a href="#" class="remove remove_from_cart_button"><i class="far fa-times"></i></a> <a href="#"><img src="/home_panel/img/menu/menu_thumb_1_4.png" alt="Cart Image">Beef Masala</a> <span class="quantity">1 × <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>23.00</span></span></li>
-                        <li class="woocommerce-mini-cart-item mini_cart_item"><a href="#" class="remove remove_from_cart_button"><i class="far fa-times"></i></a> <a href="#"><img src="/home_panel/img/menu/menu_thumb_1_5.png" alt="Cart Image">Martin Widenka</a> <span class="quantity">1 × <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>100.00</span></span></li>
+                        @foreach (var urun in cart.Items)
+                        {
+                            @if (urun.Urun != null)
+                            {
+                                <li class="woocommerce-mini-cart-item mini_cart_item">
+                                    <a href="#" class="remove remove_from_cart_button">
+                                        <i class="far fa-times"></i>
+                                    </a>
+                                    <a href="#"><img width="50px" src="~/img/@urun.Urun.Fotograf" alt="Fotoğraf">@urun.Urun.Ad</a>
+                                    @if (urun.Fiyat != 0)
+                                    {
+                                        <span class="quantity">
+                                            @urun.Quantity × <span class="woocommerce-Price-amount amount">
+                                            
+                                                    <span class="woocommerce-Price-currencySymbol"></span>@urun.Fiyat ₺
+                                            </span>
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="quantity">
+                                            @urun.Quantity × <span class="woocommerce-Price-amount amount">
+
+                                                <span class="woocommerce-Price-currencySymbol"></span>@urun.Urun.Fiyat ₺
+                                            </span>
+                                        </span>
+                                    }
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="woocommerce-mini-cart-item mini_cart_item">
+                                    <a href="#" class="remove remove_from_cart_button">
+                                        <i class="far fa-times"></i>
+                                    </a>
+                                    <a href="#"><img width="50px" src="~/img/@urun.Menu.Fotograf" alt="Fotoğraf">@urun.Menu.Ad</a>
+                                    @if (urun.Fiyat != 0)
+                                    {
+                                        <span class="quantity">
+                                            @urun.Quantity × <span class="woocommerce-Price-amount amount">
+
+                                                <span class="woocommerce-Price-currencySymbol"></span>@urun.Fiyat ₺
+                                            </span>
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="quantity">
+                                            @urun.Quantity × <span class="woocommerce-Price-amount amount">
+
+                                                <span class="woocommerce-Price-currencySymbol"></span>@urun.Menu.Fiyat ₺
+                                            </span>
+                                        </span>
+                                    }
+                                </li>
+                            }
+
+                        }
                     </ul>
-                    <p class="woocommerce-mini-cart__total total"><strong>Subtotal:</strong> <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>318.00</span></p>
-                    <p class="woocommerce-mini-cart__buttons buttons"><a href="cart.html" class="th-btn wc-forward">View cart</a> <a href="checkout.html" class="th-btn checkout wc-forward">Checkout</a></p>
+                    <p class="woocommerce-mini-cart__total total"><strong>Ara Toplam:</strong> <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol"></span>@toplam ₺</span></p>
+                    <p class="woocommerce-mini-cart__buttons buttons"><a asp-controller="Cart" asp-action="cart" class="th-btn wc-forward">Sepete Git</a></p>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="popup-search-box d-none d-lg-block">
         <button class="searchClose"><i class="fal fa-times"></i></button>
         <form action="#"><input type="text" placeholder="What are you looking for?"> <button type="submit"><i class="fal fa-search"></i></button></form>
@@ -70,44 +148,20 @@
             <div class="mobile-logo"><a asp-controller="Musteri" asp-action="Index"><img src="/home_panel/img/logo.svg" alt="Pizzan"></a></div>
             <div class="th-mobile-menu">
                 <ul>
+                    <li><a asp-controller="Urun" asp-action="Index">Ürünler</a></li>
+                    <li><a asp-controller="Menu" asp-action="Index">Menüler</a></li>
                     <li class="menu-item-has-children">
-                        <a asp-controller="Urun" asp-action="Index">Ürünler</a>
+                        <a href="#">İşlemler</a>
                         <ul class="sub-menu">
-                            <li><a href="home-restaurant.html">Restaurant Home</a></li>
-                            <li><a href="home-fast-food-rastaurant.html">Fast Food Restaurant</a></li>
-                            <li><a href="home-fast-food.html">Fast Food Home</a></li>
-                            <li><a href="home-tea-coffee.html">Tea Coffee Home <span class="new-label">New</span></a></li>
-                            <li><a href="home-restaurant-v2.html">Restaurant Home <span class="new-label">New</span></a></li>
-                            <li><a href="home-fast-food-v2.html">Fast Food Home <span class="new-label">New</span></a></li>
-                            <li><a href="home-pizza-burger.html">Pizza & Burger Light <span class="new-label">New</span></a></li>
-                            <li><a href="home-pizza-burger-dark.html">Pizza & Burger Dark <span class="new-label">New</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu-item-has-children">
-                        <a asp-controller="Menu" asp-action="Index">Menüler</a>
-                        <ul class="sub-menu">
-                            <li><a href="home-restaurant.html">Restaurant Home</a></li>
-                            <li><a href="home-fast-food-rastaurant.html">Fast Food Restaurant</a></li>
-                            <li><a href="home-fast-food.html">Fast Food Home</a></li>
-                            <li><a href="home-tea-coffee.html">Tea Coffee Home <span class="new-label">New</span></a></li>
-                            <li><a href="home-restaurant-v2.html">Restaurant Home <span class="new-label">New</span></a></li>
-                            <li><a href="home-fast-food-v2.html">Fast Food Home <span class="new-label">New</span></a></li>
-                            <li><a href="home-pizza-burger.html">Pizza & Burger Light <span class="new-label">New</span></a></li>
-                            <li><a href="home-pizza-burger-dark.html">Pizza & Burger Dark <span class="new-label">New</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="menu-item-has-children">
-                        <a href="#">Shop</a>
-                        <ul class="sub-menu">
-                            <li><a href="shop.html">Shop</a></li>
-                            <li><a href="shop-v2.html">Shop v2</a></li>
+                            <li><a href="shop-v2.html">İstek Listesi</a></li>
                             <li><a href="shop-details.html">Shop Details</a></li>
                             <li><a href="shop-details-v2.html">Shop Details v2</a></li>
                         </ul>
                     </li>
+                    <li><a asp-controller="Cart" asp-action="Cart">Sepet</a></li>
                     <li><a href="#">Çok Satılanlar</a></li>
                     <li><a asp-controller="Hakkımızda" asp-action="Index">Hakkımızda</a></li>
-                    <li><a href="contact.html">Bize Ulaşın</a></li>
+                    <li><a asp-controller="BizeUlasin" asp-action="Index">Bize Ulaşın</a></li>
                 </ul>
             </div>
         </div>
@@ -142,35 +196,11 @@
                         <div class="col-auto me-xl-auto">
                             <nav class="main-menu d-none d-lg-inline-block">
                                 <ul>
-                                    <li class="menu-item-has-children">
-                                        <a asp-controller="Urun" asp-action="Index">Ürünler</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="home-restaurant.html">Restaurant Home</a></li>
-                                            <li><a href="home-fast-food-rastaurant.html">Fast Food Restaurant</a></li>
-                                            <li><a href="home-fast-food.html">Fast Food Home</a></li>
-                                            <li><a href="home-tea-coffee.html">Tea Coffee Home <span class="new-label">New</span></a></li>
-                                            <li><a href="home-restaurant-v2.html">Restaurant Home <span class="new-label">New</span></a></li>
-                                            <li><a href="home-fast-food-v2.html">Fast Food Home <span class="new-label">New</span></a></li>
-                                            <li><a href="home-pizza-burger.html">Pizza & Burger Light <span class="new-label">New</span></a></li>
-                                            <li><a href="home-pizza-burger-dark.html">Pizza & Burger Dark <span class="new-label">New</span></a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="menu-item-has-children">
-                                        <a asp-controller="Menu" asp-action="Index" >Menüler</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="home-restaurant.html">Restaurant Home</a></li>
-                                            <li><a href="home-fast-food-rastaurant.html">Fast Food Restaurant</a></li>
-                                            <li><a href="home-fast-food.html">Fast Food Home</a></li>
-                                            <li><a href="home-tea-coffee.html">Tea Coffee Home <span class="new-label">New</span></a></li>
-                                            <li><a href="home-restaurant-v2.html">Restaurant Home <span class="new-label">New</span></a></li>
-                                            <li><a href="home-fast-food-v2.html">Fast Food Home <span class="new-label">New</span></a></li>
-                                            <li><a href="home-pizza-burger.html">Pizza & Burger Light <span class="new-label">New</span></a></li>
-                                            <li><a href="home-pizza-burger-dark.html">Pizza & Burger Dark <span class="new-label">New</span></a></li>
-                                        </ul>
-                                    </li>
+                                    <li><a asp-controller="Urun" asp-action="Index">Ürünler</a></li>
+                                    <li><a asp-controller="Menu" asp-action="Index">Menüler</a></li>
                                     <li><a href="#">Çok Satılanlar</a></li>
                                     <li><a asp-controller="Hakkımızda" asp-action="Index" >Hakkımızda</a></li>
-                                    <li><a href="contact.html">BİZE Ulaşın</a></li>
+                                    <li><a asp-controller="BizeUlasin" asp-action="Index">BİZE Ulaşın</a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -183,7 +213,12 @@
                                         <p class="header-info_link"><a href="tel:+5467689600">546 768 96 00</a></p>
                                     </div>
                                 </div>
-                                <button type="button" class="simple-icon searchBoxToggler"><i class="far fa-search"></i></button> <button type="button" class="simple-icon sideMenuToggler"><i class="far fa-cart-shopping"></i> <span class="badge">5</span></button> <a href="contact.html" class="th-btn style3 rounded-2">Rezervasyon<i class="fa-solid fa-arrow-right ms-2"></i></a> <button type="button" class="th-menu-toggle d-inline-block d-lg-none"><i class="far fa-bars"></i></button>
+                                <button type="button" class="simple-icon searchBoxToggler"><i class="far fa-search"></i></button> <button type="button" class="simple-icon sideMenuToggler"><i class="far fa-cart-shopping"></i> 
+                                    @if (cart.Items.Count != 0)
+                                    {
+                                        <span class="badge">@cart.Items.Count</span>
+                                    }
+                                </button><a asp-controller="Rezervasyon" asp-action="Index" class="th-btn style3 rounded-2">Rezervasyon<i class="fa-solid fa-arrow-right ms-2"></i></a> <button type="button" class="th-menu-toggle d-inline-block d-lg-none"><i class="far fa-bars"></i></button>
                             </div>
                         </div>
                     </div>
@@ -212,14 +247,14 @@
                     </div>
                     <div class="col-md-6 col-xl-auto">
                         <div class="widget widget_nav_menu footer-widget">
-                            <h3 class="widget_title">Menüler</h3>
+                            <h3 class="widget_title">Hızlı Git</h3>
                             <div class="menu-all-pages-container">
                                 <ul class="menu">
-                                    <li><a href="menu-fast.html">Chicken Barger</a></li>
-                                    <li><a href="menu-fast.html">Brief Pizza</a></li>
-                                    <li><a href="menu-fast.html">Fresh Vegetable</a></li>
-                                    <li><a href="menu-fast.html">Sea Foods</a></li>
-                                    <li><a href="menu-fast.html">Indian Kabab</a></li>
+                                    <li><a asp-controller="Urun" asp-action="Index">Ürünler</a></li>
+                                    <li><a asp-controller="Menu" asp-action="Index">Menüler</a></li>
+                                    <li><a asp-controller="Hakkımızda" asp-action="Index">Hakkımızda</a></li>
+                                    <li><a asp-controller="Rezervasyon" asp-action="Index">Rezervasyon</a></li>
+                                    <li><a asp-controller="BizeUlasin" asp-action="Index">Bize Ulaşın</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -251,15 +286,15 @@
                             <div class="th-widget-contact">
                                 <div class="info-box">
                                     <div class="info-box_icon"><i class="fal fa-location-dot"></i></div>
-                                    <p class="info-box_text">1403 Washington Ave, New Orlea ns, LA 70130, United States</p>
+                                    <p class="info-box_text">Azmimilli, Serhat Sk. 81020 Düzce Merkez</p>
                                 </div>
                                 <div class="info-box">
                                     <div class="info-box_icon"><i class="fal fa-mobile-button"></i></div>
-                                    <p class="info-box_text"><a href="tel:+11234567890" class="info-box_link">+(1) 123 456 7890</a> <a href="tel:+10987654321" class="info-box_link">+(1) 098 765 4321</a></p>
+                                    <p class="info-box_text"><a href="tel:+905464567890" class="info-box_link">+(90) 546 456 7890</a> <a href="tel:+905467687746" class="info-box_link">+(90) 546 768 77 46</a></p>
                                 </div>
                                 <div class="info-box">
                                     <div class="info-box_icon"><i class="fal fa-envelope"></i></div>
-                                    <p class="info-box_text"><a href="mailto:info@pizzan.com" class="info-box_link">info@pizzan.com</a> <a href="mailto:info.example@pizzan.com" class="info-box_link">info.example@pizzan.com</a></p>
+                                    <p class="info-box_text"><a href="mailto:info.cafeappcii@gmail.com" class="info-box_link">info.cafeappcii@gmail.com</a> <a href="mailto:info@cafeapp.com" class="info-box_link">info@cafeapp.com</a></p>
                                 </div>
                             </div>
                         </div>
@@ -302,9 +337,30 @@
             <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919, 307.919; stroke-dashoffset: 307.919;"></path>
         </svg>
     </div>
+
     <script src="/home_panel/js/vendor/jquery-3.6.0.min.js"></script>
     <script src="/home_panel/js/app.min.js"></script>
     <script src="/home_panel/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/js/toastr.min.js"></script>
+
+    @if (TempData["SepeteEklendi"] != null)
+    {
+        <script>
+            Command: toastr["success"]("'@TempData["SepeteEklendi"]' Sepete Eklendi!", "Sepete Eklendi!",
+            {
+                positionClass: "toast-bottom-right",
+                progressBar: true,
+            })
+        </script>
+    }
+
+
+    @await RenderSectionAsync("Scripts", required: false)
+    @{
+        //await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
 </body>
 <!-- Mirrored from themeholy.com/html/pizzan/demo/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 01 Apr 2024 12:14:34 GMT -->
 </html>

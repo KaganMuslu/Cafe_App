@@ -87,8 +87,8 @@
 										}
 									}
 									<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Kapasite</span> <strong class="text-muted">@masa.Kapasite	</strong></li>
-									<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Toplam Tutar</span> <strong class="text-muted">@masa.Tutar	</strong></li>
-									<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Ödenen Tutar</span> <strong class="text-muted">@masa.OdenenTutar </strong></li>
+									@* <li class="list-group-item d-flex justify-content-between"><span class="mb-0">Toplam Tutar</span> <strong class="text-muted">@masa.Tutar	</strong></li>
+									<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Ödenen Tutar</span> <strong class="text-muted">@masa.OdenenTutar </strong></li> *@
 									@if (masa.Gorunurluk == true)
 									{
 										<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Görünürlük</span> <strong class="text-success">Görünür</strong></li>
@@ -199,8 +199,6 @@
 						</div>
 							<input asp-for="Masa.Gorunurluk" type="hidden" class="form-control" value=True required="">
 							<input asp-for="Masa.Durum" type="hidden" class="form-control" value=1 required="">
-							<input asp-for="Masa.Tutar" type="hidden" class="form-control" value=0 required="">
-							<input asp-for="Masa.OdenenTutar" type="hidden" class="form-control" value=0 required="">
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
@@ -358,8 +356,6 @@
 								</div>
 								<input asp-for="Masa.Gorunurluk" type="hidden" class="form-control" value=True>
 								<input asp-for="Masa.Durum" type="hidden" class="form-control" value=1>
-								<input asp-for="Masa.Tutar" type="hidden" class="form-control" value=0>
-								<input asp-for="Masa.OdenenTutar" type="hidden" class="form-control" value=0>
 								<input asp-for="Masa.Id" type="hidden" value="@masa.Id" class="form-control">
 							</div>
 							<div class="modal-footer">
@@ -442,7 +438,7 @@
 																	Masa Tutar
 																</h6>
 															</div>
-															<span class="text-muted">₺@masa.Tutar</span>
+															<span class="text-muted">₺xxx</span>
 														</li>
 														<li class="list-group-item d-flex justify-content-between lh-condensed">
 															<div>
@@ -453,7 +449,7 @@
 																	Masa Ödenen Tutar
 																</h6>
 															</div>
-															<span class="text-muted">₺@masa.OdenenTutar</span>
+															<span class="text-muted">₺xxx</span>
 														</li>
 														<li class="list-group-item d-flex justify-content-between lh-condensed">
 															<div>

@@ -348,10 +348,10 @@ namespace Cafe_App.Areas.Admin.Controllers
         [AcceptVerbs("GET", "POST")]
         public IActionResult IndirimTarihKontrol(IndirimViewModel model)
         {
-            if (model.BaslangıcTarihi <= DateOnly.FromDateTime(DateTime.Now))
+            /*if (model.BaslangıcTarihi <= DateOnly.FromDateTime(DateTime.Now))
             {
                 return Json("Başlangıç tarihi gelecek zaman olmalıdır.");
-            }
+            }*/
 
             if (model.BitisTarihi <= model.BaslangıcTarihi)
             {

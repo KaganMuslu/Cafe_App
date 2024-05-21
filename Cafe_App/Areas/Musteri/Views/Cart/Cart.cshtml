@@ -1,0 +1,224 @@
+﻿
+@{
+	ViewData["Title"] = "Cart";
+	var urunIndirimler = ViewBag.UrunIndirimler as List<UrunIndirim>;
+	var menuIndirimler = ViewBag.MenuIndirimler as List<MenuIndirim>;
+
+
+	float toplam = 0;
+	float GenelToplam = 0;
+	foreach (var item in Model.Items)
+	{
+
+		if (item.Urun != null)
+		{
+			var indirimliUrun = urunIndirimler?.FirstOrDefault(i => i.UrunId == item.Urun.Id);
+
+			@if (indirimliUrun != null && indirimliUrun.YeniFiyat != 0)
+			{
+				toplam += ((indirimliUrun.YeniFiyat ?? 0) * (item.Quantity));
+			}
+			else
+			{
+				toplam += (item.Urun.Fiyat * item.Quantity);
+			}
+		}
+		else
+		{
+			var indirimliMenu = menuIndirimler?.FirstOrDefault(i => i.MenuId == item.Menu.Id);
+
+			@if (indirimliMenu != null && indirimliMenu.YeniFiyat != 0)
+			{
+				toplam += ((indirimliMenu.YeniFiyat ?? 0) * (item.Quantity));
+			}
+			else
+			{
+				toplam += (item.Menu.Fiyat * item.Quantity);
+			}
+		}
+
+		if (toplam < 250 && ViewBag.Masa == null)
+		{
+			GenelToplam = toplam + 50;
+		}
+		else
+		{
+			GenelToplam = toplam;
+		}
+	}
+}
+@model Cart
+
+<div class="breadcumb-wrapper" data-bg-src="/home_panel/img/update_2/bg/breadcumb_bg_2.jpg">
+	<div class="container z-index-common">
+		<div class="breadcumb-content">
+			<h1 class="breadcumb-title">Sepet</h1>
+			<ul class="breadcumb-menu">
+				<li><a asp-controller="Musteri" asp-action="Index">Ana Sayfa</a></li>
+				<li>Sepet</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="th-cart-wrapper space-top space-extra-bottom">
+	<div class="container">
+		<div class="woocommerce-notices-wrapper">
+			<div class="woocommerce-message">Shipping costs updated.</div>
+		</div>
+		<form action="#" class="woocommerce-cart-form">
+			<table class="cart_table">
+				<thead>
+					<tr>
+						<th class="cart-col-image">Fotoğraf</th>
+						<th class="cart-col-productname">Ürün Adı</th>
+						<th class="cart-col-price">Fiyat</th>
+						<th class="cart-col-quantity">Miktar</th>
+						<th class="cart-col-total">Toplam</th>
+						<th class="cart-col-remove">Sil</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var item in Model.Items)
+					{
+						if (item.Urun != null)
+						{
+							var indirimliUrun = urunIndirimler?.FirstOrDefault(i => i.UrunId == item.Urun.Id);
+
+							<tr class="cart_item">
+								<td data-title="Fotoğraf"><a class="cart-productimage" href="shop-detailis.html"><img width="91" height="91" src="~/img/@item.Urun.Fotograf" alt="Image"></a></td>
+								<td data-title="Ürün Adı"><a class="cart-productname" href="shop-detailis.html">@item.Urun.Ad</a></td>
+								@if (indirimliUrun != null)
+								{
+									<td data-title="Fiyat"><span class="amount"><bdi class="text-danger">@indirimliUrun.YeniFiyat <span>₺</span></bdi> <del> @item.Urun.Fiyat ₺</del></span></td>
+								}
+								else
+								{
+									<td data-title="Fiyat"><span class="amount"><bdi class="text-danger">@item.Urun.Fiyat <span>₺</span></bdi></span></td>
+								}
+								<td data-title="Miktar">
+									<div class="quantity">
+										<a asp-action="AddToCart" asp-route-productId="@item.Urun.Id" asp-route-minus="1" class="qty-btn"><i class="far fa-minus"></i></a>
+										<input type="number" class="qty-input" value="@item.Quantity" min="1" max="99"> 
+										<a asp-action="AddToCart" asp-route-productId="@item.Urun.Id" class="qty-btn"><i class="far fa-plus"></i></a>
+									</div>
+								</td>
+								@if (indirimliUrun != null)
+								{
+									<td data-title="Toplam"><span class="amount"><bdi>@item.Quantity x @indirimliUrun.YeniFiyat = <b class="text-danger"> @(@item.Quantity * @indirimliUrun.YeniFiyat)  <span>₺</span></b> </bdi></span></td>
+								}
+								else
+								{
+									<td data-title="Toplam"><span class="amount"><bdi>@item.Quantity x @item.Urun.Fiyat = <b class="text-danger"> @(@item.Quantity * @item.Urun.Fiyat)  <span>₺</span></b> </bdi></span></td>
+								}
+								<td data-title="Sil"><a asp-action="RemoveCart" asp-route-productId="@item.Urun.Id" class="remove"><i class="fal fa-trash-alt"></i></a></td>
+							</tr>
+						}
+						else
+						{
+							var indirimliMenu = menuIndirimler?.FirstOrDefault(i => i.MenuId == item.Menu.Id);
+
+							<tr class="cart_item">
+								<td data-title="Fotoğraf"><a class="cart-productimage" href="shop-detailis.html"><img width="91" height="91" src="~/img/@item.Menu.Fotograf" alt="Image"></a></td>
+								<td data-title="Menü Adı"><a class="cart-productname" href="shop-detailis.html">@item.Menu.Ad</a></td>
+								@if (indirimliMenu != null)
+								{
+									<td data-title="Fiyat"><span class="amount"><bdi class="text-danger">@indirimliMenu.YeniFiyat <span>₺</span></bdi> <del> @item.Menu.Fiyat ₺</del></span></td>
+								}
+								else
+								{
+									<td data-title="Fiyat"><span class="amount"><bdi>@item.Menu.Fiyat <span>₺</span></bdi></span></td>
+								}
+								<td data-title="Miktar">
+									<div class="quantity">
+										<a asp-action="AddToCart" asp-route-menuId="@item.Menu.Id" asp-route-minus="1" class="qty-btn"><i class="far fa-minus"></i></a>
+										<input type="number" class="qty-input" value="@item.Quantity" min="1" max="99">
+										<a asp-action="AddToCart" asp-route-menuId="@item.Menu.Id" class="qty-btn"><i class="far fa-plus"></i></a>
+									</div>
+								</td>
+								@if (indirimliMenu != null)
+								{
+									<td data-title="Toplam"><span class="amount"><bdi>@item.Quantity x @indirimliMenu.YeniFiyat = <b class="text-danger"> @(@item.Quantity * @indirimliMenu.YeniFiyat)  <span>₺</span></b> </bdi></span></td>
+								}
+								else
+								{
+									<td data-title="Toplam"><span class="amount"><bdi>@item.Quantity x @item.Menu.Fiyat = <b class="text-danger"> @(@item.Quantity * @item.Menu.Fiyat)  <span>₺</span></b> </bdi></span></td>
+								}
+								<td data-title="Sil"><a asp-action="RemoveCart" asp-route-menuId="@item.Menu.Id" class="remove"><i class="fal fa-trash-alt"></i></a></td>
+							</tr>
+						}
+					}
+
+					<tr>
+						<td colspan="6" class="actions">
+							<div class="th-cart-coupon"><input type="text" class="form-control" placeholder="Kupon Kodu..."> <button type="submit" class="th-btn rounded-2">Kupon Uygula</button></div>
+							<div style="display:flex; text-align:end" class="th-cart-coupon"><input type="text" class="form-control" placeholder="Not..."></div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+		
+		
+		<br />
+
+		<div class="row justify-content-end">
+			<div class="col-md-8 col-lg-7 col-xl-6">
+				<h2 class="h4 summary-title">Sepet Toplamı</h2>
+				<table class="cart_totals">
+					<tbody>
+						<tr>
+							<td>Sepet Ara Toplamı</td>
+							<td data-title="Sepet Ara Toplamı"><span class="amount"><bdi>@toplam <span>₺</span></bdi></span></td>
+						</tr>
+						<tr class="shipping">
+							<th>Kargo</th>
+							<td data-title="Kargo">
+								@if (toplam > 250 || ViewBag.Masa != null)
+								{
+									<span class="amount"><bdi>Kargo Bedava!</bdi></span>
+								}
+								else
+								{
+									<span class="amount"><bdi>50 <span>₺</span></bdi></span>
+								}
+							</td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr class="order-total">
+							<td>Sipariş Toplamı</td>
+							<td data-title="Total"><strong><span class="amount"><bdi>@GenelToplam <span>₺</span></bdi></span></strong></td>
+						</tr>
+					</tfoot>
+				</table>
+				<div class="wc-proceed-to-checkout mb-30"><a asp-action="SiparisTamamla" class="th-btn rounded-2">SİPARİŞİ ONAYLA</a></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+@if (ViewBag.SiparisAlındı == true)
+{
+	<script>
+		document.addEventListener('DOMContentLoaded', (event) => {
+			Swal.fire({
+				title: "Sipariş Alındı!",
+				text: "Siparişiniz başarılı bir şekilde alındı!",
+				icon: "success"
+			});
+		});
+	</script>
+}
+
+@if (ViewBag.GirisYap == true)
+{
+	<script>
+		document.addEventListener('DOMContentLoaded', (event) => {
+			Swal.fire({
+				title: "Giriş Yapın!",
+				text: "Lütfen ilk önce QR'ı okutun!",
+				icon: "error"
+			});
+		});
+	</script>
+}

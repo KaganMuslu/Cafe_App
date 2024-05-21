@@ -1,5 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Menü";
+    var menuIndirimler = ViewBag.MenuIndirimler as List<MenuIndirim>;
+    string guncelUrl = Context.Request.Path + Context.Request.QueryString;
 }
 @model IPagedList<Menu>
 @using X.PagedList
@@ -52,6 +54,8 @@
         <div class="row gy-40">
             @foreach (var menu in Model)
             {
+                var indirimliMenu = menuIndirimler?.FirstOrDefault(i => i.MenuId == menu.Id);
+
                 <div class="col-xl-3 col-lg-4 col-sm-6">
                     <div class="th-product">
                         <div class="product-img"><img style="height:240px" src="~/img/@menu.Fotograf" alt="Product Image"></div>
@@ -62,8 +66,18 @@
                                 (4.00)
                             </div>
                             <h3 class="product-title"><a asp-action="MenuDetay" asp-route-id="@menu.Id">@menu.Ad</a></h3>
-                            <span class="price">@menu.Fiyat ₺<del>99.99 ₺</del></span>
-                            <div class="actions"><a href="#QuickView_@menu.Id" class="icon-btn popup-content"><i class="fal fa-eye"></i></a> <a href="cart.html" class="icon-btn"><i class="fal fa-cart-plus"></i></a> <a href="wishlist.html" class="icon-btn"><i class="fal fa-heart"></i></a></div>
+                            @if (indirimliMenu != null)
+                            {
+                                <span class="price">@indirimliMenu.YeniFiyat ₺<del> @menu.Fiyat ₺</del></span>
+                            }
+                            else
+                            {
+                                <span class="price">@menu.Fiyat ₺</span>
+                            }
+                            <div class="actions">
+                                <a href="#QuickView_@menu.Id" class="icon-btn popup-content"><i class="fal fa-eye"></i></a>
+                                <a onclick="restoreScrollPosition();" asp-controller="Cart" asp-action="AddToCart" asp-route-menuId="@menu.Id" asp-route-url="@guncelUrl" class="icon-btn"><i class="fal fa-cart-plus"></i></a>
+                                <a href="wishlist.html" class="icon-btn"><i class="fal fa-heart"></i></a></div>
                         </div>
                     </div>
                 </div>
@@ -112,7 +126,7 @@
                                         <div class="quantity"><input type="number" class="qty-input" step="1" min="1" max="100" name="quantity" value="1" title="Qty"> <button class="quantity-plus qty-btn"><i class="far fa-chevron-up"></i></button> <button class="quantity-minus qty-btn"><i class="far fa-chevron-down"></i></button></div>
                                         <button class="th-btn">Sepete Ekle</button> <a class="icon-btn" href="wishlist.html"><i class="fal fa-heart"></i></a>
                                     </div>
-                                    <div class="product_meta"><span class="sku_wrapper">SKU: <span class="sku">C2546</span></span> <span class="posted_in">Kategori: <a href="shop.html" rel="tag">@menu.Kategori.Ad</a></span> <span>Etiketler: <a href="shop.html">Fast Food</a><a href="shop.html">Grill</a></span></div>
+                                    <div class="product_meta"><span class="sku_wrapper">SKU: <span class="sku">C2546</span></span> <span class="posted_in">Kategori: <a rel="tag">@menu.Kategori.Ad</a></span> <span>Etiketler: <a href="shop.html">Fast Food</a><a href="shop.html">Grill</a></span></div>
                                     <div class="share">
                                         <p class="share-title"><i class="fa-solid fa-share"></i> Paylaş</p>
                                         <div class="th-social"><a target="_blank" href="https://facebook.com/"><i class="fab fa-facebook-f"></i></a> <a target="_blank" href="https://twitter.com/"><i class="fab fa-twitter"></i></a> <a target="_blank" href="https://instagram.com/"><i class="fab fa-instagram"></i></a> <a target="_blank" href="https://linkedin.com/"><i class="fab fa-linkedin-in"></i></a></div>
@@ -131,3 +145,26 @@
         </div>
     </div>
 </section>
+
+<script>
+    // Scroll pozisyonunu kaydetmek için
+    function saveScrollPosition() {
+        var scrollY = window.scrollY;
+        sessionStorage.setItem('scrollPosition', scrollY);
+    }
+
+    // Scroll pozisyonunu geri yüklemek için
+    function restoreScrollPosition() {
+        var scrollY = sessionStorage.getItem('scrollPosition');
+        if (scrollY !== null) {
+            window.scrollTo(0, scrollY);
+            sessionStorage.removeItem('scrollPosition');
+        }
+    }
+
+    // Sayfa yüklendiğinde scroll pozisyonunu geri yükle
+    window.onload = restoreScrollPosition;
+
+    // Sayfa terk edilirken scroll pozisyonunu kaydet
+    window.onbeforeunload = saveScrollPosition;
+</script>

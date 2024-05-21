@@ -11,8 +11,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
 builder.Services.AddValidatorsFromAssemblyContaining<IdentityDataContext>();
 
-
-//Veri Tabaný Baðlantýsý
+// Veri Tabaný Baðlantýsý
 builder.Services.AddDbContext<IdentityDataContext>(Options =>
 {
     var configuration = builder.Configuration.GetConnectionString("mysql_connection");
@@ -20,13 +19,24 @@ builder.Services.AddDbContext<IdentityDataContext>(Options =>
     Options.UseMySql(configuration, version);
 });
 
+// Oturum (Session) Hizmetlerini Ekle
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.Cookie.Name = ".CafeApp.Session";
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.IsEssential = true;
+});
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddControllersWithViews();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -35,11 +45,14 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+// Oturumlarý Kullan
+app.UseSession();
+
 app.UseAuthorization();
 
 app.MapControllerRoute(
-	name: "Admin",
-	pattern: "{area:exists}/{controller=Admin}/{action=Index}/{id?}");
+    name: "Admin",
+    pattern: "{area:exists}/{controller=Admin}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
     name: "Musteri",
@@ -48,6 +61,5 @@ app.MapControllerRoute(
 app.MapControllerRoute(
     name: "default",
     pattern: "{area=Musteri}/{controller=Musteri}/{action=Index}/{id?}");
-    //pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

@@ -11,7 +11,9 @@ public partial class Rezervasyon
 
     public int KayitsizMusteriId { get; set; }
 
-	[Required(ErrorMessage = "Rezervasyon başlangıç saati olmamalıdır.")]
+    /*public int TelefonNumarası { get; set; }*/
+
+    [Required(ErrorMessage = "Rezervasyon başlangıç saati olmamalıdır.")]
 	[Remote(action: "SaatKontrol", controller: "Rezervasyon", HttpMethod = "POST", AdditionalFields = nameof(BaslangicSaat) + "," + nameof(BitisSaat))]
     public TimeOnly BaslangicSaat { get; set; }
 

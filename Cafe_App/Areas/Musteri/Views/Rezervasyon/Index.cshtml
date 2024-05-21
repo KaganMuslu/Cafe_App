@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+@model Rezervasyon
+
+<div class="breadcumb-wrapper" data-bg-src="/home_panel/img/update_2/bg/breadcumb_bg_2.jpg">
+    <div class="container z-index-common">
+        <div class="breadcumb-content">
+            <h1 class="breadcumb-title">Rezervasyon</h1>
+            <ul class="breadcumb-menu">
+                <li><a asp-controller="Musteri" asp-action="Index">Ana Sayfa</a></li>
+                <li>Rezervasyon</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<section class="space">
+    <div class="container">
+        <div class="title-area text-center">
+            <span class="sub-title"><img class="icon" src="~/home_panel/img/icon/title_icon.svg" alt="icon"> Rezervasyon</span>
+            <h2 class="sec-title"><span class="font-style text-theme">Hemen</span> Masa Ayırtın! </h2>
+            <p class="sec-text ms-auto me-auto">Alanında usta şeflerimiz ile özenle hazırladğımız lezzetli ve kaliteli yemeklerimizin tadına bakın.</p>
+        </div>
+        <div class="booking-sec-wrap">
+            <div class="row gx-40">
+                <div class="col-xl-5">
+                    <div class="available-table style2">
+                        <h3 class="available-table_title">Açılış Zamanı</h3>
+                        <p class="available-table_info"><span>Çarşamba - Perşembe</span><span>09:00 - 06:00</span></p>
+                        <p class="available-table_info"><span>Perşembe - Cuma</span><span>10:00 - 05:00</span></p>
+                        <p class="available-table_info"><span>Cumartesi - Pazar</span><span>10:00 - 05:00</span></p>
+                        <p class="available-table_info"><span>Pazartesi</span><span>09:00 - 04:00</span></p>
+                        <p class="available-table_info"><span>Salı</span><span>07:00 - 09:00</span></p>
+                        <h3 class="available-table_title style2">Şimdi Ara</h3>
+                        <a href="tel:+15365479874" class="available-table_call">+90 546 768 96 00</a>
+                    </div>
+                </div>
+                <div class="col-xl-7">
+                    <form asp-action="RezervasyonTalep" method="POST" class="ajax-reserve">
+                        <div class="row">
+                            <div class="form-group col-md-6"><input type="text" class="form-control" placeholder="Adınız - Soyadınız"> <i class="fal fa-user"></i></div>
+                            <div class="form-group col-md-6"><input type="email" class="form-control" name="email" id="email" placeholder="E-Posta Adresi"> <i class="fal fa-envelope"></i></div>
+                            <div class="form-group col-md-6"><input type="tel" class="form-control" asp-action="" placeholder="Telefon Numarası"> <i class="fal fa-phone"></i></div>
+                            <div class="form-group col-md-6"><input type="text" class="form-control date-pick" id="date-pick" name="date" placeholder="Tarih Seç"> <i class="fal fa-calendar-days"></i></div>
+                            <div class="form-group col-md-6"><input type="text" class="form-control time-pick" id="time-pick" name="time" placeholder="Saat Seç"> <i class="fal fa-clock"></i></div>
+                            <div class="form-group col-md-6"><input type="number" class="form-control" name="guest" id="guest" placeholder="Toplam Kişi Sayısı"> <i class="fal fa-user-group"></i></div>
+                            <div class="form-group col-12"><textarea name="message" id="message" cols="30" rows="3" class="form-control" placeholder="Mesaj"></textarea> <i class="fal fa-comment"></i></div>
+                            <div class="form-btn col-12 text-center"><button class="th-btn">REZERVASYONU GÖNDER</button></div>
+                        </div>
+                        <p class="form-messages mb-0 mt-3"></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

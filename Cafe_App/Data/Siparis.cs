@@ -10,13 +10,19 @@ public partial class Siparis
 
     public DateTime Tarih { get; set; }
 
+    public string Kullanıcı { get; set; }
+
+    public int? MasaId { get; set; }
+
     public int? AdresId { get; set; }
 
-    public decimal Tutar { get; set; }
+	public float Tutar { get; set; }
 
-    public bool OdemeDurum { get; set; }
+	public float OdenenTutar { get; set; }
 
-    public string Not { get; set; }
+	public bool OdemeDurum { get; set; }
+
+    public string? Not { get; set; }
 
 	public bool Gorunurluk { get; set; }
 
