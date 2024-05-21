@@ -1,6 +1,5 @@
-﻿
-@{
-    ViewData["Title"] = "Masalar";
+﻿@{
+	ViewData["Title"] = "Masalar";
 }
 
 @model MasaViewModel
@@ -18,8 +17,8 @@
 
 		<div class="form-head d-flex mb-3 align-items-start">
 			<div class="me-auto d-none d-lg-block">
-				<h2 class="text-primary font-w600 mb-0">Cafe App Masa</h2>
-				<p class="mb-0">Cafe App Masa Masa Ekranına Hoşgeldiniz!</p>
+				<h2 class="text-primary font-w600 mb-0">Cafe App Personel Masa</h2>
+				<p class="mb-0">Cafe App Personel Masa Ekranına Hoşgeldiniz!</p>
 			</div>
 
 			<div style="text-align:center" class="d-none d-lg-block">
@@ -51,7 +50,7 @@
 			</div>
 			<div class="cm-content-body form excerpt">
 				<div class="card-body">
-					
+
 					<div class="row">
 						@if (Model.Masalar.Count == 0)
 						{
@@ -60,92 +59,92 @@
 						else
 						{
 							@foreach (var masa in Model.Masalar)
-						{
-							<div class="col-xl-4 col-lg-12 col-sm-12">
-							<div class="card overflow-hidden">
-								<div class="text-center p-3 overlay-box " style="background-image: url(https://cdnimg.webstaurantstore.com/uploads/seo_category/2019/5/table-dining-sets.jpg);">
-									<div class="profile-photo">
-										<img style="cursor: pointer;" src="@masa.QR" width="100" class="img-fluid rounded-circle" alt="qr_image"
-												data-bs-toggle="modal" data-bs-target="#imageModal" onclick="showImageModal('@masa.QR')">
-									</div>
-									<h3 class="mt-3 mb-1 text-white">@masa.Kod</h3>
-									<p class="text-white mb-0">@masa.Kategori.Ad</p>
-									
+							{
+								<div class="col-xl-4 col-lg-12 col-sm-12">
+									<div class="card overflow-hidden">
+										<div class="text-center p-3 overlay-box " style="background-image: url(https://cdnimg.webstaurantstore.com/uploads/seo_category/2019/5/table-dining-sets.jpg);">
+											<div class="profile-photo">
+												<img style="cursor: pointer;" src="@masa.QR" width="100" class="img-fluid rounded-circle" alt="qr_image"
+													 data-bs-toggle="modal" data-bs-target="#imageModal" onclick="showImageModal('@masa.QR')">
+											</div>
+											<h3 class="mt-3 mb-1 text-white">@masa.Kod</h3>
+											<p class="text-white mb-0">@masa.Kategori.Ad</p>
 
-								</div>
-								<ul class="list-group list-group-flush">
-									@{
-										string ozellikler = "";
-										foreach (var ozellik in masa.MasaOzellikler)
-										{
-											ozellikler += ozellik.Ozellik.Ad + ", ";
-										}
-										if (ozellikler.Length > 0)
-										{
-											// Son virgülü kaldır
-											ozellikler = ozellikler.Substring(0, ozellikler.Length - 2);
-										}
-									}
-									<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Kapasite</span> <strong class="text-muted">@masa.Kapasite	</strong></li>
-									@* <li class="list-group-item d-flex justify-content-between"><span class="mb-0">Toplam Tutar</span> <strong class="text-muted">@masa.Tutar	</strong></li>
+
+										</div>
+										<ul class="list-group list-group-flush">
+											@{
+												string ozellikler = "";
+												foreach (var ozellik in masa.MasaOzellikler)
+												{
+													ozellikler += ozellik.Ozellik.Ad + ", ";
+												}
+												if (ozellikler.Length > 0)
+												{
+													// Son virgülü kaldır
+													ozellikler = ozellikler.Substring(0, ozellikler.Length - 2);
+												}
+											}
+											<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Kapasite</span> <strong class="text-muted">@masa.Kapasite	</strong></li>
+											@* <li class="list-group-item d-flex justify-content-between"><span class="mb-0">Toplam Tutar</span> <strong class="text-muted">@masa.Tutar	</strong></li>
 									<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Ödenen Tutar</span> <strong class="text-muted">@masa.OdenenTutar </strong></li> *@
-									@if (masa.Gorunurluk == true)
-									{
-										<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Görünürlük</span> <strong class="text-success">Görünür</strong></li>
-									}
-									else
-									{
-										<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Görünürlük</span> <strong class="text-danger">Görünmez</strong></li>
-									}
-									@switch (masa.Durum)
-									{
-										case 1 :
-											<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Müsaitlik Durumu</span> <strong class="text-success">Boş Masa </strong></li>
-											<h5 class="mt-3 text-center">Özellikler</h5>
-											<h6 class="text-muted text-center">@ozellikler</h6>
-											<li style="padding: 20px;">
-												<div class="row">
-													<div class="col">
-														<a data-bs-toggle="modal" data-bs-target="#detay_@masa.Id" data-masaId="@masa.Id" class="btn btn-success btn-lg btn-block">
-															<i class="fa-solid fa-pen"></i>Düzenle
-														</a>
-													</div>
-													<div class="col">
-														<a data-bs-toggle="modal" data-bs-target="#ozellik_@masa.Id" data-masaId="@masa.Id" class="btn btn-info btn-lg btn-block">
-															<i class="fa-sharp fa-solid fa-circle-star"></i>Özellik
-														</a>
-													</div>
-												</div>
-												<div class="row mt-2">
-													<div class="col">
-													<a asp-action="MasaSil" asp-route-Id="@masa.Id" class="btn btn-danger btn-lg btn-block">
-														<i class="fa-solid fa-trash"></i> Sil
-													</a>
-													</div>
-												</div>
-											</li>
+											@if (masa.Gorunurluk == true)
+											{
+												<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Görünürlük</span> <strong class="text-success">Görünür</strong></li>
+											}
+											else
+											{
+												<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Görünürlük</span> <strong class="text-danger">Görünmez</strong></li>
+											}
+											@switch (masa.Durum)
+											{
+												case 1:
+													<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Müsaitlik Durumu</span> <strong class="text-success">Boş Masa </strong></li>
+													<h5 class="mt-3 text-center">Özellikler</h5>
+													<h6 class="text-muted text-center">@ozellikler</h6>
+													<li style="padding: 20px;">
+														<div class="row">
+															<div class="col">
+																<a data-bs-toggle="modal" data-bs-target="#detay_@masa.Id" data-masaId="@masa.Id" class="btn btn-success btn-lg btn-block">
+																	<i class="fa-solid fa-pen"></i>Düzenle
+																</a>
+															</div>
+															<div class="col">
+																<a data-bs-toggle="modal" data-bs-target="#ozellik_@masa.Id" data-masaId="@masa.Id" class="btn btn-info btn-lg btn-block">
+																	<i class="fa-sharp fa-solid fa-circle-star"></i>Özellik
+																</a>
+															</div>
+														</div>
+														<div class="row mt-2">
+															<div class="col">
+																<a asp-action="MasaSil" asp-route-Id="@masa.Id" class="btn btn-danger btn-lg btn-block">
+																	<i class="fa-solid fa-trash"></i> Sil
+																</a>
+															</div>
+														</div>
+													</li>
 
-											break;
-										case 2:
-											<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Müsaitlik Durumu</span> <strong class="text-danger">Dolu Masa </strong></li>
-											break;
-										case 3:
-											<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Müsaitlik Durumu</span> <strong class="text-warning">Kirli Masa </strong></li>
-											break;
-										case 4:
-											<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Müsaitlik Durumu</span> <strong class="text-warning">Rezerve Masa </strong></li>
-											break;
-										case 5:
-											<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Müsaitlik Durumu</span> <strong class="text-warning">Kapalı Masa </strong></li>
-											break;
-									}
-								</ul>
-								@* <div class="card-footer border-0 mt-0">
-									
+													break;
+												case 2:
+													<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Müsaitlik Durumu</span> <strong class="text-danger">Dolu Masa </strong></li>
+													break;
+												case 3:
+													<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Müsaitlik Durumu</span> <strong class="text-warning">Kirli Masa </strong></li>
+													break;
+												case 4:
+													<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Müsaitlik Durumu</span> <strong class="text-warning">Rezerve Masa </strong></li>
+													break;
+												case 5:
+													<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Müsaitlik Durumu</span> <strong class="text-warning">Kapalı Masa </strong></li>
+													break;
+											}
+										</ul>
+										@* <div class="card-footer border-0 mt-0">
+
 								</div> *@
-							</div>
-						</div>
-						}
+									</div>
+								</div>
+							}
 						}
 					</div>
 
@@ -156,7 +155,6 @@
 </div>
 
 <!-- Modals -->
-
 @* Masa Ekleme *@
 <div class="modal modal-lg fade" id="masaModal">
 	@if (Model.Kategoriler.Count != 0)
@@ -169,7 +167,7 @@
 					</button>
 				</div>
 
-					<form asp-action="Index" method="post" novalidate>
+				<form asp-action="Index" method="post" novalidate>
 					<div class="modal-body">
 						<div style="margin-bottom:14px" class="row">
 							<div class="form-floating col-md-6 mb-3">
@@ -187,7 +185,7 @@
 						</div>
 						<div style="margin-bottom:14px" class="row">
 							<div class="form-floating col-md-6 mb-3">
-									<select id="KategoriId" asp-for="Masa.KategoriId" class="default-select form-control wide w-100 required">
+								<select id="KategoriId" asp-for="Masa.KategoriId" class="default-select form-control wide w-100 required">
 									<option value=0 disabled selected>Masa Kategori</option>
 									@foreach (var item in Model.Kategoriler)
 									{
@@ -197,8 +195,8 @@
 								<span class="validation-text" asp-validation-for="Masa.KategoriId"></span>
 							</div>
 						</div>
-							<input asp-for="Masa.Gorunurluk" type="hidden" class="form-control" value=True required="">
-							<input asp-for="Masa.Durum" type="hidden" class="form-control" value=1 required="">
+						<input asp-for="Masa.Gorunurluk" type="hidden" class="form-control" value=True required="">
+						<input asp-for="Masa.Durum" type="hidden" class="form-control" value=1 required="">
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
@@ -264,7 +262,7 @@
 				</div>
 				<form asp-action="MasaOzellikSec" method="post" novalidate>
 					<div class="modal-body">
-					
+
 						<div style="text-align:center; margin:auto; width: 75%;" class="row">
 							<div class="form-floating col-md-12 mb-3">
 								<label class="form-label text-center">@masa.Kod kodlu masaya ait özellikleri seç</label>
@@ -298,9 +296,9 @@
 						<button type="submit" class="btn btn-primary">Kaydet</button>
 					</div>
 					<input type="hidden" asp-for="Masa.Id" value=@masa.Id>
-			</form>
+				</form>
 
-		</div>
+			</div>
 		</div>
 	</div>
 }
@@ -616,8 +614,8 @@
 
 				</div>
 			</div>
-																</div>
-															</div>
+																			</div>
+																		</div>
 
 			break;
 		case 3:
@@ -682,7 +680,7 @@
 				</div>
 			</div>
 
-		break;
+			break;
 	}
 }
 

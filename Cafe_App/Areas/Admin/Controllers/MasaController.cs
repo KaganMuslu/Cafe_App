@@ -20,7 +20,6 @@ namespace Cafe_App.Areas.Admin.Controllers
 
 		public IActionResult Index()
 		{
-			// Modelleri ve kategorileri ayarlayın
 			var viewModel = new MasaViewModel
 			{
 				Masa = new Masa(),

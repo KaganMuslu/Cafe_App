@@ -12,6 +12,8 @@ public partial class Siparis
 
     public string Kullanıcı { get; set; }
 
+    public int DurumId { get; set; }
+
     public int? MasaId { get; set; }
 
     public int? AdresId { get; set; }
@@ -26,7 +28,9 @@ public partial class Siparis
 
 	public bool Gorunurluk { get; set; }
 
-	public ICollection<Durum> Durumlars { get; set; } = new List<Durum>();
+    public SiparisDurum SiparisDurum { get; set; }
+
+    public Masa Masa { get; set; }
 
     public ICollection<TeslimatSiparis> Teslimatsiparislers { get; set; } = new List<TeslimatSiparis>();
 

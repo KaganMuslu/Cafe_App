@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Garson\Data\" />
     <Folder Include="Areas\Musteri\Data\" />
     <Folder Include="wwwroot\img\" />
   </ItemGroup>

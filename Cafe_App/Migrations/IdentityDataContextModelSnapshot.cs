@@ -81,6 +81,33 @@ namespace Cafe_App.Migrations
                     b.ToTable("Odemeler");
                 });
 
+            modelBuilder.Entity("Cafe_App.Data.SiparisDurum", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("DurumId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SiparisId")
+                        .HasColumnType("int");
+
+                    b.Property<DateOnly>("Tarih")
+                        .HasColumnType("date");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DurumId");
+
+                    b.HasIndex("SiparisId")
+                        .IsUnique();
+
+                    b.ToTable("SiparisDurumlar");
+                });
+
             modelBuilder.Entity("Cafe_App.Models.Adres", b =>
                 {
                     b.Property<int>("Id")
@@ -274,21 +301,11 @@ namespace Cafe_App.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Ad")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SiparisId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Yer")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Zaman")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("Ad")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SiparisId");
 
                     b.ToTable("Durumlar");
                 });
@@ -840,6 +857,9 @@ namespace Cafe_App.Migrations
                     b.Property<int?>("AdresId")
                         .HasColumnType("int");
 
+                    b.Property<int>("DurumId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("Gorunurluk")
                         .HasColumnType("tinyint(1)");
 
@@ -877,6 +897,8 @@ namespace Cafe_App.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("KasaId");
+
+                    b.HasIndex("MasaId");
 
                     b.HasIndex("MutfakId");
 
@@ -1446,6 +1468,25 @@ namespace Cafe_App.Migrations
                     b.Navigation("Siparis");
                 });
 
+            modelBuilder.Entity("Cafe_App.Data.SiparisDurum", b =>
+                {
+                    b.HasOne("Cafe_App.Models.Durum", "Durum")
+                        .WithMany()
+                        .HasForeignKey("DurumId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Cafe_App.Models.Siparis", "Siparis")
+                        .WithOne("SiparisDurum")
+                        .HasForeignKey("Cafe_App.Data.SiparisDurum", "SiparisId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Durum");
+
+                    b.Navigation("Siparis");
+                });
+
             modelBuilder.Entity("Cafe_App.Models.Adres", b =>
                 {
                     b.HasOne("Cafe_App.Models.Musteri", "Musteri")
@@ -1490,17 +1531,6 @@ namespace Cafe_App.Migrations
                     b.Navigation("Mutfak");
 
                     b.Navigation("Personel");
-                });
-
-            modelBuilder.Entity("Cafe_App.Models.Durum", b =>
-                {
-                    b.HasOne("Cafe_App.Models.Siparis", "Siparis")
-                        .WithMany("Durumlars")
-                        .HasForeignKey("SiparisId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Siparis");
                 });
 
             modelBuilder.Entity("Cafe_App.Models.KampanyaMusteri", b =>
@@ -1654,6 +1684,10 @@ namespace Cafe_App.Migrations
                         .WithMany("Siparislers")
                         .HasForeignKey("KasaId");
 
+                    b.HasOne("Cafe_App.Models.Masa", "Masa")
+                        .WithMany()
+                        .HasForeignKey("MasaId");
+
                     b.HasOne("Cafe_App.Models.Mutfak", null)
                         .WithMany("Siparislers")
                         .HasForeignKey("MutfakId");
@@ -1661,6 +1695,8 @@ namespace Cafe_App.Migrations
                     b.HasOne("Cafe_App.Models.Yorum", null)
                         .WithMany("Siparislers")
                         .HasForeignKey("YorumId");
+
+                    b.Navigation("Masa");
                 });
 
             modelBuilder.Entity("Cafe_App.Models.SiparisMenu", b =>
@@ -1979,9 +2015,10 @@ namespace Cafe_App.Migrations
 
             modelBuilder.Entity("Cafe_App.Models.Siparis", b =>
                 {
-                    b.Navigation("Durumlars");
-
                     b.Navigation("Odemelers");
+
+                    b.Navigation("SiparisDurum")
+                        .IsRequired();
 
                     b.Navigation("SiparisMenuler");
 

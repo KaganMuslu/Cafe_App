@@ -1,0 +1,223 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+@model SiparislerModelView
+
+<!-- CSS Ekstralar -->
+<head>
+	<link href="~/admin_panel/vendor/bootstrap-datepicker-master/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+	<link href="~/admin_panel/vendor/select2/css/select2.min.css" rel="stylesheet" />
+	<link href="~/admin_panel/vendor/datatables/css/jquery.datatables.min.css" rel="stylesheet" />
+</head>
+
+<div class="content-body">
+	<div class="container-fluid">
+		<!-- Row -->
+
+		<div class="form-head d-flex mb-3 align-items-start">
+			<div class="me-auto d-none d-lg-block">
+				<h2 class="text-primary font-w600 mb-0">Cafe App İndirim</h2>
+				<p class="mb-0">Cafe App İndirim Yönetim Ekranına Hoşgeldiniz!</p>
+			</div>
+
+			@* <div style="text-align:center" class="d-none d-lg-block">
+				@if (Model.Kategoriler.Count == 0)
+				{
+					<a asp-controller="Kategori" asp-action="Index" style="width:max-content; display: inline-block; vertical-align: middle;" type="button" class="btn btn-rounded btn-primary">
+						<span class="btn-icon-start text-primary">
+							<i class="fa fa-user-plus color-primary"></i>
+						</span>İndirim Ekle
+					</a>
+
+					<p style="color: red; font-size: 12px; text-align: center; padding-top:3px; margin-block:inherit"><i class="fa-sharp fa-solid fa-up"></i> İlk önce kategori eklemelisiniz! <i class="fa-sharp fa-solid fa-up"></i></p>
+				}
+				else if (Model.Urunler.Count == 0)
+				{
+					<a asp-controller="Urun" asp-action="Index" style="width:max-content; display: inline-block; vertical-align: middle;" type="button" class="btn btn-rounded btn-primary">
+						<span class="btn-icon-start text-primary">
+							<i class="fa fa-user-plus color-primary"></i>
+						</span>İndirim Ekle
+					</a>
+
+					<p style="color: red; font-size: 12px; text-align: center; padding-top:3px; margin-block:inherit"><i class="fa-sharp fa-solid fa-up"></i> İlk önce ürün eklemelisiniz! <i class="fa-sharp fa-solid fa-up"></i></p>
+				}
+				else if (Model.Menuler.Count == 0)
+				{
+					<a asp-controller="Menu" asp-action="Index" style="width:max-content; display: inline-block; vertical-align: middle;" type="button" class="btn btn-rounded btn-primary">
+						<span class="btn-icon-start text-primary">
+							<i class="fa fa-user-plus color-primary"></i>
+						</span>İndirim Ekle
+					</a>
+
+					<p style="color: red; font-size: 12px; text-align: center; padding-top:3px; margin-block:inherit"><i class="fa-sharp fa-solid fa-up"></i> İlk önce menü eklemelisiniz! <i class="fa-sharp fa-solid fa-up"></i></p>
+				}
+				else
+				{
+					<a data-bs-toggle="modal" data-bs-target="#urunIndirimModal" style="width:max-content; display: inline-block; vertical-align: middle;" type="button" class="btn btn-rounded btn-primary">
+						<span class="btn-icon-start text-primary">
+							<i class="fa fa-user-plus color-primary"></i>
+						</span>İndirim Ekle
+					</a>
+
+					<br>
+				}
+			</div> *@
+		</div>
+		<br>
+
+		@* Onaysız Siparişler *@
+		<div class="filter cm-content-box box-primary">
+			<div class="content-title">
+				<div class="cpa">
+					<i class="fa-solid fa-file-lines me-1"></i>Ürün İndirim Listesi
+				</div>
+				<div class="tools">
+					<a href="javascript:void(0);" class="expand SlideToolHeader"><i class="fal fa-angle-down"></i></a>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="table-responsive">
+
+					<table class="display example3">
+						<thead>
+							<tr>
+								<th></th>
+								<th>MASA</th>
+								<th>TUTAR</th>
+								<th>ÖDENEN TUTAR</th>
+								<th>NOT</th>
+								<th class="text-center" width="12%">İŞLEMLER</th>
+							</tr>
+						</thead>
+						<tbody>
+
+							<tr>
+								@foreach (var siparis in Model.OnaysizSiparisler)
+									{
+										<td>@siparis.Id</td>
+										<td>@siparis.Masa.Kod</td>
+										<td>@siparis.Tutar</td>
+										<td>@siparis.OdenenTutar</td>
+										@if (siparis.Not == null)
+										{
+											<td> - </td>
+										}
+										else
+										{
+											<td>@siparis.Not</td>
+										}
+										<td class="text-center">
+										<a data-bs-toggle="modal" data-bs-target="#siparisOnayla_@siparis.Id" class="btn btn-success shadow btn-xs sharp rounded-circle me-1"><i class="fa-solid fa-box-check"></i></a>
+										</td>
+									}
+							</tr>
+
+						</tbody>
+					</table>
+					@if (Model.OnaysizSiparisler.Count == 0)
+					{
+						<br>
+						<h4 class="text-center">Onaysız Sipariş Yok</h4>
+					}
+				</div>
+			</div>
+
+		</div>
+
+		@* Geçmiş Siparişler İndirimleri *@
+		<div class="filter cm-content-box box-primary">
+			<div class="content-title">
+				<div class="cpa">
+					<i class="fa-solid fa-file-lines me-1"></i>Menü İndirim Listesi
+				</div>
+				<div class="tools">
+					<a href="javascript:void(0);" class="expand SlideToolHeader"><i class="fal fa-angle-down"></i></a>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="table-responsive">
+
+					<table class="display example3">
+						<thead>
+							<tr>
+								<th></th>
+								<th>MASA</th>
+								<th>TUTAR</th>
+								<th>ÖDENEN TUTAR</th>
+								<th>NOT</th>
+								<th class="text-center" width="12%">İŞLEMLER</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								@foreach (var siparis in Model.GecmisSiparisler)
+								{
+									<td>@siparis.Id</td>
+									<td>@siparis.Masa.Kod</td>
+									<td>@siparis.AdresId</td>
+									@if (siparis.Not != null)
+									{
+										<td> - </td>
+									}
+									else
+									{
+										<td>@siparis.Not</td>
+									}
+									<td class="text-center">
+										<a data-bs-toggle="modal" data-bs-target="#siparisOnayla_@siparis.Id" class="btn btn-success shadow btn-xs sharp rounded-circle me-1"><i class="fa-solid fa-box-check"></i></a>
+									</td>
+								}
+							</tr>
+						</tbody>
+					</table>
+					@if (Model.GecmisSiparisler.Count == 0)
+					{
+						<br>
+						<h4 class="text-center">Geçmiş Sipariş Yok</h4>
+					}
+
+				</div>
+			</div>
+		</div>
+
+		<br>
+
+	</div>
+</div>
+
+
+
+<!-- JS Ekstralar -->
+@section Scripts
+{
+	<script src="~/admin_panel/vendor/bootstrap-datepicker-master/js/bootstrap-datepicker.min.js"></script>
+	<script src="~/admin_panel/vendor/select2/js/select2.full.min.js"></script>
+	<script src="~/admin_panel/js/dashboard/cms.js"></script>
+	<script src="~/admin_panel/vendor/ckeditor/ckeditor.js"></script>
+	<script src="~/admin_panel/vendor/datatables/js/jquery.datatables.min.js"></script>
+	<script src="~/admin_panel/js/plugins-init/datatables.init.js"></script>
+
+	<script>
+		$('.example3').DataTable({
+			language: {
+				paginate: {
+					next: '<i class="fa fa-angle-double-right" aria-hidden="true"></i>',
+					previous: '<i class="fa fa-angle-double-left" aria-hidden="true"></i>'
+				}
+			}
+		});
+
+		$(function () {
+			$(".datepicker").datepicker({
+				language: 'tr',
+				format: 'dd/mm/yyyy',
+				autoclose: true,
+				todayHighlight: true
+			}).datepicker('update', new Date());
+
+		});
+
+	</script>
+}
+

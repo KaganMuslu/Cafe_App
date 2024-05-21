@@ -57,7 +57,9 @@ namespace Cafe_App.Models
 
         public DbSet<Siparis> Siparisler { get; set; }
 
-        public DbSet<SiparisMenu> SiparisMenuler { get; set; }
+        public DbSet<SiparisDurum> SiparisDurumlar { get; set; }
+
+		public DbSet<SiparisMenu> SiparisMenuler { get; set; }
 
         public DbSet<SiparisUrun> SiparisUrunler { get; set; }
 

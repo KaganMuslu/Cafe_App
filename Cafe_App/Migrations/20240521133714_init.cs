@@ -70,6 +70,21 @@ namespace Cafe_App.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "Durumlar",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Ad = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Durumlar", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "Kampanyalar",
                 columns: table => new
                 {
@@ -737,48 +752,6 @@ namespace Cafe_App.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Siparisler",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Tarih = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Kullanıcı = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    MasaId = table.Column<int>(type: "int", nullable: true),
-                    AdresId = table.Column<int>(type: "int", nullable: true),
-                    Tutar = table.Column<float>(type: "float", nullable: false),
-                    OdenenTutar = table.Column<float>(type: "float", nullable: false),
-                    OdemeDurum = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    Not = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Gorunurluk = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    KasaId = table.Column<int>(type: "int", nullable: true),
-                    MutfakId = table.Column<int>(type: "int", nullable: true),
-                    YorumId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Siparisler", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Siparisler_Kasalar_KasaId",
-                        column: x => x.KasaId,
-                        principalTable: "Kasalar",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Siparisler_Mutfaklar_MutfakId",
-                        column: x => x.MutfakId,
-                        principalTable: "Mutfaklar",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Siparisler_Yorumlar_YorumId",
-                        column: x => x.YorumId,
-                        principalTable: "Yorumlar",
-                        principalColumn: "Id");
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
                 name: "Bildirimler",
                 columns: table => new
                 {
@@ -947,21 +920,131 @@ namespace Cafe_App.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Durumlar",
+                name: "MasaOzellikler",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Ad = table.Column<int>(type: "int", nullable: false),
-                    Zaman = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Yer = table.Column<int>(type: "int", nullable: false),
-                    SiparisId = table.Column<int>(type: "int", nullable: false)
+                    OzellikId = table.Column<int>(type: "int", nullable: false),
+                    MasaId = table.Column<int>(type: "int", nullable: false),
+                    Gorunurluk = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Durumlar", x => x.Id);
+                    table.PrimaryKey("PK_MasaOzellikler", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Durumlar_Siparisler_SiparisId",
+                        name: "FK_MasaOzellikler_Masalar_MasaId",
+                        column: x => x.MasaId,
+                        principalTable: "Masalar",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MasaOzellikler_Ozellikler_OzellikId",
+                        column: x => x.OzellikId,
+                        principalTable: "Ozellikler",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "MasaRezervasyonlar",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    RezervasyonId = table.Column<int>(type: "int", nullable: false),
+                    MasaId = table.Column<int>(type: "int", nullable: false),
+                    Gorunurluk = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MasaRezervasyonlar", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MasaRezervasyonlar_Masalar_MasaId",
+                        column: x => x.MasaId,
+                        principalTable: "Masalar",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MasaRezervasyonlar_Rezervasyonlar_RezervasyonId",
+                        column: x => x.RezervasyonId,
+                        principalTable: "Rezervasyonlar",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Siparisler",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Tarih = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Kullanıcı = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    DurumId = table.Column<int>(type: "int", nullable: false),
+                    MasaId = table.Column<int>(type: "int", nullable: true),
+                    AdresId = table.Column<int>(type: "int", nullable: true),
+                    Tutar = table.Column<float>(type: "float", nullable: false),
+                    OdenenTutar = table.Column<float>(type: "float", nullable: false),
+                    OdemeDurum = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    Not = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Gorunurluk = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    KasaId = table.Column<int>(type: "int", nullable: true),
+                    MutfakId = table.Column<int>(type: "int", nullable: true),
+                    YorumId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Siparisler", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Siparisler_Kasalar_KasaId",
+                        column: x => x.KasaId,
+                        principalTable: "Kasalar",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Siparisler_Masalar_MasaId",
+                        column: x => x.MasaId,
+                        principalTable: "Masalar",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Siparisler_Mutfaklar_MutfakId",
+                        column: x => x.MutfakId,
+                        principalTable: "Mutfaklar",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Siparisler_Yorumlar_YorumId",
+                        column: x => x.YorumId,
+                        principalTable: "Yorumlar",
+                        principalColumn: "Id");
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "MasaSiparisler",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    MasaId = table.Column<int>(type: "int", nullable: false),
+                    MusteriId = table.Column<int>(type: "int", nullable: false),
+                    SiparisId = table.Column<int>(type: "int", nullable: false),
+                    Gorunurluk = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MasaSiparisler", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MasaSiparisler_Masalar_MasaId",
+                        column: x => x.MasaId,
+                        principalTable: "Masalar",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MasaSiparisler_Siparisler_SiparisId",
                         column: x => x.SiparisId,
                         principalTable: "Siparisler",
                         principalColumn: "Id",
@@ -984,6 +1067,34 @@ namespace Cafe_App.Migrations
                     table.PrimaryKey("PK_Odemeler", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Odemeler_Siparisler_SiparisId",
+                        column: x => x.SiparisId,
+                        principalTable: "Siparisler",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "SiparisDurumlar",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    SiparisId = table.Column<int>(type: "int", nullable: false),
+                    DurumId = table.Column<int>(type: "int", nullable: false),
+                    Tarih = table.Column<DateOnly>(type: "date", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SiparisDurumlar", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SiparisDurumlar_Durumlar_DurumId",
+                        column: x => x.DurumId,
+                        principalTable: "Durumlar",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SiparisDurumlar_Siparisler_SiparisId",
                         column: x => x.SiparisId,
                         principalTable: "Siparisler",
                         principalColumn: "Id",
@@ -1059,91 +1170,6 @@ namespace Cafe_App.Migrations
                         column: x => x.YorumId,
                         principalTable: "Yorumlar",
                         principalColumn: "Id");
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "MasaOzellikler",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    OzellikId = table.Column<int>(type: "int", nullable: false),
-                    MasaId = table.Column<int>(type: "int", nullable: false),
-                    Gorunurluk = table.Column<bool>(type: "tinyint(1)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MasaOzellikler", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_MasaOzellikler_Masalar_MasaId",
-                        column: x => x.MasaId,
-                        principalTable: "Masalar",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_MasaOzellikler_Ozellikler_OzellikId",
-                        column: x => x.OzellikId,
-                        principalTable: "Ozellikler",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "MasaRezervasyonlar",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    RezervasyonId = table.Column<int>(type: "int", nullable: false),
-                    MasaId = table.Column<int>(type: "int", nullable: false),
-                    Gorunurluk = table.Column<bool>(type: "tinyint(1)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MasaRezervasyonlar", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_MasaRezervasyonlar_Masalar_MasaId",
-                        column: x => x.MasaId,
-                        principalTable: "Masalar",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_MasaRezervasyonlar_Rezervasyonlar_RezervasyonId",
-                        column: x => x.RezervasyonId,
-                        principalTable: "Rezervasyonlar",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "MasaSiparisler",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    MasaId = table.Column<int>(type: "int", nullable: false),
-                    MusteriId = table.Column<int>(type: "int", nullable: false),
-                    SiparisId = table.Column<int>(type: "int", nullable: false),
-                    Gorunurluk = table.Column<bool>(type: "tinyint(1)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MasaSiparisler", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_MasaSiparisler_Masalar_MasaId",
-                        column: x => x.MasaId,
-                        principalTable: "Masalar",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_MasaSiparisler_Siparisler_SiparisId",
-                        column: x => x.SiparisId,
-                        principalTable: "Siparisler",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -1247,11 +1273,6 @@ namespace Cafe_App.Migrations
                 column: "PersonelId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Durumlar_SiparisId",
-                table: "Durumlar",
-                column: "SiparisId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_KampanyaMusteriler_KampanyaId",
                 table: "KampanyaMusteriler",
                 column: "KampanyaId");
@@ -1337,9 +1358,25 @@ namespace Cafe_App.Migrations
                 column: "RolId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_SiparisDurumlar_DurumId",
+                table: "SiparisDurumlar",
+                column: "DurumId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SiparisDurumlar_SiparisId",
+                table: "SiparisDurumlar",
+                column: "SiparisId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Siparisler_KasaId",
                 table: "Siparisler",
                 column: "KasaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Siparisler_MasaId",
+                table: "Siparisler",
+                column: "MasaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Siparisler_MutfakId",
@@ -1480,9 +1517,6 @@ namespace Cafe_App.Migrations
                 name: "Bildirimler");
 
             migrationBuilder.DropTable(
-                name: "Durumlar");
-
-            migrationBuilder.DropTable(
                 name: "KampanyaMusteriler");
 
             migrationBuilder.DropTable(
@@ -1502,6 +1536,9 @@ namespace Cafe_App.Migrations
 
             migrationBuilder.DropTable(
                 name: "Odemeler");
+
+            migrationBuilder.DropTable(
+                name: "SiparisDurumlar");
 
             migrationBuilder.DropTable(
                 name: "SiparisMenuler");
@@ -1543,7 +1580,7 @@ namespace Cafe_App.Migrations
                 name: "Rezervasyonlar");
 
             migrationBuilder.DropTable(
-                name: "Masalar");
+                name: "Durumlar");
 
             migrationBuilder.DropTable(
                 name: "Menuler");
@@ -1567,16 +1604,19 @@ namespace Cafe_App.Migrations
                 name: "Kasalar");
 
             migrationBuilder.DropTable(
+                name: "Masalar");
+
+            migrationBuilder.DropTable(
                 name: "Mutfaklar");
 
             migrationBuilder.DropTable(
                 name: "Yorumlar");
 
             migrationBuilder.DropTable(
-                name: "Personeller");
+                name: "Kategoriler");
 
             migrationBuilder.DropTable(
-                name: "Kategoriler");
+                name: "Personeller");
 
             migrationBuilder.DropTable(
                 name: "Adresler");

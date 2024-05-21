@@ -209,6 +209,7 @@ namespace Cafe_App.Areas.Musteri.Controllers
                 {
                     Tarih = DateTime.Now,
 					Kullanıcı = userId,
+                    DurumId = 1,
 					MasaId = masa.Id,
 					Tutar = 0,
 					OdenenTutar = 0,
