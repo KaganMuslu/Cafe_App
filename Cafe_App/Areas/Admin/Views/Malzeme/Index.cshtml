@@ -64,9 +64,9 @@
 							<td><div class="d-flex align-items-center"><span class="w-space-no">@malzeme.Ad</span></div></td>
 							<td>@malzeme.Tur</td>
 							<td>@malzeme.Fiyat</td>
-							<td>@malzeme.Stok?.Miktar</td>
-							<td>@malzeme.Stok?.MinStok</td>
-							<td>@malzeme.Stok?.MaxStok</td>
+							<td>@malzeme.Stok?.Miktar @malzeme.Tur</td>
+							<td>@malzeme.Stok?.MinStok @malzeme.Tur</td>
+							<td>@malzeme.Stok?.MaxStok @malzeme.Tur</td>
 							@if (malzeme.Gorunurluk == true)
 							{
 								<td class="recent-stats"><i class="fa fa-circle text-success me-1"></i>Görünür</td>

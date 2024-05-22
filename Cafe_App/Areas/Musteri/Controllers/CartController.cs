@@ -327,6 +327,7 @@ namespace Cafe_App.Areas.Musteri.Controllers
 				return RedirectToAction("Cart", new { GirisYap = true });
 			}
 
+            TempData["SiparisAlındı"] = true;
             return RedirectToAction("Index", "Musteri", new { SiparisAlındı = true} );
 
         }

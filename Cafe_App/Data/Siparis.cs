@@ -30,7 +30,7 @@ public partial class Siparis
 
 	public Masa Masa { get; set; }
 
-    public ICollection<SiparisDurum> SiparisDurumlars { get; set; } = new List<SiparisDurum>();
+	public ICollection<SiparisDurum> SiparisDurumlars { get; set; } = new List<SiparisDurum>();
 
     public ICollection<TeslimatSiparis> Teslimatsiparislers { get; set; } = new List<TeslimatSiparis>();
 

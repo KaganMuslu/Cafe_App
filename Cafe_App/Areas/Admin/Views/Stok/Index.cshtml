@@ -75,9 +75,9 @@
 									<tr>
 										<td><b>@stok.Id</b></td>
 										<td>@stok.Malzeme?.Ad</td>
-										<td>@stok.Miktar</td>
-										<td>@stok.MinStok</td>
-										<td>@stok.MaxStok</td>
+										<td>@stok.Miktar @stok.Malzeme?.Tur</td>
+										<td>@stok.MinStok @stok.Malzeme?.Tur</td>
+										<td>@stok.MaxStok @stok.Malzeme?.Tur</td>
 										@if (stok.Gorunurluk == true)
 										{
 											<td class="recent-stats"><i class="fa fa-circle text-success me-1"></i>Görünür</td>
@@ -149,7 +149,7 @@
 										<td>@stok.Malzeme?.Ad</td>
 										<td>₺@stok.AlısFiyati</td>
 										<td>@stok.SonStokMiktari</td>
-										<td>@stok.Miktar</td>
+										<td>@stok.Miktar @stok.Malzeme?.Tur</td>
 										<td>@stok.Tarih</td>
 										<td>@stok.Tedarikci?.Firma</td>
 										<td>@stok.Tedarikci?.Eposta</td>

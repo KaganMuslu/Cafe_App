@@ -1,0 +1,187 @@
+﻿@{
+	ViewData["Title"] = "Index";
+}
+@model StokMutfakViewModel
+
+<!-- CSS Ekstralar -->
+<head>
+	<link href="~/admin_panel/vendor/bootstrap-datepicker-master/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+	<link href="~/admin_panel/vendor/select2/css/select2.min.css" rel="stylesheet" />
+	<link href="~/admin_panel/vendor/datatables/css/jquery.datatables.min.css" rel="stylesheet" />
+</head>
+
+<div class="content-body">
+	<div class="container-fluid">
+		<!-- Row -->
+
+		<div class="form-head d-flex mb-3 align-items-start">
+			<div class="me-auto d-none d-lg-block">
+				<h2 class="text-primary font-w600 mb-0">Cafe App Mutfak Stok</h2>
+				<p class="mb-0">Cafe App Mutfak Stok Yönetim Ekranına Hoşgeldiniz!</p>
+			</div>
+		</div>
+		<br>
+
+		<div class="filter cm-content-box box-primary">
+			<div class="content-title">
+				<div class="cpa">
+					<i class="fa-solid fa-file-lines me-1"></i>Stok Listesi
+				</div>
+				<div class="tools">
+					<a href="javascript:void(0);" class="expand SlideToolHeader"><i class="fal fa-angle-down"></i></a>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="table-responsive">
+
+					<table class="display exampleTable">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>MALZEME</th>
+								<th>MİKTAR</th>
+								<th>MİNİMUM STOK</th>
+								<th>MAXİMUM STOK</th>
+							</tr>
+						</thead>
+						<tbody>
+
+							@foreach (var stok in Model.Stoklar)
+							{
+								<tr>
+									<td><b>@stok.Id</b></td>
+									<td>@stok.Malzeme?.Ad</td>
+									<td>@stok.Miktar @stok.Malzeme?.Tur</td>
+									<td>@stok.MinStok @stok.Malzeme?.Tur</td>
+									<td>@stok.MaxStok @stok.Malzeme?.Tur</td>
+								</tr>
+							}
+
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="filter cm-content-box box-primary">
+			<div class="content-title">
+				<div class="cpa">
+					<i class="fa-solid fa-file-lines me-1"></i>Stok Girdi Listesi
+				</div>
+				<div class="tools">
+					<a href="javascript:void(0);" class="expand SlideToolHeader"><i class="fal fa-angle-down"></i></a>
+				</div>
+			</div>
+			<div class="cm-content-body form excerpt">
+				<div class="card-body">
+					<div class="table-responsive">
+
+						<table class="display exampleTable">
+							<thead>
+								<tr>
+									<th><strong>Id</strong></th>
+									<th><strong>Malzeme</strong></th>
+									<th><strong>Alış FİYATI</strong></th>
+									<th><strong>SON STOK MiKTARI</strong></th>
+									<th><strong>MİKTAR</strong></th>
+									<th><strong>TARİH</strong></th>
+									<th><strong>TEDARİKÇİ FİRMA</strong></th>
+									<th><strong>TEDARİKÇİ E-POSTA</strong></th>
+								</tr>
+							</thead>
+							<tbody>
+
+								@foreach (var stok in Model.StokGirdiler)
+								{
+									<tr>
+										<th>@stok.Id</th>
+										<td>@stok.Malzeme?.Ad</td>
+										<td>₺@stok.AlısFiyati</td>
+										<td>@stok.SonStokMiktari @stok.Malzeme?.Tur</td>
+										<td>@stok.Miktar @stok.Malzeme?.Tur</td>
+										<td>@stok.Tarih</td>
+										<td>@stok.Tedarikci?.Firma</td>
+										<td>@stok.Tedarikci?.Eposta</td>
+									</tr>
+								}
+
+							</tbody>
+						</table>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- JS Ekstralar -->
+@section Scripts
+{
+	<script src="~/admin_panel/vendor/bootstrap-datepicker-master/js/bootstrap-datepicker.min.js"></script>
+	<script src="~/admin_panel/vendor/datatables/js/jquery.datatables.min.js"></script>
+	<script src="~/admin_panel/js/plugins-init/datatables.init.js"></script>
+
+	<script>
+		const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="modal"]')
+		const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+		$(function () {
+			$("#datepicker").datepicker({
+				language: 'tr',
+				format: 'dd/mm/yyyy',
+				autoclose: true,
+				todayHighlight: true
+			}).datepicker('update', new Date());
+
+		});
+
+		$(function () {
+			$("#datepicker2").datepicker({
+				language: 'tr',
+				format: 'dd/mm/yyyy',
+				autoclose: true,
+				todayHighlight: true
+			}).datepicker('update', new Date());
+
+		});
+
+		$(document).ready(function () {
+
+
+			// JavaScript kullanarak inputları göster/gizle
+			document.querySelectorAll('.toggleInput').forEach(function (checkbox) {
+				checkbox.addEventListener('change', function () {
+					var input = this.closest('.timeline-panel').querySelector('input[type="text"]');
+					if (this.checked) {
+						input.style.display = 'block';
+					} else {
+						input.style.display = 'none';
+					}
+				});
+			});
+		});
+
+		// Fotoğraf
+		document.querySelector("#formFile").onchange = function () {
+			const fileName = this.files[0]?.name;
+			const label = document.querySelector("label[for=formFile]");
+			label.innerText = fileName ?? "Fotoğraf Yükle";
+		};
+	</script>
+		
+	<script>
+			$('.exampleTable').DataTable({
+				language: {
+					paginate: {
+						next: '<i class="fa fa-angle-double-right" aria-hidden="true"></i>',
+						previous: '<i class="fa fa-angle-double-left" aria-hidden="true"></i>'
+					}
+				}
+			});
+	</script>
+
+	
+}
+

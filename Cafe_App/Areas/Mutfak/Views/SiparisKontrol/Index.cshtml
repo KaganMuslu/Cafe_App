@@ -1,0 +1,569 @@
+﻿@{
+	ViewData["Title"] = "Index";
+}
+@model SiparislerModelView
+
+<!-- CSS Ekstralar -->
+<head>
+	<link href="~/admin_panel/vendor/bootstrap-datepicker-master/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+	<link href="~/admin_panel/vendor/select2/css/select2.min.css" rel="stylesheet" />
+	<link href="~/admin_panel/vendor/datatables/css/jquery.datatables.min.css" rel="stylesheet" />
+</head>
+
+<div class="content-body">
+	<div class="container-fluid">
+		<!-- Row -->
+
+		<div class="form-head d-flex mb-3 align-items-start">
+			<div class="me-auto d-none d-lg-block">
+				<h2 class="text-primary font-w600 mb-0">Cafe App Mutfak Siparişler</h2>
+				<p class="mb-0">Cafe App Mutfak Siparişler Yönetim Ekranına Hoşgeldiniz!</p>
+			</div>
+		</div>
+		<br>
+
+		@* Onaysız Siparişler *@
+		<div class="filter cm-content-box box-primary">
+			<div class="content-title">
+				<div class="cpa">
+					<i class="fa-solid fa-file-lines me-1"></i>Onaysız Siparişler
+				</div>
+				<div class="tools">
+					<a href="javascript:void(0);" class="expand SlideToolHeader"><i class="fal fa-angle-down"></i></a>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="table-responsive">
+
+					<table class="display exampleTable">
+						<thead>
+							<tr>
+								<th></th>
+								<th>MASA</th>
+								<th>TUTAR</th>
+								<th>ÖDENEN TUTAR</th>
+								<th>NOT</th>
+								<th class="text-center" width="12%">İŞLEMLER</th>
+							</tr>
+						</thead>
+						<tbody>
+
+							@foreach (var siparis in Model.OnaysizSiparisler)
+							{
+								var siparisDurum = Model.SiparisDurumlar.FirstOrDefault(x => x.SiparisId == siparis.Id);
+
+								<tr>
+
+									<td>@siparis.Id</td>
+									<td>@siparis.Masa.Kod</td>
+									<td>@siparis.Tutar</td>
+									<td>@siparis.OdenenTutar</td>
+									@if (siparis.Not == null)
+									{
+										<td> - </td>
+									}
+									else
+									{
+										<td>@siparis.Not</td>
+									}
+									@if (siparis.DurumId == 2)
+									{
+										<td class="text-center">
+											<a data-bs-toggle="modal" data-bs-target="#siparisOnayla_@siparis.Id" class="btn btn-success shadow btn-xs sharp rounded-circle me-1"><i class="fa-solid fa-box-check"></i></a>
+										</td>
+									}
+									else
+									{
+										<td class="text-center">
+											<a data-bs-toggle="modal" data-bs-target="#siparisOnayla_@siparis.Id" class="btn btn-warning shadow btn-xs sharp rounded-circle me-1"><i class="fa-solid fa-box-check"></i></a>
+										</td>
+									}
+
+									@* Sipariş Bilgisi *@
+									<div class="modal modal-lg fade" id="siparisOnayla_@siparis.Id">
+										<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title">Sipariş Bilgisi</h5>
+													<button type="button" class="btn-close" data-bs-dismiss="modal">
+													</button>
+												</div>
+
+												<div class="modal-body">
+													<div class="row">
+														<div class="col-xl-6 col-sm-6 mb-3 mb-xl-0">
+															<div class="card">
+																<div class="card-header">
+																	<h4 class="card-title">Sipariş Detayı</h4>
+																</div>
+																<div class="card-body">
+
+																	<div class="row">
+																		<div class="col-lg-12 order-lg-12 mb-4">
+																			<ul class="list-group list-group-flush mb-3">
+
+																				<li class="list-group-item d-flex justify-content-between lh-condensed">
+																					<div>
+																						<h6 class="my-1">
+																							<span class="icon-warning">
+																								<i class="fa-solid fa-table-picnic"></i>
+																							</span>
+																							Sipariş Masa
+																						</h6>
+																					</div>
+																					<span class="text-muted text-end">@siparis.Masa.Kod</span>
+																				</li>
+																				<li class="list-group-item d-flex justify-content-between lh-condensed">
+																					<div>
+																						<h6 class="my-1">
+																							<span class="icon-warning">
+																								<i class="fa-regular fa-wave-pulse"></i>
+																							</span>
+																							Sipariş Durum
+																						</h6>
+																					</div>
+																					@if (siparis.DurumId == 2)
+																					{
+																						<span class="text-success text-end">@siparisDurum?.Durum.Ad</span>
+																					}
+																					else if (siparis.DurumId == 7)
+																					{
+																						<span class="text-danger text-end">@siparisDurum?.Durum.Ad</span>
+																					}
+																					else
+																					{
+																						<span class="text-warning text-end">@siparisDurum?.Durum.Ad</span>
+																					}
+																				</li>
+																				<li class="list-group-item d-flex justify-content-between lh-condensed">
+																					<div>
+																						<h6 class="my-1">
+																							<span class="icon-warning">
+																								<i class="fa-regular fa-list"></i>
+																							</span>
+																							Sipariş Tutar
+																						</h6>
+																					</div>
+																					<span class="text-muted text-end">@siparis.Tutar ₺</span>
+																				</li>
+																				<li class="list-group-item d-flex justify-content-between lh-condensed">
+																					<div>
+																						<h6 class="my-1">
+																							<span class="icon-warning">
+																								<i class="fa-regular fa-money-bill"></i>
+																							</span>
+																							Ödenen Tutar
+																						</h6>
+																					</div>
+																					<span class="text-muted text-end">@siparis.OdenenTutar ₺</span>
+																				</li>
+																				<li class="list-group-item d-flex justify-content-between lh-condensed">
+																					<div>
+																						<h6 class="my-1">
+																							<span class="icon-warning">
+																								<i class="fa-sharp fa-solid fa-badge-percent"></i>
+																							</span>
+																							Ödeme Durumu
+																						</h6>
+																					</div>
+																					@if (siparis.OdemeDurum == false)
+																					{
+																						<span class="text-end text-danger">Ödenmedi</span>
+
+																					}
+																					else
+																					{
+																						<span class="text-end text-success">Ödendi</span>
+																					}
+																				</li>
+																				<li class="list-group-item d-flex justify-content-between lh-condensed">
+																					<div>
+																						<h6 class="my-1">
+																							<span class="icon-warning">
+																								<i class="fa-solid fa-quote-right"></i>
+																							</span>
+																							Not
+																						</h6>
+																					</div>
+																					@if (siparis.Not == null)
+																					{
+																						<span class="text-muted text-end"> - </span>
+																					}
+																					else
+																					{
+																						<span class="text-muted text-end">@siparis.Not</span>
+																					}
+																				</li>
+
+																			</ul>
+																		</div>
+
+																	</div>
+																</div>
+															</div>
+														</div>
+
+
+														<div class="col-xl-6 col-sm-6 mb-3 mb-xl-0">
+															<div class="card">
+																<div class="card-header">
+																	<h4 class="card-title">Sipariş İçeriği</h4>
+																</div>
+																<div class="card-body">
+																	<div class="row">
+																		<div class="col-lg-12 order-lg-12 mb-4">
+																			<ul class="list-group list-group-flush mb-3">
+
+																				@foreach (var siparisUrun in Model.SiparisUrunler)
+																				{
+																					if (siparisUrun.SiparisId == siparis.Id)
+																					{
+																						<li class="list-group-item d-flex justify-content-between lh-condensed">
+																							<div>
+																								<h6 class="my-1">
+																									<span class="icon-warning">
+																										<i class="fa-solid fa-pot-food"></i>
+																									</span>
+																									@siparisUrun.Urun.Ad
+																								</h6>
+																							</div>
+																							<span class="text-muted text-end">@siparisUrun.Miktar * @siparisUrun.Fiyat = <b>@(@siparisUrun.Miktar * @siparisUrun.Fiyat)</b> </span>
+																						</li>
+
+																					}
+																				}
+
+																				@foreach (var siparisMenu in Model.SiparisMenuler)
+																				{
+																					if (siparisMenu.SiparisId == siparis.Id)
+																					{
+																						<li class="list-group-item d-flex justify-content-between lh-condensed">
+																							<div>
+																								<h6 class="my-1">
+																									<span class="icon-warning">
+																										<i class="fa-solid fa-pan-food"></i>
+																									</span>
+																									@siparisMenu.Menu.Ad
+																								</h6>
+																							</div>
+																							<span class="text-muted text-end">@siparisMenu.Miktar * @siparisMenu.Fiyat = <b>@(siparisMenu.Miktar * siparisMenu.Fiyat)</b> </span>
+																						</li>
+
+																					}
+																				}
+
+																			</ul>
+																		</div>
+																	</div>
+																</div>
+															</div>
+
+														</div>
+													</div>
+												</div>
+
+												<div class="modal-footer">
+													@if (siparis.DurumId == 2)
+													{
+														<a asp-action="SiparisOnayla" asp-route-id="@siparis.Id" class="btn btn-success light">Siparişi Hazırla</a>
+													}
+													else
+													{
+														<a asp-action="SiparisOnayla" asp-route-id="@siparis.Id" asp-route-hazır=1 class="btn btn-success light">Sipariş Hazır!</a>
+													}
+													<a asp-action="Siparisİptal" asp-route-id="@siparis.Id" class="btn btn-warning light">Siparişi İptal Et</a>
+													<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
+												</div>
+
+											</div>
+										</div>
+									</div>
+								</tr>
+							}
+
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+		</div>
+
+		@* Diğer Siparişler *@
+		<div class="filter cm-content-box box-primary">
+			<div class="content-title">
+				<div class="cpa">
+					<i class="fa-solid fa-file-lines me-1"></i>Diğer Siparişler
+				</div>
+				<div class="tools">
+					<a href="javascript:void(0);" class="expand SlideToolHeader"><i class="fal fa-angle-down"></i></a>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="table-responsive">
+
+					<table class="display exampleTable">
+						<thead>
+							<tr>
+								<th></th>
+								<th>MASA</th>
+								<th>DURUM</th>
+								<th>TUTAR</th>
+								<th>ÖDENEN TUTAR</th>
+								<th>NOT</th>
+							</tr>
+						</thead>
+						<tbody>
+
+							@foreach (var siparis in Model.GecmisSiparisler)
+							{
+								var siparisDurum = Model.SiparisDurumlar.FirstOrDefault(x => x.SiparisId == siparis.Id);
+
+								<tr>
+									<td>@siparis.Id</td>
+									<td>@siparis.Masa.Kod</td>
+									@if (siparis.DurumId == 2 || siparis.DurumId == 4 || siparis.DurumId == 6 || siparis.DurumId == 9)
+									{
+										<td class="text-success"><b>@siparisDurum?.Durum.Ad</b></td>
+									}
+									else if (siparis.DurumId == 7)
+									{
+										<td class="text-danger"><b>@siparisDurum?.Durum.Ad</b></td>
+									}
+									else
+									{
+										<td class="text-warning"><b>@siparisDurum?.Durum.Ad</b></td>
+									}
+									<td>@siparis.Tutar</td>
+									<td>@siparis.OdenenTutar</td>
+									@if (siparis.Not == null)
+									{
+										<td> - </td>
+									}
+									else
+									{
+										<td>@siparis.Not</td>
+									}
+
+									@* Sipariş Bilgisi *@
+									<div class="modal modal-lg fade" id="siparisDetay_@siparis.Id">
+										<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title">Sipariş Bilgisi</h5>
+													<button type="button" class="btn-close" data-bs-dismiss="modal">
+													</button>
+												</div>
+
+												<div class="modal-body">
+													<div class="row">
+														<div class="col-xl-6 col-sm-6 mb-3 mb-xl-0">
+															<div class="card">
+																<div class="card-header">
+																	<h4 class="card-title">Sipariş Detayı</h4>
+																</div>
+																<div class="card-body">
+
+																	<div class="row">
+																		<div class="col-lg-12 order-lg-12 mb-4">
+																			<ul class="list-group list-group-flush mb-3">
+
+																				<li class="list-group-item d-flex justify-content-between lh-condensed">
+																					<div>
+																						<h6 class="my-1">
+																							<span class="icon-warning">
+																								<i class="fa-solid fa-table-picnic"></i>
+																							</span>
+																							Sipariş Masa
+																						</h6>
+																					</div>
+																					<span class="text-muted text-end">@siparis.Masa.Kod</span>
+																				</li>
+																				<li class="list-group-item d-flex justify-content-between lh-condensed">
+																					<div>
+																						<h6 class="my-1">
+																							<span class="icon-warning">
+																								<i class="fa-regular fa-wave-pulse"></i>
+																							</span>
+																							Sipariş Durum
+																						</h6>
+																					</div>
+																					@if (siparis.DurumId == 2)
+																					{
+																						<span class="text-success text-end">@siparisDurum?.Durum.Ad</span>
+																					}
+																					else if (siparis.DurumId == 7)
+																					{
+																						<span class="text-danger text-end">@siparisDurum?.Durum.Ad</span>
+																					}
+																					else
+																					{
+																						<span class="text-warning text-end">@siparisDurum?.Durum.Ad</span>
+																					}
+																				</li>
+																				<li class="list-group-item d-flex justify-content-between lh-condensed">
+																					<div>
+																						<h6 class="my-1">
+																							<span class="icon-warning">
+																								<i class="fa-regular fa-list"></i>
+																							</span>
+																							Sipariş Tutar
+																						</h6>
+																					</div>
+																					<span class="text-muted text-end">@siparis.Tutar ₺</span>
+																				</li>
+																				<li class="list-group-item d-flex justify-content-between lh-condensed">
+																					<div>
+																						<h6 class="my-1">
+																							<span class="icon-warning">
+																								<i class="fa-regular fa-money-bill"></i>
+																							</span>
+																							Ödenen Tutar
+																						</h6>
+																					</div>
+																					<span class="text-muted text-end">@siparis.OdenenTutar ₺</span>
+																				</li>
+																				<li class="list-group-item d-flex justify-content-between lh-condensed">
+																					<div>
+																						<h6 class="my-1">
+																							<span class="icon-warning">
+																								<i class="fa-sharp fa-solid fa-badge-percent"></i>
+																							</span>
+																							Ödeme Durumu
+																						</h6>
+																					</div>
+																					@if (siparis.OdemeDurum == false)
+																					{
+																						<span class="text-end text-danger">Ödenmedi</span>
+
+																					}
+																					else
+																					{
+																						<span class="text-end text-success">Ödendi</span>
+																					}
+																				</li>
+																				<li class="list-group-item d-flex justify-content-between lh-condensed">
+																					<div>
+																						<h6 class="my-1">
+																							<span class="icon-warning">
+																								<i class="fa-solid fa-quote-right"></i>
+																							</span>
+																							Not
+																						</h6>
+																					</div>
+																					@if (siparis.Not == null)
+																					{
+																						<span class="text-muted text-end"> - </span>
+																					}
+																					else
+																					{
+																						<span class="text-muted text-end">@siparis.Not</span>
+																					}
+																				</li>
+
+																			</ul>
+																		</div>
+
+																	</div>
+																</div>
+															</div>
+														</div>
+
+
+														<div class="col-xl-6 col-sm-6 mb-3 mb-xl-0">
+															<div class="card">
+																<div class="card-header">
+																	<h4 class="card-title">Sipariş İçeriği</h4>
+																</div>
+																<div class="card-body">
+																	<div class="row">
+																		<div class="col-lg-12 order-lg-12 mb-4">
+																			<ul class="list-group list-group-flush mb-3">
+
+																				@foreach (var siparisUrun in Model.SiparisUrunler)
+																				{
+																					if (siparisUrun.SiparisId == siparis.Id)
+																					{
+																						<li class="list-group-item d-flex justify-content-between lh-condensed">
+																							<div>
+																								<h6 class="my-1">
+																									<span class="icon-warning">
+																										<i class="fa-solid fa-pot-food"></i>
+																									</span>
+																									@siparisUrun.Urun.Ad
+																								</h6>
+																							</div>
+																							<span class="text-muted text-end">@siparisUrun.Miktar * @siparisUrun.Fiyat = <b>@(@siparisUrun.Miktar * @siparisUrun.Fiyat)</b> </span>
+																						</li>
+
+																					}
+																				}
+
+																				@foreach (var siparisMenu in Model.SiparisMenuler)
+																				{
+																					if (siparisMenu.SiparisId == siparis.Id)
+																					{
+																						<li class="list-group-item d-flex justify-content-between lh-condensed">
+																							<div>
+																								<h6 class="my-1">
+																									<span class="icon-warning">
+																										<i class="fa-solid fa-pan-food"></i>
+																									</span>
+																									@siparisMenu.Menu.Ad
+																								</h6>
+																							</div>
+																							<span class="text-muted text-end">@siparisMenu.Miktar * @siparisMenu.Fiyat = <b>@(siparisMenu.Miktar * siparisMenu.Fiyat)</b> </span>
+																						</li>
+
+																					}
+																				}
+
+																			</ul>
+																		</div>
+																	</div>
+																</div>
+															</div>
+
+														</div>
+													</div>
+												</div>
+
+												<div class="modal-footer">
+													<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
+												</div>
+
+											</div>
+										</div>
+									</div>
+								</tr>
+							}
+
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+		</div>
+
+		<br>
+
+	</div>
+</div>
+
+@section Scripts
+{
+	<script src="~/admin_panel/vendor/bootstrap-datepicker-master/js/bootstrap-datepicker.min.js"></script>
+	<script src="~/admin_panel/vendor/datatables/js/jquery.datatables.min.js"></script>
+	<script src="~/admin_panel/js/plugins-init/datatables.init.js"></script>
+
+	<script>
+		$('.exampleTable').DataTable({
+			language: {
+				paginate: {
+					next: '<i class="fa fa-angle-double-right" aria-hidden="true"></i>',
+					previous: '<i class="fa fa-angle-double-left" aria-hidden="true"></i>'
+				}
+			}
+		});
+	</script>
+}

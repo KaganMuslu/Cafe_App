@@ -63,7 +63,11 @@ app.MapControllerRoute(
     pattern: "{area:exists}/{controller=Garson}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
+	name: "Mutfak",
+	pattern: "{area:exists}/{controller=Mutfak}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
     name: "default",
-    pattern: "{area=Garson}/{controller=Garson}/{action=Index}/{id?}");
+    pattern: "{area=Mutfak}/{controller=Mutfak}/{action=Index}/{id?}");
 
 app.Run();

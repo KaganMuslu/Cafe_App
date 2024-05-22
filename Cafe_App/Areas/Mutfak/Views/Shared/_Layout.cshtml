@@ -721,102 +721,28 @@
 			<div class="deznav-scroll">
 				<ul class="metismenu" id="menu">
 					<li>
-						<a class="ai-icon"  asp-controller="Personel" asp-action="Index" aria-expanded="false">
-							<i class="fa fa-user-chef"></i>
-							<span class="nav-text">Personel Yönetimi</span>
-						</a>
-					</li>
-
-					<li>
-						<a class="ai-icon" asp-controller="Rol" asp-action="Index" aria-expanded="false">
-							<i class="fa fa-users-gear"></i>
-							<span class="nav-text">Rol Yönetimi</span>
-						</a>
-					</li>
-
-					<li>
-						<a class="ai-icon"  asp-controller="Musteri" asp-action="Index" aria-expanded="false">
-							<i class="fa fa-users"></i>
-							<span class="nav-text">Müşteri Yönetimi</span>
-						</a>
-					</li>
-
-					@* <li>
-						<a class="ai-icon" asp-controller="Siparis" asp-action="Index" aria-expanded="false">
-							<i class="fa-sharp fa-solid fa-cart-shopping"></i>
-							<span class="nav-text">Siprariş Yönetimi</span>
-						</a>
-					</li> *@
-
-					<li>
-						<a class="ai-icon" asp-controller="MasaOzellik" asp-action="Index" aria-expanded="false">
-							<i class="fa-solid fa-sparkles"></i>
-							<span class="nav-text">Masa Özellik Yönetimi</span>
-						</a>
-					</li>
-
-					<li>
-						<a class="ai-icon"  asp-controller="Masa" asp-action="Index" aria-expanded="false">
+						<a class="ai-icon" asp-controller="Masa" asp-action="Index" aria-expanded="false">
 							<i class="fa fa-table-picnic"></i>
-							<span class="nav-text">Masa Yönetimi</span>
+							<span class="nav-text">Masaları Görüntüle</span>
 						</a>
 					</li>
 
 					<li>
-						<a class="ai-icon" asp-controller="Menu" asp-action="Index" aria-expanded="false">
-							<i class="fa fa-burger-soda"></i>
-							<span class="nav-text">Menü Yönetimi</span>
+						<a class="ai-icon" asp-controller="Stok" asp-action="Index" aria-expanded="false">
+							<i class="fa-solid fa-hand-holding-box"></i>
+							<span class="nav-text">Tüm Stoklar</span>
 						</a>
 					</li>
 
-					<li>
-						<a class="ai-icon"  asp-controller="Urun" asp-action="Index" aria-expanded="false">
-							<i class="fa fa-burger-cheese"></i>
-							<span class="nav-text">Ürün Yönetimi</span>
-						</a>
-					</li>
+					<li style="width:108%">
+						<a class="ai-icon" asp-controller="SiparisKontrol" asp-action="Index" aria-expanded="false">
+							<i class="fa-solid fa-box-check"></i>
+							<span class="nav-text">Tüm Siparişler</span>
+							@await Component.InvokeAsync("SiparisMutfak")
 
-					<li>
-						<a class="ai-icon" asp-controller="Malzeme" asp-action="Index" aria-expanded="false">
-							<i class="fa fa-wheat"></i>
-							<span class="nav-text">Malzeme Yönetimi</span>
 						</a>
 					</li>
-
-					<li>
-						<a class="ai-icon" asp-controller="Kategori" asp-action="Index" aria-expanded="false">
-							<i class="fa-duotone fa-list" style="--fa-primary-color: #2D3250; --fa-secondary-color: #7077A1;"></i>
-							<span class="nav-text">Kategori Yönetimi</span>
-						</a>
-					</li>
-
-					<li>
-						<a class="ai-icon" asp-controller="Indirim" asp-action="Index" aria-expanded="false">
-							<i class="fa-solid fa-badge-percent"></i>
-							<span class="nav-text">İndirim Yönetimi</span>
-						</a>
-					</li>
-
-					<li>
-						<a class="ai-icon" asp-controller="Tedarikci" asp-action="Index" aria-expanded="false">
-							<i class="fa-solid fa-truck-fast"></i>
-							<span class="nav-text">Tedarikçi Yönetimi</span>
-						</a>
-					</li>
-					<li>
-						<a class="ai-icon"  asp-controller="Stok" asp-action="Index" aria-expanded="false">
-							<i class="fa fa-warehouse"></i>
-							<span class="nav-text">Stok Yönetimi</span>
-						</a>
-					</li>
-
-					<li>
-						<a class="ai-icon"  asp-controller="Rezervasyon" asp-action="Index" aria-expanded="false">
-							<i class="fa fa-bell-concierge"></i>
-							<span class="nav-text">Rezervasyon Yönetimi</span>
-						</a>
-					</li>
-					
+										
                 </ul>
             
 				<div class="add-menu-sidebar">
@@ -878,6 +804,9 @@
 
 	<!-- Form validate init -->
 	<script src="~/admin_panel/js/plugins-init/jquery.validate-init.js"></script>
+
+	<!-- Datatable init -->
+    <script src="~/admin_panel/js/plugins-init/datatables.init.js"></script>
 
 
 	@await RenderSectionAsync("Scripts", required: false)

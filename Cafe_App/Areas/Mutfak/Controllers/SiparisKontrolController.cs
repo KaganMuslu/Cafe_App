@@ -1,17 +1,16 @@
-﻿using Cafe_App.Areas.Admin.Models;
-using Cafe_App.Areas.Garson.Models;
+﻿using Cafe_App.Areas.Garson.Models;
 using Cafe_App.Data;
 using Cafe_App.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Cafe_App.Areas.Garson.Controllers
+namespace Cafe_App.Areas.Mutfak.Controllers
 {
-	[Area("Garson")]
-	public class OnaylanacakController : Controller
+	[Area("Mutfak")]
+	public class SiparisKontrolController : Controller
 	{
 		private readonly IdentityDataContext _context;
-		public OnaylanacakController(IdentityDataContext context)
+		public SiparisKontrolController(IdentityDataContext context)
 		{
 			_context = context;
 		}
@@ -19,8 +18,8 @@ namespace Cafe_App.Areas.Garson.Controllers
 		{
 			var viewModel = new SiparislerModelView
 			{
-				OnaysizSiparisler = _context.Siparisler.Include(x => x.Masa).Where(x => (x.DurumId == 1 || x.DurumId == 4) && x.Gorunurluk == true).ToList(),
-				GecmisSiparisler = _context.Siparisler.Include(x => x.Masa).Where(x => (x.DurumId != 1 || x.DurumId != 4) && x.Gorunurluk == true).ToList(),
+				OnaysizSiparisler = _context.Siparisler.Include(x => x.Masa).Where(x => (x.DurumId == 2 || x.DurumId == 3) && x.Gorunurluk == true).ToList(),
+				GecmisSiparisler = _context.Siparisler.Include(x => x.Masa).Where(x => x.DurumId != 2 && x.DurumId != 3 && x.Gorunurluk == true).ToList(),
 				SiparisUrunler = _context.SiparisUrunler.Include(x => x.Urun).ToList(),
 				SiparisMenuler = _context.SiparisMenuler.Include(x => x.Menu).ToList()
 
@@ -29,7 +28,7 @@ namespace Cafe_App.Areas.Garson.Controllers
 			List<SiparisDurum> siparisDurumlar = [];
 			foreach (var siparis in _context.Siparisler.Where(x => x.Gorunurluk == true).ToList())
 			{
-				var siparisDurum = _context.SiparisDurumlar.Include(x => x.Durum).OrderByDescending(x  => x.Id).FirstOrDefault(x => x.SiparisId == siparis.Id);
+				var siparisDurum = _context.SiparisDurumlar.Include(x => x.Durum).OrderByDescending(x => x.Id).FirstOrDefault(x => x.SiparisId == siparis.Id);
 				if (siparisDurum != null)
 				{
 					siparisDurumlar.Add(siparisDurum);
@@ -42,28 +41,30 @@ namespace Cafe_App.Areas.Garson.Controllers
 			return View(viewModel);
 		}
 
-		public IActionResult SiparisOnayla(int id, int teslim)
+		public IActionResult SiparisOnayla(int id, int hazır)
 		{
 			var siparis = _context.Siparisler.FirstOrDefault(x => x.Id == id);
+			if(hazır != 1)
+			{
+				siparis.DurumId = 3;
+			}
+			else
+			{
+				siparis.DurumId = 4;
+			}
+
+
 			if (siparis != null)
 			{
-				if (teslim != 1)
-				{
-					siparis.DurumId = 2;
-				}
-				else
-				{
-					siparis.DurumId = 5;
-				}
 				_context.Update(siparis);
 			}
 
-			if (teslim != 1)
+			if(hazır != 1)
 			{
 				SiparisDurum siparisDurum = new SiparisDurum
 				{
 					Siparis = siparis,
-					DurumId = 2,
+					DurumId = 3,
 					Tarih = DateTime.Now
 				};
 
@@ -74,12 +75,13 @@ namespace Cafe_App.Areas.Garson.Controllers
 				SiparisDurum siparisDurum = new SiparisDurum
 				{
 					Siparis = siparis,
-					DurumId = 5,
+					DurumId = 4,
 					Tarih = DateTime.Now
 				};
 
 				_context.Add(siparisDurum);
 			}
+
 
 			_context.SaveChanges();
 			return RedirectToAction("Index");

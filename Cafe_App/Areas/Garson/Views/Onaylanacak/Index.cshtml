@@ -255,7 +255,14 @@
 													</div>
 
 													<div class="modal-footer">
-													<a asp-action="SiparisOnayla" asp-route-id="@siparis.Id" class="btn btn-success light">Siparişi Onayla</a>
+													@if (siparis.DurumId == 1)
+													{
+														<a asp-action="SiparisOnayla" asp-route-id="@siparis.Id" class="btn btn-success light">Siparişi Onayla</a>
+													}
+													else
+													{
+														<a asp-action="SiparisOnayla" asp-route-id="@siparis.Id" asp-route-teslim=1 class="btn btn-success light">Teslim Edildi!</a>
+													}
 													<a asp-action="Siparisİptal" asp-route-id="@siparis.Id" class="btn btn-warning light">Siparişi İptal Et</a>
 													<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
 													</div>
@@ -308,7 +315,7 @@
 									<tr>
 										<td>@siparis.Id</td>
 										<td>@siparis.Masa.Kod</td>
-										@if (siparis.DurumId == 2)
+										@if (siparis.DurumId == 2 || siparis.DurumId == 5 || siparis.DurumId == 6 || siparis.DurumId == 9)
 										{
 											<td class="text-success"><b>@siparisDurum?.Durum.Ad</b></td>
 										}

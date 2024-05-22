@@ -1008,7 +1008,7 @@
     </script>
 }
 
-@if (ViewBag.SiparisAlındı == true)
+@if (TempData["SiparisAlındı"] != null)
 {
     <script>
         document.addEventListener('DOMContentLoaded', (event) => {
