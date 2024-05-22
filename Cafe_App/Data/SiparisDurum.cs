@@ -10,7 +10,7 @@ namespace Cafe_App.Data
 
         public int DurumId { get; set; }
 
-		public DateOnly Tarih { get; set; }
+		public DateTime Tarih { get; set; }
 
         public Siparis Siparis { get; set; }
 

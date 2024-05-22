@@ -963,62 +963,6 @@
     <br>
     <br>
     <br>
-    @* <section class="space">
-        <div class="shape-mockup jump d-none d-lg-block" data-top="25%" data-left="5%"><img src="/home_panel/img/update_2/shape/shape_4.png" alt="shape"></div>
-        <div class="shape-mockup jump-reverse d-none d-lg-block" data-bottom="15%" data-right="1%"><img src="/home_panel/img/update_2/shape/red_chili_2.png" alt="shape"></div>
-        <div class="container">
-            <div class="title-area text-center">
-                <span class="sub-title">Blog & News</span>
-                <h2 class="sec-title">Get Update Our Foods</h2>
-            </div>
-            <div class="row slider-shadow th-carousel" data-slide-show="3" data-lg-slide-show="2" data-md-slide-show="2" data-sm-slide-show="1" data-arrows="true">
-                <div class="col-md-6 col-xl-4">
-                    <div class="blog-grid">
-                        <div class="blog-img"><img src="/home_panel/img/update_2/blog/blog_3_1.jpg" alt="blog image"></div>
-                        <div class="blog-content">
-                            <div class="blog-meta"><a href="blog.html"><i class="fa-light fa-calendar-days"></i>15 July, 2023</a> <a href="blog.html"><i class="fa-regular fa-comments"></i>3 Comments</a></div>
-                            <h3 class="box-title blog-title"><a href="blog-details.html">10 Reasons To Do A Digital Detox Challenge</a></h3>
-                            <p class="blog-text">Statement underscores the value of thinking Outside the box and pursuing visionary</p>
-                            <div class="blog-bottom"><a href="blog-details.html" class="link-btn">Read More<i class="fa-solid fa-arrow-up-right"></i></a></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-xl-4">
-                    <div class="blog-grid">
-                        <div class="blog-img"><img src="/home_panel/img/update_2/blog/blog_3_2.jpg" alt="blog image"></div>
-                        <div class="blog-content">
-                            <div class="blog-meta"><a href="blog.html"><i class="fa-light fa-calendar-days"></i>16 July, 2023</a> <a href="blog.html"><i class="fa-regular fa-comments"></i>3 Comments</a></div>
-                            <h3 class="box-title blog-title"><a href="blog-details.html">New Restaurant Town Our Ple Award Contract</a></h3>
-                            <p class="blog-text">Statement underscores the value of thinking Outside the box and pursuing visionary</p>
-                            <div class="blog-bottom"><a href="blog-details.html" class="link-btn">Read More<i class="fa-solid fa-arrow-up-right"></i></a></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-xl-4">
-                    <div class="blog-grid">
-                        <div class="blog-img"><img src="/home_panel/img/update_2/blog/blog_3_3.jpg" alt="blog image"></div>
-                        <div class="blog-content">
-                            <div class="blog-meta"><a href="blog.html"><i class="fa-light fa-calendar-days"></i>17 July, 2023</a> <a href="blog.html"><i class="fa-regular fa-comments"></i>3 Comments</a></div>
-                            <h3 class="box-title blog-title"><a href="blog-details.html">Innovative Hot Chessy raw Pasta Make Creator.</a></h3>
-                            <p class="blog-text">Statement underscores the value of thinking Outside the box and pursuing visionary</p>
-                            <div class="blog-bottom"><a href="blog-details.html" class="link-btn">Read More<i class="fa-solid fa-arrow-up-right"></i></a></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-xl-4">
-                    <div class="blog-grid">
-                        <div class="blog-img"><img src="/home_panel/img/update_2/blog/blog_3_4.jpg" alt="blog image"></div>
-                        <div class="blog-content">
-                            <div class="blog-meta"><a href="blog.html"><i class="fa-light fa-calendar-days"></i>21 July, 2023</a> <a href="blog.html"><i class="fa-regular fa-comments"></i>3 Comments</a></div>
-                            <h3 class="box-title blog-title"><a href="blog-details.html">Best Hot Chessy raw In Pasta Makeing Trick.</a></h3>
-                            <p class="blog-text">Statement underscores the value of thinking Outside the box and pursuing visionary</p>
-                            <div class="blog-bottom"><a href="blog-details.html" class="link-btn">Read More<i class="fa-solid fa-arrow-up-right"></i></a></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> *@
     <div class="gallery-thumb-area">
         <div class="row gx-10 th-carousel" id="gallerySlide1" data-slide-show="8" data-ml-slide-show="7" data-lg-slide-show="6" data-md-slide-show="5" data-sm-slide-show="4" data-xs-slide-show="3" data-focuson-select="false">
             <div class="col-auto">
@@ -1058,6 +1002,19 @@
             Swal.fire({
                 title: "Başarılı!",
                 text: "@Html.Raw(ViewBag.Masa.Kod) adlı masaya giriş yapıldı!",
+                icon: "success"
+            });
+        });
+    </script>
+}
+
+@if (ViewBag.SiparisAlındı == true)
+{
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            Swal.fire({
+                title: "Sipariş Alındı!",
+                text: "Siparişiniz başarılı bir şekilde alındı!",
                 icon: "success"
             });
         });

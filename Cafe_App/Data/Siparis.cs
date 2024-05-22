@@ -28,13 +28,13 @@ public partial class Siparis
 
 	public bool Gorunurluk { get; set; }
 
-    public SiparisDurum SiparisDurum { get; set; }
+	public Masa Masa { get; set; }
 
-    public Masa Masa { get; set; }
+    public ICollection<SiparisDurum> SiparisDurumlars { get; set; } = new List<SiparisDurum>();
 
     public ICollection<TeslimatSiparis> Teslimatsiparislers { get; set; } = new List<TeslimatSiparis>();
 
-    public ICollection<Odeme> Odemelers { get; set; } = new List<Odeme>();
+	public ICollection<Odeme> Odemelers { get; set; } = new List<Odeme>();
 
     public ICollection<SiparisMenu> SiparisMenuler { get; set; } = new List<SiparisMenu>();
 

@@ -197,19 +197,6 @@
 	</div>
 </div>
 
-@if (ViewBag.SiparisAlındı == true)
-{
-	<script>
-		document.addEventListener('DOMContentLoaded', (event) => {
-			Swal.fire({
-				title: "Sipariş Alındı!",
-				text: "Siparişiniz başarılı bir şekilde alındı!",
-				icon: "success"
-			});
-		});
-	</script>
-}
-
 @if (ViewBag.GirisYap == true)
 {
 	<script>

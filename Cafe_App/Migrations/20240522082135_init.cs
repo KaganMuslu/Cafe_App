@@ -1082,7 +1082,7 @@ namespace Cafe_App.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     SiparisId = table.Column<int>(type: "int", nullable: false),
                     DurumId = table.Column<int>(type: "int", nullable: false),
-                    Tarih = table.Column<DateOnly>(type: "date", nullable: false)
+                    Tarih = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1365,8 +1365,7 @@ namespace Cafe_App.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_SiparisDurumlar_SiparisId",
                 table: "SiparisDurumlar",
-                column: "SiparisId",
-                unique: true);
+                column: "SiparisId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Siparisler_KasaId",

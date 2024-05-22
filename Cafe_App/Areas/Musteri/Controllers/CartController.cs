@@ -1,4 +1,5 @@
 ﻿using Cafe_App.Areas.Admin.Data;
+using Cafe_App.Data;
 using Cafe_App.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -221,6 +222,15 @@ namespace Cafe_App.Areas.Musteri.Controllers
                 _context.SaveChanges();
                 siprais = _context.Siparisler.FirstOrDefault(x => x.Tarih == siprais.Tarih && x.AdresId == siprais.AdresId);
 
+                var siparisDurum = new SiparisDurum
+                {
+                    SiparisId = siprais.Id,
+                    DurumId = 1,
+                    Tarih = DateTime.Now,
+                };
+
+				_context.Add(siparisDurum);
+
 				var cart = GetCart();
                 foreach (var item in cart.Items)
                 {
@@ -317,7 +327,7 @@ namespace Cafe_App.Areas.Musteri.Controllers
 				return RedirectToAction("Cart", new { GirisYap = true });
 			}
 
-            return RedirectToAction("Cart", new { SiparisAlındı = true} );
+            return RedirectToAction("Index", "Musteri", new { SiparisAlındı = true} );
 
         }
 

@@ -724,28 +724,22 @@
 						<a class="ai-icon" asp-controller="Masalar" asp-action="Index" aria-expanded="false">
 							<i class="fa fa-table-picnic"></i>
 							<span class="nav-text">Masaları Görüntüle</span>
-							@* <i class="fa-regular fa-thumbs-up text-success"></i> *@
 						</a>
 					</li>
 
 					<li>
-						<a class="ai-icon" asp-controller="Rol" asp-action="Index" aria-expanded="false">
+						<a class="ai-icon" asp-controller="SiparisOlustur" asp-action="Index" aria-expanded="false">
 							<i class="fa-solid fa-hand-holding-box"></i>
 							<span class="nav-text">Sipariş Oluştur</span>
 						</a>
 					</li>
 
-					<li>
+					<li style="width:108%">
 						<a class="ai-icon"  asp-controller="Onaylanacak" asp-action="Index" aria-expanded="false">
 							<i class="fa-solid fa-box-check"></i>
-							<span class="nav-text">Onaylanacak Siparişler</span>
-						</a>
-					</li>
+							<span class="nav-text">Tüm Siparişler</span>
+							@await Component.InvokeAsync("Siparis")
 
-					<li>
-						<a class="ai-icon" asp-controller="Siparis" asp-action="Index" aria-expanded="false">
-							<i class="fa-solid fa-bell-concierge"></i>
-							<span class="nav-text">Servisdeki Siparişler</span>
 						</a>
 					</li>
 										
@@ -757,8 +751,8 @@
 					<a href="/admin_panel/javascript:void(0);" class="btn bg-white text-black">Geribildirim Gönder</a>
 				</div>
 				<div class="copyright">
-					<p><strong>Davur - Restaurant Admin Dashboard</strong> ©2024 Hakları Saklıdır</p>
-					<p>Made with <span class="heart"></span> by Kağan MUSLU</p>
+					<p><strong>Cafe App Restourant App</strong><br>©2024 Hakları Saklıdır</p>
+					<p>Made with <i class="fa-sharp fa-solid fa-heart fa-beat"></i> by Kağan MUSLU</p>
 				</div>
 			</div>
         </div>
@@ -810,6 +804,9 @@
 
 	<!-- Form validate init -->
 	<script src="~/admin_panel/js/plugins-init/jquery.validate-init.js"></script>
+
+	<!-- Datatable init -->
+    <script src="~/admin_panel/js/plugins-init/datatables.init.js"></script>
 
 
 	@await RenderSectionAsync("Scripts", required: false)

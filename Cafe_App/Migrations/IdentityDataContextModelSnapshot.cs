@@ -95,15 +95,14 @@ namespace Cafe_App.Migrations
                     b.Property<int>("SiparisId")
                         .HasColumnType("int");
 
-                    b.Property<DateOnly>("Tarih")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("Tarih")
+                        .HasColumnType("datetime(6)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("DurumId");
 
-                    b.HasIndex("SiparisId")
-                        .IsUnique();
+                    b.HasIndex("SiparisId");
 
                     b.ToTable("SiparisDurumlar");
                 });
@@ -1477,8 +1476,8 @@ namespace Cafe_App.Migrations
                         .IsRequired();
 
                     b.HasOne("Cafe_App.Models.Siparis", "Siparis")
-                        .WithOne("SiparisDurum")
-                        .HasForeignKey("Cafe_App.Data.SiparisDurum", "SiparisId")
+                        .WithMany("SiparisDurumlars")
+                        .HasForeignKey("SiparisId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2017,8 +2016,7 @@ namespace Cafe_App.Migrations
                 {
                     b.Navigation("Odemelers");
 
-                    b.Navigation("SiparisDurum")
-                        .IsRequired();
+                    b.Navigation("SiparisDurumlars");
 
                     b.Navigation("SiparisMenuler");
 
