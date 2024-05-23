@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cafe_App.Migrations
 {
     [DbContext(typeof(IdentityDataContext))]
-    [Migration("20240522173743_init")]
+    [Migration("20240523093537_init")]
     partial class init
     {
         /// <inheritdoc />

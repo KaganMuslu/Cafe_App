@@ -721,24 +721,24 @@
 			<div class="deznav-scroll">
 				<ul class="metismenu" id="menu">
 					<li>
-						<a class="ai-icon" asp-controller="Masalar" asp-action="Index" aria-expanded="false">
+						<a class="ai-icon" asp-controller="Masa" asp-action="Index" aria-expanded="false">
 							<i class="fa fa-table-picnic"></i>
 							<span class="nav-text">Masaları Görüntüle</span>
 						</a>
 					</li>
 
-					@* <li>
-						<a class="ai-icon" asp-controller="SiparisOlustur" asp-action="Index" aria-expanded="false">
+					<li>
+						<a class="ai-icon" asp-controller="Stok" asp-action="Index" aria-expanded="false">
 							<i class="fa-solid fa-hand-holding-box"></i>
-							<span class="nav-text">Sipariş Oluştur</span>
+							<span class="nav-text">Tüm Stoklar</span>
 						</a>
-					</li> *@
+					</li>
 
 					<li style="width:108%">
-						<a class="ai-icon"  asp-controller="Onaylanacak" asp-action="Index" aria-expanded="false">
+						<a class="ai-icon" asp-controller="SiparisKontrol" asp-action="Index" aria-expanded="false">
 							<i class="fa-solid fa-box-check"></i>
 							<span class="nav-text">Tüm Siparişler</span>
-							@await Component.InvokeAsync("Siparis")
+							@await Component.InvokeAsync("SiparisKasa")
 
 						</a>
 					</li>

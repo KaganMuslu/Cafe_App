@@ -16,7 +16,7 @@ namespace Cafe_App.Areas.Musteri.Controllers
             _context = context;
         }
 
-        public IActionResult Index(int page = 1)
+        public IActionResult Index(string masa, int page = 1)
         {
             var pageSize = 8;
             var urunler = _context.Urunler.Include(x => x.Kategori).ToPagedList(page, pageSize);
@@ -33,6 +33,16 @@ namespace Cafe_App.Areas.Musteri.Controllers
             ViewBag.UrunIndirimler = _context.UrunIndirimler
                 .Where(x => x.BaslangıcTarihi <= simdikiTarih && x.BitisTarihi >= simdikiTarih)
                 .ToList();
+
+            if (masa != null)
+            {
+                var masaObj = _context.Masalar.FirstOrDefault(x => x.Link == masa);
+                if (masaObj != null)
+                {
+                    ViewBag.Masa = masaObj;
+                    HttpContext.Session.SetString("MasaKodu", masaObj.Kod); // Masa kodunu session'a ekliyoruz
+                }
+            }
 
             return View(urunler);
         }

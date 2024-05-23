@@ -79,7 +79,14 @@
 									<td>@urun.Aciklama</td>
 									<td>@urun.Kategori.Ad</td>
 									<td>₺@urun.Fiyat</td>
-									<td>₺xxx</td>
+									@if (Model.UrunIndirimler.FirstOrDefault(x => x.UrunId == urun.Id)?.YeniFiyat != null)
+									{
+										<td>@Model.UrunIndirimler.FirstOrDefault(x => x.UrunId == urun.Id)?.YeniFiyat ₺</td>
+									}
+									else
+									{
+										<td> - </td>
+									}
 									@if (urun.Gorunurluk == true)
 									{
 										<td class="recent-stats"><i class="fa fa-circle text-success me-1"></i>Görünür</td>
@@ -178,7 +185,14 @@
 																						Ürün İndirimli Fiyat
 																					</h6>
 																				</div>
-																				<span class="text-muted text-end">₺xxx</span>
+																				@if (Model.UrunIndirimler.FirstOrDefault(x => x.UrunId == urun.Id)?.YeniFiyat != null)
+																				{
+																					<span class="text-muted text-end">@Model.UrunIndirimler.FirstOrDefault(x => x.UrunId == urun.Id)?.YeniFiyat ₺</span>
+																				}
+																				else
+																				{
+																					<span class="text-muted text-end"> - </span>
+																				}
 																			</li>
 																			<li class="list-group-item d-flex justify-content-between lh-condensed">
 																				<div>
@@ -373,6 +387,57 @@ else
 		<partial name="partials/_KategoriPartial" model="Model.Kategori">
 	</div>
 }
+
+
+@* Malzeme Seç *@
+@foreach (var urun in Model.Urunler)
+{
+	<div class="modal modal-md fade" id="urunMalzemeModal_@urun.Id">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Malzemeleri Seç</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+				</div>
+				<form action="@Url.Action("MalzemeSec")" method="post" class="menuForm">
+					<div class="modal-body">
+						@foreach (var item in Model.Malzemeler)
+						{
+							<div class="form-check">
+								@{
+									// Urunlerin malzemelerle ilişkilendirilip ilişkilendirilmediğini kontrol ediyoruz
+									var menuUrun = Model.UrunMalzemeler.FirstOrDefault(mu => mu.MalzemeId == item.Id && mu.UrunId == urun.Id);
+									if (menuUrun != null)
+									{
+										<label class="form-check-label">@item.Ad - <strong class="text-success">₺@item.Fiyat</strong></label>
+										<input type="checkbox" class="form-check-input" value="@item.Id" checked>
+										<input type="number" class="form-control" name="miktar" placeholder="Miktar" value="@menuUrun.Miktar">
+									}
+									else
+									{
+										<label class="form-check-label">@item.Ad - <strong class="text-success">₺@item.Fiyat</strong></label>
+										<input type="checkbox" class="form-check-input custom-checkbox checkbox-success" value="@item.Id">
+										<input type="number" class="form-control" name="miktar" placeholder="Miktar" style="display:none;">
+									}
+								}
+							</div>
+						}
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
+						<button type="button" class="btn btn-primary submitBtn">Kaydet</button>
+					</div>
+
+					<input type="hidden" name="urunId" value="@urun.Id" />
+					<input asp-for="@Model.SecilenMalzemeler" class="secilenMalzeme" type="hidden" />
+
+				</form>
+			</div>
+		</div>
+	</div>
+}
+
 
 @* Ürün Güncelle *@
 @foreach (var urun in Model.Urunler)

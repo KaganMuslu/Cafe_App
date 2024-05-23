@@ -24,9 +24,9 @@
 
   <ItemGroup>
     <Folder Include="Areas\Garson\Data\" />
+    <Folder Include="Areas\Kasa\Data\" />
     <Folder Include="Areas\Musteri\Data\" />
     <Folder Include="Areas\Mutfak\Data\" />
-    <Folder Include="wwwroot\img\" />
   </ItemGroup>
 
 </Project>

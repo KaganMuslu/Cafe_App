@@ -31,6 +31,18 @@ namespace Cafe_App.Areas.Admin.Controllers
 				Kategoriler = _context.Kategoriler.Where(x => x.Tur == "Urun").ToList(),
 			};
 
+			List<UrunIndirim> UrunIndirimler = [];
+			foreach (var urun in _context.Urunler.Where(x => x.Gorunurluk == true).ToList())
+			{
+				var indirim = _context.UrunIndirimler.OrderByDescending(x => x.Id).FirstOrDefault(x => x.UrunId == urun.Id);
+				if (indirim != null)
+				{
+					UrunIndirimler.Add(indirim);
+				}
+			}
+
+			viewModel.UrunIndirimler = UrunIndirimler;
+
 			return View(viewModel);
 		}
 

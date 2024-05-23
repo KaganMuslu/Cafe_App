@@ -140,7 +140,7 @@
 
     <div class="popup-search-box d-none d-lg-block">
         <button class="searchClose"><i class="fal fa-times"></i></button>
-        <form action="#"><input type="text" placeholder="What are you looking for?"> <button type="submit"><i class="fal fa-search"></i></button></form>
+        <form action="#"><input type="text" placeholder="Ne arıyorsunuz?"> <button type="submit"><i class="fal fa-search"></i></button></form>
     </div>
     <div class="th-menu-wrapper">
         <div class="th-menu-area text-center">
@@ -150,14 +150,6 @@
                 <ul>
                     <li><a asp-controller="Urun" asp-action="Index">Ürünler</a></li>
                     <li><a asp-controller="Menu" asp-action="Index">Menüler</a></li>
-                    <li class="menu-item-has-children">
-                        <a href="#">İşlemler</a>
-                        <ul class="sub-menu">
-                            <li><a href="shop-v2.html">İstek Listesi</a></li>
-                            <li><a href="shop-details.html">Shop Details</a></li>
-                            <li><a href="shop-details-v2.html">Shop Details v2</a></li>
-                        </ul>
-                    </li>
                     <li><a asp-controller="Cart" asp-action="Cart">Sepet</a></li>
                     <li><a href="#">Çok Satılanlar</a></li>
                     <li><a asp-controller="Hakkımızda" asp-action="Index">Hakkımızda</a></li>
@@ -191,14 +183,14 @@
                 <div class="container">
                     <div class="row align-items-center justify-content-between">
                         <div class="col-auto">
-                            <div class="header-logo"><a asp-controller="Musteri" asp-action="Index"><img src="/home_panel/img/logo-white.svg" alt="Pizzan"></a></div>
+                            <div class="header-logo"><a asp-controller="Musteri" asp-action="Index"><img src="/home_panel/img/logo-white.svg" alt="Cafe App"></a></div>
                         </div>
                         <div class="col-auto me-xl-auto">
                             <nav class="main-menu d-none d-lg-inline-block">
                                 <ul>
                                     <li><a asp-controller="Urun" asp-action="Index">Ürünler</a></li>
                                     <li><a asp-controller="Menu" asp-action="Index">Menüler</a></li>
-                                    <li><a href="#">Çok Satılanlar</a></li>
+                                    <li><a asp-controller="Rezervasyon" asp-action="Index">Rezervasyon</a></li>
                                     <li><a asp-controller="Hakkımızda" asp-action="Index" >Hakkımızda</a></li>
                                     <li><a asp-controller="BizeUlasin" asp-action="Index">BİZE Ulaşın</a></li>
                                 </ul>

@@ -77,8 +77,15 @@
 									<td><div class="d-flex align-items-center"><img src="~/img/@menu.Fotograf" class="rounded-lg me-2" width="24" alt=""> <span class="w-space-no">  @menu.Ad</span></div></td>
 									<td>@menu.Aciklama</td>
 									<td>@menu.Kategori.Ad</td>
-									<td>₺@menu.Fiyat</td>
-									<td>₺xxx</td>
+									<td>@menu.Fiyat ₺</td>
+									@if (Model.MenuIndirimler.FirstOrDefault(x => x.MenuId == menu.Id)?.YeniFiyat != null)
+									{
+										<td>@Model.MenuIndirimler.FirstOrDefault(x => x.MenuId == menu.Id)?.YeniFiyat ₺</td>
+									}
+									else
+									{
+										<td> - </td>
+									}
 									@if (menu.Gorunurluk == true)
 									{
 										<td class="recent-stats"><i class="fa fa-circle text-success me-1"></i>Görünür</td>
@@ -178,6 +185,14 @@
 																						Menü İndirimli Fiyat
 																					</h6>
 																				</div>
+																				@if (Model.MenuIndirimler.FirstOrDefault(x => x.MenuId == menu.Id)?.YeniFiyat != null)
+																				{
+																					<span class="text-muted text-end">@Model.MenuIndirimler.FirstOrDefault(x => x.MenuId == menu.Id)?.YeniFiyat ₺</span>
+																				}
+																				else
+																				{
+																					<span class="text-muted text-end"> - </span>
+																				}
 																				<span class="text-muted text-end">₺xxx</span>
 																			</li>
 																			<li class="list-group-item d-flex justify-content-between lh-condensed">
@@ -279,7 +294,6 @@
 										</div>
 									</div>
 								</div>
-
 								
 							}
 

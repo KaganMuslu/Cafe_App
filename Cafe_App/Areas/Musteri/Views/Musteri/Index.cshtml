@@ -1,6 +1,11 @@
 ﻿@{
     ViewData["Title"] = "Müşteri Index";
+    var menuIndirimler = ViewBag.MenuIndirimler as List<MenuIndirim>;
+    var urunIndirimler = ViewBag.UrunIndirimler as List<UrunIndirim>;
+    string guncelUrl = Context.Request.Path + Context.Request.QueryString;
 }
+@model MusteriSayfaViewModel
+
     <div id="slider" class="ls-wp-container fitvidsignore hero-5 th-hero-carousel" data-bg-src="/home_panel/img/update_2/hero/hero_bg_5_1.jpg" style="width:1920px;height:810px;margin:0 auto;margin-bottom: 0px;">
         <div class="ls-slide" data-ls="duration:5000; kenburnsscale:1.2;">
             <ls-layer style="font-size:30px; text-align:left; font-style:normal; text-decoration:none; text-transform:none; font-weight:400; letter-spacing:0px; background-position:0% 0%; background-repeat:no-repeat; top:203px; left:340px; color:#ff0600; line-height:26px; font-family:'Lobster Two';" class="ls-l ls-hide-tablet ls-hide-phone ls-text-layer" data-ls="offsetxin:500; easingin:easeOutBack; bgcolorin:transparent; colorin:transparent; offsetxout:-120; durationout:800; startatout:slidechangeonly + ; bgcolorout:transparent; colorout:transparent;">Cafe App'e Hoşgeldiniz</ls-layer>
@@ -82,81 +87,42 @@
                 </div>
             </div>
             <div class="row th-carousel productSlide" data-slide-show="4" data-lg-slide-show="3" data-md-slide-show="2" data-sm-slide-show="2" data-xs-slide-show="1" data-arrows="true">
-                <div class="col-lg-4 col-sm-6">
-                    <div class="th-menu">
-                        <div class="th-menu_img">
-                            <img class="spin" src="/home_panel/img/update_2/menu/menu_1_1.png" alt="menu Image">
-                            <div class="product-action"><a href="cart.html"><span class="action-text">Add To cart</span><span class="icon"><i class="far fa-cart-shopping"></i></span></a> <a href="wishlist.html"><span class="action-text">Wishlist</span><span class="icon"><i class="far fa-heart"></i></span></a> <a class="popup-content" href="#QuickView"><span class="action-text">Quick View</span><span class="icon"><i class="far fa-eye"></i></span></a></div>
-                            <div class="th-menu_discount"><span class="sale">24% OFF</span></div>
+
+                @foreach (var menu in Model.Menuler)
+                {
+                    var indirimliMenu = menuIndirimler?.FirstOrDefault(i => i.MenuId == menu.Id);
+
+                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                        <div class="th-product">
+                            <div class="product-img"><img style="height:240px" src="~/img/@menu.Fotograf" alt="Product Image"></div>
+                            <div class="product-content">
+                                <a class="category">@menu.Kategori?.Ad</a>
+                                <div class="product-rating">
+                                    <div class="star-rating" role="img" aria-label="Rated 4.00 out of 5"><span style="width:75%">Rated <strong class="rating">4.00</strong> out of 5</span></div>
+                                    (4.00)
+                                </div>
+                                <h3 class="product-title"><a asp-action="MenuDetay" asp-route-id="@menu.Id">@menu.Ad</a></h3>
+                                @if (indirimliMenu != null)
+                                {
+                                    <span class="price">@indirimliMenu.YeniFiyat ₺<del> @menu.Fiyat ₺</del></span>
+                                }
+                                else
+                                {
+                                    <span class="price">@menu.Fiyat ₺</span>
+                                }
+                                <div class="actions">
+                                    <a href="#QuickView_@menu.Id" class="icon-btn popup-content"><i class="fal fa-eye"></i></a>
+                                    <a onclick="restoreScrollPosition();" asp-controller="Cart" asp-action="AddToCart" asp-route-menuId="@menu.Id" asp-route-url="@guncelUrl" class="icon-btn"><i class="fal fa-cart-plus"></i></a>
+                                    <a class="icon-btn"><i class="fal fa-heart"></i></a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="th-menu-content">
-                            <h3 class="th-menu_title"><a href="shop-details.html">Brief Pizza</a></h3>
-                            <p class="th-menu_desc">Barbecue Italian cuisine pizza</p>
-                            <span class="th-menu_price">$190.85</span>
-                        </div>
-                        <div class="fire"><img src="/home_panel/img/update_2/shape/fire.png" alt="shape"></div>
                     </div>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <div class="th-menu">
-                        <div class="th-menu_img">
-                            <img class="spin" src="/home_panel/img/update_2/menu/menu_1_2.png" alt="menu Image">
-                            <div class="product-action"><a href="cart.html"><span class="action-text">Add To cart</span><span class="icon"><i class="far fa-cart-shopping"></i></span></a> <a href="wishlist.html"><span class="action-text">Wishlist</span><span class="icon"><i class="far fa-heart"></i></span></a> <a class="popup-content" href="#QuickView"><span class="action-text">Quick View</span><span class="icon"><i class="far fa-eye"></i></span></a></div>
-                            <div class="th-menu_discount"><span class="sale">24% OFF</span></div>
-                        </div>
-                        <div class="th-menu-content">
-                            <h3 class="th-menu_title"><a href="shop-details.html">Pasta salad</a></h3>
-                            <p class="th-menu_desc">Chow mien Fried noodles</p>
-                            <span class="th-menu_price">$160.85</span>
-                        </div>
-                        <div class="fire"><img src="/home_panel/img/update_2/shape/fire.png" alt="shape"></div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <div class="th-menu">
-                        <div class="th-menu_img">
-                            <img class="spin" src="/home_panel/img/update_2/menu/menu_1_3.png" alt="menu Image">
-                            <div class="product-action"><a href="cart.html"><span class="action-text">Add To cart</span><span class="icon"><i class="far fa-cart-shopping"></i></span></a> <a href="wishlist.html"><span class="action-text">Wishlist</span><span class="icon"><i class="far fa-heart"></i></span></a> <a class="popup-content" href="#QuickView"><span class="action-text">Quick View</span><span class="icon"><i class="far fa-eye"></i></span></a></div>
-                            <div class="th-menu_discount"><span class="sale">24% OFF</span></div>
-                        </div>
-                        <div class="th-menu-content">
-                            <h3 class="th-menu_title"><a href="shop-details.html">Vegetarian</a></h3>
-                            <p class="th-menu_desc">Cuisine Meal Health Food</p>
-                            <span class="th-menu_price">$170.85</span>
-                        </div>
-                        <div class="fire"><img src="/home_panel/img/update_2/shape/fire.png" alt="shape"></div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <div class="th-menu">
-                        <div class="th-menu_img">
-                            <img class="spin" src="/home_panel/img/update_2/menu/menu_1_4.png" alt="menu Image">
-                            <div class="product-action"><a href="cart.html"><span class="action-text">Add To cart</span><span class="icon"><i class="far fa-cart-shopping"></i></span></a> <a href="wishlist.html"><span class="action-text">Wishlist</span><span class="icon"><i class="far fa-heart"></i></span></a> <a class="popup-content" href="#QuickView"><span class="action-text">Quick View</span><span class="icon"><i class="far fa-eye"></i></span></a></div>
-                            <div class="th-menu_discount"><span class="sale">24% OFF</span></div>
-                        </div>
-                        <div class="th-menu-content">
-                            <h3 class="th-menu_title"><a href="shop-details.html">Sushi pizza</a></h3>
-                            <p class="th-menu_desc">Japanese Cuisine Chicken</p>
-                            <span class="th-menu_price">$120.85</span>
-                        </div>
-                        <div class="fire"><img src="/home_panel/img/update_2/shape/fire.png" alt="shape"></div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <div class="th-menu">
-                        <div class="th-menu_img">
-                            <img class="spin" src="/home_panel/img/update_2/menu/menu_1_5.png" alt="menu Image">
-                            <div class="product-action"><a href="cart.html"><span class="action-text">Add To cart</span><span class="icon"><i class="far fa-cart-shopping"></i></span></a> <a href="wishlist.html"><span class="action-text">Wishlist</span><span class="icon"><i class="far fa-heart"></i></span></a> <a class="popup-content" href="#QuickView"><span class="action-text">Quick View</span><span class="icon"><i class="far fa-eye"></i></span></a></div>
-                            <div class="th-menu_discount"><span class="sale">24% OFF</span></div>
-                        </div>
-                        <div class="th-menu-content">
-                            <h3 class="th-menu_title"><a href="shop-details.html">Chicken Pasta</a></h3>
-                            <p class="th-menu_desc">Barbecue cuisine gyro Pasta</p>
-                            <span class="th-menu_price">$100.85</span>
-                        </div>
-                        <div class="fire"><img src="/home_panel/img/update_2/shape/fire.png" alt="shape"></div>
-                    </div>
-                </div>
+
+                    
+                }
+                    
+
             </div>
         </div>
     </section>
@@ -190,7 +156,7 @@
                         </div>
                     </div>
                     <div class="btn-group mt-40 justify-content-center justify-content-xl-start">
-                        <a href="about.html" class="th-btn rounded-2">DAHA <i class="fa-solid fa-arrow-right ms-2"></i></a>
+                        <a asp-controller="Urun" asp-action="Index" class="th-btn rounded-2">DAHA <i class="fa-solid fa-arrow-right ms-2"></i></a>
                         <div class="about-profile">
                             <div class="about-avater"><img src="/home_panel/img/update_2/shape/about-thumb_1.png" alt="about"></div>
                             <div class="media-body">
@@ -232,127 +198,68 @@
         <div class="container">
             <div class="title-area text-center">
                 <span class="sub-title">Bu Fırsatı Kaçırma!</span>
-                <h2 class="sec-title">En İyi Menülerimiz</h2>
-            </div>
-            <div class="nav nav-tabs menu-tabs" id="nav-tab" role="tablist">
-                <button class="nav-link active" id="nav-step1-tab" data-bs-toggle="tab" data-bs-target="#nav-step1" type="button">
-                    <img src="/home_panel/img/update_2/menu/burger.png" alt="">Burgerler
-                </button>
-                <button class="nav-link" id="nav-step2-tab" data-bs-toggle="tab" data-bs-target="#nav-step2" type="button">
-                        <img src="/home_panel/img/update_2/menu/pizza.png" alt="">Pizzalar
-                </button>
-                <button class="nav-link" id="nav-step3-tab" data-bs-toggle="tab" data-bs-target="#nav-step3" type="button">
-                    <img src="/home_panel/img/update_2/menu/food.png" alt="">Makarnalar
-                </button>
-                <button class="nav-link" id="nav-step4-tab" data-bs-toggle="tab" data-bs-target="#nav-step4" type="button">
-                    <img src="/home_panel/img/update_2/menu/sushi.png" alt="">Suşiler
-                </button>
-                <button class="nav-link" id="nav-step5-tab" data-bs-toggle="tab" data-bs-target="#nav-step5" type="button">
-                    <img src="/home_panel/img/update_2/menu/drink.png" alt="">İçecekler
-                </button>
+                <h2 class="sec-title">En İyi Ürünlerimiz</h2>
             </div>
             <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade active show" id="nav-step1" role="tabpanel">
                     <div class="menu-tab-area">
+
                         <div class="food-menu-wrap">
-                            <div class="food-menu">
-                                <div class="food-menu_img"><img src="/home_panel/img/update_2/menu/menu_2_1.png" alt="Menu"></div>
-                                <div class="food-menu_content">
-                                    <h3 class="food-menu_title"><a href="menu.html">Chicken Barger</a></h3>
-                                    <p class="food-menu_desc">American-inspired sushi roll</p>
-                                    <div class="product-rating">
-                                        <div class="star-rating" role="img" aria-label="Rated 4.00 out of 5"><span style="width:75%">Rated <strong class="rating">4.00</strong> out of 5</span></div>
-                                        4K Reviews
+                            @foreach (var urun in Model.Urunler.Take(4))
+                            {
+                                var indirimliUrun = urunIndirimler?.FirstOrDefault(i => i.UrunId == urun.Id);
+
+                                <div class="food-menu">
+                                    <div class="food-menu_img"><img src="/img/@urun.Fotograf" alt="Urun"></div>
+                                    <div class="food-menu_content">
+                                        <h3 class="food-menu_title"><a href="menu.html">@urun.Ad</a></h3>
+                                        <p class="food-menu_desc">@urun.Aciklama</p>
+                                        <div class="product-rating">
+                                            <div class="star-rating" role="img" aria-label="Rated 4.00 out of 5"><span style="width:75%">Rated <strong class="rating">4.00</strong> out of 5</span></div>
+                                            4K Reviews
+                                        </div>
                                     </div>
+                                    @if (indirimliUrun != null)
+                                    {
+                                        <span class="food-menu_price">@indirimliUrun?.YeniFiyat₺</span>
+                                        <span class="food-menu_price"><del>@urun.Fiyat₺</del></span>
+                                    }
+                                    else
+                                    {
+                                        <span class="food-menu_price">@urun.Fiyat₺</span>
+                                    }
                                 </div>
-                                <span class="food-menu_price">$89.39</span>
-                            </div>
-                            <div class="food-menu">
-                                <div class="food-menu_img"><img src="/home_panel/img/update_2/menu/menu_2_2.png" alt="Menu"></div>
-                                <div class="food-menu_content">
-                                    <h3 class="food-menu_title"><a href="menu.html">Beef Barger</a></h3>
-                                    <p class="food-menu_desc">Barbecue italian cuisine gyro Pasta</p>
-                                    <div class="product-rating">
-                                        <div class="star-rating" role="img" aria-label="Rated 4.00 out of 5"><span style="width:75%">Rated <strong class="rating">4.00</strong> out of 5</span></div>
-                                        4K Reviews
-                                    </div>
-                                </div>
-                                <span class="food-menu_price">$79.39</span>
-                            </div>
-                            <div class="food-menu">
-                                <div class="food-menu_img"><img src="/home_panel/img/update_2/menu/menu_2_3.png" alt="Menu"></div>
-                                <div class="food-menu_content">
-                                    <h3 class="food-menu_title"><a href="menu.html">Hamburger</a></h3>
-                                    <p class="food-menu_desc">Barbecue italian cuisine gyro Pasta</p>
-                                    <div class="product-rating">
-                                        <div class="star-rating" role="img" aria-label="Rated 4.00 out of 5"><span style="width:75%">Rated <strong class="rating">4.00</strong> out of 5</span></div>
-                                        4K Reviews
-                                    </div>
-                                </div>
-                                <span class="food-menu_price">$59.39</span>
-                            </div>
-                            <div class="food-menu">
-                                <div class="food-menu_img"><img src="/home_panel/img/update_2/menu/menu_2_4.png" alt="Menu"></div>
-                                <div class="food-menu_content">
-                                    <h3 class="food-menu_title"><a href="menu.html">Spacial Barger</a></h3>
-                                    <p class="food-menu_desc">Barbecue italian cuisine gyro Pasta</p>
-                                    <div class="product-rating">
-                                        <div class="star-rating" role="img" aria-label="Rated 4.00 out of 5"><span style="width:75%">Rated <strong class="rating">4.00</strong> out of 5</span></div>
-                                        4K Reviews
-                                    </div>
-                                </div>
-                                <span class="food-menu_price">$49.39</span>
-                            </div>
+                            }
                         </div>
+
                         <div class="food-menu-wrap">
-                            <div class="food-menu">
-                                <div class="food-menu_img"><img src="/home_panel/img/update_2/menu/menu_2_5.png" alt="Menu"></div>
-                                <div class="food-menu_content">
-                                    <h3 class="food-menu_title"><a href="menu.html">Brief Barger</a></h3>
-                                    <p class="food-menu_desc">American-inspired sushi roll</p>
-                                    <div class="product-rating">
-                                        <div class="star-rating" role="img" aria-label="Rated 4.00 out of 5"><span style="width:75%">Rated <strong class="rating">4.00</strong> out of 5</span></div>
-                                        4K Reviews
+                            @foreach (var urun in Model.Urunler.Skip(Math.Max(0, Model.Urunler.Count() - 4)).Take(4))
+                            {
+                                var indirimliUrun = urunIndirimler?.FirstOrDefault(i => i.UrunId == urun.Id);
+
+                                <div class="food-menu">
+                                    <div class="food-menu_img"><img src="/img/@urun.Fotograf" alt="Urun"></div>
+                                    <div class="food-menu_content">
+                                        <h3 class="food-menu_title"><a href="menu.html">@urun.Ad</a></h3>
+                                        <p class="food-menu_desc">@urun.Aciklama</p>
+                                        <div class="product-rating">
+                                            <div class="star-rating" role="img" aria-label="Rated 4.00 out of 5"><span style="width:75%">Rated <strong class="rating">4.00</strong> out of 5</span></div>
+                                            4K Reviews
+                                        </div>
                                     </div>
+
+                                    @if (indirimliUrun != null)
+                                    {
+                                        <span class="food-menu_price">@indirimliUrun?.YeniFiyat₺</span>
+                                        <span class="food-menu_price"><del>@urun.Fiyat₺</del></span>
+                                    }
+                                    else
+                                    {
+                                        <span class="food-menu_price">@urun.Fiyat₺</span>
+                                    }
                                 </div>
-                                <span class="food-menu_price">$49.43</span>
-                            </div>
-                            <div class="food-menu">
-                                <div class="food-menu_img"><img src="/home_panel/img/update_2/menu/menu_2_6.png" alt="Menu"></div>
-                                <div class="food-menu_content">
-                                    <h3 class="food-menu_title"><a href="menu.html">Delicious cheeseburger</a></h3>
-                                    <p class="food-menu_desc">Barbecue italian cuisine gyro Pasta</p>
-                                    <div class="product-rating">
-                                        <div class="star-rating" role="img" aria-label="Rated 4.00 out of 5"><span style="width:75%">Rated <strong class="rating">4.00</strong> out of 5</span></div>
-                                        4K Reviews
-                                    </div>
-                                </div>
-                                <span class="food-menu_price">$39.43</span>
-                            </div>
-                            <div class="food-menu">
-                                <div class="food-menu_img"><img src="/home_panel/img/update_2/menu/menu_2_7.png" alt="Menu"></div>
-                                <div class="food-menu_content">
-                                    <h3 class="food-menu_title"><a href="menu.html">hamburger burger</a></h3>
-                                    <p class="food-menu_desc">Barbecue italian cuisine gyro Pasta</p>
-                                    <div class="product-rating">
-                                        <div class="star-rating" role="img" aria-label="Rated 4.00 out of 5"><span style="width:75%">Rated <strong class="rating">4.00</strong> out of 5</span></div>
-                                        4K Reviews
-                                    </div>
-                                </div>
-                                <span class="food-menu_price">$46.43</span>
-                            </div>
-                            <div class="food-menu">
-                                <div class="food-menu_img"><img src="/home_panel/img/update_2/menu/menu_2_8.png" alt="Menu"></div>
-                                <div class="food-menu_content">
-                                    <h3 class="food-menu_title"><a href="menu.html">vegetables burger</a></h3>
-                                    <p class="food-menu_desc">Barbecue italian cuisine gyro Pasta</p>
-                                    <div class="product-rating">
-                                        <div class="star-rating" role="img" aria-label="Rated 4.00 out of 5"><span style="width:75%">Rated <strong class="rating">4.00</strong> out of 5</span></div>
-                                        4K Reviews
-                                    </div>
-                                </div>
-                                <span class="food-menu_price">$96.43</span>
-                            </div>
+                            }
+
                         </div>
                     </div>
                 </div>
@@ -780,19 +687,19 @@
             <div class="download-area bg-smoke2" data-bg-src="/home_panel/img/update_2/bg/download_bg_2.jpg">
                 <div class="row">
                     <div class="col-xl-6 col-xxl-5 col-lg-7 col-md-9">
-                        <h2 class="sec-title mb-30">Download food app<br>Order today</h2>
+                        <h2 class="sec-title mb-30">Cafe App'i indirin<br>Şimdi sipariş edin!</h2>
                         <div class="download-btn-wrap">
                             <a target="_blank" href="https://play.google.com/" class="download-btn rounded-2">
                                 <i class="fa-brands fa-google-play"></i>
                                 <div class="text-group">
-                                    <span class="small-text">Download From</span>
+                                <span class="small-text">BURADAN İNDİRİN</span>
                                     <h6 class="big-text">Google Play</h6>
                                 </div>
                             </a>
                             <a target="_blank" href="https://www.apple.com/store" class="download-btn rounded-2 bg-theme2">
                                 <i class="fa-brands fa-apple"></i>
                                 <div class="text-group">
-                                    <span class="small-text">Download From</span>
+                                <span class="small-text">BURADAN İNDİRİN</span>
                                     <h6 class="big-text">App Store</h6>
                                 </div>
                             </a>
@@ -946,13 +853,13 @@
                         <span class="sub-title">Rezervasyon</span>
                         <h2 class="sec-title text-white">Bir rezervasyon yapın</h2>
                     </div>
-                    <form action="https://themeholy.com/html/pizzan/demo/mail.php" method="POST" class="booking-form3">
+                    <form asp-controller="Rezervasyon" asp-action="Index" class="booking-form3">
                         <div class="row">
                             <div class="form-group col-md-6"><input type="text" class="form-control rounded-2 date-pick" id="date-pick" name="date" placeholder="Tarih Seçin"> <i class="far fa-calendar-days"></i></div>
                             <div class="form-group col-md-6"><input type="text" class="form-control rounded-2 time-pick" id="time-pick" name="time" placeholder="Saat Seçin"> <i class="far fa-clock"></i></div>
                             <div class="form-group col-12"><input type="number" class="form-control rounded-2" name="guest" id="guest" placeholder="Kişi Sayısı"> <i class="far fa-user-group"></i></div>
                             <div class="form-group col-12"><textarea name="message" id="message" cols="30" rows="3" class="form-control rounded-2" placeholder="Mesajınız"></textarea> <i class="far fa-comment"></i></div>
-                            <div class="form-btn col-12 text-center text-xl-start"><button class="th-btn style3 rounded-2">Rezervasyon Yap<i class="fa-solid fa-arrow-right ms-2"></i></button></div>
+                            <a class="form-btn col-12 text-center text-xl-start"><button class="th-btn style3 rounded-2">Rezervasyon Yap<i class="fa-solid fa-arrow-right ms-2"></i></button></a>
                         </div>
                         <p class="form-messages mb-0 mt-3"></p>
                     </form>
@@ -994,19 +901,7 @@
             </div>
         </div>
     </div>
-   
-@if (ViewBag.Masa != null)
-{
-    <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
-            Swal.fire({
-                title: "Başarılı!",
-                text: "@Html.Raw(ViewBag.Masa.Kod) adlı masaya giriş yapıldı!",
-                icon: "success"
-            });
-        });
-    </script>
-}
+
 
 @if (TempData["SiparisAlındı"] != null)
 {

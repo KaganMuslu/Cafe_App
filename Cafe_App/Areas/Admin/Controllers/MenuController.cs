@@ -1,5 +1,6 @@
 ﻿using Cafe_App.Areas.Admin.Data;
 using Cafe_App.Areas.Admin.Models;
+using Cafe_App.Data;
 using Cafe_App.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -25,8 +26,20 @@ namespace Cafe_App.Areas.Admin.Controllers
 				Menuler = _context.Menuler.Include(x => x.Kategori).ToList(),
 				MenuUrunler = _context.MenuUrunler.Include(x => x.Urun).Include(x => x.Menu).Where(x => x.Gorunurluk == true).ToList(),
 				Kategoriler = _context.Kategoriler.Where(x => x.Tur == "Menu").ToList(),
-				Urunler = _context.Urunler.Where(x => x.Gorunurluk == true).ToList()
+				Urunler = _context.Urunler.Where(x => x.Gorunurluk == true).ToList(),
 			};
+
+			List<MenuIndirim> MenuIndirimler = [];
+			foreach (var menuIndirim in _context.Menuler.Where(x => x.Gorunurluk == true).ToList())
+			{
+				var indirim = _context.MenuIndirimler.OrderByDescending(x => x.Id).FirstOrDefault(x => x.MenuId == menuIndirim.Id);
+				if (indirim != null)
+				{
+					MenuIndirimler.Add(indirim);
+				}
+			}
+
+			viewModel.MenuIndirimler = MenuIndirimler;
 
 			return View(viewModel);
 		}

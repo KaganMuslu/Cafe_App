@@ -48,7 +48,7 @@ namespace Cafe_App.Areas.Admin.Controllers
 				{
 					model.Masa.Link = new string(Enumerable.Range(0, 6).Select(_ => "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"[new Random().Next(36)]).ToArray());
 					string masaLink = model.Masa.Link;
-					string QrLink = $"http://192.168.1.132:5000/Musteri/Musteri?masa={masaLink}";
+					string QrLink = $"http://192.168.1.132:5000/Musteri/Urun?masa={masaLink}";
 
 					// QR kodu oluştur
 					QRCodeGenerator qrGenerator = new QRCodeGenerator();
@@ -157,7 +157,7 @@ namespace Cafe_App.Areas.Admin.Controllers
 				{
                     model.Masa.Link = new string(Enumerable.Range(0, 6).Select(_ => "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"[new Random().Next(36)]).ToArray());
                     string masaLink = model.Masa.Link;
-                    string QrLink = $"http://192.168.1.132:5000/Musteri/Musteri?masa={masaLink}";
+                    string QrLink = $"http://192.168.1.132:5000/Musteri/Urun?masa={masaLink}";
 
 					// QR kodu oluştur
 					QRCodeGenerator qrGenerator = new QRCodeGenerator();

@@ -175,3 +175,17 @@
     // Sayfa terk edilirken scroll pozisyonunu kaydet
     window.onbeforeunload = saveScrollPosition;
 </script>
+
+
+@if (ViewBag.Masa != null)
+{
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            Swal.fire({
+                title: "Başarılı!",
+                text: "@Html.Raw(ViewBag.Masa.Kod) adlı masaya giriş yapıldı!",
+                icon: "success"
+            });
+        });
+    </script>
+}
