@@ -101,7 +101,7 @@
                                     <div class="star-rating" role="img" aria-label="Rated 4.00 out of 5"><span style="width:75%">Rated <strong class="rating">4.00</strong> out of 5</span></div>
                                     (4.00)
                                 </div>
-                                <h3 class="product-title"><a asp-action="MenuDetay" asp-route-id="@menu.Id">@menu.Ad</a></h3>
+                                <h3 class="product-title"><a asp-controller="Menu" asp-action="MenuDetay" asp-route-id="@menu.Id">@menu.Ad</a></h3>
                                 @if (indirimliMenu != null)
                                 {
                                     <span class="price">@indirimliMenu.YeniFiyat ₺<del> @menu.Fiyat ₺</del></span>
@@ -212,7 +212,7 @@
                                 <div class="food-menu">
                                     <div class="food-menu_img"><img src="/img/@urun.Fotograf" alt="Urun"></div>
                                     <div class="food-menu_content">
-                                        <h3 class="food-menu_title"><a href="menu.html">@urun.Ad</a></h3>
+                                        <h3 class="food-menu_title"><a asp-controller="Urun" asp-action="UrunDetay" asp-route-id="@urun.Id">@urun.Ad</a></h3>
                                         <p class="food-menu_desc">@urun.Aciklama</p>
                                         <div class="product-rating">
                                             <div class="star-rating" role="img" aria-label="Rated 4.00 out of 5"><span style="width:75%">Rated <strong class="rating">4.00</strong> out of 5</span></div>

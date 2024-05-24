@@ -66,18 +66,10 @@
 									{
 										<td>@siparis.Not</td>
 									}
-									@if (siparis.DurumId == 2)
-									{
-										<td class="text-center">
-											<a data-bs-toggle="modal" data-bs-target="#siparisOnayla_@siparis.Id" class="btn btn-success shadow btn-xs sharp rounded-circle me-1"><i class="fa-solid fa-box-check"></i></a>
-										</td>
-									}
-									else
-									{
-										<td class="text-center">
-											<a data-bs-toggle="modal" data-bs-target="#siparisOnayla_@siparis.Id" class="btn btn-warning shadow btn-xs sharp rounded-circle me-1"><i class="fa-solid fa-box-check"></i></a>
-										</td>
-									}
+
+									<td class="text-center">
+										<a data-bs-toggle="modal" data-bs-target="#siparisOnayla_@siparis.Id" class="btn btn-success shadow btn-xs sharp rounded-circle me-1"><i class="fa-solid fa-box-check"></i></a>
+									</td>
 
 									@* Sipariş Bilgisi *@
 									<div class="modal modal-lg fade" id="siparisOnayla_@siparis.Id">
@@ -122,7 +114,7 @@
 																							Sipariş Durum
 																						</h6>
 																					</div>
-																					@if (siparis.DurumId == 2)
+																					@if (siparis.DurumId == 6)
 																					{
 																						<span class="text-success text-end">@siparisDurum?.Durum.Ad</span>
 																					}
@@ -263,14 +255,7 @@
 												</div>
 
 												<div class="modal-footer">
-													@if (siparis.DurumId == 2)
-													{
-														<a asp-action="SiparisOnayla" asp-route-id="@siparis.Id" class="btn btn-success light">Siparişi Hazırla</a>
-													}
-													else
-													{
-														<a asp-action="SiparisOnayla" asp-route-id="@siparis.Id" asp-route-hazır=1 class="btn btn-success light">Sipariş Hazır!</a>
-													}
+													<a asp-action="SiparisOnayla" asp-route-id="@siparis.Id" class="btn btn-success light">Ödeme Alındı!</a>
 													<a asp-action="Siparisİptal" asp-route-id="@siparis.Id" class="btn btn-warning light">Siparişi İptal Et</a>
 													<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Kapat</button>
 												</div>
@@ -311,6 +296,7 @@
 								<th>TUTAR</th>
 								<th>ÖDENEN TUTAR</th>
 								<th>NOT</th>
+								<th class="text-center" width="12%">İŞLEMLER</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -322,7 +308,7 @@
 								<tr>
 									<td>@siparis.Id</td>
 									<td>@siparis.Masa.Kod</td>
-									@if (siparis.DurumId == 2 || siparis.DurumId == 4 || siparis.DurumId == 6 || siparis.DurumId == 9)
+									@if (siparis.DurumId == 6 || siparis.DurumId == 9)
 									{
 										<td class="text-success"><b>@siparisDurum?.Durum.Ad</b></td>
 									}
@@ -344,6 +330,10 @@
 									{
 										<td>@siparis.Not</td>
 									}
+
+									<td class="text-center">
+										<a data-bs-toggle="modal" data-bs-target="#siparisDetay_@siparis.Id" class="btn btn-success shadow btn-xs sharp rounded-circle me-1"><i class="fa-solid fa-box-check"></i></a>
+									</td>
 
 									@* Sipariş Bilgisi *@
 									<div class="modal modal-lg fade" id="siparisDetay_@siparis.Id">
@@ -388,7 +378,7 @@
 																							Sipariş Durum
 																						</h6>
 																					</div>
-																					@if (siparis.DurumId == 2)
+																					@if (siparis.DurumId == 6)
 																					{
 																						<span class="text-success text-end">@siparisDurum?.Durum.Ad</span>
 																					}

@@ -14,7 +14,7 @@ public class SiparisKasaViewComponent : ViewComponent
 
 	public async Task<IViewComponentResult> InvokeAsync()
 	{
-		var onaysizSiparisler = await _context.Siparisler.Where(x => (x.DurumId == 2 || x.DurumId == 3) && x.Gorunurluk == true).CountAsync();
+		var onaysizSiparisler = await _context.Siparisler.Where(x => x.DurumId == 5 && x.Gorunurluk == true).CountAsync();
 
 		return View(onaysizSiparisler);
 	}

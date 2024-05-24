@@ -60,7 +60,7 @@
 						else
 						{
 							@foreach (var masa in Model.Masalar)
-						{
+							{
 							<div class="col-xl-4 col-lg-12 col-sm-12">
 							<div class="card overflow-hidden">
 								<div class="text-center p-3 overlay-box " style="background-image: url(https://cdnimg.webstaurantstore.com/uploads/seo_category/2019/5/table-dining-sets.jpg);">
@@ -145,7 +145,7 @@
 								</div> *@
 							</div>
 						</div>
-						}
+							}
 						}
 					</div>
 
@@ -370,9 +370,9 @@
 
 			break;
 		case 2:
-			<button data-bs-toggle="modal" data-bs-target="#detay_@masa.Durum" class="btn btn-danger btn-lg btn-block">
+			<div data-bs-toggle="modal" data-bs-target="#detay_@masa.Durum" class="btn btn-danger btn-lg btn-block">
 				<i class="fa fa-bell-o"></i> Sipariş Görüntüle
-			</button>
+			</div>
 
 			@* Masa Sipariş Görüntüle Modal *@
 			<div class="modal modal-lg fade" id="detay_@masa.Durum" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">

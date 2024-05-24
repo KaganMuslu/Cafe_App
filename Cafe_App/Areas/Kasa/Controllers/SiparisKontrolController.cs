@@ -16,10 +16,10 @@ namespace Cafe_App.Areas.Kasa.Controllers
 		}
 		public IActionResult Index()
 		{
-			var viewModel = new SiparislerModelView
+			var viewModel = new SiparislerModelView()
 			{
-				OnaysizSiparisler = _context.Siparisler.Include(x => x.Masa).Where(x => (x.DurumId == 2 || x.DurumId == 3) && x.Gorunurluk == true).ToList(),
-				GecmisSiparisler = _context.Siparisler.Include(x => x.Masa).Where(x => x.DurumId != 2 && x.DurumId != 3 && x.Gorunurluk == true).ToList(),
+				OnaysizSiparisler = _context.Siparisler.Include(x => x.Masa).Where(x => x.DurumId == 5 && x.Gorunurluk == true).ToList(),
+				GecmisSiparisler = _context.Siparisler.Include(x => x.Masa).Where(x => x.DurumId != 5 && x.Gorunurluk == true).ToList(),
 				SiparisUrunler = _context.SiparisUrunler.Include(x => x.Urun).ToList(),
 				SiparisMenuler = _context.SiparisMenuler.Include(x => x.Menu).ToList()
 
@@ -41,47 +41,39 @@ namespace Cafe_App.Areas.Kasa.Controllers
 			return View(viewModel);
 		}
 
-		public IActionResult SiparisOnayla(int id, int hazır)
+		public IActionResult SiparisOnayla(int id)
 		{
 			var siparis = _context.Siparisler.FirstOrDefault(x => x.Id == id);
-			if(hazır != 1)
+			if(siparis != null)
 			{
-				siparis.DurumId = 3;
-			}
-			else
-			{
-				siparis.DurumId = 4;
-			}
+				siparis.DurumId = 6;
+				siparis.OdemeDurum = true;
+				siparis.OdenenTutar = siparis.Tutar;
 
+				SiparisDurum siparisDurum = new SiparisDurum
+				{
+					Siparis = siparis,
+					DurumId = 6,
+					Tarih = DateTime.Now
+				};
 
-			if (siparis != null)
-			{
+				var masa = _context.Masalar.FirstOrDefault(x => x.Id == siparis.MasaId);
+				if (masa != null)
+				{
+					masa.Durum = 1;
+					_context.Update(masa);
+				}
+
+				var kasa = _context.Kasalar.FirstOrDefault(x => x.Id == 1);
+				if (kasa != null)
+				{
+					kasa.Bakiye += siparis.Tutar;
+					_context.Update(kasa);
+				}
+
 				_context.Update(siparis);
-			}
-
-			if(hazır != 1)
-			{
-				SiparisDurum siparisDurum = new SiparisDurum
-				{
-					Siparis = siparis,
-					DurumId = 3,
-					Tarih = DateTime.Now
-				};
-
 				_context.Add(siparisDurum);
 			}
-			else
-			{
-				SiparisDurum siparisDurum = new SiparisDurum
-				{
-					Siparis = siparis,
-					DurumId = 4,
-					Tarih = DateTime.Now
-				};
-
-				_context.Add(siparisDurum);
-			}
-
 
 			_context.SaveChanges();
 			return RedirectToAction("Index");
@@ -103,6 +95,13 @@ namespace Cafe_App.Areas.Kasa.Controllers
 				DurumId = 7,
 				Tarih = DateTime.Now
 			};
+
+			var masa = _context.Masalar.FirstOrDefault(x => x.Id == siparis.MasaId);
+			if (masa != null)
+			{
+				masa.Durum = 1;
+				_context.Update(masa);
+			}
 
 			_context.Add(siparisDurum);
             _context.SaveChanges();

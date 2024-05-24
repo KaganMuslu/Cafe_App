@@ -15,10 +15,14 @@ namespace Cafe_App.Areas.Musteri.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(bool SiparisAlındı)
         {
-            
-            var simdikiTarih = DateOnly.FromDateTime(DateTime.Now);
+			if (SiparisAlındı == true)
+			{
+				ViewBag.SiparisAlındı = true;
+			}
+
+			var simdikiTarih = DateOnly.FromDateTime(DateTime.Now);
             ViewBag.MenuIndirimler = _context.MenuIndirimler
                 .Where(x => x.BaslangıcTarihi <= simdikiTarih && x.BitisTarihi >= simdikiTarih)
                 .ToList();

@@ -1,0 +1,89 @@
+﻿@{
+	ViewData["Title"] = "Kasa Bakiye";
+}
+@model Kasa
+
+<!-- CSS Ekstralar -->
+<head>
+	<link href="~/admin_panel/vendor/bootstrap-datepicker-master/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+	<link href="~/admin_panel/vendor/select2/css/select2.min.css" rel="stylesheet" />
+	<link href="~/admin_panel/vendor/datatables/css/jquery.datatables.min.css" rel="stylesheet" />
+</head>
+
+<div class="content-body">
+	<div class="container-fluid">
+		<!-- Row -->
+
+		<div class="form-head d-flex mb-3 align-items-start">
+			<div class="me-auto d-none d-lg-block">
+				<h2 class="text-primary font-w600 mb-0">Cafe App Kasa Bakiye</h2>
+				<p class="mb-0">Cafe App Kasa Bakiye Yönetim Ekranına Hoşgeldiniz!</p>
+			</div>
+		</div>
+		<br>
+
+		@* Kasa Bakiye *@
+		<div class="row">
+
+			<div class="col-xl-4 col-sm-4 mb-3 mb-xl-0">
+			</div>
+
+			<div class="col-xl-4 col-sm-4 mb-3 mb-xl-0">
+				<div class="modal-bod text-center">
+					<div class="row">
+						<div class="card">
+							<div class="card-header">
+								<h4 class="card-title">Kasa</h4>
+							</div>
+							<div class="card-body">
+								<div class="row">
+									<div class="col-lg-12 order-lg-12 mb-4">
+										<ul class="list-group list-group-flush mb-3">
+											<li class="list-group-item d-flex justify-content-between lh-condensed">
+												<div>
+													<h6 class="my-1">
+														<span class="icon-warning">
+															<i class="fa-solid fa-vault"></i>
+														</span>
+														Kasa Bakiye
+													</h6>
+												</div>
+												<span class="text-muted text-end">@Model.Bakiye</span>
+											</li>
+										</ul>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-xl-4 col-sm-4 mb-3 mb-xl-0">
+			</div>
+		</div>
+
+
+		<br>
+
+	</div>
+</div>
+
+@section Scripts
+{
+	<script src="~/admin_panel/vendor/bootstrap-datepicker-master/js/bootstrap-datepicker.min.js"></script>
+	<script src="~/admin_panel/vendor/datatables/js/jquery.datatables.min.js"></script>
+	<script src="~/admin_panel/js/plugins-init/datatables.init.js"></script>
+
+	<script>
+		$('.exampleTable').DataTable({
+			language: {
+				paginate: {
+					next: '<i class="fa fa-angle-double-right" aria-hidden="true"></i>',
+					previous: '<i class="fa fa-angle-double-left" aria-hidden="true"></i>'
+				}
+			}
+		});
+	</script>
+}

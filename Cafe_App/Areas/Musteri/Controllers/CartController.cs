@@ -170,7 +170,7 @@ namespace Cafe_App.Areas.Musteri.Controllers
 			return RedirectToAction("Cart");
         }
 
-        public IActionResult Cart(bool GirisYap, bool SiparisAlındı)
+        public IActionResult Cart(bool GirisYap)
         {
 			var simdikiTarih = DateOnly.FromDateTime(DateTime.Now);
 			ViewBag.UrunIndirimler = _context.UrunIndirimler
@@ -189,10 +189,6 @@ namespace Cafe_App.Areas.Musteri.Controllers
             {
                 ViewBag.GirisYap = true;
 			}
-			if (SiparisAlındı == true)
-			{
-				ViewBag.SiparisAlındı = true;
-			}
 
 			return View(cart);
         }
@@ -206,7 +202,13 @@ namespace Cafe_App.Areas.Musteri.Controllers
 			if (!string.IsNullOrEmpty(masaKodu) && !string.IsNullOrEmpty(userId))
             {
                 var masa = _context.Masalar.FirstOrDefault(x => x.Kod == masaKodu);
-                var siprais = new Siparis
+                if (masa != null)
+                {
+					masa.Durum = 2;
+				    _context.Update(masa);
+				}
+
+				var siprais = new Siparis
                 {
                     Tarih = DateTime.Now,
 					Kullanıcı = userId,

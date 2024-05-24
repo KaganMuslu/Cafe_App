@@ -20,7 +20,7 @@ namespace Cafe_App.Areas.Garson.Controllers
 			var viewModel = new SiparislerModelView
 			{
 				OnaysizSiparisler = _context.Siparisler.Include(x => x.Masa).Where(x => (x.DurumId == 1 || x.DurumId == 4) && x.Gorunurluk == true).ToList(),
-				GecmisSiparisler = _context.Siparisler.Include(x => x.Masa).Where(x => (x.DurumId != 1 || x.DurumId != 4) && x.Gorunurluk == true).ToList(),
+				GecmisSiparisler = _context.Siparisler.Include(x => x.Masa).Where(x => (x.DurumId != 1 && x.DurumId != 4) && x.Gorunurluk == true).ToList(),
 				SiparisUrunler = _context.SiparisUrunler.Include(x => x.Urun).ToList(),
 				SiparisMenuler = _context.SiparisMenuler.Include(x => x.Menu).ToList()
 
@@ -67,7 +67,6 @@ namespace Cafe_App.Areas.Garson.Controllers
 					Tarih = DateTime.Now
 				};
 
-				_context.Add(siparisDurum);
 			}
 			else
 			{
@@ -81,6 +80,7 @@ namespace Cafe_App.Areas.Garson.Controllers
 				_context.Add(siparisDurum);
 			}
 
+
 			_context.SaveChanges();
 			return RedirectToAction("Index");
 		}
@@ -93,6 +93,13 @@ namespace Cafe_App.Areas.Garson.Controllers
 			{
 				siparis.DurumId = 7;
 				_context.SaveChanges();
+			}
+
+			var masa = _context.Masalar.FirstOrDefault(x => x.Id == siparis.MasaId);
+			if (masa != null)
+			{
+				masa.Durum = 1;
+				_context.Update(masa);
 			}
 
 			SiparisDurum siparisDurum = new SiparisDurum

@@ -97,6 +97,13 @@ namespace Cafe_App.Areas.Mutfak.Controllers
 				_context.SaveChanges();
 			}
 
+			var masa = _context.Masalar.FirstOrDefault(x => x.Id == siparis.MasaId);
+			if (masa != null)
+			{
+				masa.Durum = 1;
+				_context.Update(masa);
+			}
+
 			SiparisDurum siparisDurum = new SiparisDurum
 			{
 				SiparisId = id,
