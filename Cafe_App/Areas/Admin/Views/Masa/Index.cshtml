@@ -370,9 +370,9 @@
 
 			break;
 		case 2:
-			<div data-bs-toggle="modal" data-bs-target="#detay_@masa.Durum" class="btn btn-danger btn-lg btn-block">
+			<button data-bs-toggle="modal" data-bs-target="#detay_@masa.Durum" class="btn btn-danger btn-lg btn-block">
 				<i class="fa fa-bell-o"></i> Sipariş Görüntüle
-			</div>
+			</button>
 
 			@* Masa Sipariş Görüntüle Modal *@
 			<div class="modal modal-lg fade" id="detay_@masa.Durum" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
@@ -428,28 +428,6 @@
 																</h6>
 															</div>
 															<span class="text-muted">@masa.Kapasite</span>
-														</li>
-														<li class="list-group-item d-flex justify-content-between lh-condensed">
-															<div>
-																<h6 class="my-1">
-																	<span class="icon-warning">
-																		<i class="fa-regular fa-list"></i>
-																	</span>
-																	Masa Tutar
-																</h6>
-															</div>
-															<span class="text-muted">₺xxx</span>
-														</li>
-														<li class="list-group-item d-flex justify-content-between lh-condensed">
-															<div>
-																<h6 class="my-1">
-																	<span class="icon-warning">
-																		<i class="fa-regular fa-money-bill"></i>
-																	</span>
-																	Masa Ödenen Tutar
-																</h6>
-															</div>
-															<span class="text-muted">₺xxx</span>
 														</li>
 														<li class="list-group-item d-flex justify-content-between lh-condensed">
 															<div>
@@ -547,17 +525,6 @@
 																			</div>
 																			<span class="text-muted">@menuItem.Menu.Fiyat</span>
 																		</li>
-																		<li class="list-group-item d-flex justify-content-between lh-condensed">
-																			<div>
-																				<h6 class="my-1">
-																					<span class="icon-warning">
-																						<i class="fa-regular fa-wave-pulse"></i>
-																					</span>
-																					Menü İndirimli Fiyat
-																				</h6>
-																			</div>
-																			<span class="text-muted">TL xxx</span>
-																		</li>
 																			}
 																		}
 																		else
@@ -573,7 +540,7 @@
 																							@urunItem.Urun.Ad
 																				</h6>
 																			</div>
-																			<span class="text-muted">₺xxx</span>
+																			<span class="text-muted">₺ x</span>
 																		</li>
 																			}
 																		}

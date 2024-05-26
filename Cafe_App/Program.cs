@@ -72,6 +72,6 @@ app.MapControllerRoute(
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{area=Kasa}/{controller=Kasa}/{action=Index}/{id?}");
+    pattern: "{area=Admin}/{controller=Admin}/{action=Index}/{id?}");
 
 app.Run();
