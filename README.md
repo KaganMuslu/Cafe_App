@@ -6,6 +6,8 @@ Cafe App, bir restoran veya kafe yönetim sistemi olarak geliştirdiğim kapsaml
 ### QR Kod Sistemi
 Uygulamamın can alıcı özellerinden birisi de içerisinde benzersiz bir QR sistemi bulunmasıdır. Bu QR sistemi ile masalarda kendilerine ait QR bulunmaktadır. Bu QR'ın amacı sadece menü ve ürünleri görüntülemek değil, garsonu çağırmadan ve giriş yapmadan sadece QR'ı okutarak sipariş vermek ve ödeme yapmaktır.
 
+<br>
+
 ## Özellikler
 
 ### Yönetilebilir Bölümler
@@ -31,6 +33,8 @@ Cafe App, aşağıdaki kısımların yönetilmesini sağlar:
 - **Kasa Paneli**: Ödeme işlemleri ve finansal yönetim.
 - **Müşteri Paneli**: Müşteri etkileşimleri ve sipariş durumu.
 
+
+<br>
 
 
 ## Teknik Özellikler
